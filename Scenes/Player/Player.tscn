@@ -1,0 +1,213 @@
+[gd_scene load_steps=27 format=2]
+
+[ext_resource path="res://Utils/Physics Bodies/KinematicBody2P5D.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Player/player.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/Player/player_state_machine.gd" type="Script" id=3]
+[ext_resource path="res://Utils/Action Buffer/action_buffer.gd" type="Script" id=4]
+[ext_resource path="res://Scenes/Player/States/Motion/On Ground/idle.gd" type="Script" id=5]
+[ext_resource path="res://Scenes/Player/States/Motion/On Ground/move.gd" type="Script" id=6]
+[ext_resource path="res://Scenes/Player/States/Motion/In Air/fall.gd" type="Script" id=7]
+[ext_resource path="res://Scenes/Player/States/Motion/In Air/jump.gd" type="Script" id=8]
+[ext_resource path="res://Scenes/Player/States/Motion/Dash/In Air/air_dash.gd" type="Script" id=9]
+[ext_resource path="res://Scenes/Player/States/Motion/Dash/In Air/air_back_dash.gd" type="Script" id=10]
+[ext_resource path="res://Scenes/Player/States/Motion/Dash/On Ground/lunge.gd" type="Script" id=11]
+[ext_resource path="res://Scenes/Player/States/Motion/Dash/lunge_curve.tres" type="Curve" id=12]
+[ext_resource path="res://Scenes/Player/States/Motion/Dash/On Ground/retreat.gd" type="Script" id=13]
+[ext_resource path="res://Scenes/Player/States/Motion/Crouch/crouch.gd" type="Script" id=14]
+[ext_resource path="res://Scenes/Player/States/Motion/In Air/high_jump.gd" type="Script" id=15]
+[ext_resource path="res://Scenes/Player/States/Motion/Dash/Crouched/somersault.gd" type="Script" id=16]
+[ext_resource path="res://Scenes/Player/States/Motion/Dash/Crouched/back_roll.gd" type="Script" id=17]
+[ext_resource path="res://Scenes/Player/look_direction.gd" type="Script" id=18]
+[ext_resource path="res://Scenes/Scratch/shadow.gd" type="Script" id=19]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 25, 65 )
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 28.0
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 35.0
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 20, 10 )
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0, 0 ), 0.0, 1.23948, 0, 1, Vector2( 0.806793, 1 ), 1.23948, 0.0, 1, 0 ]
+
+[sub_resource type="Curve" id=6]
+_data = [ Vector2( 0, 0 ), 0.0, 1.23948, 0, 1, Vector2( 0.806793, 1 ), 1.23948, 0.0, 1, 0 ]
+
+[sub_resource type="CapsuleShape2D" id=7]
+radius = 20.0
+height = 32.0
+
+[node name="Player" instance=ExtResource( 1 )]
+position = Vector2( 0, 0 )
+script = ExtResource( 2 )
+MAX_SPEED = 2000
+_height = 100
+
+[node name="VolumeShape" parent="." index="0"]
+position = Vector2( 0, -50 )
+shape = SubResource( 1 )
+
+[node name="BaseSkin" parent="." index="1"]
+shape = SubResource( 2 )
+
+[node name="FloorCollider2P5D" parent="." index="2"]
+editor/display_folded = true
+
+[node name="FloorSkin" parent="FloorCollider2P5D" index="0"]
+shape = SubResource( 3 )
+
+[node name="BaseShape" parent="." index="3"]
+shape = SubResource( 4 )
+
+[node name="StateMachine" type="Node" parent="." index="4"]
+script = ExtResource( 3 )
+START_STATE = NodePath("Idle")
+
+[node name="ActionBuffer" type="Node" parent="StateMachine" index="0"]
+script = ExtResource( 4 )
+
+[node name="Idle" type="Node" parent="StateMachine" index="1"]
+script = ExtResource( 5 )
+state_name = "idle"
+action_buffer_path = NodePath("../../StateMachine/ActionBuffer")
+
+[node name="Move" type="Node" parent="StateMachine" index="2"]
+script = ExtResource( 6 )
+state_name = "move"
+action_buffer_path = NodePath("../../StateMachine/ActionBuffer")
+MAX_SPEED = 300
+
+[node name="Fall" type="Node" parent="StateMachine" index="3"]
+script = ExtResource( 7 )
+state_name = "fall"
+push_down = true
+action_buffer_path = NodePath("../../StateMachine/ActionBuffer")
+MAX_SPEED = 300
+GRAVITY = 2000
+
+[node name="Jump" type="Node" parent="StateMachine" index="4"]
+script = ExtResource( 8 )
+state_name = "jump"
+push_down = true
+action_buffer_path = NodePath("../../StateMachine/ActionBuffer")
+MAX_SPEED = 300
+MAX_JUMP_HEIGHT = 200
+
+[node name="Air Dash" type="Node" parent="StateMachine/Jump" index="0"]
+editor/display_folded = true
+script = ExtResource( 9 )
+state_name = "air dash"
+push_down = true
+overwrite = true
+action_buffer_path = NodePath("../../ActionBuffer")
+lunge_curve = SubResource( 5 )
+DASH_DISTANCE = 300
+DASH_DURATION = 0.25
+
+[node name="Timer" type="Timer" parent="StateMachine/Jump/Air Dash" index="0"]
+
+[node name="Air Back Dash" type="Node" parent="StateMachine/Jump" index="1"]
+editor/display_folded = true
+script = ExtResource( 10 )
+state_name = "air back dash"
+push_down = true
+overwrite = true
+action_buffer_path = NodePath("../../ActionBuffer")
+lunge_curve = SubResource( 6 )
+DASH_DISTANCE = -300
+DASH_DURATION = 0.25
+
+[node name="Timer" type="Timer" parent="StateMachine/Jump/Air Back Dash" index="0"]
+
+[node name="Lunge" type="Node" parent="StateMachine" index="5"]
+editor/display_folded = true
+script = ExtResource( 11 )
+state_name = "lunge"
+push_down = true
+action_buffer_path = NodePath("../../StateMachine/ActionBuffer")
+lunge_curve = ExtResource( 12 )
+DASH_DISTANCE = 300
+
+[node name="Timer" type="Timer" parent="StateMachine/Lunge" index="0"]
+
+[node name="Retreat" type="Node" parent="StateMachine" index="6"]
+editor/display_folded = true
+script = ExtResource( 13 )
+state_name = "retreat"
+push_down = true
+action_buffer_path = NodePath("../ActionBuffer")
+lunge_curve = ExtResource( 12 )
+DASH_DISTANCE = -300
+
+[node name="Timer" type="Timer" parent="StateMachine/Retreat" index="0"]
+
+[node name="Crouch" type="Node" parent="StateMachine" index="7"]
+editor/display_folded = true
+script = ExtResource( 14 )
+state_name = "crouch"
+push_down = true
+action_buffer_path = NodePath("../ActionBuffer")
+
+[node name="HighJump" type="Node" parent="StateMachine/Crouch" index="0"]
+script = ExtResource( 15 )
+state_name = "high jump"
+push_down = true
+overwrite = true
+action_buffer_path = NodePath("../../ActionBuffer")
+MAX_SPEED = 300
+MAX_JUMP_HEIGHT = 300
+MIN_JUMP_HEIGHT = 100
+JUMP_DURATION = 0.6
+
+[node name="Somersault" type="Node" parent="StateMachine/Crouch" index="1"]
+script = ExtResource( 16 )
+state_name = "somersault"
+push_down = true
+action_buffer_path = NodePath("../../ActionBuffer")
+lunge_curve = ExtResource( 12 )
+DASH_DISTANCE = 300
+
+[node name="Timer" type="Timer" parent="StateMachine/Crouch/Somersault" index="0"]
+
+[node name="BackRoll" type="Node" parent="StateMachine/Crouch" index="2"]
+script = ExtResource( 17 )
+state_name = "back roll"
+push_down = true
+action_buffer_path = NodePath("../../ActionBuffer")
+lunge_curve = ExtResource( 12 )
+DASH_DISTANCE = -300
+
+[node name="Timer" type="Timer" parent="StateMachine/Crouch/BackRoll" index="0"]
+
+[node name="LookDirection" type="Position2D" parent="." index="5"]
+script = ExtResource( 18 )
+
+[node name="RayCast2D" type="RayCast2D" parent="LookDirection" index="0"]
+scale = Vector2( 5, 5 )
+cast_to = Vector2( 10, 0 )
+
+[node name="Shadow" type="CollisionShape2D" parent="." index="6"]
+modulate = Color( 0, 0, 0, 1 )
+rotation = 1.5708
+shape = SubResource( 7 )
+disabled = true
+script = ExtResource( 19 )
+
+[node name="Camera2D" type="Camera2D" parent="." index="7"]
+rotation = 1.5708
+current = true
+drag_margin_left = 0.0
+drag_margin_top = 0.0
+drag_margin_right = 0.0
+drag_margin_bottom = 0.0
+[connection signal="timeout" from="StateMachine/Jump/Air Dash/Timer" to="StateMachine/Jump/Air Dash" method="_on_Timer_timeout"]
+[connection signal="timeout" from="StateMachine/Jump/Air Back Dash/Timer" to="StateMachine/Jump/Air Back Dash" method="_on_Timer_timeout"]
+[connection signal="timeout" from="StateMachine/Lunge/Timer" to="StateMachine/Lunge" method="_on_Timer_timeout"]
+[connection signal="timeout" from="StateMachine/Retreat/Timer" to="StateMachine/Retreat" method="_on_Timer_timeout"]
+[connection signal="timeout" from="StateMachine/Crouch/Somersault/Timer" to="StateMachine/Crouch/Somersault" method="_on_Timer_timeout"]
+[connection signal="timeout" from="StateMachine/Crouch/BackRoll/Timer" to="StateMachine/Crouch/BackRoll" method="_on_Timer_timeout"]

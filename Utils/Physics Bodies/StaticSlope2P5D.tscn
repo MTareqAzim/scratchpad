@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Utils/Physics Bodies/static_slope_2p5d.gd" type="Script" id=1]
+[ext_resource path="res://Utils/Physics Bodies/top_slope_2p5d.gd" type="Script" id=2]
+
+[node name="StaticSlope2P5D" type="Area2D"]
+monitoring = false
+collision_layer = 2
+collision_mask = 0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ]
+}
+_height = 10
+
+[node name="DistToGround" type="RayCast2D" parent="."]
+collision_mask = 0
+collide_with_bodies = false
+
+[node name="TopSlope2P5D" type="Area2D" parent="."]
+monitoring = false
+collision_layer = 4
+collision_mask = 0
+script = ExtResource( 2 )
+
+[node name="TopShape" type="CollisionPolygon2D" parent="TopSlope2P5D"]
+polygon = PoolVector2Array( -10, -20, 10, -20, 10, 10, -10, 10 )
+
+[node name="BaseArea2P5D" type="Area2D" parent="."]
+monitoring = false
+monitorable = false
+collision_layer = 0
+collision_mask = 0
+
+[node name="BaseShape" type="CollisionPolygon2D" parent="BaseArea2P5D"]
+polygon = PoolVector2Array( -10, -10, 10, -10, 10, 10, -10, 10 )
+disabled = true
+
+[node name="VolumeShape" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -10, -20, 10, -20, 10, 10, -10, 10 )
+
+[node name="Rise" type="RayCast2D" parent="."]
+modulate = Color( 0.286275, 0.117647, 0.705882, 1 )
+position = Vector2( 0, 10 )
+cast_to = Vector2( 0, -30 )
+collision_mask = 0
+collide_with_bodies = false
