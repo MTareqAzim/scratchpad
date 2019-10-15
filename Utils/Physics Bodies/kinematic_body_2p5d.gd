@@ -73,7 +73,7 @@ func is_grounded() -> bool:
 				var collision_points = _get_base_collision_points(Vector2(), collision_shape, collision_transform, height_diff)
 				if collision_points:
 					var floor_pos = collision.get_top_z_pos(collision_points)
-					if _z_pos > floor_pos:
+					if _z_pos >= floor_pos:
 						return true
 	
 	#Is on a floor?
@@ -87,7 +87,8 @@ func is_grounded() -> bool:
 					floor_transform)
 					
 			if collision_points:
-				if _z_pos == collision.get_top_z_pos(collision_points):
+				var floor_pos = collision.get_top_z_pos(collision_points)
+				if _z_pos == floor_pos:
 					return true
 	
 	#Is on global ground?
@@ -117,11 +118,8 @@ func _clamp_delta_movement(delta_movement: Vector3, delta: float) -> Vector3:
 
 func _handle_collisions(delta_movement: Vector3, delta: float) -> Vector3:
 	delta_movement = _handle_steps(delta_movement)
-	print("kinematic.gd ", "Handle steps: ", delta_movement)
 	delta_movement = _handle_floor_collisions(delta_movement)
-	print("kinematic.gd ", "Floor collisions: ", delta_movement)
 	delta_movement = _handle_wall_collisions(delta_movement, delta)
-	print("kinematic.gd ", "Wall collisions: ", delta_movement)
 	
 	return delta_movement
 
