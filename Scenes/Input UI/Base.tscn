@@ -1,14 +1,15 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Sprites/UI/Input/UI (Base).png" type="Texture" id=1]
-[ext_resource path="res://Scenes/Input UI/A Button/ATextBox.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/Input UI/B Button/BTextBox.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scenes/Input UI/X Button/XTextBox.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/Input UI/Y Button/YTextBox.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Scenes/Input UI/X Button/XButton.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Scenes/Input UI/A Button/AButton.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Scenes/Input UI/Y Button/YButton.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Scenes/Input UI/B Button/BButton.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Input UI/base.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/Input UI/A Button/ATextBox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Input UI/B Button/BTextBox.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Input UI/X Button/XTextBox.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Input UI/Y Button/YTextBox.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Input UI/X Button/XButton.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Input UI/A Button/AButton.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Input UI/Y Button/YButton.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Input UI/B Button/BButton.tscn" type="PackedScene" id=10]
 
 [node name="Base" type="TextureRect"]
 margin_left = -58.0
@@ -17,8 +18,9 @@ margin_right = 58.0
 margin_bottom = 60.0
 texture = ExtResource( 1 )
 stretch_mode = 3
+script = ExtResource( 2 )
 
-[node name="ATextBox" parent="." instance=ExtResource( 2 )]
+[node name="ATextBox" parent="." instance=ExtResource( 3 )]
 show_behind_parent = true
 anchor_left = 0.5
 anchor_top = 0.767
@@ -27,7 +29,7 @@ anchor_bottom = 0.767
 margin_top = -0.0400009
 margin_bottom = 39.96
 
-[node name="BTextBox" parent="." instance=ExtResource( 3 )]
+[node name="BTextBox" parent="." instance=ExtResource( 4 )]
 show_behind_parent = true
 anchor_left = 0.802
 anchor_top = 0.5
@@ -36,7 +38,7 @@ anchor_bottom = 0.5
 margin_left = 14.968
 margin_right = 178.968
 
-[node name="XTextBox" parent="." instance=ExtResource( 4 )]
+[node name="XTextBox" parent="." instance=ExtResource( 5 )]
 show_behind_parent = true
 anchor_left = 0.207
 anchor_top = 0.5
@@ -45,7 +47,7 @@ anchor_bottom = 0.5
 margin_left = -180.012
 margin_right = -16.012
 
-[node name="YTextBox" parent="." instance=ExtResource( 5 )]
+[node name="YTextBox" parent="." instance=ExtResource( 6 )]
 show_behind_parent = true
 anchor_left = 0.5
 anchor_top = 0.233
@@ -54,7 +56,7 @@ anchor_bottom = 0.233
 margin_top = -39.96
 margin_bottom = 0.039999
 
-[node name="XButton" parent="." instance=ExtResource( 6 )]
+[node name="XButton" parent="." instance=ExtResource( 7 )]
 anchor_left = 0.224
 anchor_top = 0.467
 anchor_right = 0.224
@@ -64,7 +66,7 @@ margin_top = -32.04
 margin_right = 32.016
 margin_bottom = 31.96
 
-[node name="AButton" parent="." instance=ExtResource( 7 )]
+[node name="AButton" parent="." instance=ExtResource( 8 )]
 anchor_left = 0.5
 anchor_top = 0.733
 anchor_right = 0.5
@@ -72,13 +74,13 @@ anchor_bottom = 0.733
 margin_top = -31.96
 margin_bottom = 32.04
 
-[node name="YButton" parent="." instance=ExtResource( 8 )]
+[node name="YButton" parent="." instance=ExtResource( 9 )]
 anchor_left = 0.5
 anchor_top = 0.2
 anchor_right = 0.5
 anchor_bottom = 0.2
 
-[node name="BButton" parent="." instance=ExtResource( 9 )]
+[node name="BButton" parent="." instance=ExtResource( 10 )]
 anchor_left = 0.776
 anchor_top = 0.467
 anchor_right = 0.776

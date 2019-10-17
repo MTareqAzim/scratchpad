@@ -4,7 +4,7 @@
 [ext_resource path="res://Utils/Physics Bodies/StaticWall2P5D.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Scratch/StatesStackDiplayer.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/Input UI/Interface.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Input UI/Base.tscn" type="PackedScene" id=5]
 
 [node name="World" type="Node"]
 
@@ -125,8 +125,10 @@ polygons = [ PoolVector2Array( -10, -10, 88, -10, 54, 19, -10, 10 ), PoolVector2
 polygon = PoolVector2Array( -37, -50, 88, -50, 88, 65, -37, 65 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-editor/display_folded = true
 position = Vector2( 492, 524 )
+
+[node name="StateMachine" parent="Player" index="3"]
+editor/display_folded = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -134,7 +136,16 @@ position = Vector2( 492, 524 )
 margin_top = 1.0
 margin_bottom = 171.0
 
-[node name="Interface" parent="CanvasLayer" instance=ExtResource( 5 )]
+[node name="Base" parent="CanvasLayer" instance=ExtResource( 5 )]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -293.0
+margin_top = -152.0
+margin_right = -177.0
+margin_bottom = -32.0
+[connection signal="state_changed" from="Player/StateMachine" to="CanvasLayer/Base" method="_on_StateMachine_state_changed"]
 [connection signal="state_changed" from="Player/StateMachine" to="CanvasLayer/StatesStackDiplayer" method="_on_StateMachine_state_changed"]
 
 [editable path="StaticSlope2P5D"]

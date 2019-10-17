@@ -55,6 +55,7 @@ polygon = PoolVector2Array( -20, -10, 20, -10, 20, 10, -20, 10 )
 polygons = [ PoolVector2Array( -20, -10, 20, -10, 20, 10, -20, 10 ) ]
 
 [node name="StateMachine" type="Node" parent="." index="3"]
+editor/display_folded = true
 script = ExtResource( 3 )
 START_STATE = NodePath("Idle")
 
