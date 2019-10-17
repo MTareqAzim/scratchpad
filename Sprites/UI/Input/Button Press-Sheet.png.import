@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/UI (Label Down).png-af80043a95aaed645c40714999fb2b6d.stex"
+path="res://.import/Button Press-Sheet.png-cd2c7fa35e14a16028df148e5a659cfa.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/UI/Input/UI (Label Down).png"
-dest_files=[ "res://.import/UI (Label Down).png-af80043a95aaed645c40714999fb2b6d.stex" ]
+source_file="res://Sprites/UI/Input/Button Press-Sheet.png"
+dest_files=[ "res://.import/Button Press-Sheet.png-cd2c7fa35e14a16028df148e5a659cfa.stex" ]
 
 [params]
 
