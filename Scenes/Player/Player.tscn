@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Utils/Physics Bodies/KinematicBody2P5D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Player/player.gd" type="Script" id=2]
@@ -26,19 +26,13 @@ extents = Vector2( 25, 65 )
 [sub_resource type="CircleShape2D" id=2]
 radius = 28.0
 
-[sub_resource type="CircleShape2D" id=3]
-radius = 35.0
-
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 20, 10 )
-
-[sub_resource type="Curve" id=5]
+[sub_resource type="Curve" id=3]
 _data = [ Vector2( 0, 0 ), 0.0, 1.23948, 0, 1, Vector2( 0.806793, 1 ), 1.23948, 0.0, 1, 0 ]
 
-[sub_resource type="Curve" id=6]
+[sub_resource type="Curve" id=4]
 _data = [ Vector2( 0, 0 ), 0.0, 1.23948, 0, 1, Vector2( 0.806793, 1 ), 1.23948, 0.0, 1, 0 ]
 
-[sub_resource type="CapsuleShape2D" id=7]
+[sub_resource type="CapsuleShape2D" id=5]
 radius = 20.0
 height = 32.0
 
@@ -55,16 +49,12 @@ shape = SubResource( 1 )
 [node name="BaseSkin" parent="." index="1"]
 shape = SubResource( 2 )
 
-[node name="FloorCollider2P5D" parent="." index="2"]
-editor/display_folded = true
+[node name="BaseShape" parent="." index="2"]
+color = Color( 1, 1, 1, 0.745098 )
+polygon = PoolVector2Array( -20, -10, 20, -10, 20, 10, -20, 10 )
+polygons = [ PoolVector2Array( -20, -10, 20, -10, 20, 10, -20, 10 ) ]
 
-[node name="FloorSkin" parent="FloorCollider2P5D" index="0"]
-shape = SubResource( 3 )
-
-[node name="BaseShape" parent="." index="3"]
-shape = SubResource( 4 )
-
-[node name="StateMachine" type="Node" parent="." index="4"]
+[node name="StateMachine" type="Node" parent="." index="3"]
 script = ExtResource( 3 )
 START_STATE = NodePath("Idle")
 
@@ -105,7 +95,7 @@ state_name = "air dash"
 push_down = true
 overwrite = true
 action_buffer_path = NodePath("../../ActionBuffer")
-lunge_curve = SubResource( 5 )
+lunge_curve = SubResource( 3 )
 DASH_DISTANCE = 300
 DASH_DURATION = 0.25
 
@@ -118,7 +108,7 @@ state_name = "air back dash"
 push_down = true
 overwrite = true
 action_buffer_path = NodePath("../../ActionBuffer")
-lunge_curve = SubResource( 6 )
+lunge_curve = SubResource( 4 )
 DASH_DISTANCE = -300
 DASH_DURATION = 0.25
 
@@ -184,21 +174,21 @@ DASH_DISTANCE = -300
 
 [node name="Timer" type="Timer" parent="StateMachine/Crouch/BackRoll" index="0"]
 
-[node name="LookDirection" type="Position2D" parent="." index="5"]
+[node name="LookDirection" type="Position2D" parent="." index="4"]
 script = ExtResource( 18 )
 
 [node name="RayCast2D" type="RayCast2D" parent="LookDirection" index="0"]
 scale = Vector2( 5, 5 )
 cast_to = Vector2( 10, 0 )
 
-[node name="Shadow" type="CollisionShape2D" parent="." index="6"]
+[node name="Shadow" type="CollisionShape2D" parent="." index="5"]
 modulate = Color( 0, 0, 0, 1 )
 rotation = 1.5708
-shape = SubResource( 7 )
+shape = SubResource( 5 )
 disabled = true
 script = ExtResource( 19 )
 
-[node name="Camera2D" type="Camera2D" parent="." index="7"]
+[node name="Camera2D" type="Camera2D" parent="." index="6"]
 rotation = 1.5708
 current = true
 drag_margin_left = 0.0

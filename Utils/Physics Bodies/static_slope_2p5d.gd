@@ -30,7 +30,7 @@ func get_base_shapes(z_pos: int) -> Array:
 		if percent <= 0:
 			pass
 		elif percent >= 100:
-			shapes = [$BaseArea2P5D.shape_owner_get_shape(0, 0)]
+			shapes = [$BaseShape.polygon]
 		else:
 			shapes = [_get_percent_base(percent)]
 	
@@ -48,14 +48,14 @@ func get_top_z_pos(points: Array) -> int:
 
 
 func get_base_transform() -> Transform2D:
-	var base_shape = $BaseArea2P5D/BaseShape
+	var base_shape = $BaseShape
 	return base_shape.get_global_transform()
 
 
 func _get_altitude(pos: Vector2) -> float:
 	pos = to_local(pos)
-	var br = $BaseArea2P5D/BaseShape.polygon[2]
-	var bl = $BaseArea2P5D/BaseShape.polygon[3]
+	var br = $BaseShape.polygon[2]
+	var bl = $BaseShape.polygon[3]
 	
 	var area = abs(pos.x * br.y + br.x * bl.y + bl.x * pos.y - br.x * pos.y - bl.x * br.y - pos.x * bl.y) / 2.0
 	var width = br.distance_to(bl)
@@ -64,17 +64,16 @@ func _get_altitude(pos: Vector2) -> float:
 	return altitude
 
 
-func _get_percent_base(percent: float) -> Shape2D:
-	var base: Area2D = $BaseArea2P5D
-	var base_shape = base.shape_owner_get_shape(0, 0).duplicate()
+func _get_percent_base(percent: float) -> Array:
+	var base_shape = $BaseShape
 	
-	var points = base_shape.points
+	var points = base_shape.polygon
 	var dir_vector = points[2] - points[1]
 	dir_vector = (dir_vector * percent / 100).round()
 	
-	base_shape.set_point_cloud([points[0], points[1], points[1] + dir_vector, points[0] + dir_vector])
+	var percent_base = [points[0], points[1], points[1] + dir_vector, points[0] + dir_vector]
 	
-	return base_shape
+	return percent_base
 
 
 #Editor functions
@@ -107,8 +106,8 @@ func _set_width(new_width: int) -> void:
 		_first_time[2] = false
 	else:
 		_update_base()
-		_update_volume()
 		_update_top()
+		_update_volume()
 
 
 func _set_length(new_length: int) -> void:
@@ -136,7 +135,7 @@ func _set_angle(new_angle: int) -> void:
 
 
 func _update_base() -> void:
-	var base_shape = $BaseArea2P5D/BaseShape
+	var base_shape = $BaseShape
 	var extents = Vector2(_width/2.0, _length/2.0)
 	
 	var top_left = _rotate_about_origin(Vector2(-extents.x, -extents.y), _angle)
@@ -158,8 +157,8 @@ func _rotate_about_origin(point: Vector2, degrees: int) -> Vector2:
 
 
 func _update_top() -> void:
-	var top_shape = $TopSlope2P5D/TopShape
-	var base_shape = $BaseArea2P5D/BaseShape
+	var top_shape = $TopShape
+	var base_shape = $BaseShape
 	
 	var top_left = base_shape.polygon[0] - Vector2(0, _height)
 	var top_right = base_shape.polygon[1] - Vector2(0, _height)
@@ -171,8 +170,8 @@ func _update_top() -> void:
 
 func _update_volume() -> void:
 	var volume_shape = $VolumeShape
-	var top_shape = $TopSlope2P5D/TopShape
-	var base_shape = $BaseArea2P5D/BaseShape
+	var top_shape = $TopShape
+	var base_shape = $BaseShape
 	var vector_array = []
 	
 	if [0, 45, 90, 135, 315].has(_angle):

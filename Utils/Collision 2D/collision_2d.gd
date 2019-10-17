@@ -1,83 +1,40 @@
-static func area(points: Array) -> float:
-	var area := 0.0
-	
-	for i in points.size():
-		var next_i = (i + 1) % points.size()
-		area += points[i].x * points[next_i].y - points[next_i].x * points[i].y
-	
-	area = area / 2.0
-	return area
+const Geometry2D = preload("geometry_2d.gd")
 
-
-static func centroid(points: Array) -> Vector2:
-	var c_x := 0.0
-	var c_y := 0.0
-	var area := area(points)
-	
-	for i in points.size():
-		var next_i = (i + 1) % points.size()
-		c_x += (points[i].x + points[next_i].x) * ((points[i].x * points[next_i].y) - (points[next_i].x * points[i].y))
-		c_y += (points[i].y + points[next_i].y) * ((points[i].x * points[next_i].y) - (points[next_i].x * points[i].y))
-	
-	c_x = c_x / (6 * area)
-	c_y = c_y / (6 * area)
-	return Vector2(c_x, c_y)
-
-
-static func point_in_polygon(point: Vector2, polygon: Array) -> bool:
-	var wn = 0
-	
-	for i in polygon.size():
-		var next_i = (i + 1) % polygon.size()
-		if polygon[i].y <= point.y:
-			if polygon[next_i].y > point.y:
-				if _clockwise(polygon[i], polygon[next_i], point) < 0:
-					wn += 1
-		elif polygon[next_i].y <= point.y:
-			if _clockwise(polygon[i], polygon[next_i], point) > 0:
-				wn -= 1
-	
-	return wn != 0
-
-
-static func collide_and_get_contacts(shape: Shape2D, global_xform: Transform2D, other_shape: Shape2D, other_global_xform: Transform2D) -> Array:
+static func collide_and_get_contacts(shape: Array, global_xform: Transform2D, other_shape: Array, other_global_xform: Transform2D) -> Array:
 	return collide_with_motion_and_get_contacts(shape, global_xform, Vector2(), other_shape, other_global_xform, Vector2())
 
 
-static func collide_with_motion_and_get_contacts(shape: Shape2D, global_xform: Transform2D, motion: Vector2,
-		other_shape: Shape2D, other_global_xform: Transform2D, other_motion: Vector2) -> Array:
+static func collide_with_motion_and_get_contacts(shape: Array, global_xform: Transform2D, motion: Vector2,
+		other_shape: Array, other_global_xform: Transform2D, other_motion: Vector2) -> Array:
 	var collision_points = []
 
-	var shape_points = _get_points(shape)
-	for i in shape_points.size():
-		shape_points[i] = global_xform.xform(shape_points[i]) + motion
+	for i in shape.size():
+		shape[i] = global_xform.xform(shape[i]) + motion
 	
-	var other_shape_points = _get_points(other_shape)
-	for i in other_shape_points.size():
-		other_shape_points[i] = other_global_xform.xform(other_shape_points[i]) + other_motion
+	for i in other_shape.size():
+		other_shape[i] = other_global_xform.xform(other_shape[i]) + other_motion
 	
-	if shape_points and other_shape_points:
-		#other triangles
-		for point in shape_points:
-			if point_in_polygon(point, other_shape_points):
-				if not collision_points.has(point):
-					collision_points.append(point)
-		
-		#shape triangles
-		for point in other_shape_points:
-			if point_in_polygon(point, shape_points):
-				if not collision_points.has(point):
-					collision_points.append(point)
-		
-		#check line intersections
-		for i in shape_points.size():
-			var next_i = (i + 1) % shape_points.size()
-			for j in other_shape_points.size():
-				var next_j = (j + 1) % other_shape_points.size()
-				var intersection_point = Geometry.segment_intersects_segment_2d(shape_points[i], shape_points[next_i],
-						other_shape_points[j], other_shape_points[next_j])
-				if intersection_point:
-					collision_points.append(intersection_point)
+	#other triangles
+	for point in shape:
+		if Geometry2D.point_in_polygon(point, other_shape):
+			if not collision_points.has(point):
+				collision_points.append(point)
+	
+	#shape triangles
+	for point in other_shape:
+		if Geometry2D.point_in_polygon(point, shape):
+			if not collision_points.has(point):
+				collision_points.append(point)
+	
+	#check line intersections
+	for i in shape.size():
+		var next_i = (i + 1) % shape.size()
+		for j in other_shape.size():
+			var next_j = (j + 1) % other_shape.size()
+			var intersection_point = Geometry.segment_intersects_segment_2d(shape[i], shape[next_i],
+					other_shape[j], other_shape[next_j])
+			if intersection_point:
+				collision_points.append(intersection_point)
 	
 	if collision_points:
 		collision_points = _sort_points_clockwise(collision_points)
@@ -85,22 +42,20 @@ static func collide_with_motion_and_get_contacts(shape: Shape2D, global_xform: T
 	return collision_points
 
 
-static func collide_and_get_resolution_vector(shape: Shape2D, global_xform: Transform2D, other_shape: Shape2D, other_global_xform: Transform2D) -> Vector2:
+static func collide_and_get_resolution_vector(shape: Array, global_xform: Transform2D, other_shape: Array, other_global_xform: Transform2D) -> Vector2:
 	return collide_with_motion_and_get_resolution_vector(shape, global_xform, Vector2(), other_shape, other_global_xform, Vector2())
 
 
-static func collide_with_motion_and_get_resolution_vector(shape: Shape2D, global_xform: Transform2D, motion: Vector2,
-		other_shape: Shape2D, other_global_xform: Transform2D, other_motion: Vector2) -> Vector2:
-	var shape_points = _get_points(shape)
-	var other_shape_points = _get_points(other_shape)
+static func collide_with_motion_and_get_resolution_vector(shape: Array, global_xform: Transform2D, motion: Vector2,
+		other_shape: Array, other_global_xform: Transform2D, other_motion: Vector2) -> Vector2:
 	
-	for i in shape_points.size():
-		shape_points[i] = global_xform.xform(shape_points[i]) + motion
+	for i in shape.size():
+		shape[i] = global_xform.xform(shape[i]) + motion
 	
-	for i in other_shape_points.size():
-		other_shape_points[i] = other_global_xform.xform(other_shape_points[i]) + other_motion
+	for i in other_shape.size():
+		other_shape[i] = other_global_xform.xform(other_shape[i]) + other_motion
 	
-	return resolution_vector(shape_points, other_shape_points, motion)
+	return resolution_vector(shape, other_shape, motion)
 
 
 static func resolution_vector(p: Array, q: Array, p_motion = Vector2()) -> Vector2:
@@ -116,31 +71,11 @@ static func resolution_vector(p: Array, q: Array, p_motion = Vector2()) -> Vecto
 	
 	var res_vec = Vector2()
 	for vector in resolution_vectors:
-		if vector == Vector2.ZERO or p_motion.dot(vector) != 0:
+		if vector == Vector2.ZERO or p_motion.dot(vector) != 0 or p_motion == Vector2.ZERO:
 			res_vec = vector
 			break
 	
 	return res_vec
-
-
-static func _clockwise(p0: Vector2, p1: Vector2, p2: Vector2) -> float:
-	var z = (p1.x - p0.x) * (p2.y - p0.y) - (p1.y - p0.y) * (p2.x - p0.x)
-	return z
-
-
-static func _get_points(shape: Shape2D) -> Array:
-	var points = []
-	
-	if shape is RectangleShape2D:
-		var extents = shape.extents
-		points = [Vector2(-extents.x, -extents.y), 
-				Vector2(extents.x, -extents.y), 
-				Vector2(extents.x, extents.y), 
-				Vector2(-extents.x, extents.y)]
-	elif shape is ConvexPolygonShape2D:
-		points = shape.points
-	
-	return points
 
 
 static func _sort_points_clockwise(points: Array) -> Array:
@@ -178,11 +113,11 @@ static func _convex_hull(p: PoolVector2Array) -> PoolVector2Array:
 	var points = _sort_points_clockwise(p)
 	
 	for point in points:
-		while convex_hull.size() > 1 and _clockwise(convex_hull[convex_hull.size() - 2], convex_hull[convex_hull.size() - 1], point) <= 0:
+		while convex_hull.size() > 1 and Geometry2D.clockwise(convex_hull[convex_hull.size() - 2], convex_hull[convex_hull.size() - 1], point) <= 0:
 			convex_hull.pop_back()
 		convex_hull.append(point)
 	
-	if convex_hull.size() > 1 and _clockwise(convex_hull[convex_hull.size() - 2], convex_hull[convex_hull.size() - 1], convex_hull[0]) <= 0:
+	if convex_hull.size() > 1 and Geometry2D.clockwise(convex_hull[convex_hull.size() - 2], convex_hull[convex_hull.size() - 1], convex_hull[0]) <= 0:
 		convex_hull.pop_back()
 	
 	return PoolVector2Array(convex_hull)
@@ -191,7 +126,7 @@ static func _convex_hull(p: PoolVector2Array) -> PoolVector2Array:
 static func _get_vectors_to_perimeter(point: Vector2, polygon: Array) -> Vector2:
 	var vectors = []
 	
-	if point_in_polygon(point, polygon):
+	if Geometry2D.point_in_polygon(point, polygon):
 		for i in polygon.size():
 			var s1 = polygon[i]
 			var s2 = polygon[(i + 1) % polygon.size()]

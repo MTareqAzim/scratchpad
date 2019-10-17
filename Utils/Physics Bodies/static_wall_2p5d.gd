@@ -15,24 +15,18 @@ func get_height() -> int:
 
 
 func get_base_shapes(z_pos: int) -> Array:
-	var base_area = $BaseArea2P5D
-	var shapes = []
+	var base_area = $BaseShape
 	
-	if z_pos <= _z_pos and z_pos >= _z_pos - _height:
-		for owner in base_area.get_shape_owners():
-			for shape_id in base_area.shape_owner_get_shape_count(owner):
-				shapes.append(base_area.shape_owner_get_shape(owner, shape_id))
-	
-	return shapes
+	return base_area.get_polygons()
 
 
 func get_base_transform() -> Transform2D:
-	var base_shape = $BaseArea2P5D/BaseShape
+	var base_shape = $BaseShape
 	return base_shape.get_global_transform()
 
 
 func get_top_z_pos(points: Array) -> int:
-	return $TopArea2P5D.get_top_z_pos(points)
+	return _z_pos - _height
 
 
 func _set_z(new_z: int) -> void:
@@ -59,7 +53,7 @@ func _set_height(new_height: int) -> void:
 #Editor functions
 func _update_volume() -> void:
 	var volume_shape = $VolumeShape
-	var base_shape = $BaseArea2P5D/BaseShape
+	var base_shape = $BaseShape
 	
 	var points = base_shape.polygon
 	var start_point = points[0]
@@ -79,13 +73,11 @@ func _update_volume() -> void:
 
 
 func _update_top() -> void:
-	var top = $TopArea2P5D
-	var top_shape = $TopArea2P5D/TopShape
-	var base_shape = $BaseArea2P5D/BaseShape
-	
+	var top_shape = $TopShape
+	var base_shape = $BaseShape
+
 	top_shape.polygon = base_shape.polygon
-	top_shape.position = Vector2.ZERO
-	top.position = base_shape.position - Vector2(0, _height)
+	top_shape.position = base_shape.position - Vector2(0, _height)
 
 
 func _update_dist_to_ground() -> void:
@@ -94,7 +86,7 @@ func _update_dist_to_ground() -> void:
 	raycast.visible = raycast.cast_to != Vector2.ZERO
 
 
-func _on_BaseShape_draw() -> void:
+func _on_CompositePolygon2D_polygon_changed():
 	if Engine.is_editor_hint():
 		_update_volume()
 		_update_top()
