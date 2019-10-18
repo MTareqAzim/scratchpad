@@ -1,11 +1,13 @@
 extends NinePatchRect
 
 onready var label = $Label
+onready var grayed = $Grayed
 
 const font16 = preload("res://Scenes/Input UI/PixelFont16.tres")
 const font20 = preload("res://Scenes/Input UI/PixelFont20.tres")
 
 var prev_state
+var dashed := false
 
 func state_changed(new_state: State) -> void:
 	match new_state.state_name:
@@ -33,5 +35,18 @@ func state_changed(new_state: State) -> void:
 		label.add_font_override("font", font16)
 	else:
 		label.add_font_override("font", font20)
+	
+	if dashed:
+		grayed.visible = true
+	elif new_state.state_name in ["back roll", "air back dash", "somersault", "air dash", "lunge", "retreat"]:
+		grayed.visible = true
+	else:
+		grayed.visible = false
+	
+	if new_state.state_name in ["air dash", "air back dash"]:
+		dashed = true
+	
+	if new_state.state_name == "fall":
+		dashed = false
 	
 	prev_state = new_state.state_name

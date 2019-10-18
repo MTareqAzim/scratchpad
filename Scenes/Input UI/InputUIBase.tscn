@@ -11,7 +11,7 @@
 [ext_resource path="res://Scenes/Input UI/Y Button/YButton.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/Input UI/B Button/BButton.tscn" type="PackedScene" id=10]
 
-[node name="Base" type="TextureRect"]
+[node name="InputUIBase" type="TextureRect"]
 margin_left = -58.0
 margin_top = -60.0
 margin_right = 58.0

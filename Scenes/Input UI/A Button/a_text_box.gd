@@ -1,6 +1,8 @@
 extends NinePatchRect
 
 onready var label = $Label
+onready var grayed = $Grayed
+
 var latest_jump := ""
 var prev_state
 
@@ -31,5 +33,10 @@ func state_changed(new_state: State) -> void:
 	
 	if new_state.state_name in ["jump", "high jump"]:
 		latest_jump = new_state.state_name
+	
+	if not new_state.state_name in ["idle", "move", "crouch"]:
+		grayed.visible = true
+	else:
+		grayed.visible = false
 	
 	prev_state = new_state.state_name

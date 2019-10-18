@@ -1,12 +1,4 @@
-extends Control
-
-onready var animation_player = $Sprite/AnimationPlayer
+extends "../button_animator.gd"
 
 func _input(event):
-	if event.is_action_pressed("ui_y"):
-		animation_player.queue("Press")
-		animation_player.queue("Pressed")
-
-	if event.is_action_released("ui_y"):
-		animation_player.queue("Depress")
-		animation_player.queue("Idle")
+	animate_button("ui_y", event)

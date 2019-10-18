@@ -4,7 +4,6 @@
 [ext_resource path="res://Scenes/Input UI/B Button/b_text_box.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/Input UI/PixelFont20.tres" type="DynamicFont" id=3]
 
-
 [node name="BTextBox" type="NinePatchRect"]
 margin_top = -20.0
 margin_right = 164.0
@@ -29,3 +28,9 @@ custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0.811765, 0.458824, 0.168627, 1 )
 text = "Crouch"
 valign = 1
+
+[node name="Grayed" type="Sprite" parent="."]
+visible = false
+modulate = Color( 0, 0, 0, 0.392157 )
+position = Vector2( 82, 20 )
+texture = ExtResource( 1 )

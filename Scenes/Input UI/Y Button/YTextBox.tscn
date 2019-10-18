@@ -30,3 +30,9 @@ custom_colors/font_color = Color( 0.811765, 0.458824, 0.168627, 1 )
 text = "Retreat"
 align = 2
 valign = 1
+
+[node name="Grayed" type="Sprite" parent="."]
+visible = false
+modulate = Color( 0, 0, 0, 0.392157 )
+position = Vector2( 92, 20 )
+texture = ExtResource( 1 )
