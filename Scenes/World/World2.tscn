@@ -111,22 +111,24 @@ cast_to = Vector2( 212.132, 132.132 )
 [node name="StaticWall2P5D" parent="." instance=ExtResource( 2 )]
 editor/display_folded = true
 position = Vector2( 275, 640 )
+_z_pos = 0
 _height = 40
 
 [node name="TopShape" parent="StaticWall2P5D" index="1"]
 position = Vector2( 0, -40 )
-polygon = PoolVector2Array( -10, -10, 88, -10, 54, 19, 44, 60, -37, 65, -10, 10 )
+polygon = PoolVector2Array( -67, -10, 88, -10, 54, 19, 44, 60, -40, 60, -10, 10 )
 
 [node name="BaseShape" parent="StaticWall2P5D" index="2"]
-polygon = PoolVector2Array( -10, -10, 88, -10, 54, 19, 44, 60, -37, 65, -10, 10 )
-polygons = [ PoolVector2Array( -10, -10, 88, -10, 54, 19, -10, 10 ), PoolVector2Array( 44, 60, -37, 65, -10, 10, 54, 19 ) ]
+polygon = PoolVector2Array( -67, -10, 88, -10, 54, 19, 44, 60, -40, 60, -10, 10 )
+polygons = [ PoolVector2Array( -10, 10, -67, -10, 88, -10, 54, 19 ), PoolVector2Array( 44, 60, -40, 60, -10, 10, 54, 19 ) ]
 
 [node name="VolumeShape" parent="StaticWall2P5D" index="3"]
-polygon = PoolVector2Array( -37, -50, 88, -50, 88, 65, -37, 65 )
+polygon = PoolVector2Array( -67, -50, 88, -50, 88, 60, -67, 60 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 editor/display_folded = true
 position = Vector2( 492, 524 )
+GRAVITY = 980
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

@@ -214,7 +214,6 @@ func _handle_base_collision(delta_movement: Vector3, delta: float, other_base: A
 	
 	var knockback = _get_base_resolution_vector(delta_movement_2D, other_base, other_transform, height_diff)
 	delta_movement_2D += knockback
-	delta_movement_2D += Vector2(sign(knockback.x), sign(knockback.y))
 	
 	delta_movement = Vector3(delta_movement_2D.x, delta_movement_2D.y, delta_movement.z)
 	delta_movement = _clamp_delta_movement(delta_movement, delta)

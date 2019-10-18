@@ -55,10 +55,10 @@ static func collide_with_motion_and_get_resolution_vector(shape: Array, global_x
 	for i in other_shape.size():
 		other_shape[i] = other_global_xform.xform(other_shape[i]) + other_motion
 	
-	return resolution_vector(shape, other_shape, motion)
+	return resolution_vector(shape, other_shape)
 
 
-static func resolution_vector(p: Array, q: Array, p_motion = Vector2()) -> Vector2:
+static func resolution_vector(p: Array, q: Array) -> Vector2:
 	var neg_p := []
 	for point in p:
 		 neg_p.append(Vector2(-point.x, -point.y))
@@ -70,10 +70,8 @@ static func resolution_vector(p: Array, q: Array, p_motion = Vector2()) -> Vecto
 	resolution_vectors.sort_custom(CustomSort, "sort_by_length")
 	
 	var res_vec = Vector2()
-	for vector in resolution_vectors:
-		if vector == Vector2.ZERO or p_motion.dot(vector) != 0 or p_motion == Vector2.ZERO:
-			res_vec = vector
-			break
+	if resolution_vectors:
+		res_vec = resolution_vectors[0]
 	
 	return res_vec
 
