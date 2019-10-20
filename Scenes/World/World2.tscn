@@ -145,8 +145,8 @@ margin_left = -293.0
 margin_top = -152.0
 margin_right = -177.0
 margin_bottom = -32.0
-[connection signal="state_changed" from="Player/StateMachine" to="CanvasLayer/InputUIBase" method="_on_StateMachine_state_changed"]
 [connection signal="state_changed" from="Player/StateMachine" to="CanvasLayer/StatesStackDiplayer" method="_on_StateMachine_state_changed"]
+[connection signal="state_changed" from="Player/StateMachine" to="CanvasLayer/InputUIBase" method="_on_StateMachine_state_changed"]
 
 [editable path="StaticSlope2P5D"]
 
