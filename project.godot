@@ -61,6 +61,10 @@ window/size/height=540
 window/vsync/use_vsync=false
 window/stretch/aspect="keep"
 
+[editor_plugins]
+
+enabled=PoolStringArray( "gut" )
+
 [input]
 
 ui_accept={
