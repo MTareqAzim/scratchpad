@@ -27,7 +27,7 @@ extents = Vector2( 25, 65 )
 radius = 28.0
 
 [sub_resource type="Curve" id=3]
-_data = [ Vector2( 0, 0 ), 0.0, 1.23948, 0, 1, Vector2( 0.806793, 1 ), 1.23948, 0.0, 1, 0 ]
+_data = [ Vector2( 0, 0 ), 0.0, 1.24795, 0, 1, Vector2( 0.801315, 1 ), 1.24795, 0.0, 1, 0 ]
 
 [sub_resource type="Curve" id=4]
 _data = [ Vector2( 0, 0 ), 0.0, 1.23948, 0, 1, Vector2( 0.806793, 1 ), 1.23948, 0.0, 1, 0 ]
@@ -143,6 +143,7 @@ script = ExtResource( 14 )
 state_name = "crouch"
 push_down = true
 action_buffer_path = NodePath("../ActionBuffer")
+CROUCH_DELAY = 0.2
 
 [node name="HighJump" type="Node" parent="StateMachine/Crouch" index="0"]
 script = ExtResource( 15 )
@@ -175,7 +176,10 @@ DASH_DISTANCE = -300
 
 [node name="Timer" type="Timer" parent="StateMachine/Crouch/BackRoll" index="0"]
 
+[node name="Timer" type="Timer" parent="StateMachine/Crouch" index="3"]
+
 [node name="LookDirection" type="Position2D" parent="." index="4"]
+editor/display_folded = true
 script = ExtResource( 18 )
 
 [node name="RayCast2D" type="RayCast2D" parent="LookDirection" index="0"]
@@ -202,3 +206,4 @@ drag_margin_bottom = 0.0
 [connection signal="timeout" from="StateMachine/Retreat/Timer" to="StateMachine/Retreat" method="_on_Timer_timeout"]
 [connection signal="timeout" from="StateMachine/Crouch/Somersault/Timer" to="StateMachine/Crouch/Somersault" method="_on_Timer_timeout"]
 [connection signal="timeout" from="StateMachine/Crouch/BackRoll/Timer" to="StateMachine/Crouch/BackRoll" method="_on_Timer_timeout"]
+[connection signal="timeout" from="StateMachine/Crouch/Timer" to="StateMachine/Crouch" method="_on_Timer_timeout"]

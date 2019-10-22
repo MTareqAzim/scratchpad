@@ -1,10 +1,16 @@
 extends "../motion.gd"
 
+export (float) var CROUCH_DELAY := 0.1
 export (int) var MAX_SPEED := 200
 export (int) var CROUCH_HEIGHT := 50
 
+onready var _timer = $Timer
+
 var _prev_height : int
 var was_grounded : bool
+
+func _ready():
+	_timer.set_one_shot(true)
 
 func enter() -> void:
 	_prev_height = owner.get_height()
@@ -18,8 +24,13 @@ func enter() -> void:
 
 
 func handle_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_b"):
+		if not _timer.is_stopped():
+			_timer.stop()
+		get_tree().set_input_as_handled()
+	
 	if event.is_action_released("ui_b"):
-		emit_signal("finished", "previous")
+		_timer.start(CROUCH_DELAY)
 		get_tree().set_input_as_handled()
 	
 	if was_grounded and event.is_action_pressed("ui_a"):
@@ -40,7 +51,8 @@ func handle_input(event: InputEvent) -> void:
 
 func update(delta: float) -> void:
 	if not Input.is_action_pressed("ui_b"):
-		emit_signal("finished", "previous")
+		if _timer.is_stopped():
+			_timer.start(CROUCH_DELAY)
 	
 	if not owner.is_grounded() and owner.get_velocity().z > 0:
 		emit_signal("finished", "previous")
@@ -53,8 +65,15 @@ func update(delta: float) -> void:
 
 
 func exit():
+	if not _timer.is_stopped():
+		_timer.stop()
+	
 	if was_grounded:
 		action_buffer.add_event("was_grounded")
 	
 	owner.set_height(_prev_height)
 	.exit()
+
+
+func _on_Timer_timeout():
+	call_deferred("emit_signal", "finished", "previous")

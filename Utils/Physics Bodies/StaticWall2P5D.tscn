@@ -19,11 +19,11 @@ collide_with_bodies = false
 color = Color( 0, 0.2, 0.988235, 1 )
 polygon = PoolVector2Array( -10, -10, 10, -10, 10, 10, -10, 10 )
 
+[node name="VolumeShape" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -10, -10, 10, -10, 10, 10, -10, 10 )
+
 [node name="BaseShape" type="Polygon2D" parent="."]
 polygon = PoolVector2Array( -10, -10, 10, -10, 10, 10, -10, 10 )
 polygons = [ PoolVector2Array( -10, -10, 10, -10, 10, 10, -10, 10 ) ]
 script = ExtResource( 2 )
-
-[node name="VolumeShape" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( -10, -10, 10, -10, 10, 10, -10, 10 )
 [connection signal="polygon_changed" from="BaseShape" to="." method="_on_CompositePolygon2D_polygon_changed"]

@@ -88,5 +88,5 @@ func _update_dist_to_ground() -> void:
 
 func _on_CompositePolygon2D_polygon_changed():
 	if Engine.is_editor_hint():
-		_update_volume()
-		_update_top()
+		call_deferred("_update_volume")
+		call_deferred("_update_top")

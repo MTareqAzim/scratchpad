@@ -5,6 +5,7 @@ export (int) var DASH_DISTANCE := 400
 export (float) var DASH_DURATION := 0.5
 
 onready var _timer = $Timer
+
 var _direction : Vector2
 var _enter_velocity : Vector3
 var _prev_distance : float
@@ -19,8 +20,7 @@ func enter():
 		_direction = owner.get_look_direction()
 	
 	_prev_distance = 0.0
-	_timer.set_wait_time(DASH_DURATION)
-	_timer.start()
+	_timer.start(DASH_DURATION)
 	owner.STEP_HEIGHT_LIMIT = 20
 	.enter()
 
@@ -55,4 +55,4 @@ func _fix_z_velocity(z_velocity: int) -> void:
 
 
 func _on_Timer_timeout():
-	emit_signal("finished", "previous")
+	call_deferred("emit_signal", "finished", "previous")
