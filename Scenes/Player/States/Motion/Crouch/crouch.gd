@@ -69,7 +69,7 @@ func exit():
 		_timer.stop()
 	
 	if was_grounded:
-		action_buffer.add_event("was_grounded")
+		action_buffer.add_action("was_grounded")
 	
 	owner.set_height(_prev_height)
 	.exit()

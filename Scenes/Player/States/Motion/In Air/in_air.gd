@@ -10,6 +10,6 @@ func handle_input(event) -> void:
 	if event.is_action("ui_a"):
 		get_tree().set_input_as_handled()
 		if event.is_action_pressed("ui_a"):
-			action_buffer.add_event("ui_a_pressed")
+			action_buffer.add_action("ui_a_pressed")
 	
 	.handle_input(event)

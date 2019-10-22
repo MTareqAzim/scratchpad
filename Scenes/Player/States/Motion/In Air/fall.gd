@@ -9,8 +9,8 @@ var _dashed : bool = false
 func enter() -> void:
 	owner.set_grav(GRAVITY)
 	
-	_dashed = action_buffer.event_within("air_dashed")
-	action_buffer.event_handled("air_dashed")
+	_dashed = action_buffer.action_within("air_dashed")
+	action_buffer.action_handled("air_dashed")
 	
 	var input_direction = get_input_direction()
 	update_look_direction(input_direction)
@@ -20,7 +20,7 @@ func enter() -> void:
 
 func handle_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_a"):
-		if action_buffer.event_within("was_grounded", COYOTE_FRAMES):
+		if action_buffer.action_within("was_grounded", COYOTE_FRAMES):
 			emit_signal("finished", "jump")
 			get_tree().set_input_as_handled()
 	
@@ -36,9 +36,9 @@ func handle_input(event: InputEvent) -> void:
 
 
 func update(delta: float) -> void:
-	if not _dashed and action_buffer.event_within("air_dashed"):
+	if not _dashed and action_buffer.action_within("air_dashed"):
 		_dashed = true
-		action_buffer.event_handled("air_dashed")
+		action_buffer.action_handled("air_dashed")
 	
 	var input_direction = get_input_direction()
 	update_look_direction(input_direction)

@@ -3,36 +3,36 @@ class_name ActionBuffer, "action-buffer-icon.png"
 
 export (int) var FRAME_BUFFER_LIMIT := 60
 
-var input_buffer: Dictionary = {}
+var action_buffer: Dictionary = {}
 
 func _physics_process(delta):
-	for key in input_buffer:
-		input_buffer[key] += 1
+	for key in action_buffer:
+		action_buffer[key] += 1
 	
-	input_buffer = _erase_old_inputs(input_buffer)
+	action_buffer = _erase_old_inputs(action_buffer)
 
 
-func add_event(key: String) -> void:
-	input_buffer[key] = 0
+func add_action(key: String) -> void:
+	action_buffer[key] = 0
 
 
-func event_within(key: String, last_frames: int = FRAME_BUFFER_LIMIT) -> bool:
-	if input_buffer.has(key):
-		if input_buffer[key] < last_frames:
+func action_within(key: String, last_frames: int = FRAME_BUFFER_LIMIT) -> bool:
+	if action_buffer.has(key):
+		if action_buffer[key] < last_frames:
 			return true
 	
 	return false
 
 
-func event_handled(key: String) -> void:
-	input_buffer.erase(key)
+func action_handled(key: String) -> void:
+	action_buffer.erase(key)
 
 
 func _erase_old_inputs(buffer: Dictionary) -> Dictionary:
 	var new_buffer := {}
 	
 	for key in buffer:
-		if buffer[key] <= FRAME_BUFFER_LIMIT:
+		if buffer[key] < FRAME_BUFFER_LIMIT:
 			new_buffer[key] = buffer[key]
 	
 	return new_buffer

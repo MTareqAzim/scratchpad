@@ -25,12 +25,12 @@ func enter():
 func handle_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_x"):
 		emit_signal("finished", "air dash")
-		action_buffer.add_event("air_dashed")
+		action_buffer.add_action("air_dashed")
 		get_tree().set_input_as_handled()
 	
 	if event.is_action_pressed("ui_y"):
 		emit_signal("finished", "air back dash")
-		action_buffer.add_event("air_dashed")
+		action_buffer.add_action("air_dashed")
 		get_tree().set_input_as_handled()
 	
 	.handle_input(event)

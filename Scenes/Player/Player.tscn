@@ -36,7 +36,7 @@ _data = [ Vector2( 0, 0 ), 0.0, 1.23948, 0, 1, Vector2( 0.806793, 1 ), 1.23948, 
 radius = 20.0
 height = 32.0
 
-[node name="Player" instance=ExtResource( 1 )]
+[node name="Player" index="0" instance=ExtResource( 1 )]
 position = Vector2( 0, 0 )
 script = ExtResource( 2 )
 MAX_SPEED = 2000
@@ -55,7 +55,6 @@ polygon = PoolVector2Array( -20, -10, 20, -10, 20, 10, -20, 10 )
 polygons = [ PoolVector2Array( -20, -10, 20, -10, 20, 10, -20, 10 ) ]
 
 [node name="StateMachine" type="Node" parent="." index="3"]
-editor/display_folded = true
 script = ExtResource( 3 )
 START_STATE = NodePath("Idle")
 
@@ -138,14 +137,13 @@ DASH_DISTANCE = -300
 [node name="Timer" type="Timer" parent="StateMachine/Retreat" index="0"]
 
 [node name="Crouch" type="Node" parent="StateMachine" index="7"]
-editor/display_folded = true
 script = ExtResource( 14 )
 state_name = "crouch"
 push_down = true
 action_buffer_path = NodePath("../ActionBuffer")
 CROUCH_DELAY = 0.2
 
-[node name="HighJump" type="Node" parent="StateMachine/Crouch" index="0"]
+[node name="High Jump" type="Node" parent="StateMachine/Crouch" index="0"]
 script = ExtResource( 15 )
 state_name = "high jump"
 push_down = true

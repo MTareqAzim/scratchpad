@@ -44,7 +44,7 @@ func update(delta) -> void:
 		was_grounded = false
 		emit_signal("finished", "crouch")
 	
-	if owner.is_grounded() and action_buffer.event_within("ui_a_pressed", JUMP_BUFFER_FRAMES):
+	if owner.is_grounded() and action_buffer.action_within("ui_a_pressed", JUMP_BUFFER_FRAMES):
 		was_grounded = false
 		emit_signal("finished", "jump")
 	
@@ -53,6 +53,6 @@ func update(delta) -> void:
 
 func exit():
 	if was_grounded:
-		action_buffer.add_event("was_grounded")
+		action_buffer.add_action("was_grounded")
 	
 	.exit()
