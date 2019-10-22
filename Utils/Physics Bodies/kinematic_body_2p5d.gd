@@ -2,8 +2,6 @@ tool
 extends Area2D
 class_name KinematicBody2P5D
 
-const Collision2D = preload("res://Utils/Collision 2D/collision_2d.gd")
-
 const SKIN_WIDTH := 1
 const BASE_SKIN_RADIUS := 8
 const VOLUME_SKIN_WIDTH := 5
@@ -272,5 +270,5 @@ func _update_volume_shape() -> void:
 
 func _on_BaseShape_polygon_changed():
 	if Engine.is_editor_hint():
-		_update_base_skin()
-		_update_volume_shape()
+		call_deferred("_update_base_skin")
+		call_deferred("_update_volume_shape")

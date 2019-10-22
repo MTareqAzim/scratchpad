@@ -1,4 +1,10 @@
+class_name Geometry2D
+
 static func area(points: Array) -> float:
+	return abs(_area(points))
+
+
+static func _area(points: Array) -> float:
 	var area := 0.0
 	
 	for i in points.size():
@@ -12,7 +18,7 @@ static func area(points: Array) -> float:
 static func centroid(points: Array) -> Vector2:
 	var c_x := 0.0
 	var c_y := 0.0
-	var area := area(points)
+	var area := _area(points)
 	
 	for i in points.size():
 		var next_i = (i + 1) % points.size()
@@ -33,9 +39,15 @@ static func point_in_polygon(point: Vector2, polygon: Array) -> bool:
 			if polygon[next_i].y > point.y:
 				if clockwise(polygon[i], polygon[next_i], point) < 0:
 					wn += 1
+				if clockwise(polygon[i], polygon[next_i], point) == 0:
+					wn = 1
+					break
 		elif polygon[next_i].y <= point.y:
 			if clockwise(polygon[i], polygon[next_i], point) > 0:
 				wn -= 1
+			if clockwise(polygon[i], polygon[next_i], point) == 0:
+					wn = -1
+					break
 	
 	return wn != 0
 

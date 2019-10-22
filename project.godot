@@ -14,10 +14,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Utils/Action Buffer/action_buffer.gd"
 }, {
+"base": "Reference",
+"class": "Collision2D",
+"language": "GDScript",
+"path": "res://Utils/Collision 2D/collision_2d.gd"
+}, {
 "base": "Polygon2D",
 "class": "CompositePolygon2D",
 "language": "GDScript",
 "path": "res://Utils/Composite Polygon 2D/composite_polygon_2d.gd"
+}, {
+"base": "Reference",
+"class": "Geometry2D",
+"language": "GDScript",
+"path": "res://Utils/Collision 2D/geometry_2d.gd"
 }, {
 "base": "Area2D",
 "class": "KinematicBody2P5D",
@@ -41,7 +51,9 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "ActionBuffer": "res://Utils/Action Buffer/action-buffer-icon.png",
+"Collision2D": "",
 "CompositePolygon2D": "",
+"Geometry2D": "",
 "KinematicBody2P5D": "",
 "State": "",
 "StateMachine": "res://Utils/State Machine/state_machine.png",

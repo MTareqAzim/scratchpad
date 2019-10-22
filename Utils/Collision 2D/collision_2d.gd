@@ -1,4 +1,4 @@
-const Geometry2D = preload("geometry_2d.gd")
+class_name Collision2D
 
 static func collide_and_get_contacts(shape: Array, global_xform: Transform2D, other_shape: Array, other_global_xform: Transform2D) -> Array:
 	return collide_with_motion_and_get_contacts(shape, global_xform, Vector2(), other_shape, other_global_xform, Vector2())
