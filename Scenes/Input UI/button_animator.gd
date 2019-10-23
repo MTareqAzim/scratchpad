@@ -1,6 +1,12 @@
 extends Control
 
+export (String) var ACTION := ""
+
 onready var animation_player = $Sprite/AnimationPlayer
+
+func _input(event):
+	animate_button(ACTION, event) 
+
 
 func animate_button(action: String, event: InputEvent):
 	if event.is_action_pressed(action):

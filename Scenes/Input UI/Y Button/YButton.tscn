@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Scenes/Input UI/Y Button/y_button.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Input UI/button_animator.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/UI/Input/Button Press-Sheet.png" type="Texture" id=2]
 
 [sub_resource type="Animation" id=1]
@@ -73,6 +73,7 @@ margin_top = -32.0
 margin_right = 32.0
 margin_bottom = 32.0
 script = ExtResource( 1 )
+ACTION = "ui_y"
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 32, 32 )
