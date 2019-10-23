@@ -54,19 +54,14 @@ func _update_components() -> void:
 
 
 func _update_volume() -> void:
-	var points = base_shape.polygon
-	var start_point = points[0]
-	var min_x = start_point.x
-	var max_x = min_x
-	var min_y = start_point.y
-	var max_y = min_y
-	for point in points:
-		min_x = min(min_x, point.x)
-		max_x = max(max_x, point.x)
-		min_y = min(min_y, point.y)
-		max_y = max(max_y, point.y)
+	var points: Array = base_shape.polygon
+	var bounding_box: Rect2 = Geometry2D.bounding_box(points)
 	
-	var vector_array = [Vector2(min_x, min_y - _height), Vector2(max_x, min_y - _height), Vector2(max_x, max_y), Vector2(min_x, max_y)]
+	var vector_array = [bounding_box.position + Vector2(0, -_height),
+			bounding_box.position + Vector2(bounding_box.size.x, -_height),
+			bounding_box.position + bounding_box.size,
+			bounding_box.position + Vector2(0, bounding_box.size.y)]
+	
 	volume_shape.polygon = PoolVector2Array(vector_array)
 	volume_shape.position = base_shape.position
 

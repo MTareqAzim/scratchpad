@@ -137,3 +137,20 @@ class TestGeometry2DClockwise:
 		
 		var straight = Vector2(0, -2)
 		assert_true(Geometry2D.clockwise(point_a, point_b, straight) == 0, "Turn is straight.")
+
+class TestGeometry2DBoundingRect:
+	extends "res://addons/gut/test.gd"
+	
+	func test_bounding_box_one_point():
+		var point = [Vector2(1, 1)]
+		var bounding_box = Geometry2D.bounding_box(point)
+		var expected_box = Rect2(point[0], Vector2(0, 0))
+		assert_eq(bounding_box, expected_box)
+	
+	func test_bounding_box_many_points():
+		var points = [Vector2(-6, 1), Vector2(-3, -4), Vector2(-1, -1),
+				Vector2(1, 0), Vector2(3, -2), Vector2(6, -6),
+				Vector2(5, -1), Vector2(2, 2), Vector2(-3, 4)]
+		var bounding_box = Geometry2D.bounding_box(points)
+		var expected_box = Rect2(Vector2(-6, -6), Vector2(12, 10))
+		assert_eq(bounding_box, expected_box)

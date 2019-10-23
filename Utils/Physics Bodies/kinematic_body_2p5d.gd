@@ -250,18 +250,22 @@ func _update_base_skin() -> void:
 	var base_skin = $BaseSkin
 	var base_shape = $BaseShape.polygon
 	
-	var extents = (base_shape[2] - base_shape[0]) / 2.0
+	var bounding_box = Geometry2D.bounding_box(base_shape)
+	var extents = bounding_box.size / 2.0
+	
 	base_skin.shape.radius = BASE_SKIN_RADIUS + max(extents.x, extents.y)
-	base_skin.position = $BaseShape.position
+	base_skin.position = Geometry2D.centroid(base_shape)
 
 
 func _update_volume_shape() -> void:
 	var volume_shape = $VolumeShape
 	var base_shape = $BaseShape.polygon
 	
-	var extents = (base_shape[2] - base_shape[0]) / 2.0
+	var bounding_box = Geometry2D.bounding_box(base_shape)
+	var extents = bounding_box.size / 2.0
+	
 	volume_shape.shape.extents = extents + Vector2(0, _height/2.0) + Vector2(VOLUME_SKIN_WIDTH, VOLUME_SKIN_WIDTH)
-	volume_shape.position = $BaseShape.position - Vector2(0, _height/2.0)
+	volume_shape.position = Geometry2D.centroid(base_shape) - Vector2(0, _height/2.0)
 
 
 func _on_BaseShape_polygon_changed():

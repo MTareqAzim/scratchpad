@@ -58,6 +58,22 @@ static func clockwise(p0: Vector2, p1: Vector2, p2: Vector2) -> float:
 	return z
 
 
+static func bounding_box(points: Array) -> Rect2:
+	var min_x = points[0].x
+	var max_x = min_x
+	var min_y = points[0].y
+	var max_y = min_y
+	for point in points:
+		min_x = min(min_x, point.x)
+		max_x = max(max_x, point.x)
+		min_y = min(min_y, point.y)
+		max_y = max(max_y, point.y)
+	
+	var size = Vector2(max_x - min_x, max_y - min_y)
+	
+	return Rect2(Vector2(min_x, min_y), size)
+
+
 static func _area(points: Array) -> float:
 	var area := 0.0
 	
