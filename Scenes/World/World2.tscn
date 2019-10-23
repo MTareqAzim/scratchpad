@@ -9,6 +9,7 @@
 [node name="World" type="Node"]
 
 [node name="StaticSlope2P5D" parent="." instance=ExtResource( 1 )]
+editor/display_folded = true
 position = Vector2( 197, 255 )
 _height = 80
 _width = 100
@@ -108,6 +109,7 @@ position = Vector2( -106.066, -106.066 )
 cast_to = Vector2( 212.132, 132.132 )
 
 [node name="StaticWall2P5D" parent="." instance=ExtResource( 2 )]
+editor/display_folded = true
 position = Vector2( 318, 692 )
 _z_pos = -20
 _height = 40

@@ -62,7 +62,7 @@ func _get_altitude(pos: Vector2) -> float:
 	var br = base_shape.polygon[2]
 	var bl = base_shape.polygon[3]
 	
-	var area = abs(pos.x * br.y + br.x * bl.y + bl.x * pos.y - br.x * pos.y - bl.x * br.y - pos.x * bl.y) / 2.0
+	var area = Geometry2D.area([br, bl, pos])
 	var width = br.distance_to(bl)
 	var altitude = 2.0 * area / width
 	
