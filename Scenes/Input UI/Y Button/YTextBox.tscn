@@ -1,8 +1,9 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Sprites/UI/Input/UI (Label Up).png" type="Texture" id=1]
-[ext_resource path="res://Scenes/Input UI/Y Button/y_text_box.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/Input UI/Y Button/retreat_text_box.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/Input UI/PixelFont20.tres" type="DynamicFont" id=3]
+
 
 [node name="YTextBox" type="NinePatchRect"]
 margin_left = -184.0

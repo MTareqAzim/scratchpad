@@ -1,8 +1,9 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Sprites/UI/Input/UI (Label Right).png" type="Texture" id=1]
-[ext_resource path="res://Scenes/Input UI/B Button/b_text_box.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/Input UI/B Button/crouch_text_box.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/Input UI/PixelFont20.tres" type="DynamicFont" id=3]
+
 
 [node name="BTextBox" type="NinePatchRect"]
 margin_top = -20.0
