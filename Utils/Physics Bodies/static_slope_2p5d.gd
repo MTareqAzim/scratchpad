@@ -14,8 +14,7 @@ onready var top_shape = $TopShape
 onready var volume_shape = $VolumeShape
 onready var rise = $Rise
 onready var dist_to_ground = $DistToGround
-
-var _first_time = [true, true, true, true, true]
+onready var ready := true
 
 
 func get_z_pos() -> int:
@@ -84,50 +83,39 @@ func _set_z_pos(new_z: int) -> void:
 	var diff = _z_pos - new_z
 	_z_pos = new_z
 	
-	if Engine.is_editor_hint():
-		if _first_time[0]:
-			_first_time[0] = false
-		else:
-			translate(Vector2(0, -diff))
-			_update_dist_to_ground()
+	if ready:
+		translate(Vector2(0, -diff))
+		_update_dist_to_ground()
 
 
 func _set_height(new_height: int) -> void:
 	_height = new_height
-	
-	if Engine.is_editor_hint():
-		_update_top()
-		_update_volume()
-		_update_rise()
+	_update_components()
 
 
 func _set_width(new_width: int) -> void:
 	_width = new_width
-
-	if Engine.is_editor_hint():
-		_update_base()
-		_update_top()
-		_update_volume()
+	_update_components()
 
 
 func _set_length(new_length: int) -> void:
 	_length = new_length
-
-	if Engine.is_editor_hint():
-		_update_base()
-		_update_top()
-		_update_volume()
-		_update_rise()
+	_update_components()
 
 
 func _set_angle(new_angle: int) -> void:
 	_angle = new_angle
+	_update_components()
 
-	if Engine.is_editor_hint():
-		_update_base()
-		_update_top()
-		_update_volume()
-		_update_rise()
+
+func _update_components() -> void:
+	if not ready:
+		return
+	
+	_update_base()
+	_update_top()
+	_update_volume()
+	_update_rise()
 
 
 func _update_base() -> void:

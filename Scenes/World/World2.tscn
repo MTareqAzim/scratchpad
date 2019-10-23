@@ -9,7 +9,6 @@
 [node name="World" type="Node"]
 
 [node name="StaticSlope2P5D" parent="." instance=ExtResource( 1 )]
-editor/display_folded = true
 position = Vector2( 197, 255 )
 _height = 80
 _width = 100
@@ -132,7 +131,6 @@ polygons = [ PoolVector2Array( -67, -10, 87, -10, 87, 59, -67, 59 ) ]
 [node name="Player" parent="." instance=ExtResource( 3 )]
 editor/display_folded = true
 position = Vector2( 492, 524 )
-GRAVITY = 980
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

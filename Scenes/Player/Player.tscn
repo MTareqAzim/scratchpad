@@ -81,6 +81,7 @@ MAX_SPEED = 300
 GRAVITY = 2000
 
 [node name="Jump" type="Node" parent="StateMachine" index="4"]
+editor/display_folded = true
 script = ExtResource( 8 )
 state_name = "jump"
 push_down = true
@@ -137,6 +138,7 @@ DASH_DISTANCE = -300
 [node name="Timer" type="Timer" parent="StateMachine/Retreat" index="0"]
 
 [node name="Crouch" type="Node" parent="StateMachine" index="7"]
+editor/display_folded = true
 script = ExtResource( 14 )
 state_name = "crouch"
 push_down = true

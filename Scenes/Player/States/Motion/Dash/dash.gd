@@ -7,7 +7,6 @@ export (float) var DASH_DURATION := 0.5
 onready var _timer = $Timer
 
 var _direction : Vector2
-var _enter_velocity : Vector3
 var _prev_distance : float
 
 func _ready():
