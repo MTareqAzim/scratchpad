@@ -4,7 +4,7 @@ extends StaticBody2P5D
 export (int) var _z_pos: = 0 setget _set_z, get_z_pos
 export (int) var _height: = 0 setget _set_height, get_height
 
-var _first_time: = [true, true]
+var _first_time: = [true]
 
 func get_z_pos() -> int:
 	return _z_pos
@@ -42,12 +42,8 @@ func _set_z(new_z: int) -> void:
 
 func _set_height(new_height: int) -> void:
 	_height = new_height
-	
-	if _first_time[1]:
-		_first_time[1] = false
-	else:
-		_update_volume()
-		_update_top()
+	_update_volume()
+	_update_top()
 
 
 #Editor functions

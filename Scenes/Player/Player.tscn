@@ -36,7 +36,7 @@ _data = [ Vector2( 0, 0 ), 0.0, 1.23948, 0, 1, Vector2( 0.806793, 1 ), 1.23948, 
 radius = 20.0
 height = 32.0
 
-[node name="Player" index="0" instance=ExtResource( 1 )]
+[node name="Player" instance=ExtResource( 1 )]
 position = Vector2( 0, 0 )
 script = ExtResource( 2 )
 MAX_SPEED = 2000

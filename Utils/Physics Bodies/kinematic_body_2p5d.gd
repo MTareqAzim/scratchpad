@@ -15,7 +15,6 @@ export (int) var _height := 0 setget set_height, get_height
 
 var _z_pos : int
 var _velocity := Vector3() setget set_velocity, get_velocity
-var _first := true
 
 func _physics_process(delta: float) -> void:
 	if not Engine.is_editor_hint():
@@ -37,11 +36,8 @@ func get_grav() -> int:
 
 
 func set_height(new_height: int) -> void:
-	if _first:
-		_first = false
-	else:
-		_height = new_height
-		_update_volume_shape()
+	_height = new_height
+	_update_volume_shape()
 
 
 func get_height() -> int:

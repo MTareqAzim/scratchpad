@@ -9,9 +9,9 @@ func _ready():
 
 func set_polygon(polygon: PoolVector2Array) -> void:
 	.set_polygon(polygon)
-	emit_signal("polygon_changed")
 	_convex_decomposition()
 	_visualize_components()
+	emit_signal("polygon_changed")
 
 
 func _convex_decomposition() -> void:

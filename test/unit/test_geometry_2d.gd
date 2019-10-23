@@ -67,6 +67,36 @@ class TestGeometry2DCentroid:
 		
 		return translated_points
 
+class TestGeometry2DRotateAboutPoint:
+	extends "res://addons/gut/test.gd"
+	
+	func test_rotate_about_origin():
+		var point = Vector2(1, 0)
+		var pivot = Vector2()
+		
+		var rotated_point = Geometry2D.rotate_about_point(point, pivot, 90.0)
+		assert_almost_eq(rotated_point.x, 0.0, 0.00001, str(rotated_point) + " not close to (0, -1)")
+		assert_almost_eq(rotated_point.y, -1.0, 0.00001, str(rotated_point) + " not close to (0, -1)")
+		
+		rotated_point = Geometry2D.rotate_about_point(point, pivot, 45.0)
+		assert_eq(rotated_point, Vector2(sqrt(2)/2, -sqrt(2)/2))
+		
+		rotated_point = Geometry2D.rotate_about_point(point, pivot, -135.0)
+		assert_eq(rotated_point, Vector2(-sqrt(2)/2, sqrt(2)/2))
+	
+	func test_rotate_about_point():
+		var point = Vector2(6, 4)
+		var pivot = Vector2(5, 4)
+		
+		var rotated_point = Geometry2D.rotate_about_point(point, pivot, 90.0)
+		assert_eq(rotated_point, Vector2(5, 3))
+		
+		rotated_point = Geometry2D.rotate_about_point(point, pivot, 45.0)
+		assert_eq(rotated_point, Vector2(5 + sqrt(2)/2, 4 -sqrt(2)/2))
+		
+		rotated_point = Geometry2D.rotate_about_point(point, pivot, -135.0)
+		assert_eq(rotated_point, Vector2(5 -sqrt(2)/2, 4 + sqrt(2)/2))
+
 class TestGeometry2DPointInPolygon:
 	extends "res://addons/gut/test.gd"
 	
