@@ -1,0 +1,176 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Utils/Physics Bodies/KinematicBody2P5D.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Player/player.gd" type="Script" id=2]
+[ext_resource path="res://Utils/State Machine/state_machine.gd" type="Script" id=3]
+[ext_resource path="res://Utils/State Machine/State/component_state.gd" type="Script" id=4]
+[ext_resource path="res://Utils/State Machine/State/State Components/Kinematic State Components/Update/move_state_component.gd" type="Script" id=5]
+[ext_resource path="res://Utils/State Machine/State/State Components/Kinematic State Components/Update/Transitions/not_equals_transition_kinematic_state_component.gd" type="Script" id=6]
+[ext_resource path="res://Utils/State Machine/State/State Components/Input Transitions/pressed_transition_state_component.gd" type="Script" id=7]
+[ext_resource path="res://Scenes/Player/States/State Components/Player State Components/look_direction_state_component.gd" type="Script" id=8]
+[ext_resource path="res://Utils/State Machine/State/State Components/Kinematic State Components/Update/Transitions/equals_transition_kinematic_state_component.gd" type="Script" id=9]
+[ext_resource path="res://Utils/State Machine/State/State Components/Kinematic State Components/Enter/modify_int_enter_kinematic_state_component.gd" type="Script" id=10]
+[ext_resource path="res://Utils/State Machine/State/State Components/Kinematic State Components/Update/Transitions/greater_than_transition_kinematic_state_component.gd" type="Script" id=11]
+[ext_resource path="res://Scenes/Player/States/State Components/jump_calculator.gd" type="Script" id=12]
+[ext_resource path="res://Scenes/Scratch/StatesStackDiplayer.tscn" type="PackedScene" id=13]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 25, 65 )
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 28.0
+
+[node name="Player2" index="0" instance=ExtResource( 1 )]
+position = Vector2( 483, 343 )
+script = ExtResource( 2 )
+MAX_SPEED = 2000
+_height = 100
+
+[node name="VolumeShape" parent="." index="0"]
+position = Vector2( 0, -50 )
+shape = SubResource( 1 )
+
+[node name="BaseSkin" parent="." index="1"]
+shape = SubResource( 2 )
+
+[node name="BaseShape" parent="." index="2"]
+polygon = PoolVector2Array( -20, -10, 20, -10, 20, 10, -20, 10 )
+polygons = [ PoolVector2Array( -20, -10, 20, -10, 20, 10, -20, 10 ) ]
+
+[node name="StateMachine" type="Node" parent="." index="3"]
+script = ExtResource( 3 )
+START_STATE = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" index="0"]
+editor/display_folded = true
+script = ExtResource( 4 )
+state_name = "idle"
+
+[node name="Move" type="Node" parent="StateMachine/Idle" index="0"]
+script = ExtResource( 5 )
+_body_path = NodePath("../../..")
+MAX_SPEED = 300
+
+[node name="Move Transition" type="Node" parent="StateMachine/Idle" index="1"]
+script = ExtResource( 6 )
+_body_path = NodePath("../../..")
+FUNCTION_NAME = "get_velocity_2d"
+not_equals = "(0, 0)"
+NEXT_STATE = "move"
+
+[node name="Fall Transition" type="Node" parent="StateMachine/Idle" index="2"]
+script = ExtResource( 6 )
+_body_path = NodePath("../../..")
+FUNCTION_NAME = "is_grounded"
+not_equals = "True"
+NEXT_STATE = "fall"
+
+[node name="A Press Transition" type="Node" parent="StateMachine/Idle" index="3"]
+script = ExtResource( 7 )
+ACTION = "ui_a"
+NEXT_STATE = "jump"
+
+[node name="Look Direction" type="Node" parent="StateMachine/Idle" index="4"]
+script = ExtResource( 8 )
+player = NodePath("../../..")
+
+[node name="Move" type="Node" parent="StateMachine" index="1"]
+editor/display_folded = true
+script = ExtResource( 4 )
+state_name = "move"
+
+[node name="Move" type="Node" parent="StateMachine/Move" index="0"]
+script = ExtResource( 5 )
+_body_path = NodePath("../../..")
+MAX_SPEED = 300
+
+[node name="Idle Transition" type="Node" parent="StateMachine/Move" index="1"]
+script = ExtResource( 9 )
+_body_path = NodePath("../../..")
+FUNCTION_NAME = "get_velocity_2d"
+equals = "(0, 0)"
+NEXT_STATE = "idle"
+
+[node name="Fall Transition" type="Node" parent="StateMachine/Move" index="2"]
+script = ExtResource( 6 )
+_body_path = NodePath("../../..")
+FUNCTION_NAME = "is_grounded"
+not_equals = "True"
+NEXT_STATE = "fall"
+
+[node name="A Press Transition" type="Node" parent="StateMachine/Move" index="3"]
+script = ExtResource( 7 )
+ACTION = "ui_a"
+NEXT_STATE = "jump"
+
+[node name="Look Direction" type="Node" parent="StateMachine/Move" index="4"]
+script = ExtResource( 8 )
+player = NodePath("../../..")
+
+[node name="Fall" type="Node" parent="StateMachine" index="2"]
+editor/display_folded = true
+script = ExtResource( 4 )
+state_name = "fall"
+push_down = true
+
+[node name="Move" type="Node" parent="StateMachine/Fall" index="0"]
+script = ExtResource( 5 )
+_body_path = NodePath("../../..")
+MAX_SPEED = 300
+
+[node name="Grounded Transition2" type="Node" parent="StateMachine/Fall" index="1"]
+script = ExtResource( 9 )
+_body_path = NodePath("../../..")
+FUNCTION_NAME = "is_grounded"
+equals = "True"
+NEXT_STATE = "previous"
+
+[node name="Enter Gravity" type="Node" parent="StateMachine/Fall" index="2"]
+script = ExtResource( 10 )
+_body_path = NodePath("../../..")
+FUNCTION_NAME = "set_grav"
+new_value = 2000
+
+[node name="Look Direction" type="Node" parent="StateMachine/Fall" index="3"]
+script = ExtResource( 8 )
+player = NodePath("../../..")
+
+[node name="Jump" type="Node" parent="StateMachine" index="3"]
+editor/display_folded = true
+script = ExtResource( 4 )
+state_name = "jump"
+push_down = true
+
+[node name="Move" type="Node" parent="StateMachine/Jump" index="0"]
+script = ExtResource( 5 )
+_body_path = NodePath("../../..")
+MAX_SPEED = 300
+
+[node name="Fall Transition" type="Node" parent="StateMachine/Jump" index="1"]
+script = ExtResource( 11 )
+_body_path = NodePath("../../..")
+FUNCTION_NAME = "get_z_velocity"
+NEXT_STATE = "previous"
+
+[node name="Look Direction" type="Node" parent="StateMachine/Jump" index="2"]
+script = ExtResource( 8 )
+player = NodePath("../../..")
+
+[node name="Jump Calculator" type="Node" parent="StateMachine/Jump" index="3"]
+script = ExtResource( 12 )
+MAX_JUMP_HEIGHT = 200
+
+[node name="Enter Gravity" type="Node" parent="StateMachine/Jump/Jump Calculator" index="0"]
+script = ExtResource( 10 )
+_body_path = NodePath("../../../..")
+FUNCTION_NAME = "set_grav"
+
+[node name="Enter Z Velocity" type="Node" parent="StateMachine/Jump/Jump Calculator" index="1"]
+script = ExtResource( 10 )
+_body_path = NodePath("../../../..")
+FUNCTION_NAME = "set_z_velocity"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="4"]
+
+[node name="StatesStackDiplayer" parent="CanvasLayer" index="0" instance=ExtResource( 13 )]
+[connection signal="state_changed" from="StateMachine" to="CanvasLayer/StatesStackDiplayer" method="_on_StateMachine_state_changed"]

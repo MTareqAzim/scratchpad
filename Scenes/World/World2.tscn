@@ -1,15 +1,15 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Utils/Physics Bodies/StaticSlope2P5D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Utils/Physics Bodies/StaticWall2P5D.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scenes/Scratch/StatesStackDiplayer.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/Input UI/InputUIBase.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Player/Player2.tscn" type="PackedScene" id=3]
 
 [node name="World" type="Node"]
 
 [node name="StaticSlope2P5D" parent="." instance=ExtResource( 1 )]
+editor/display_folded = true
 position = Vector2( 197, 255 )
+_z_pos = 0
 _height = 80
 _width = 100
 _length = 300
@@ -35,9 +35,11 @@ cast_to = Vector2( -212.132, -292.132 )
 [node name="StaticSlope2P5D2" parent="." instance=ExtResource( 1 )]
 editor/display_folded = true
 position = Vector2( 408, 264 )
+_z_pos = 0
 _height = 80
 _width = 100
 _length = 300
+_angle = 0
 
 [node name="DistToGround" parent="StaticSlope2P5D2" index="0"]
 visible = false
@@ -60,6 +62,7 @@ cast_to = Vector2( 0, -380 )
 [node name="StaticSlope2P5D3" parent="." instance=ExtResource( 1 )]
 editor/display_folded = true
 position = Vector2( 565, 260 )
+_z_pos = 0
 _height = 80
 _width = 100
 _length = 300
@@ -85,6 +88,7 @@ cast_to = Vector2( -3.67382e-014, 220 )
 [node name="StaticSlope2P5D4" parent="." instance=ExtResource( 1 )]
 editor/display_folded = true
 position = Vector2( 798, 258 )
+_z_pos = 0
 _height = 80
 _width = 100
 _length = 300
@@ -108,6 +112,7 @@ position = Vector2( -106.066, -106.066 )
 cast_to = Vector2( 212.132, 132.132 )
 
 [node name="StaticWall2P5D" parent="." instance=ExtResource( 2 )]
+editor/display_folded = true
 position = Vector2( 318, 692 )
 _z_pos = -20
 _height = 40
@@ -127,28 +132,9 @@ polygon = PoolVector2Array( -67, -50, 87, -50, 87, 59, -67, 59 )
 polygon = PoolVector2Array( -67, -10, 87, -10, 87, 59, -67, 59 )
 polygons = [ PoolVector2Array( -67, -10, 87, -10, 87, 59, -67, 59 ) ]
 
-[node name="Player" parent="." instance=ExtResource( 3 )]
-editor/display_folded = true
-position = Vector2( 492, 524 )
+[node name="Player2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 573, 474 )
 GRAVITY = 980
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="StatesStackDiplayer" parent="CanvasLayer" instance=ExtResource( 4 )]
-margin_top = 1.0
-margin_bottom = 171.0
-
-[node name="InputUIBase" parent="CanvasLayer" instance=ExtResource( 5 )]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -293.0
-margin_top = -152.0
-margin_right = -177.0
-margin_bottom = -32.0
-[connection signal="state_changed" from="Player/StateMachine" to="CanvasLayer/StatesStackDiplayer" method="_on_StateMachine_state_changed"]
-[connection signal="state_changed" from="Player/StateMachine" to="CanvasLayer/InputUIBase" method="_on_StateMachine_state_changed"]
 
 [editable path="StaticSlope2P5D"]
 
@@ -159,5 +145,3 @@ margin_bottom = -32.0
 [editable path="StaticSlope2P5D4"]
 
 [editable path="StaticWall2P5D"]
-
-[editable path="Player"]

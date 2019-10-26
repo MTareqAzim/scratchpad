@@ -74,6 +74,20 @@ static func bounding_box(points: Array) -> Rect2:
 	return Rect2(Vector2(min_x, min_y), size)
 
 
+static func rect_to_array(rect: Rect2) -> Array:
+	var points = []
+	
+	if rect.size == Vector2.ZERO:
+		points = [rect.position]
+	else:
+		points = [rect.position,
+				rect.position + Vector2(rect.size.x, 0),
+				rect.position + rect.size,
+				rect.position + Vector2(0, rect.size.y)]
+	
+	return points
+
+
 static func _area(points: Array) -> float:
 	var area := 0.0
 	

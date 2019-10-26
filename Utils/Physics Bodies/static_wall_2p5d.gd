@@ -4,11 +4,11 @@ extends StaticBody2P5D
 export (int) var _z_pos: = 0 setget _set_z, get_z_pos
 export (int) var _height: = 0 setget _set_height, get_height
 
-onready var base_shape = $BaseShape
-onready var top_shape = $TopShape
-onready var volume_shape = $VolumeShape
-onready var dist_to_ground = $DistToGround
-onready var ready := true
+onready var _base_shape = $BaseShape
+onready var _top_shape = $TopShape
+onready var _volume_shape = $VolumeShape
+onready var _dist_to_ground = $DistToGround
+onready var _ready := true
 
 func get_z_pos() -> int:
 	return _z_pos
@@ -19,11 +19,14 @@ func get_height() -> int:
 
 
 func get_base_shapes(z_pos: int) -> Array:
-	return base_shape.get_polygons()
+	if z_pos < _z_pos - _height or z_pos > _z_pos:
+		return []
+	
+	return _base_shape.get_polygons()
 
 
 func get_base_transform() -> Transform2D:
-	return base_shape.get_global_transform()
+	return _base_shape.get_global_transform()
 
 
 func get_top_z_pos(points: Array) -> int:
@@ -34,7 +37,7 @@ func _set_z(new_z: int) -> void:
 	var diff = _z_pos - new_z
 	_z_pos = new_z
 	
-	if ready:
+	if _ready:
 		translate(Vector2(0, -diff))
 		_update_dist_to_ground()
 
@@ -46,7 +49,7 @@ func _set_height(new_height: int) -> void:
 
 #Editor functions
 func _update_components() -> void:
-	if not ready:
+	if not _ready:
 		return
 	
 	_update_top()
@@ -54,28 +57,27 @@ func _update_components() -> void:
 
 
 func _update_volume() -> void:
-	var points: Array = base_shape.polygon
+	var points: Array = _base_shape.get_polygon()
 	var bounding_box: Rect2 = Geometry2D.bounding_box(points)
 	
-	var vector_array = [bounding_box.position + Vector2(0, -_height),
-			bounding_box.position + Vector2(bounding_box.size.x, -_height),
-			bounding_box.position + bounding_box.size,
-			bounding_box.position + Vector2(0, bounding_box.size.y)]
+	var vector_array = Geometry2D.rect_to_array(bounding_box)
+	vector_array[0] += Vector2(0, -_height)
+	vector_array[1] += Vector2(0, -_height)
 	
-	volume_shape.polygon = PoolVector2Array(vector_array)
-	volume_shape.position = base_shape.position
+	_volume_shape.set_polygon(vector_array)
+	_volume_shape.set_position(_base_shape.get_position())
 
 
 func _update_top() -> void:
-	top_shape.polygon = base_shape.polygon
-	top_shape.position = base_shape.position - Vector2(0, _height)
+	_top_shape.set_polygon(_base_shape.get_polygon())
+	_top_shape.set_position(_base_shape.get_position() - Vector2(0, _height))
 
 
 func _update_dist_to_ground() -> void:
-	dist_to_ground.set_cast_to(Vector2(0, -_z_pos))
-	dist_to_ground.visible = dist_to_ground.cast_to != Vector2.ZERO
+	_dist_to_ground.set_cast_to(Vector2(0, -_z_pos))
+	_dist_to_ground.set_visible(_dist_to_ground.cast_to != Vector2.ZERO)
 
 
 func _on_CompositePolygon2D_polygon_changed():
-	if Engine.is_editor_hint():
+	if _ready:
 		call_deferred("_update_components")

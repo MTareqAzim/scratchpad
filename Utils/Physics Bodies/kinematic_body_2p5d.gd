@@ -56,6 +56,23 @@ func get_velocity() -> Vector3:
 	return _velocity
 
 
+func set_velocity_2d(velocity_2d) -> void:
+	_velocity.x = velocity_2d.x
+	_velocity.y = velocity_2d.y
+
+
+func get_velocity_2d() -> Vector2:
+	return Vector2(_velocity.x, _velocity.y)
+
+
+func set_z_velocity(z_velocity: int) -> void:
+	_velocity.z = z_velocity
+
+
+func get_z_velocity() -> int:
+	return int(_velocity.z)
+
+
 func is_grounded() -> bool:
 	#Is inside a wall or on floor?
 	for collision in get_overlapping_areas():
@@ -248,24 +265,24 @@ func _get_base_collision_points(delta_movement_2D: Vector2, other_base: Array, o
 #Editor Functions
 func _update_base_skin() -> void:
 	var base_skin = $BaseSkin
-	var base_shape = $BaseShape.polygon
+	var base_shape = $BaseShape.get_polygon()
 	
 	var bounding_box = Geometry2D.bounding_box(base_shape)
 	var extents = bounding_box.size / 2.0
 	
-	base_skin.shape.radius = BASE_SKIN_RADIUS + max(extents.x, extents.y)
-	base_skin.position = Geometry2D.centroid(base_shape)
+	base_skin.shape.set_radius(BASE_SKIN_RADIUS + max(extents.x, extents.y))
+	base_skin.set_position(Geometry2D.centroid(base_shape))
 
 
 func _update_volume_shape() -> void:
 	var volume_shape = $VolumeShape
-	var base_shape = $BaseShape.polygon
+	var base_shape = $BaseShape.get_polygon()
 	
 	var bounding_box = Geometry2D.bounding_box(base_shape)
 	var extents = bounding_box.size / 2.0
 	
-	volume_shape.shape.extents = extents + Vector2(0, _height/2.0) + Vector2(VOLUME_SKIN_WIDTH, VOLUME_SKIN_WIDTH)
-	volume_shape.position = Geometry2D.centroid(base_shape) - Vector2(0, _height/2.0)
+	volume_shape.shape.set_extents(extents + Vector2(0, _height/2.0) + Vector2(VOLUME_SKIN_WIDTH, VOLUME_SKIN_WIDTH))
+	volume_shape.set_position(Geometry2D.centroid(base_shape) - Vector2(0, _height/2.0))
 
 
 func _on_BaseShape_polygon_changed():

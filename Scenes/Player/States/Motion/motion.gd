@@ -1,4 +1,4 @@
-extends "../player_state.gd"
+extends State
 
 export (NodePath) var action_buffer_path
 

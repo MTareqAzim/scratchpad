@@ -154,3 +154,36 @@ class TestGeometry2DBoundingRect:
 		var bounding_box = Geometry2D.bounding_box(points)
 		var expected_box = Rect2(Vector2(-6, -6), Vector2(12, 10))
 		assert_eq(bounding_box, expected_box)
+
+class TestGeometry2DRectToArray:
+	extends "res://addons/gut/test.gd"
+	
+	func test_empty_rect():
+		var rect = Rect2(Vector2(), Vector2())
+		var array = Geometry2D.rect_to_array(rect)
+		
+		assert_eq(array, [Vector2()], "Size 0 rect not returning a point.")
+	
+	func test_unit_square():
+		var rect = Rect2(Vector2(), Vector2(1, 1))
+		var array = Geometry2D.rect_to_array(rect)
+		
+		var expected_points = [Vector2(0, 0), Vector2(1, 0),
+				Vector2(1, 1), Vector2(0, 1)]
+		assert_eq(array, expected_points, "Unit square at position (0,0) not being returned")
+	
+	func test_rectangle():
+		var rect = Rect2(Vector2(-3, -5), Vector2(20, 7))
+		var array = Geometry2D.rect_to_array(rect)
+		
+		var expected_points = [Vector2(-3, -5), Vector2(17, -5),
+				Vector2(17, 2), Vector2(-3, 2)]
+		assert_eq(array, expected_points)
+	
+	func test_negative_size():
+		var rect = Rect2(Vector2(3, 3), Vector2(-4, -6))
+		var array = Geometry2D.rect_to_array(rect)
+		
+		var expected_points = [Vector2(3, 3), Vector2(-1, 3),
+				Vector2(-1, -3), Vector2(3, -3)]
+		assert_eq(array, expected_points)

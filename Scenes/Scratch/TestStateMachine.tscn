@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Utils/State Machine/state_machine.gd" type="Script" id=1]
+[ext_resource path="res://Utils/State Machine/State/component_state.gd" type="Script" id=2]
+[ext_resource path="res://Utils/State Machine/State/State Components/Input Transitions/pressed_transition_state_component.gd" type="Script" id=3]
+[ext_resource path="res://Utils/State Machine/State/State Components/Input Transitions/released_transition_state_component.gd" type="Script" id=4]
+[ext_resource path="res://Scenes/Scratch/StatesStackDiplayer.tscn" type="PackedScene" id=5]
+
+[node name="World" type="Node2D"]
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 1 )
+START_STATE = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource( 2 )
+state_name = "idle"
+
+[node name="PressedTransitionStateComponent" type="Node" parent="StateMachine/Idle"]
+script = ExtResource( 3 )
+ACTION = "ui_left"
+NEXT_STATE = "pressed"
+
+[node name="Pressed" type="Node" parent="StateMachine"]
+script = ExtResource( 2 )
+state_name = "pressed"
+
+[node name="ReleasedTransitionStateComponent" type="Node" parent="StateMachine/Pressed"]
+script = ExtResource( 4 )
+ACTION = "ui_right"
+NEXT_STATE = "idle"
+
+[node name="StatesStackDiplayer" parent="." instance=ExtResource( 5 )]
+[connection signal="state_changed" from="StateMachine" to="StatesStackDiplayer" method="_on_StateMachine_state_changed"]

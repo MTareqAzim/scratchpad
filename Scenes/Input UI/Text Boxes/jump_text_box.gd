@@ -3,7 +3,7 @@ extends NinePatchRect
 onready var label = $Label
 onready var grayed = $Grayed
 
-var latest_jump := ""
+var latest_jump := "jump"
 var prev_state
 
 func state_changed(new_state: State) -> void:

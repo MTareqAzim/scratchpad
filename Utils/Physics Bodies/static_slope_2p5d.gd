@@ -9,12 +9,12 @@ export (int) var _width := 20 setget _set_width
 export (int) var _length := 20 setget _set_length
 export (int, 0, 315, 45) var _angle := 0 setget _set_angle
 
-onready var base_shape = $BaseShape
-onready var top_shape = $TopShape
-onready var volume_shape = $VolumeShape
-onready var rise = $Rise
-onready var dist_to_ground = $DistToGround
-onready var ready := true
+onready var _base_shape = $BaseShape
+onready var _top_shape = $TopShape
+onready var _volume_shape = $VolumeShape
+onready var _rise = $Rise
+onready var _dist_to_ground = $DistToGround
+onready var _ready := true
 
 
 func get_z_pos() -> int:
@@ -33,7 +33,7 @@ func get_base_shapes(z_pos: int) -> Array:
 		var percent = (1.0 - z_diff / _height) * 100.0
 		
 		if percent <= 0:
-			pass
+			shapes = []
 		elif percent >= 100:
 			shapes = [$BaseShape.polygon]
 		else:
@@ -46,6 +46,7 @@ func get_top_z_pos(points: Array) -> int:
 	var altitude = 0
 	
 	for point in points:
+		point = to_local(point)
 		altitude = max(altitude, _get_altitude(point))
 	
 	var fraction = 1.0 * altitude / _length
@@ -53,13 +54,12 @@ func get_top_z_pos(points: Array) -> int:
 
 
 func get_base_transform() -> Transform2D:
-	return base_shape.get_global_transform()
+	return _base_shape.get_global_transform()
 
 
 func _get_altitude(pos: Vector2) -> float:
-	pos = to_local(pos)
-	var br = base_shape.polygon[2]
-	var bl = base_shape.polygon[3]
+	var br = _base_shape.polygon[2]
+	var bl = _base_shape.polygon[3]
 	
 	var area = Geometry2D.area([br, bl, pos])
 	var width = br.distance_to(bl)
@@ -69,7 +69,7 @@ func _get_altitude(pos: Vector2) -> float:
 
 
 func _get_percent_base(percent: float) -> Array:
-	var points = base_shape.polygon
+	var points = _base_shape.polygon
 	var dir_vector = points[2] - points[1]
 	dir_vector = (dir_vector * percent / 100).round()
 	
@@ -83,7 +83,7 @@ func _set_z_pos(new_z: int) -> void:
 	var diff = _z_pos - new_z
 	_z_pos = new_z
 	
-	if ready:
+	if _ready:
 		translate(Vector2(0, -diff))
 		_update_dist_to_ground()
 
@@ -109,7 +109,7 @@ func _set_angle(new_angle: int) -> void:
 
 
 func _update_components() -> void:
-	if not ready:
+	if not _ready:
 		return
 	
 	_update_base()
@@ -119,54 +119,54 @@ func _update_components() -> void:
 
 
 func _update_base() -> void:
-	var extents = Vector2(_width/2.0, _length/2.0)
+	var start_point = Vector2(-_width/2.0, -_length/2.0)
+	var size = Vector2(_width, _length)
+	var rect = Rect2(start_point, size)
+	var points = Geometry2D.rect_to_array(rect)
 	
-	var top_left = Geometry2D.rotate_about_point(Vector2(-extents.x, -extents.y), Vector2(), _angle)
-	var top_right = Geometry2D.rotate_about_point(Vector2(extents.x, -extents.y), Vector2(), _angle)
-	var bottom_right = Geometry2D.rotate_about_point(Vector2(extents.x, extents.y), Vector2(), _angle)
-	var bottom_left = Geometry2D.rotate_about_point(Vector2(-extents.x, extents.y), Vector2(), _angle)
+	for i in points.size():
+		points[i] = Geometry2D.rotate_about_point(points[i], Vector2(), _angle)
 	
-	base_shape.polygon = PoolVector2Array([top_left, top_right, bottom_right, bottom_left])
+	_base_shape.set_polygon(points)
 
 
 func _update_top() -> void:
-	var top_left = base_shape.polygon[0] - Vector2(0, _height)
-	var top_right = base_shape.polygon[1] - Vector2(0, _height)
-	var bottom_right = base_shape.polygon[2]
-	var bottom_left = base_shape.polygon[3]
+	var points = _base_shape.get_polygon()
+	points[0] += Vector2(0, -_height)
+	points[1] += Vector2(0, -_height)
 	
-	top_shape.polygon = PoolVector2Array([top_left, top_right, bottom_right, bottom_left])
+	_top_shape.set_polygon(points)
 
 
 func _update_volume() -> void:
 	var vector_array = []
 	
 	if [0, 45, 225, 270, 315].has(_angle):
-		vector_array.append(top_shape.polygon[0])
+		vector_array.append(_top_shape.polygon[0])
 	if [90, 135, 180, 225].has(_angle):
-		vector_array.append(base_shape.polygon[0])
+		vector_array.append(_base_shape.polygon[0])
 	if [135, 180, 225, 270].has(_angle):
-		vector_array.append(base_shape.polygon[1])
+		vector_array.append(_base_shape.polygon[1])
 	if [0, 45, 90, 135, 315].has(_angle):
-		vector_array.append(top_shape.polygon[1])
+		vector_array.append(_top_shape.polygon[1])
 	if [315].has(_angle):
-		vector_array.append(base_shape.polygon[1])
-	vector_array.append(base_shape.polygon[2])
-	vector_array.append(base_shape.polygon[3])
+		vector_array.append(_base_shape.polygon[1])
+	vector_array.append(_base_shape.polygon[2])
+	vector_array.append(_base_shape.polygon[3])
 	if [45].has(_angle):
-		vector_array.append(base_shape.polygon[0])
+		vector_array.append(_base_shape.polygon[0])
 	
-	volume_shape.polygon = PoolVector2Array(vector_array)
+	_volume_shape.set_polygon(vector_array)
 
 
 func _update_rise() -> void:
 	var start = Geometry2D.rotate_about_point(Vector2(0, _length/2.0), Vector2(), _angle)
 	var stop = Geometry2D.rotate_about_point(Vector2(0, -_length), Vector2(), _angle) - Vector2(0, _height)
 	
-	rise.position = start
-	rise.set_cast_to(stop)
+	_rise.set_position(start)
+	_rise.set_cast_to(stop)
 
 
 func _update_dist_to_ground() -> void:
-	dist_to_ground.set_cast_to(Vector2(0, -_z_pos))
-	dist_to_ground.visible = dist_to_ground.cast_to != Vector2.ZERO
+	_dist_to_ground.set_cast_to(Vector2(0, -_z_pos))
+	_dist_to_ground.set_visible(_dist_to_ground.cast_to != Vector2.ZERO)
