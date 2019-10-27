@@ -3,9 +3,9 @@ class_name ActionBuffer, "action-buffer-icon.png"
 
 export (int) var FRAME_BUFFER_LIMIT := 60
 
-var action_buffer: Dictionary = {}
+var action_buffer : Dictionary = {}
 
-func _physics_process(delta):
+func _physics_process(delta: float) -> void:
 	for key in action_buffer:
 		action_buffer[key] += 1
 	

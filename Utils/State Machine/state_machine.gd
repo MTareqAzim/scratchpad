@@ -57,18 +57,19 @@ func _append_states(node: Node) -> void:
 			_append_states(child)
 
 
-func _unhandled_input(event):
-	current_state.handle_input(event)
-
-func handle_input(event):
+func _unhandled_input(event) -> void:
 	current_state.handle_input(event)
 
 
-func _physics_process(delta):
+func handle_input(event) -> void:
+	current_state.handle_input(event)
+
+
+func _physics_process(delta: float) -> void:
 	current_state.update(delta)
 
 
-func _change_state(state_name):
+func _change_state(state_name: String) -> void:
 	if not _active:
 		return
 	

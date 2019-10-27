@@ -1,6 +1,13 @@
 tool
 extends StaticBody2P5D
 
+onready var _base_shape = $BaseShape
+onready var _top_shape = $TopShape
+onready var _volume_shape = $VolumeShape
+onready var _rise = $Rise
+onready var _dist_to_ground = $DistToGround
+onready var _ready := true
+
 const SKIN_WIDTH := 3
 
 export (int) var _z_pos := 0 setget _set_z_pos, get_z_pos
@@ -8,13 +15,6 @@ export (int) var _height := 0 setget _set_height, get_height
 export (int) var _width := 20 setget _set_width
 export (int) var _length := 20 setget _set_length
 export (int, 0, 315, 45) var _angle := 0 setget _set_angle
-
-onready var _base_shape = $BaseShape
-onready var _top_shape = $TopShape
-onready var _volume_shape = $VolumeShape
-onready var _rise = $Rise
-onready var _dist_to_ground = $DistToGround
-onready var _ready := true
 
 
 func get_z_pos() -> int:

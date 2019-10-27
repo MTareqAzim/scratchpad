@@ -1,8 +1,9 @@
 extends Control
 
+onready var animation_player = $Sprite/AnimationPlayer
+
 export (String) var ACTION := ""
 
-onready var animation_player = $Sprite/AnimationPlayer
 
 func _input(event):
 	animate_button(ACTION, event) 

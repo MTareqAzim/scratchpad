@@ -1,14 +1,15 @@
 tool
 extends StaticBody2P5D
 
-export (int) var _z_pos: = 0 setget _set_z, get_z_pos
-export (int) var _height: = 0 setget _set_height, get_height
-
 onready var _base_shape = $BaseShape
 onready var _top_shape = $TopShape
 onready var _volume_shape = $VolumeShape
 onready var _dist_to_ground = $DistToGround
 onready var _ready := true
+
+export (int) var _z_pos: = 0 setget _set_z, get_z_pos
+export (int) var _height: = 0 setget _set_height, get_height
+
 
 func get_z_pos() -> int:
 	return _z_pos
@@ -78,6 +79,6 @@ func _update_dist_to_ground() -> void:
 	_dist_to_ground.set_visible(_dist_to_ground.cast_to != Vector2.ZERO)
 
 
-func _on_CompositePolygon2D_polygon_changed():
+func _on_CompositePolygon2D_polygon_changed() -> void:
 	if _ready:
 		call_deferred("_update_components")

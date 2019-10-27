@@ -1,9 +1,9 @@
 extends PlayerStateComponent
 class_name LookDirectionStateComponent
 
-export (NodePath) var player
+onready var _player : KinematicBody2P5D = get_node(player)
 
-onready var _player = get_node(player)
+export (NodePath) var player
 
 
 func update(delta: float) -> void:

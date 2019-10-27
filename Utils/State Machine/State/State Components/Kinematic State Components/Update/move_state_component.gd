@@ -1,7 +1,7 @@
 extends KinematicStateComponent
 class_name MoveStateComponent, "move_state_component.png"
 
-export (int) var MAX_SPEED := 0
+export (int) var max_speed := 0
 
 func handle_input(event) -> void:
 	if event.is_action_pressed("ui_right") \
@@ -13,7 +13,7 @@ func handle_input(event) -> void:
 
 func update(delta: float) -> void:
 	var input_direction = _get_input_direction()
-	_move_2d(input_direction, MAX_SPEED)
+	_move_2d(input_direction, max_speed)
 
 
 func _get_input_direction() -> Vector2:

@@ -4,7 +4,7 @@ class_name CompositePolygon2D
 
 signal polygon_changed()
 
-func _ready():
+func _ready() -> void:
 	_visualize_components()
 
 func set_polygon(polygon: PoolVector2Array) -> void:

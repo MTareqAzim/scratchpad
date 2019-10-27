@@ -1,8 +1,8 @@
 extends NinePatchRect
 
-onready var label = $Label
-onready var grayed = $Grayed
-onready var greened = $Greened
+onready var label : Label = $Label
+onready var grayed : Sprite = $Grayed
+onready var greened : Sprite = $Greened
 
 func state_changed(new_state: State) -> void:
 	match new_state.state_name:

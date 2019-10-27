@@ -112,6 +112,7 @@ editor/display_folded = true
 script = ExtResource( 4 )
 state_name = "fall"
 push_down = true
+overwrite = true
 
 [node name="Move" type="Node" parent="StateMachine/Fall" index="0"]
 script = ExtResource( 5 )
@@ -136,7 +137,6 @@ script = ExtResource( 8 )
 player = NodePath("../../..")
 
 [node name="Jump" type="Node" parent="StateMachine" index="3"]
-editor/display_folded = true
 script = ExtResource( 4 )
 state_name = "jump"
 push_down = true
@@ -150,15 +150,22 @@ MAX_SPEED = 300
 script = ExtResource( 11 )
 _body_path = NodePath("../../..")
 FUNCTION_NAME = "get_z_velocity"
-NEXT_STATE = "previous"
+NEXT_STATE = "fall"
 
-[node name="Look Direction" type="Node" parent="StateMachine/Jump" index="2"]
+[node name="Fall Transition 2" type="Node" parent="StateMachine/Jump" index="2"]
+script = ExtResource( 9 )
+_body_path = NodePath("../../..")
+FUNCTION_NAME = "get_z_velocity"
+equals = "0"
+NEXT_STATE = "fall"
+
+[node name="Look Direction" type="Node" parent="StateMachine/Jump" index="3"]
 script = ExtResource( 8 )
 player = NodePath("../../..")
 
-[node name="Jump Calculator" type="Node" parent="StateMachine/Jump" index="3"]
+[node name="Jump Calculator" type="Node" parent="StateMachine/Jump" index="4"]
 script = ExtResource( 12 )
-MAX_JUMP_HEIGHT = 200
+max_jump_height = 200
 
 [node name="Enter Gravity" type="Node" parent="StateMachine/Jump/Jump Calculator" index="0"]
 script = ExtResource( 10 )

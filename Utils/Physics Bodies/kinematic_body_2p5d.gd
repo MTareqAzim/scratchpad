@@ -2,29 +2,31 @@ tool
 extends Area2D
 class_name KinematicBody2P5D
 
+onready var _ready := true
+
 const SKIN_WIDTH := 1
 const BASE_SKIN_RADIUS := 8
 const VOLUME_SKIN_WIDTH := 5
 const FLOOR_SKIN_RADIUS := 15
 const GLOBAL_GROUND := 0
-var STEP_HEIGHT_LIMIT := 10
 
 export (int) var MAX_SPEED := 1000
 export (int) var GRAVITY := 980 setget set_grav, get_grav
 export (int) var _height := 0 setget set_height, get_height
+export (int) var _z_pos := 0 setget set_z_pos, get_z_pos
 
-var _z_pos : int
+var STEP_HEIGHT_LIMIT := 10
+
 var _velocity := Vector3() setget set_velocity, get_velocity
 
 func _physics_process(delta: float) -> void:
-	if not Engine.is_editor_hint():
-		_velocity = _apply_gravity(_velocity, delta)
-		var delta_movement = (_velocity * delta).round()
-		delta_movement = _clamp_delta_movement(delta_movement, delta)
-		delta_movement = _handle_collisions(delta_movement, delta)
-		
-		translate(Vector2(delta_movement.x, delta_movement.y + delta_movement.z))
-		_z_pos += delta_movement.z
+	_velocity = _apply_gravity(_velocity, delta)
+	var delta_movement = (_velocity * delta).round()
+	delta_movement = _clamp_delta_movement(delta_movement, delta)
+	delta_movement = _handle_collisions(delta_movement, delta)
+	
+	translate(Vector2(delta_movement.x, delta_movement.y + delta_movement.z))
+	_z_pos += delta_movement.z
 
 
 func set_grav(new_grav: int) -> void:
@@ -42,6 +44,14 @@ func set_height(new_height: int) -> void:
 
 func get_height() -> int:
 	return _height
+
+
+func set_z_pos(new_z_pos: int) -> void:
+	var diff = _z_pos - new_z_pos
+	_z_pos = new_z_pos
+	
+	if _ready:
+		translate(Vector2(0, -diff))
 
 
 func get_z_pos() -> int:

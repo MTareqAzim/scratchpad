@@ -20,25 +20,25 @@ func _append_components(node: Node) -> void:
 
 func enter() -> void:
 	for component in components:
-		if component.has_method("enter"):
+		if component.active and component.has_method("enter"):
 			component.enter()
 
 
 func exit() -> void:
 	for component in components:
-		if component.has_method("exit"):
+		if component.active and component.has_method("exit"):
 			component.exit()
 
 
 func handle_input(event) -> void:
 	for component in components:
-		if component.has_method("handle_input"):
+		if component.active and component.has_method("handle_input"):
 			component.handle_input(event)
 
 
 func update(delta: float) -> void:
 	for component in components:
-		if component.has_method("update"):
+		if component.active and component.has_method("update"):
 			component.update(delta)
 
 

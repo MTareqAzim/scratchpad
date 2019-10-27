@@ -11,7 +11,6 @@
 [node name="StaticSlope2P5D" parent="." instance=ExtResource( 1 )]
 editor/display_folded = true
 position = Vector2( 197, 255 )
-_z_pos = 0
 _height = 80
 _width = 100
 _length = 300
@@ -37,11 +36,9 @@ cast_to = Vector2( -212.132, -292.132 )
 [node name="StaticSlope2P5D2" parent="." instance=ExtResource( 1 )]
 editor/display_folded = true
 position = Vector2( 408, 264 )
-_z_pos = 0
 _height = 80
 _width = 100
 _length = 300
-_angle = 0
 
 [node name="DistToGround" parent="StaticSlope2P5D2" index="0"]
 visible = false
@@ -64,7 +61,6 @@ cast_to = Vector2( 0, -380 )
 [node name="StaticSlope2P5D3" parent="." instance=ExtResource( 1 )]
 editor/display_folded = true
 position = Vector2( 565, 260 )
-_z_pos = 0
 _height = 80
 _width = 100
 _length = 300
@@ -90,7 +86,6 @@ cast_to = Vector2( -3.67382e-014, 220 )
 [node name="StaticSlope2P5D4" parent="." instance=ExtResource( 1 )]
 editor/display_folded = true
 position = Vector2( 798, 258 )
-_z_pos = 0
 _height = 80
 _width = 100
 _length = 300
@@ -137,7 +132,6 @@ polygons = [ PoolVector2Array( -67, -10, 87, -10, 87, 59, -67, 59 ) ]
 [node name="Player" parent="." instance=ExtResource( 3 )]
 editor/display_folded = true
 position = Vector2( 496, 492 )
-GRAVITY = 980
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
