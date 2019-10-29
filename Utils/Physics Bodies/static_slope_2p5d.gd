@@ -1,5 +1,6 @@
 tool
 extends StaticBody2P5D
+class_name StaticSlope2P5D
 
 onready var _base_shape = $BaseShape
 onready var _top_shape = $TopShape
@@ -15,6 +16,14 @@ export (int) var _height := 0 setget _set_height, get_height
 export (int) var _width := 20 setget _set_width
 export (int) var _length := 20 setget _set_length
 export (int, 0, 315, 45) var _angle := 0 setget _set_angle
+
+
+func get_class() -> String:
+	return "StaticSlope2P5D"
+
+
+func is_class(type: String) -> bool:
+	return type == "StaticSlope2P5D" or .is_class(type)
 
 
 func get_z_pos() -> int:

@@ -16,7 +16,7 @@ func after_all():
 	pass
 
 func test_simple_wall():
-	var wall: StaticBody2P5D = static_wall_2p5d.instance()
+	var wall: PhysicsBody2P5D = static_wall_2p5d.instance()
 	add_child(wall)
 	
 	var base_shape = [Vector2(-1, -1), Vector2(1, -1),
@@ -49,7 +49,7 @@ func test_simple_wall():
 	assert_eq(wall.get_base_transform(), Transform2D(0.0, Vector2(0, z_pos)), "Base transform did not update with z pos change.")
 
 func test_polygon_wall():
-	var wall: StaticBody2P5D = static_wall_2p5d.instance()
+	var wall: PhysicsBody2P5D = static_wall_2p5d.instance()
 	add_child(wall)
 	
 	var base_shape = [Vector2(-3, -1), Vector2(-1, -3),

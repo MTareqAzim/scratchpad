@@ -1,3 +1,4 @@
+tool
 extends KinematicStateComponent
 class_name NotEqualsTransitionKinematicStateComponent, "not_equals_transition.png"
 

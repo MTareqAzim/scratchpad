@@ -1,3 +1,4 @@
+tool
 extends State
 class_name ComponentState, "state.png"
 
@@ -6,6 +7,14 @@ var components : Array = []
 
 func _ready() -> void:
 	_append_components(self)
+
+
+func get_class() -> String:
+	return "ComponentState"
+
+
+func is_class(type: String) -> bool:
+	return type == "ComponentState" or .is_class(type)
 
 
 func _append_components(node: Node) -> void:

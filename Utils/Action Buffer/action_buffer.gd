@@ -12,6 +12,14 @@ func _physics_process(delta: float) -> void:
 	action_buffer = _erase_old_inputs(action_buffer)
 
 
+func get_class() -> String:
+	return "ActionBuffer"
+
+
+func is_class(type: String) -> bool:
+	return type == "ActionBuffer" or .is_class(type)
+
+
 func add_action(key: String) -> void:
 	action_buffer[key] = 0
 

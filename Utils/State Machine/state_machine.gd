@@ -20,12 +20,20 @@ func _ready() -> void:
 	_append_states(self)
 
 
-func _attach_finished_signals(node: Node) -> void:
-	for child in node.get_children():
-		if child is State:
-			child.connect("finished", self, "_change_state")
-		if child.get_child_count() > 0:
-			_attach_finished_signals(child)
+func _unhandled_input(event) -> void:
+	current_state.handle_input(event)
+
+
+func _physics_process(delta: float) -> void:
+	current_state.update(delta)
+
+
+func get_class() -> String:
+	return "StateMachine"
+
+
+func is_class(type: String) -> bool:
+	return type == "StateMachine" or .is_class(type)
 
 
 func initialize(start_state: NodePath) -> void:
@@ -44,6 +52,18 @@ func set_active(active: bool) -> void:
 		current_state = null
 
 
+func handle_input(event) -> void:
+	current_state.handle_input(event)
+
+
+func _attach_finished_signals(node: Node) -> void:
+	for child in node.get_children():
+		if child is State:
+			child.connect("finished", self, "_change_state")
+		if child.get_child_count() > 0:
+			_attach_finished_signals(child)
+
+
 func _append_states(node: Node) -> void:
 	for child in node.get_children():
 		if child is State:
@@ -55,18 +75,6 @@ func _append_states(node: Node) -> void:
 		
 		if child.get_child_count() > 0:
 			_append_states(child)
-
-
-func _unhandled_input(event) -> void:
-	current_state.handle_input(event)
-
-
-func handle_input(event) -> void:
-	current_state.handle_input(event)
-
-
-func _physics_process(delta: float) -> void:
-	current_state.update(delta)
 
 
 func _change_state(state_name: String) -> void:

@@ -44,7 +44,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Utils/State Machine/State/State Components/Kinematic State Components/Update/Transitions/greater_than_transition_kinematic_state_component.gd"
 }, {
-"base": "Area2D",
+"base": "PhysicsBody2P5D",
 "class": "KinematicBody2P5D",
 "language": "GDScript",
 "path": "res://Utils/Physics Bodies/kinematic_body_2p5d.gd"
@@ -79,6 +79,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Utils/State Machine/State/State Components/Kinematic State Components/Update/Transitions/not_equals_transition_kinematic_state_component.gd"
 }, {
+"base": "Area2D",
+"class": "PhysicsBody2P5D",
+"language": "GDScript",
+"path": "res://Utils/Physics Bodies/physics_body_2p5d.gd"
+}, {
 "base": "StateComponent",
 "class": "PlayerStateComponent",
 "language": "GDScript",
@@ -109,10 +114,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Utils/State Machine/state_machine.gd"
 }, {
-"base": "Area2D",
+"base": "PhysicsBody2P5D",
 "class": "StaticBody2P5D",
 "language": "GDScript",
 "path": "res://Utils/Physics Bodies/static_body_2p5d.gd"
+}, {
+"base": "StaticBody2P5D",
+"class": "StaticSlope2P5D",
+"language": "GDScript",
+"path": "res://Utils/Physics Bodies/static_slope_2p5d.gd"
+}, {
+"base": "StaticBody2P5D",
+"class": "StaticWall2P5D",
+"language": "GDScript",
+"path": "res://Utils/Physics Bodies/static_wall_2p5d.gd"
 } ]
 _global_script_class_icons={
 "ActionBuffer": "res://Utils/Action Buffer/action-buffer-icon.png",
@@ -129,13 +144,16 @@ _global_script_class_icons={
 "ModifyIntEnterKinematicStateComponent": "res://Utils/State Machine/State/State Components/Kinematic State Components/Enter/int.png",
 "MoveStateComponent": "res://Utils/State Machine/State/State Components/Kinematic State Components/Update/move_state_component.png",
 "NotEqualsTransitionKinematicStateComponent": "res://Utils/State Machine/State/State Components/Kinematic State Components/Update/Transitions/not_equals_transition.png",
+"PhysicsBody2P5D": "",
 "PlayerStateComponent": "res://Scenes/Player/States/State Components/player_state_component.png",
 "PressedTransitionStateComponent": "res://Utils/State Machine/State/State Components/Input Transitions/pressed_transition_state_component.png",
 "ReleasedTransitionStateComponent": "res://Utils/State Machine/State/State Components/Input Transitions/released_transition_state_component.png",
 "State": "res://Utils/State Machine/State/state.png",
 "StateComponent": "res://Utils/State Machine/State/State Components/state_component.png",
 "StateMachine": "res://Utils/State Machine/state_machine.png",
-"StaticBody2P5D": ""
+"StaticBody2P5D": "",
+"StaticSlope2P5D": "",
+"StaticWall2P5D": ""
 }
 
 [application]
@@ -216,8 +234,8 @@ ui_y={
 
 [layer_names]
 
-2d_physics/layer_2="Wall"
-2d_physics/layer_3="Floor"
+2d_physics/layer_1="Kinematic Body 2.5D"
+2d_physics/layer_2="Static Body 2.5D"
 
 [rendering]
 

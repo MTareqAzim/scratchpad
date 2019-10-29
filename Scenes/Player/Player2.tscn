@@ -49,7 +49,6 @@ state_name = "idle"
 [node name="Move" type="Node" parent="StateMachine/Idle" index="0"]
 script = ExtResource( 5 )
 _body_path = NodePath("../../..")
-MAX_SPEED = 300
 
 [node name="Move Transition" type="Node" parent="StateMachine/Idle" index="1"]
 script = ExtResource( 6 )
@@ -82,7 +81,6 @@ state_name = "move"
 [node name="Move" type="Node" parent="StateMachine/Move" index="0"]
 script = ExtResource( 5 )
 _body_path = NodePath("../../..")
-MAX_SPEED = 300
 
 [node name="Idle Transition" type="Node" parent="StateMachine/Move" index="1"]
 script = ExtResource( 9 )
@@ -117,7 +115,6 @@ overwrite = true
 [node name="Move" type="Node" parent="StateMachine/Fall" index="0"]
 script = ExtResource( 5 )
 _body_path = NodePath("../../..")
-MAX_SPEED = 300
 
 [node name="Grounded Transition2" type="Node" parent="StateMachine/Fall" index="1"]
 script = ExtResource( 9 )
@@ -137,6 +134,7 @@ script = ExtResource( 8 )
 player = NodePath("../../..")
 
 [node name="Jump" type="Node" parent="StateMachine" index="3"]
+editor/display_folded = true
 script = ExtResource( 4 )
 state_name = "jump"
 push_down = true
@@ -144,7 +142,6 @@ push_down = true
 [node name="Move" type="Node" parent="StateMachine/Jump" index="0"]
 script = ExtResource( 5 )
 _body_path = NodePath("../../..")
-MAX_SPEED = 300
 
 [node name="Fall Transition" type="Node" parent="StateMachine/Jump" index="1"]
 script = ExtResource( 11 )

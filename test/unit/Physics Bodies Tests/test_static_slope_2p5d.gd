@@ -19,7 +19,7 @@ class TestStaticSlope2P5DSimpleSlope:
 	extends "res://addons/gut/test.gd"
 	
 	onready var static_slope_2p5d = preload("res://Utils/Physics Bodies/StaticSlope2P5D.tscn")
-	var slope : StaticBody2P5D
+	var slope : PhysicsBody2P5D
 	var height = 10
 	var length = 10
 	var width = 10

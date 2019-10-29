@@ -2,10 +2,20 @@ tool
 extends Polygon2D
 class_name CompositePolygon2D
 
-signal polygon_changed()
+signal polygon_changed
+
 
 func _ready() -> void:
 	_visualize_components()
+
+
+func get_class() -> String:
+	return "CompositePolygon2D"
+
+
+func is_class(type: String) -> bool:
+	return type == "CompositePolygon2D" or .is_class(type)
+
 
 func set_polygon(polygon: PoolVector2Array) -> void:
 	.set_polygon(polygon)

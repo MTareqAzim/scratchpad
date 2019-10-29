@@ -1,8 +1,9 @@
 tool
-extends Area2D
+extends PhysicsBody2P5D
 class_name KinematicBody2P5D
 
 onready var _ready := true
+onready var _base_shape : Polygon2D = $BaseShape
 
 const SKIN_WIDTH := 1
 const BASE_SKIN_RADIUS := 8
@@ -21,12 +22,21 @@ var _velocity := Vector3() setget set_velocity, get_velocity
 
 func _physics_process(delta: float) -> void:
 	_velocity = _apply_gravity(_velocity, delta)
+	_velocity = _clamp_velocity(_velocity)
+	
 	var delta_movement = (_velocity * delta).round()
-	delta_movement = _clamp_delta_movement(delta_movement, delta)
 	delta_movement = _handle_collisions(delta_movement, delta)
 	
 	translate(Vector2(delta_movement.x, delta_movement.y + delta_movement.z))
 	_z_pos += delta_movement.z
+
+
+func get_class() -> String:
+	return "KinematicBody2P5D"
+
+
+func is_class(type: String) -> bool:
+	return type == "KinematicBody2P5D" or .is_class(type)
 
 
 func set_grav(new_grav: int) -> void:
@@ -83,6 +93,21 @@ func get_z_velocity() -> int:
 	return int(_velocity.z)
 
 
+func get_base_shapes(z_pos: int) -> Array:
+	if z_pos < _z_pos - _height or z_pos > _z_pos:
+		return []
+	
+	return _base_shape.get_polygons()
+
+
+func get_base_transform() -> Transform2D:
+	return _base_shape.get_global_transform()
+
+
+func get_top_z_pos(points: Array) -> int:
+	return _z_pos
+
+
 func is_grounded() -> bool:
 	#Is inside a wall or on floor?
 	for collision in get_overlapping_areas():
@@ -104,6 +129,7 @@ func is_grounded() -> bool:
 	
 	return false
 
+
 func _apply_gravity(velocity: Vector3, delta: float) -> Vector3:
 	if not is_grounded():
 		velocity.z += round(GRAVITY * delta)
@@ -114,12 +140,12 @@ func _apply_gravity(velocity: Vector3, delta: float) -> Vector3:
 	return velocity
 
 
-func _clamp_delta_movement(delta_movement: Vector3, delta: float) -> Vector3:
-	delta_movement.x = clamp(delta_movement.x, -MAX_SPEED * delta, MAX_SPEED * delta)
-	delta_movement.y = clamp(delta_movement.y, -MAX_SPEED * delta, MAX_SPEED * delta)
-	delta_movement.z = clamp(delta_movement.z, -MAX_SPEED * delta, MAX_SPEED * delta)
+func _clamp_velocity(velocity: Vector3) -> Vector3:
+	velocity.x = clamp(velocity.x, -MAX_SPEED, MAX_SPEED)
+	velocity.y = clamp(velocity.y, -MAX_SPEED, MAX_SPEED)
+	velocity.z = clamp(velocity.z, -MAX_SPEED, MAX_SPEED)
 	
-	return delta_movement.round()
+	return velocity
 
 
 func _handle_collisions(delta_movement: Vector3, delta: float) -> Vector3:
@@ -240,6 +266,14 @@ func _handle_base_collision(delta_movement: Vector3, delta: float, other_base: A
 	delta_movement = _clamp_delta_movement(delta_movement, delta)
 	
 	return delta_movement
+
+
+func _clamp_delta_movement(delta_movement: Vector3, delta: float) -> Vector3:
+	delta_movement.x = clamp(delta_movement.x, -MAX_SPEED * delta, MAX_SPEED * delta)
+	delta_movement.y = clamp(delta_movement.y, -MAX_SPEED * delta, MAX_SPEED * delta)
+	delta_movement.z = clamp(delta_movement.z, -MAX_SPEED * delta, MAX_SPEED * delta)
+	
+	return delta_movement.round()
 
 
 func _get_base_resolution_vector(delta_movement_2D: Vector2, other_base: Array, other_transform: Transform2D, height_diff: int) -> Vector2:

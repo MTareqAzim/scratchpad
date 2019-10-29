@@ -1,3 +1,4 @@
+tool
 extends KinematicStateComponent
 class_name GreaterThanTransitionKinematicStateComponent, "greater_than_transition.png"
 

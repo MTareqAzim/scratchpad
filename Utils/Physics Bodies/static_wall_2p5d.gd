@@ -1,5 +1,6 @@
 tool
 extends StaticBody2P5D
+class_name StaticWall2P5D
 
 onready var _base_shape = $BaseShape
 onready var _top_shape = $TopShape
@@ -9,6 +10,14 @@ onready var _ready := true
 
 export (int) var _z_pos: = 0 setget _set_z, get_z_pos
 export (int) var _height: = 0 setget _set_height, get_height
+
+
+func get_class() -> String:
+	return "StaticWall2P5D"
+
+
+func is_class(type: String) -> bool:
+	return type == "StaticWall2P5D" or .is_class(type)
 
 
 func get_z_pos() -> int:

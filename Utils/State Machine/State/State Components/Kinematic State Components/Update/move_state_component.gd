@@ -1,7 +1,9 @@
+tool
 extends KinematicStateComponent
 class_name MoveStateComponent, "move_state_component.png"
 
 export (int) var max_speed := 0
+
 
 func handle_input(event) -> void:
 	if event.is_action_pressed("ui_right") \
