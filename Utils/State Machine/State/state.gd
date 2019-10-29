@@ -11,8 +11,9 @@ export (bool) var overwrite := false
 
 func _get_configuration_warning() -> String:
 	var ancestor : Node = get_parent()
-	while ancestor != owner:
-		if ancestor is StateMachine:
+	
+	while ancestor != owner.get_parent():
+		if ancestor.is_class("StateMachine"):
 			return ""
 		ancestor = ancestor.get_parent()
 	

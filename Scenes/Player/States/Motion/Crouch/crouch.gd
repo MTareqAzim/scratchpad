@@ -1,3 +1,4 @@
+tool
 extends "../motion.gd"
 
 export (float) var CROUCH_DELAY := 0.1

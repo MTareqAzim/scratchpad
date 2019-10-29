@@ -1,3 +1,4 @@
+tool
 extends "../dash.gd"
 
 var _prev_gravity: int

@@ -1,3 +1,4 @@
+tool
 extends "on_ground.gd"
 
 func update(delta: float) -> void:

@@ -1,3 +1,4 @@
+tool
 extends "on_ground.gd"
 
 export (int) var MAX_SPEED := 200

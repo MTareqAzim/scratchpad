@@ -1,9 +1,10 @@
+tool
 extends PlayerStateComponent
 class_name LookDirectionStateComponent
 
-onready var _player : KinematicBody2P5D = get_node(player)
+onready var _look_direction : KinematicBody2P5D = get_node(look_direction)
 
-export (NodePath) var player
+export (NodePath) var look_direction
 
 
 func update(delta: float) -> void:
@@ -19,5 +20,5 @@ func _get_input_direction() -> Vector2:
 
 
 func update_look_direction(direction: Vector2) -> void:
-	if direction and _player.get_look_direction() != direction:
-		_player.set_look_direction(direction)
+	if direction and _look_direction.get_look_direction() != direction:
+		_look_direction.set_look_direction(direction)

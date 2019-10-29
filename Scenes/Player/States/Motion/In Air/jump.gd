@@ -1,3 +1,4 @@
+tool
 extends "in_air.gd"
 
 export (int) var MAX_SPEED := 400

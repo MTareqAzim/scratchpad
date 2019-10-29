@@ -1,9 +1,12 @@
+tool
 extends Node
 class_name StateMachine, "state_machine.png"
 
 signal state_changed(states_stack)
 
-export (NodePath) var START_STATE
+export (bool) var _active := false setget set_active
+
+var _start_state : Node = null
 
 var states_map : Dictionary = {}
 var states_stack : Array = []
@@ -11,13 +14,11 @@ var current_state : State = null
 var push_down_states : Array = []
 var overwrite_states : Array = []
 
-var _active := false setget set_active
-
 
 func _ready() -> void:
-	_attach_finished_signals(self)
-	initialize(START_STATE)
 	_append_states(self)
+	_attach_finished_signals()
+	initialize()
 
 
 func _unhandled_input(event) -> void:
@@ -36,9 +37,9 @@ func is_class(type: String) -> bool:
 	return type == "StateMachine" or .is_class(type)
 
 
-func initialize(start_state: NodePath) -> void:
+func initialize() -> void:
 	set_active(true)
-	states_stack.push_front(get_node(start_state))
+	states_stack.push_front(_start_state)
 	current_state = states_stack[0]
 	current_state.enter()
 
@@ -56,17 +57,11 @@ func handle_input(event) -> void:
 	current_state.handle_input(event)
 
 
-func _attach_finished_signals(node: Node) -> void:
-	for child in node.get_children():
-		if child is State:
-			child.connect("finished", self, "_change_state")
-		if child.get_child_count() > 0:
-			_attach_finished_signals(child)
-
-
 func _append_states(node: Node) -> void:
 	for child in node.get_children():
 		if child is State:
+			if not _start_state:
+				_start_state = child
 			states_map[child.state_name] = child
 			if child.push_down:
 				push_down_states.append(child.state_name)
@@ -75,6 +70,11 @@ func _append_states(node: Node) -> void:
 		
 		if child.get_child_count() > 0:
 			_append_states(child)
+
+
+func _attach_finished_signals() -> void:
+	for state in states_map.values():
+		state.connect("finished", self, "_change_state")
 
 
 func _change_state(state_name: String) -> void:

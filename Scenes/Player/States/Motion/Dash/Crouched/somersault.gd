@@ -1,3 +1,4 @@
+tool
 extends "../dash.gd"
 
 export (int) var CROUCH_HEIGHT := 50

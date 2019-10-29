@@ -1,3 +1,4 @@
+tool
 extends Node
 class_name ActionBuffer, "action-buffer-icon.png"
 

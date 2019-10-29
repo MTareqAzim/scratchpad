@@ -1,2 +1,3 @@
+tool
 extends "somersault.gd"
 
