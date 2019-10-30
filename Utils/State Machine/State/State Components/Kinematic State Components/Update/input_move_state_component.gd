@@ -1,6 +1,6 @@
 tool
 extends KinematicStateComponent
-class_name MoveStateComponent, "move_state_component.png"
+class_name InputMoveStateComponent, "move_state_component.png"
 
 export (int) var max_speed := 0
 

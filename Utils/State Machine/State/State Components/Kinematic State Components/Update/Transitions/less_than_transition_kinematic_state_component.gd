@@ -3,10 +3,10 @@ extends KinematicStateComponent
 class_name LessThanTransitionKinematicStateComponent, "less_than_transition.png"
 
 export (String) var FUNCTION_NAME
-export (float) var comparison
+export (float) var less_than
 export (String) var NEXT_STATE
 
 func update(delta: float) -> void:
 	var variable = float(body.call(FUNCTION_NAME))
-	if variable < comparison:
+	if variable < less_than:
 		component_state.finished(NEXT_STATE)

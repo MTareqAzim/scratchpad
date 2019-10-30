@@ -39,7 +39,7 @@ func exit() -> void:
 			component.exit()
 
 
-func handle_input(event) -> void:
+func handle_input(event: InputEvent) -> void:
 	for component in components:
 		if component.active and component.has_method("handle_input"):
 			component.handle_input(event)

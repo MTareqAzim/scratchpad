@@ -21,7 +21,7 @@ func _ready() -> void:
 	initialize()
 
 
-func _unhandled_input(event) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	current_state.handle_input(event)
 
 
@@ -53,7 +53,7 @@ func set_active(active: bool) -> void:
 		current_state = null
 
 
-func handle_input(event) -> void:
+func handle_input(event: InputEvent) -> void:
 	current_state.handle_input(event)
 
 

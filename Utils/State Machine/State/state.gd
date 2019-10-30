@@ -36,7 +36,7 @@ func exit() -> void:
 	return
 
 
-func handle_input(event) -> void:
+func handle_input(event: InputEvent) -> void:
 	return
 
 
