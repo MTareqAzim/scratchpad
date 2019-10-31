@@ -1,4 +1,3 @@
-tool
 extends State
 class_name ComponentState, "state.png"
 

@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Utils/Action Buffer/action_buffer.gd"
 }, {
+"base": "Node",
+"class": "ActionMap",
+"language": "GDScript",
+"path": "res://Utils/Input Handler/Action Map/action_map.gd"
+}, {
 "base": "Reference",
 "class": "Collision2D",
 "language": "GDScript",
@@ -43,6 +48,11 @@ _global_script_classes=[ {
 "class": "GreaterThanTransitionKinematicStateComponent",
 "language": "GDScript",
 "path": "res://Utils/State Machine/State/State Components/Kinematic State Components/Update/Transitions/greater_than_transition_kinematic_state_component.gd"
+}, {
+"base": "Node",
+"class": "InputHandler",
+"language": "GDScript",
+"path": "res://Utils/Input Handler/input_handler.gd"
 }, {
 "base": "KinematicStateComponent",
 "class": "InputMoveStateComponent",
@@ -88,6 +98,11 @@ _global_script_classes=[ {
 "class": "PhysicsBody2P5D",
 "language": "GDScript",
 "path": "res://Utils/Physics Bodies/physics_body_2p5d.gd"
+}, {
+"base": "InputHandler",
+"class": "PlayerInputHandler",
+"language": "GDScript",
+"path": "res://Utils/Input Handler/player_input_handler.gd"
 }, {
 "base": "StateComponent",
 "class": "PlayerStateComponent",
@@ -136,12 +151,14 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "ActionBuffer": "res://Utils/Action Buffer/action-buffer-icon.png",
+"ActionMap": "res://Utils/Input Handler/Action Map/action_map.png",
 "Collision2D": "",
 "ComponentState": "res://Utils/State Machine/State/state.png",
 "CompositePolygon2D": "",
 "EqualsTransitionKinematicStateComponent": "res://Utils/State Machine/State/State Components/Kinematic State Components/Update/Transitions/equals_transition.png",
 "Geometry2D": "",
 "GreaterThanTransitionKinematicStateComponent": "res://Utils/State Machine/State/State Components/Kinematic State Components/Update/Transitions/greater_than_transition.png",
+"InputHandler": "",
 "InputMoveStateComponent": "res://Utils/State Machine/State/State Components/Kinematic State Components/Update/move_state_component.png",
 "KinematicBody2P5D": "",
 "KinematicStateComponent": "res://Utils/State Machine/State/State Components/Kinematic State Components/kinematic_state_component.png",
@@ -151,6 +168,7 @@ _global_script_class_icons={
 "ModifyIntEnterKinematicStateComponent": "res://Utils/State Machine/State/State Components/Kinematic State Components/Enter/int.png",
 "NotEqualsTransitionKinematicStateComponent": "res://Utils/State Machine/State/State Components/Kinematic State Components/Update/Transitions/not_equals_transition.png",
 "PhysicsBody2P5D": "",
+"PlayerInputHandler": "res://Utils/Input Handler/input.png",
 "PlayerStateComponent": "res://Scenes/Player/States/State Components/player_state_component.png",
 "PressedTransitionStateComponent": "res://Utils/State Machine/State/State Components/Input Transitions/pressed_transition_state_component.png",
 "ReleasedTransitionStateComponent": "res://Utils/State Machine/State/State Components/Input Transitions/released_transition_state_component.png",

@@ -1,13 +1,9 @@
 extends StateComponent
 class_name KinematicStateComponent, "kinematic_state_component.png"
 
+onready var body : KinematicBody2P5D = get_node(_body_path)
+
 export (NodePath) var _body_path
-
-var body : KinematicBody2P5D
-
-
-func _ready() -> void:
-	body = get_node(_body_path)
 
 
 func get_class() -> String:

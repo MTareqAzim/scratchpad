@@ -1,4 +1,3 @@
-tool
 extends KinematicStateComponent
 class_name LessThanTransitionKinematicStateComponent, "less_than_transition.png"
 

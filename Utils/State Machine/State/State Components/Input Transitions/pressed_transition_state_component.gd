@@ -1,4 +1,3 @@
-tool
 extends StateComponent
 class_name PressedTransitionStateComponent, "pressed_transition_state_component.png"
 

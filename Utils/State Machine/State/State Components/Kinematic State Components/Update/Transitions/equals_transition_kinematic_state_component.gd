@@ -1,4 +1,3 @@
-tool
 extends KinematicStateComponent
 class_name EqualsTransitionKinematicStateComponent, "equals_transition.png"
 
