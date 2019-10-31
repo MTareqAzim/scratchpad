@@ -9,7 +9,7 @@ var _map : Array = []
 
 
 func _ready():
-	_map = _populate_map()
+	repopulate_map()
 
 
 func _unhandled_input(event):

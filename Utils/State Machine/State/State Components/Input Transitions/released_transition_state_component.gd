@@ -12,4 +12,3 @@ func get_class() -> String:
 func handle_input(event: InputEvent) -> void:
 	if event.is_action_released(ACTION):
 		component_state.finished(NEXT_STATE)
-		get_tree().set_input_as_handled()

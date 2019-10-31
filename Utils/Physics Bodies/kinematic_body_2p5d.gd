@@ -1,6 +1,6 @@
 tool
 extends PhysicsBody2P5D
-class_name KinematicBody2P5D
+class_name KinematicBody2P5D, "kinematic_body_2p5d.png"
 
 onready var _ready := true
 onready var _base_shape : Polygon2D = $BaseShape

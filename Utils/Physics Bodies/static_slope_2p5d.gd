@@ -1,6 +1,6 @@
 tool
 extends StaticBody2P5D
-class_name StaticSlope2P5D
+class_name StaticSlope2P5D, "static_slope_2p5d.png"
 
 onready var _base_shape = $BaseShape
 onready var _top_shape = $TopShape

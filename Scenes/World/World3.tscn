@@ -226,8 +226,8 @@ margin_right = -185.0
 margin_bottom = -35.0
 
 [node name="StatesStackDiplayer" parent="CanvasLayer" instance=ExtResource( 5 )]
-[connection signal="state_changed" from="Player/StateMachine" to="CanvasLayer/StatesStackDiplayer" method="_on_StateMachine_state_changed"]
 [connection signal="state_changed" from="Player/StateMachine" to="CanvasLayer/InputUIBase" method="_on_StateMachine_state_changed"]
+[connection signal="state_changed" from="Player/StateMachine" to="CanvasLayer/StatesStackDiplayer" method="_on_StateMachine_state_changed"]
 
 [editable path="StaticSlope2P5D"]
 

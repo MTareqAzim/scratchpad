@@ -6,16 +6,6 @@ export (bool) var active := true setget set_active
 var component_state = null
 
 
-func _get_configuration_warning() -> String:
-	var ancestor : Node = get_parent()
-	while ancestor != owner:
-		if ancestor is State:
-			return ""
-		ancestor = ancestor.get_parent()
-	
-	return "Must be part of a State."
-
-
 func get_class() -> String:
 	return "StateComponent"
 

@@ -34,65 +34,70 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Utils/Composite Polygon 2D/composite_polygon_2d.gd"
 }, {
-"base": "KinematicStateComponent",
-"class": "EqualsTransitionKinematicStateComponent",
+"base": "StateComponent",
+"class": "EntityStateComponent",
 "language": "GDScript",
-"path": "res://Utils/State Machine/State/State Components/Kinematic State Components/Update/Transitions/equals_transition_kinematic_state_component.gd"
+"path": "res://Utils/Entity/State Components/entity_state_component.gd"
+}, {
+"base": "NodeStateComponent",
+"class": "EqualsTransitionStateComponent",
+"language": "GDScript",
+"path": "res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_transition_state_component.gd"
 }, {
 "base": "Reference",
 "class": "Geometry2D",
 "language": "GDScript",
 "path": "res://Utils/Geometry 2D/geometry_2d.gd"
 }, {
-"base": "KinematicStateComponent",
-"class": "GreaterThanTransitionKinematicStateComponent",
+"base": "NodeStateComponent",
+"class": "GreaterThanTransitionStateComponent",
 "language": "GDScript",
-"path": "res://Utils/State Machine/State/State Components/Kinematic State Components/Update/Transitions/greater_than_transition_kinematic_state_component.gd"
+"path": "res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/greater_than_transition_state_component.gd"
 }, {
 "base": "Node",
 "class": "InputHandler",
 "language": "GDScript",
 "path": "res://Utils/Input Handler/input_handler.gd"
 }, {
-"base": "KinematicStateComponent",
-"class": "InputMoveStateComponent",
-"language": "GDScript",
-"path": "res://Utils/State Machine/State/State Components/Kinematic State Components/Update/input_move_state_component.gd"
-}, {
 "base": "PhysicsBody2P5D",
 "class": "KinematicBody2P5D",
 "language": "GDScript",
 "path": "res://Utils/Physics Bodies/kinematic_body_2p5d.gd"
 }, {
-"base": "StateComponent",
-"class": "KinematicStateComponent",
+"base": "NodeStateComponent",
+"class": "LessThanTransitionStateComponent",
 "language": "GDScript",
-"path": "res://Utils/State Machine/State/State Components/Kinematic State Components/kinematic_state_component.gd"
-}, {
-"base": "KinematicStateComponent",
-"class": "LessThanTransitionKinematicStateComponent",
-"language": "GDScript",
-"path": "res://Utils/State Machine/State/State Components/Kinematic State Components/Update/Transitions/less_than_transition_kinematic_state_component.gd"
+"path": "res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/less_than_transition_state_component.gd"
 }, {
 "base": "Node",
 "class": "LookDirection",
 "language": "GDScript",
-"path": "res://Scenes/Player/look_direction.gd"
+"path": "res://Utils/Entity/Look Direction/look_direction.gd"
 }, {
-"base": "PlayerStateComponent",
+"base": "EntityStateComponent",
 "class": "LookDirectionStateComponent",
 "language": "GDScript",
-"path": "res://Scenes/Player/States/State Components/Player State Components/look_direction_state_component.gd"
+"path": "res://Utils/Entity/State Components/look_direction_state_component.gd"
 }, {
-"base": "KinematicStateComponent",
-"class": "ModifyIntEnterKinematicStateComponent",
+"base": "NodeStateComponent",
+"class": "ModifyIntEnterStateComponent",
 "language": "GDScript",
-"path": "res://Utils/State Machine/State/State Components/Kinematic State Components/Enter/modify_int_enter_kinematic_state_component.gd"
+"path": "res://Utils/State Machine/State/State Components/Node State Components/Enter/modify_int_enter_state_component.gd"
 }, {
-"base": "KinematicStateComponent",
-"class": "NotEqualsTransitionKinematicStateComponent",
+"base": "NodeStateComponent",
+"class": "MoveStateComponent",
 "language": "GDScript",
-"path": "res://Utils/State Machine/State/State Components/Kinematic State Components/Update/Transitions/not_equals_transition_kinematic_state_component.gd"
+"path": "res://Utils/State Machine/State/State Components/Node State Components/Update/move_state_component.gd"
+}, {
+"base": "StateComponent",
+"class": "NodeStateComponent",
+"language": "GDScript",
+"path": "res://Utils/State Machine/State/State Components/Node State Components/node_state_component.gd"
+}, {
+"base": "NodeStateComponent",
+"class": "NotEqualsTransitionStateComponent",
+"language": "GDScript",
+"path": "res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/not_equals_transition_state_component.gd"
 }, {
 "base": "Area2D",
 "class": "PhysicsBody2P5D",
@@ -103,11 +108,6 @@ _global_script_classes=[ {
 "class": "PlayerInputHandler",
 "language": "GDScript",
 "path": "res://Utils/Input Handler/player_input_handler.gd"
-}, {
-"base": "StateComponent",
-"class": "PlayerStateComponent",
-"language": "GDScript",
-"path": "res://Scenes/Player/States/State Components/player_state_component.gd"
 }, {
 "base": "StateComponent",
 "class": "PressedTransitionStateComponent",
@@ -155,29 +155,29 @@ _global_script_class_icons={
 "Collision2D": "",
 "ComponentState": "res://Utils/State Machine/State/state.png",
 "CompositePolygon2D": "",
-"EqualsTransitionKinematicStateComponent": "res://Utils/State Machine/State/State Components/Kinematic State Components/Update/Transitions/equals_transition.png",
+"EntityStateComponent": "res://Utils/Entity/State Components/entity_state_component.png",
+"EqualsTransitionStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_transition.png",
 "Geometry2D": "",
-"GreaterThanTransitionKinematicStateComponent": "res://Utils/State Machine/State/State Components/Kinematic State Components/Update/Transitions/greater_than_transition.png",
+"GreaterThanTransitionStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/greater_than_transition.png",
 "InputHandler": "",
-"InputMoveStateComponent": "res://Utils/State Machine/State/State Components/Kinematic State Components/Update/move_state_component.png",
-"KinematicBody2P5D": "",
-"KinematicStateComponent": "res://Utils/State Machine/State/State Components/Kinematic State Components/kinematic_state_component.png",
-"LessThanTransitionKinematicStateComponent": "res://Utils/State Machine/State/State Components/Kinematic State Components/Update/Transitions/less_than_transition.png",
-"LookDirection": "",
-"LookDirectionStateComponent": "",
-"ModifyIntEnterKinematicStateComponent": "res://Utils/State Machine/State/State Components/Kinematic State Components/Enter/int.png",
-"NotEqualsTransitionKinematicStateComponent": "res://Utils/State Machine/State/State Components/Kinematic State Components/Update/Transitions/not_equals_transition.png",
+"KinematicBody2P5D": "res://Utils/Physics Bodies/kinematic_body_2p5d.png",
+"LessThanTransitionStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/less_than_transition.png",
+"LookDirection": "res://Utils/Entity/Look Direction/look_direction.png",
+"LookDirectionStateComponent": "res://Utils/Entity/State Components/look_direction.png",
+"ModifyIntEnterStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Enter/int.png",
+"MoveStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Update/move_state_component.png",
+"NodeStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/node_state_component.png",
+"NotEqualsTransitionStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/not_equals_transition.png",
 "PhysicsBody2P5D": "",
 "PlayerInputHandler": "res://Utils/Input Handler/input.png",
-"PlayerStateComponent": "res://Scenes/Player/States/State Components/player_state_component.png",
 "PressedTransitionStateComponent": "res://Utils/State Machine/State/State Components/Input Transitions/pressed_transition_state_component.png",
 "ReleasedTransitionStateComponent": "res://Utils/State Machine/State/State Components/Input Transitions/released_transition_state_component.png",
 "State": "res://Utils/State Machine/State/state.png",
 "StateComponent": "res://Utils/State Machine/State/State Components/state_component.png",
 "StateMachine": "res://Utils/State Machine/state_machine.png",
 "StaticBody2P5D": "",
-"StaticSlope2P5D": "",
-"StaticWall2P5D": ""
+"StaticSlope2P5D": "res://Utils/Physics Bodies/static_slope_2p5d.png",
+"StaticWall2P5D": "res://Utils/Physics Bodies/static_wall_2p5d.png"
 }
 
 [application]
@@ -256,6 +256,22 @@ ui_y={
  ]
 }
 test={
+"deadzone": 0.5,
+"events": [  ]
+}
+jump={
+"deadzone": 0.5,
+"events": [  ]
+}
+crouch={
+"deadzone": 0.5,
+"events": [  ]
+}
+lunge={
+"deadzone": 0.5,
+"events": [  ]
+}
+retreat={
 "deadzone": 0.5,
 "events": [  ]
 }
