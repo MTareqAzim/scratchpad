@@ -109,7 +109,16 @@ func get_top_z_pos(points: Array) -> int:
 
 
 func is_grounded() -> bool:
-	#Is inside a wall or on floor?
+	if _is_on_floor():
+		return true
+	
+	if _z_pos == GLOBAL_GROUND:
+		return true
+	
+	return false
+
+
+func _is_on_floor() -> bool:
 	for collision in get_overlapping_areas():
 		var collision_z_pos = collision.get_z_pos()
 		var collision_transform = collision.get_base_transform()
@@ -120,12 +129,8 @@ func is_grounded() -> bool:
 				var collision_points = _get_base_collision_points(Vector2(), collision_shape, collision_transform, height_diff)
 				if collision_points:
 					var floor_pos = collision.get_top_z_pos(collision_points)
-					if _z_pos >= floor_pos:
+					if _z_pos == floor_pos:
 						return true
-	
-	#Is on global ground?
-	if _z_pos == GLOBAL_GROUND:
-		return true
 	
 	return false
 
@@ -157,63 +162,77 @@ func _handle_collisions(delta_movement: Vector3, delta: float) -> Vector3:
 
 
 func _handle_steps(delta_movement: Vector3) -> Vector3:
-	var closest_floor_dist = 0
-	var delta_movement_2D = Vector2(delta_movement.x, delta_movement.y)
+	var closest_floor_dist := 0
 	
-	#Walking down steps
 	if delta_movement.z >= 0:
-		var dist_to_global_ground = GLOBAL_GROUND - _z_pos
-		if abs(dist_to_global_ground) <= STEP_HEIGHT_LIMIT:
-			closest_floor_dist = dist_to_global_ground
-		
-		for collision in get_overlapping_areas():
-			var still_grounded = false
-			var future_z_pos = _z_pos + delta_movement.z
-			var collision_z_pos = collision.get_z_pos()
-			var collision_transform = collision.get_base_transform()
-			var height_diff = collision_z_pos - _z_pos
-		
-			if future_z_pos <= collision_z_pos and future_z_pos >= collision_z_pos - collision.get_height():
-				for collision_shape in collision.get_base_shapes(collision_z_pos):
-					var collision_points = _get_base_collision_points(delta_movement_2D, collision_shape, collision_transform, height_diff)
-					if collision_points:
-						var floor_pos = collision.get_top_z_pos(collision_points)
-						if floor_pos == future_z_pos:
-							still_grounded = true
-							break
-						elif future_z_pos < floor_pos:
-							var dist_to_floor = floor_pos - future_z_pos
-							if abs(dist_to_floor) <= STEP_HEIGHT_LIMIT:
-								if closest_floor_dist == 0:
-									closest_floor_dist = dist_to_floor
-								else:
-									closest_floor_dist = min(closest_floor_dist, dist_to_floor)
-				if still_grounded:
-					closest_floor_dist = 0
-					break
+		closest_floor_dist = _get_closest_step_down_dist(delta_movement)
 	
-	
-	#Walking up steps
 	if delta_movement.z <= 0:
-		for collision in get_overlapping_areas():
-			var collision_z_pos = collision.get_z_pos()
-			var collision_transform = collision.get_base_transform()
-			var future_z_pos = _z_pos + delta_movement.z
-			var height_diff = collision_z_pos - _z_pos
-			
-			if future_z_pos <= collision_z_pos and future_z_pos >= collision_z_pos - collision.get_height():
-				for collision_shape in collision.get_base_shapes(collision_z_pos):
-					var collision_points = _get_base_collision_points(delta_movement_2D, collision_shape, collision_transform, height_diff)
-					if collision_points:
-						var floor_pos = collision.get_top_z_pos(collision_points)
-						if future_z_pos >= floor_pos:
-							var dist_to_floor = floor_pos - future_z_pos
-							if abs(dist_to_floor) <= STEP_HEIGHT_LIMIT:
-								closest_floor_dist = min(closest_floor_dist, dist_to_floor)
+		closest_floor_dist = _get_closest_step_up_dist(delta_movement)
 	
 	delta_movement.z += closest_floor_dist
 	
 	return delta_movement
+
+
+func _get_closest_step_down_dist(delta_movement: Vector3) -> int:
+	var closest_floor_dist := 0
+	var delta_movement_2D = Vector2(delta_movement.x, delta_movement.y)
+	var future_z_pos = _z_pos + delta_movement.z
+	
+	var dist_to_global_ground = GLOBAL_GROUND - future_z_pos
+	if abs(dist_to_global_ground) <= STEP_HEIGHT_LIMIT:
+		closest_floor_dist = dist_to_global_ground
+	
+	for collision in get_overlapping_areas():
+		var still_grounded = false
+		var collision_z_pos = collision.get_z_pos()
+		var collision_transform = collision.get_base_transform()
+		var height_diff = collision_z_pos - _z_pos
+	
+		if future_z_pos <= collision_z_pos and future_z_pos >= collision_z_pos - collision.get_height():
+			for collision_shape in collision.get_base_shapes(collision_z_pos):
+				var collision_points = _get_base_collision_points(delta_movement_2D, collision_shape, collision_transform, height_diff)
+				if collision_points:
+					var floor_pos = collision.get_top_z_pos(collision_points)
+					if floor_pos == future_z_pos:
+						still_grounded = true
+						break
+					elif future_z_pos < floor_pos:
+						var dist_to_floor = floor_pos - future_z_pos
+						if abs(dist_to_floor) <= STEP_HEIGHT_LIMIT:
+							if closest_floor_dist == 0:
+								closest_floor_dist = dist_to_floor
+							else:
+								closest_floor_dist = min(closest_floor_dist, dist_to_floor)
+			if still_grounded:
+				closest_floor_dist = 0
+				break
+	
+	return closest_floor_dist
+
+
+func _get_closest_step_up_dist(delta_movement: Vector3) -> int:
+	var closest_floor_dist := 0
+	var delta_movement_2D = Vector2(delta_movement.x, delta_movement.y)
+	var future_z_pos = _z_pos + delta_movement.z
+	
+	for collision in get_overlapping_areas():
+		var collision_z_pos = collision.get_z_pos()
+		var collision_transform = collision.get_base_transform()
+		var height_diff = collision_z_pos - _z_pos
+		
+		if future_z_pos <= collision_z_pos and future_z_pos >= collision_z_pos - collision.get_height():
+			for collision_shape in collision.get_base_shapes(collision_z_pos):
+				var collision_points = _get_base_collision_points(delta_movement_2D, collision_shape, collision_transform, height_diff)
+				if collision_points:
+					var floor_pos = collision.get_top_z_pos(collision_points)
+					if future_z_pos >= floor_pos:
+						var dist_to_floor = floor_pos - future_z_pos
+						if abs(dist_to_floor) <= STEP_HEIGHT_LIMIT:
+							closest_floor_dist = min(closest_floor_dist, dist_to_floor)
+	
+	return closest_floor_dist
 
 
 func _handle_floor_collisions(delta_movement: Vector3) -> Vector3:
