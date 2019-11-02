@@ -84,8 +84,8 @@ polygon = PoolVector2Array( 50, 150, -50, 150, -50, -150, 50, -150 )
 polygon = PoolVector2Array( 50, 150, -50, 150, -50, -150, 50, -150 )
 
 [node name="Rise" parent="StaticSlope2P5D3" index="4"]
-position = Vector2( 1.83691e-14, -150 )
-cast_to = Vector2( -3.67382e-14, 220 )
+position = Vector2( 1.83691e-014, -150 )
+cast_to = Vector2( -3.67382e-014, 220 )
 
 [node name="StaticSlope2P5D4" parent="." instance=ExtResource( 1 )]
 editor/display_folded = true
@@ -137,77 +137,8 @@ polygons = [ PoolVector2Array( -67, -10, 87, -10, 87, 59, -67, 59 ) ]
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 496, 492 )
 
-[node name="VolumeShape" parent="Player" index="0"]
-position = Vector2( 0, -50 )
-
 [node name="StateMachine" parent="Player" index="3"]
 _active = true
-
-[node name="ActionBuffer" parent="Player/StateMachine" index="0"]
-FRAME_BUFFER_LIMIT = 60
-
-[node name="Idle" parent="Player/StateMachine" index="1"]
-push_down = false
-overwrite = false
-JUMP_BUFFER_FRAMES = 6
-
-[node name="Move" parent="Player/StateMachine" index="2"]
-push_down = false
-overwrite = false
-JUMP_BUFFER_FRAMES = 6
-
-[node name="Fall" parent="Player/StateMachine" index="3"]
-overwrite = false
-COYOTE_FRAMES = 6
-
-[node name="Jump" parent="Player/StateMachine" index="4"]
-overwrite = false
-MIN_JUMP_HEIGHT = 50
-JUMP_DURATION = 0.5
-
-[node name="Timer" parent="Player/StateMachine/Jump/Air Dash" index="0"]
-one_shot = true
-
-[node name="Timer" parent="Player/StateMachine/Jump/Air Back Dash" index="0"]
-one_shot = true
-
-[node name="Lunge" parent="Player/StateMachine" index="5"]
-overwrite = false
-DASH_DURATION = 0.5
-
-[node name="Timer" parent="Player/StateMachine/Lunge" index="0"]
-one_shot = true
-
-[node name="Retreat" parent="Player/StateMachine" index="6"]
-overwrite = false
-DASH_DURATION = 0.5
-
-[node name="Timer" parent="Player/StateMachine/Retreat" index="0"]
-one_shot = true
-
-[node name="Crouch" parent="Player/StateMachine" index="7"]
-overwrite = false
-MAX_SPEED = 200
-CROUCH_HEIGHT = 50
-
-[node name="Somersault" parent="Player/StateMachine/Crouch" index="1"]
-overwrite = false
-DASH_DURATION = 0.5
-CROUCH_HEIGHT = 50
-
-[node name="Timer" parent="Player/StateMachine/Crouch/Somersault" index="0"]
-one_shot = true
-
-[node name="BackRoll" parent="Player/StateMachine/Crouch" index="2"]
-overwrite = false
-DASH_DURATION = 0.5
-CROUCH_HEIGHT = 50
-
-[node name="Timer" parent="Player/StateMachine/Crouch/BackRoll" index="0"]
-one_shot = true
-
-[node name="Timer" parent="Player/StateMachine/Crouch" index="3"]
-one_shot = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -222,8 +153,8 @@ margin_right = -185.0
 margin_bottom = -35.0
 
 [node name="StatesStackDiplayer" parent="CanvasLayer" instance=ExtResource( 5 )]
-[connection signal="state_changed" from="Player/StateMachine" to="CanvasLayer/InputUIBase" method="_on_StateMachine_state_changed"]
 [connection signal="state_changed" from="Player/StateMachine" to="CanvasLayer/StatesStackDiplayer" method="_on_StateMachine_state_changed"]
+[connection signal="state_changed" from="Player/StateMachine" to="CanvasLayer/InputUIBase" method="_on_StateMachine_state_changed"]
 
 [editable path="StaticSlope2P5D"]
 
