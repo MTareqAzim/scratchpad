@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Utils/Physics Bodies/KinematicBody2P5D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Utils/Entity/Look Direction/look_direction.gd" type="Script" id=2]
@@ -14,12 +14,14 @@
 [ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_transition_state_component.gd" type="Script" id=12]
 [ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Enter/modify_int_enter_state_component.gd" type="Script" id=13]
 [ext_resource path="res://Scenes/Player/States/State Components/max_jump_component.gd" type="Script" id=14]
-[ext_resource path="res://Scenes/Player/States/State Components/min_jump_component.gd" type="Script" id=15]
+[ext_resource path="res://Utils/Entity/State Components/min_jump_component.gd" type="Script" id=15]
 [ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/greater_than_transition_state_component.gd" type="Script" id=16]
 [ext_resource path="res://Scenes/Player/crouch.gd" type="Script" id=17]
 [ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Exit/modify_int_exit_state_component.gd" type="Script" id=18]
 [ext_resource path="res://Utils/State Machine/State/State Components/Input Transitions/released_transition_state_component.gd" type="Script" id=19]
-[ext_resource path="res://Scenes/Scratch/StatesStackDiplayer.tscn" type="PackedScene" id=20]
+[ext_resource path="res://Utils/Entity/State Components/dash_component.gd" type="Script" id=20]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Enter/modify_vector2_enter_state_component.gd" type="Script" id=21]
+[ext_resource path="res://Scenes/Scratch/StatesStackDiplayer.tscn" type="PackedScene" id=22]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 25, 65 )
@@ -91,7 +93,6 @@ look_direction = NodePath("../../../Look Direction")
 input_handler = NodePath("../../../Player Input")
 
 [node name="Transitions" type="Node" parent="State Machine/Idle" index="2"]
-editor/display_folded = true
 script = ExtResource( 9 )
 
 [node name="Move Transition" type="Node" parent="State Machine/Idle/Transitions" index="0"]
@@ -117,6 +118,11 @@ NEXT_STATE = "jump"
 script = ExtResource( 11 )
 ACTION = "crouch"
 NEXT_STATE = "crouch"
+
+[node name="Lunge Transition" type="Node" parent="State Machine/Idle/Transitions" index="4"]
+script = ExtResource( 11 )
+ACTION = "lunge"
+NEXT_STATE = "lunge"
 
 [node name="Move" type="Node" parent="State Machine" index="1"]
 editor/display_folded = true
@@ -161,6 +167,11 @@ NEXT_STATE = "jump"
 script = ExtResource( 11 )
 ACTION = "crouch"
 NEXT_STATE = "crouch"
+
+[node name="Lunge Transition" type="Node" parent="State Machine/Move/Transitions" index="4"]
+script = ExtResource( 11 )
+ACTION = "lunge"
+NEXT_STATE = "lunge"
 
 [node name="Fall" type="Node" parent="State Machine" index="2"]
 editor/display_folded = true
@@ -298,7 +309,6 @@ ACTION = "jump"
 NEXT_STATE = "high jump"
 
 [node name="High Jump" type="Node" parent="State Machine" index="5"]
-editor/display_folded = true
 script = ExtResource( 6 )
 state_name = "high jump"
 push_down = true
@@ -316,6 +326,7 @@ look_direction = NodePath("../../../Look Direction")
 input_handler = NodePath("../../../Player Input")
 
 [node name="Jump" type="Node" parent="State Machine/High Jump" index="2"]
+editor/display_folded = true
 script = ExtResource( 14 )
 max_jump_height = 300
 jump_duration = 0.6
@@ -352,7 +363,27 @@ FUNCTION_NAME = "get_z_velocity"
 equals = "0"
 NEXT_STATE = "fall"
 
+[node name="Lunge" type="Node" parent="State Machine" index="6"]
+editor/display_folded = true
+script = ExtResource( 6 )
+state_name = "lunge"
+push_down = true
+
+[node name="Dash" type="Node" parent="State Machine/Lunge" index="0"]
+editor/display_folded = true
+script = ExtResource( 20 )
+look_direction = NodePath("../../../Look Direction")
+
+[node name="Enter Velocity 2D" type="Node" parent="State Machine/Lunge/Dash" index="0"]
+script = ExtResource( 21 )
+node_path = NodePath("../../../..")
+FUNCTION_NAME = "set_velocity_2d"
+
+[node name="Timer" type="Timer" parent="State Machine/Lunge/Dash" index="1"]
+process_mode = 0
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="6"]
 
-[node name="StatesStackDiplayer" parent="CanvasLayer" index="0" instance=ExtResource( 20 )]
+[node name="StatesStackDiplayer" parent="CanvasLayer" index="0" instance=ExtResource( 22 )]
 [connection signal="state_changed" from="State Machine" to="CanvasLayer/StatesStackDiplayer" method="_on_StateMachine_state_changed"]
+[connection signal="timeout" from="State Machine/Lunge/Dash/Timer" to="State Machine/Lunge/Dash" method="_on_Timer_timeout"]

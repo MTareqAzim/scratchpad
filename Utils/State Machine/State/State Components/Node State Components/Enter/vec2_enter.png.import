@@ -1,0 +1,34 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/vec2_enter.png-78470cb2acc27f2ecdd6a4373d1fcdfb.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://Utils/State Machine/State/State Components/Node State Components/Enter/vec2_enter.png"
+dest_files=[ "res://.import/vec2_enter.png-78470cb2acc27f2ecdd6a4373d1fcdfb.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=false
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+stream=false
+size_limit=0
+detect_3d=false
+svg/scale=1.0

@@ -12,6 +12,6 @@ func handle_input(event: InputEvent) -> void:
 
 
 func _limit_z_velocity() -> void:
-	var min_jump_velocity = -sqrt(2 * body.get_grav() * min_jump_height)
-	if body.get_velocity().z < min_jump_velocity:
-		body.set_z_velocity(min_jump_velocity)
+	var min_jump_velocity = -sqrt(2 * _body.get_grav() * min_jump_height)
+	if _body.get_velocity().z < min_jump_velocity:
+		_body.set_z_velocity(min_jump_velocity)
