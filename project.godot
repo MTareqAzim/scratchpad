@@ -85,9 +85,19 @@ _global_script_classes=[ {
 "path": "res://Utils/State Machine/State/State Components/Node State Components/Enter/modify_int_enter_state_component.gd"
 }, {
 "base": "NodeStateComponent",
+"class": "ModifyIntExitStateComponent",
+"language": "GDScript",
+"path": "res://Utils/State Machine/State/State Components/Node State Components/Exit/modify_int_exit_state_component.gd"
+}, {
+"base": "NodeStateComponent",
+"class": "ModifyIntUpdateStateComponent",
+"language": "GDScript",
+"path": "res://Utils/State Machine/State/State Components/Node State Components/Update/modify_int_update_state_component.gd"
+}, {
+"base": "EntityStateComponent",
 "class": "MoveStateComponent",
 "language": "GDScript",
-"path": "res://Utils/State Machine/State/State Components/Node State Components/Update/move_state_component.gd"
+"path": "res://Utils/Entity/State Components/move_state_component.gd"
 }, {
 "base": "StateComponent",
 "class": "NodeStateComponent",
@@ -164,8 +174,10 @@ _global_script_class_icons={
 "LessThanTransitionStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/less_than_transition.png",
 "LookDirection": "res://Utils/Entity/Look Direction/look_direction.png",
 "LookDirectionStateComponent": "res://Utils/Entity/State Components/look_direction.png",
-"ModifyIntEnterStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Enter/int.png",
-"MoveStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Update/move_state_component.png",
+"ModifyIntEnterStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Enter/int_enter.png",
+"ModifyIntExitStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Exit/int_exit.png",
+"ModifyIntUpdateStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Update/int_update.png",
+"MoveStateComponent": "res://Utils/Entity/State Components/move_state_component.png",
 "NodeStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/node_state_component.png",
 "NotEqualsTransitionStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/not_equals_transition.png",
 "PhysicsBody2P5D": "",

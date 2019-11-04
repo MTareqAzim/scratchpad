@@ -1,11 +1,11 @@
 extends "res://addons/gut/test.gd"
 
-var modify_int_component : ModifyIntEnterStateComponent
+var modify_int_component : ModifyIntUpdateStateComponent
 var doubled_state : ComponentState
 var doubled_body : KinematicBody2P5D
 
 func before_each():
-	modify_int_component = ModifyIntEnterStateComponent.new()
+	modify_int_component = ModifyIntUpdateStateComponent.new()
 	doubled_state = double(ComponentState).new()
 	doubled_body = double(KinematicBody2P5D).new()
 	
@@ -26,9 +26,9 @@ func before_all():
 func after_all():
 	pass
 
-func test_modify_int():
+func test_modify_int_update():
 	modify_int_component.FUNCTION_NAME = "set_grav"
 	modify_int_component.new_value = 100
 	
-	modify_int_component.enter()
+	modify_int_component.update(0.1)
 	assert_called(doubled_body, "set_grav", [100])

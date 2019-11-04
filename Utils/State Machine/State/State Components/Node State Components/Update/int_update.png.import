@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/int.png-9d1bb838e1b67f655f6d700750024805.stex"
+path="res://.import/int_update.png-c92cb2ec5d4d1bb5b30ab9893e1497f5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Utils/State Machine/State/State Components/Node State Components/Enter/int.png"
-dest_files=[ "res://.import/int.png-9d1bb838e1b67f655f6d700750024805.stex" ]
+source_file="res://Utils/State Machine/State/State Components/Node State Components/Update/int_update.png"
+dest_files=[ "res://.import/int_update.png-c92cb2ec5d4d1bb5b30ab9893e1497f5.stex" ]
 
 [params]
 

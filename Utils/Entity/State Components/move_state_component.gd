@@ -1,8 +1,10 @@
-extends NodeStateComponent
+extends EntityStateComponent
 class_name MoveStateComponent, "move_state_component.png"
 
+onready var _body : KinematicBody2P5D = get_node(body)
 onready var _input_handler : InputHandler = get_node(input_handler)
 
+export (NodePath) var body : NodePath
 export (NodePath) var input_handler : NodePath
 export (int) var max_speed := 0
 
@@ -14,4 +16,4 @@ func update(delta: float) -> void:
 
 func _move_2d(direction: Vector2, speed: int) -> void:
 	var velocity_2d = direction.normalized() * speed
-	node.set_velocity_2d(velocity_2d)
+	_body.set_velocity_2d(velocity_2d)
