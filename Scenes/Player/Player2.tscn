@@ -78,7 +78,6 @@ script = ExtResource( 5 )
 _active = true
 
 [node name="Idle" type="Node" parent="State Machine" index="0"]
-editor/display_folded = true
 script = ExtResource( 6 )
 state_name = "idle"
 
@@ -139,7 +138,6 @@ equals = "True"
 NEXT_STATE = "crouch"
 
 [node name="Move" type="Node" parent="State Machine" index="1"]
-editor/display_folded = true
 script = ExtResource( 6 )
 state_name = "move"
 
@@ -271,7 +269,6 @@ script = ExtResource( 16 )
 body = NodePath("../../..")
 
 [node name="Transitions" type="Node" parent="State Machine/Jump" index="4"]
-editor/display_folded = true
 script = ExtResource( 9 )
 
 [node name="Fall" type="Node" parent="State Machine/Jump/Transitions" index="0"]
@@ -286,6 +283,11 @@ node_path = NodePath("../../../..")
 FUNCTION_NAME = "get_z_velocity"
 equals = "0"
 NEXT_STATE = "fall"
+
+[node name="Air Dash" type="Node" parent="State Machine/Jump/Transitions" index="2"]
+script = ExtResource( 11 )
+ACTION = "lunge"
+NEXT_STATE = "air dash"
 
 [node name="Crouch" type="Node" parent="State Machine" index="4"]
 script = ExtResource( 6 )
@@ -323,12 +325,19 @@ new_value = 100
 [node name="Transitions" type="Node" parent="State Machine/Crouch" index="3"]
 script = ExtResource( 9 )
 
-[node name="Stand Up" type="Node" parent="State Machine/Crouch/Transitions" index="0"]
+[node name="Fall" type="Node" parent="State Machine/Crouch/Transitions" index="0"]
+script = ExtResource( 10 )
+node_path = NodePath("../../../..")
+FUNCTION_NAME = "is_grounded"
+not_equals = "True"
+NEXT_STATE = "fall"
+
+[node name="Stand Up" type="Node" parent="State Machine/Crouch/Transitions" index="1"]
 script = ExtResource( 20 )
 ACTION = "crouch"
 NEXT_STATE = "previous"
 
-[node name="Stand Up 2" type="Node" parent="State Machine/Crouch/Transitions" index="1"]
+[node name="Stand Up 2" type="Node" parent="State Machine/Crouch/Transitions" index="2"]
 script = ExtResource( 12 )
 node_path = NodePath("../../../../Player Input")
 FUNCTION_NAME = "is_action_pressed"
@@ -336,17 +345,17 @@ arg = "crouch"
 equals = "False"
 NEXT_STATE = "previous"
 
-[node name="High Jump" type="Node" parent="State Machine/Crouch/Transitions" index="2"]
+[node name="High Jump" type="Node" parent="State Machine/Crouch/Transitions" index="3"]
 script = ExtResource( 11 )
 ACTION = "jump"
 NEXT_STATE = "high jump"
 
-[node name="Somersault" type="Node" parent="State Machine/Crouch/Transitions" index="3"]
+[node name="Somersault" type="Node" parent="State Machine/Crouch/Transitions" index="4"]
 script = ExtResource( 11 )
 ACTION = "lunge"
 NEXT_STATE = "somersault"
 
-[node name="Back Roll" type="Node" parent="State Machine/Crouch/Transitions" index="4"]
+[node name="Back Roll" type="Node" parent="State Machine/Crouch/Transitions" index="5"]
 script = ExtResource( 11 )
 ACTION = "retreat"
 NEXT_STATE = "back_roll"
@@ -356,7 +365,6 @@ editor/display_folded = true
 script = ExtResource( 6 )
 state_name = "high jump"
 push_down = true
-overwrite = true
 
 [node name="Move" type="Node" parent="State Machine/High Jump" index="0"]
 script = ExtResource( 7 )
@@ -390,21 +398,25 @@ body = NodePath("../../..")
 min_jump_height = 100
 
 [node name="Transitions" type="Node" parent="State Machine/High Jump" index="4"]
-editor/display_folded = true
 script = ExtResource( 9 )
 
-[node name="Fall Transition" type="Node" parent="State Machine/High Jump/Transitions" index="0"]
+[node name="Fall" type="Node" parent="State Machine/High Jump/Transitions" index="0"]
 script = ExtResource( 17 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "get_z_velocity"
 NEXT_STATE = "fall"
 
-[node name="Fall Transition 2" type="Node" parent="State Machine/High Jump/Transitions" index="1"]
+[node name="Fall 2" type="Node" parent="State Machine/High Jump/Transitions" index="1"]
 script = ExtResource( 13 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "get_z_velocity"
 equals = "0"
 NEXT_STATE = "fall"
+
+[node name="Air Dash" type="Node" parent="State Machine/High Jump/Transitions" index="2"]
+script = ExtResource( 11 )
+ACTION = "lunge"
+NEXT_STATE = "air dash"
 
 [node name="Lunge" type="Node" parent="State Machine" index="6"]
 editor/display_folded = true
@@ -416,6 +428,7 @@ push_down = true
 editor/display_folded = true
 script = ExtResource( 21 )
 look_direction = NodePath("../../../Look Direction")
+next_state = "previous"
 
 [node name="Enter Velocity 2D" type="Node" parent="State Machine/Lunge/Dash" index="0"]
 script = ExtResource( 22 )
@@ -436,6 +449,7 @@ editor/display_folded = true
 script = ExtResource( 21 )
 look_direction = NodePath("../../../Look Direction")
 dash_distance = -300
+next_state = "previous"
 
 [node name="Enter Velocity 2D" type="Node" parent="State Machine/Retreat/Dash" index="0"]
 script = ExtResource( 22 )
@@ -455,6 +469,7 @@ push_down = true
 editor/display_folded = true
 script = ExtResource( 21 )
 look_direction = NodePath("../../../Look Direction")
+next_state = "previous"
 
 [node name="Enter Velocity 2D" type="Node" parent="State Machine/Somersault/Dash" index="0"]
 script = ExtResource( 22 )
@@ -493,6 +508,7 @@ editor/display_folded = true
 script = ExtResource( 21 )
 look_direction = NodePath("../../../Look Direction")
 dash_distance = -300
+next_state = "previous"
 
 [node name="Enter Velocity 2D" type="Node" parent="State Machine/Back Roll/Dash" index="0"]
 script = ExtResource( 22 )
@@ -520,6 +536,37 @@ node_path = NodePath("../../../..")
 FUNCTION_NAME = "set_height"
 new_value = 100
 
+[node name="Air Dash" type="Node" parent="State Machine" index="10"]
+script = ExtResource( 6 )
+state_name = "air dash"
+push_down = true
+overwrite = true
+
+[node name="Dash" type="Node" parent="State Machine/Air Dash" index="0"]
+editor/display_folded = true
+script = ExtResource( 21 )
+look_direction = NodePath("../../../Look Direction")
+dash_duration = 0.25
+next_state = "previous"
+
+[node name="Enter Velocity 2D" type="Node" parent="State Machine/Air Dash/Dash" index="0"]
+script = ExtResource( 22 )
+node_path = NodePath("../../../..")
+FUNCTION_NAME = "set_velocity_2d"
+
+[node name="Timer" type="Timer" parent="State Machine/Air Dash/Dash" index="1"]
+process_mode = 0
+
+[node name="Enter Gravity" type="Node" parent="State Machine/Air Dash" index="1"]
+script = ExtResource( 14 )
+node_path = NodePath("../../..")
+FUNCTION_NAME = "set_grav"
+
+[node name="Enter Z Velocity" type="Node" parent="State Machine/Air Dash" index="2"]
+script = ExtResource( 14 )
+node_path = NodePath("../../..")
+FUNCTION_NAME = "set_z_velocity"
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="6"]
 
 [node name="StatesStackDiplayer" parent="CanvasLayer" index="0" instance=ExtResource( 23 )]
@@ -528,3 +575,4 @@ new_value = 100
 [connection signal="timeout" from="State Machine/Retreat/Dash/Timer" to="State Machine/Retreat/Dash" method="_on_Timer_timeout"]
 [connection signal="timeout" from="State Machine/Somersault/Dash/Timer" to="State Machine/Somersault/Dash" method="_on_Timer_timeout"]
 [connection signal="timeout" from="State Machine/Back Roll/Dash/Timer" to="State Machine/Back Roll/Dash" method="_on_Timer_timeout"]
+[connection signal="timeout" from="State Machine/Air Dash/Dash/Timer" to="State Machine/Air Dash/Dash" method="_on_Timer_timeout"]
