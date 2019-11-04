@@ -107,7 +107,7 @@ _global_script_classes=[ {
 "base": "EntityStateComponent",
 "class": "MoveStateComponent",
 "language": "GDScript",
-"path": "res://Utils/Entity/State Components/move_state_component.gd"
+"path": "res://Utils/Entity/State Components/Movement/move_state_component.gd"
 }, {
 "base": "StateComponent",
 "class": "NodeStateComponent",
@@ -189,7 +189,7 @@ _global_script_class_icons={
 "ModifyIntExitStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Exit/int_exit.png",
 "ModifyIntUpdateStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Update/int_update.png",
 "ModifyVector2EnterStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Enter/vec2_enter.png",
-"MoveStateComponent": "res://Utils/Entity/State Components/move_state_component.png",
+"MoveStateComponent": "",
 "NodeStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/node_state_component.png",
 "NotEqualsTransitionStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/not_equals_transition.png",
 "PhysicsBody2P5D": "",

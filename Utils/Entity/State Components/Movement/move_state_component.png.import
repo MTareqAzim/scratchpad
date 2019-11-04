@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/move_state_component.png-22dde83118a053687c5d16ff115782d7.stex"
+path="res://.import/move_state_component.png-1cc6748ca5a8d1ea774bab7b07cb2d46.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Utils/Entity/State Components/move_state_component.png"
-dest_files=[ "res://.import/move_state_component.png-22dde83118a053687c5d16ff115782d7.stex" ]
+source_file="res://Utils/Entity/State Components/Movement/move_state_component.png"
+dest_files=[ "res://.import/move_state_component.png-1cc6748ca5a8d1ea774bab7b07cb2d46.stex" ]
 
 [params]
 
