@@ -1,20 +1,10 @@
-extends Node
+extends EntityStateComponent
 
-export (int) var max_jump_height := 100 setget set_max_jump_height
-export (float) var jump_duration := 0.5 setget set_jump_duration
+export (int) var max_jump_height := 100
+export (float) var jump_duration := 0.5
 
-func _ready():
+func enter():
 	_set_values()
-
-
-func set_max_jump_height(new_jump_height: int) -> void:
-	max_jump_height = new_jump_height
-	call_deferred("_set_values")
-
-
-func set_jump_duration(new_jump_duration: float) -> void:
-	jump_duration = new_jump_duration
-	call_deferred("_set_values")
 
 
 func _set_values():
