@@ -17,7 +17,7 @@
 [ext_resource path="res://Utils/Entity/State Components/Movement/jump_component.gd" type="Script" id=15]
 [ext_resource path="res://Utils/Entity/State Components/Movement/min_jump_component.gd" type="Script" id=16]
 [ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/greater_than_transition_state_component.gd" type="Script" id=17]
-[ext_resource path="res://Scenes/Player/crouch.gd" type="Script" id=18]
+[ext_resource path="res://Utils/Entity/State Components/Movement/crouch_height.gd" type="Script" id=18]
 [ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Exit/modify_int_exit_state_component.gd" type="Script" id=19]
 [ext_resource path="res://Utils/State Machine/State/State Components/Input Transitions/released_transition_state_component.gd" type="Script" id=20]
 [ext_resource path="res://Utils/Entity/State Components/Movement/dash_component.gd" type="Script" id=21]
@@ -288,7 +288,6 @@ equals = "0"
 NEXT_STATE = "fall"
 
 [node name="Crouch" type="Node" parent="State Machine" index="4"]
-editor/display_folded = true
 script = ExtResource( 6 )
 state_name = "crouch"
 push_down = true
@@ -322,7 +321,6 @@ FUNCTION_NAME = "set_height"
 new_value = 100
 
 [node name="Transitions" type="Node" parent="State Machine/Crouch" index="3"]
-editor/display_folded = true
 script = ExtResource( 9 )
 
 [node name="Stand Up" type="Node" parent="State Machine/Crouch/Transitions" index="0"]
@@ -330,18 +328,28 @@ script = ExtResource( 20 )
 ACTION = "crouch"
 NEXT_STATE = "previous"
 
-[node name="High Jump" type="Node" parent="State Machine/Crouch/Transitions" index="1"]
-script = ExtResource( 11 )
-ACTION = "jump"
-NEXT_STATE = "high jump"
-
-[node name="EqualsArgTransitionStateComponent" type="Node" parent="State Machine/Crouch/Transitions" index="2"]
+[node name="Stand Up 2" type="Node" parent="State Machine/Crouch/Transitions" index="1"]
 script = ExtResource( 12 )
 node_path = NodePath("../../../../Player Input")
 FUNCTION_NAME = "is_action_pressed"
 arg = "crouch"
 equals = "False"
 NEXT_STATE = "previous"
+
+[node name="High Jump" type="Node" parent="State Machine/Crouch/Transitions" index="2"]
+script = ExtResource( 11 )
+ACTION = "jump"
+NEXT_STATE = "high jump"
+
+[node name="Somersault" type="Node" parent="State Machine/Crouch/Transitions" index="3"]
+script = ExtResource( 11 )
+ACTION = "lunge"
+NEXT_STATE = "somersault"
+
+[node name="Back Roll" type="Node" parent="State Machine/Crouch/Transitions" index="4"]
+script = ExtResource( 11 )
+ACTION = "retreat"
+NEXT_STATE = "back_roll"
 
 [node name="High Jump" type="Node" parent="State Machine" index="5"]
 editor/display_folded = true
@@ -437,9 +445,86 @@ FUNCTION_NAME = "set_velocity_2d"
 [node name="Timer" type="Timer" parent="State Machine/Retreat/Dash" index="1"]
 process_mode = 0
 
+[node name="Somersault" type="Node" parent="State Machine" index="8"]
+editor/display_folded = true
+script = ExtResource( 6 )
+state_name = "somersault"
+push_down = true
+
+[node name="Dash" type="Node" parent="State Machine/Somersault" index="0"]
+editor/display_folded = true
+script = ExtResource( 21 )
+look_direction = NodePath("../../../Look Direction")
+
+[node name="Enter Velocity 2D" type="Node" parent="State Machine/Somersault/Dash" index="0"]
+script = ExtResource( 22 )
+node_path = NodePath("../../../..")
+FUNCTION_NAME = "set_velocity_2d"
+
+[node name="Timer" type="Timer" parent="State Machine/Somersault/Dash" index="1"]
+process_mode = 0
+
+[node name="Crouch Height" type="Node" parent="State Machine/Somersault" index="1"]
+editor/display_folded = true
+script = ExtResource( 18 )
+body = NodePath("../../..")
+
+[node name="Enter Height" type="Node" parent="State Machine/Somersault/Crouch Height" index="0"]
+script = ExtResource( 14 )
+node_path = NodePath("../../../..")
+FUNCTION_NAME = "set_height"
+new_value = 50
+
+[node name="Exit Height" type="Node" parent="State Machine/Somersault/Crouch Height" index="1"]
+script = ExtResource( 19 )
+active = false
+node_path = NodePath("../../../..")
+FUNCTION_NAME = "set_height"
+new_value = 100
+
+[node name="Back Roll" type="Node" parent="State Machine" index="9"]
+editor/display_folded = true
+script = ExtResource( 6 )
+state_name = "back_roll"
+push_down = true
+
+[node name="Dash" type="Node" parent="State Machine/Back Roll" index="0"]
+editor/display_folded = true
+script = ExtResource( 21 )
+look_direction = NodePath("../../../Look Direction")
+dash_distance = -300
+
+[node name="Enter Velocity 2D" type="Node" parent="State Machine/Back Roll/Dash" index="0"]
+script = ExtResource( 22 )
+node_path = NodePath("../../../..")
+FUNCTION_NAME = "set_velocity_2d"
+
+[node name="Timer" type="Timer" parent="State Machine/Back Roll/Dash" index="1"]
+process_mode = 0
+
+[node name="Crouch Height" type="Node" parent="State Machine/Back Roll" index="1"]
+editor/display_folded = true
+script = ExtResource( 18 )
+body = NodePath("../../..")
+
+[node name="Enter Height" type="Node" parent="State Machine/Back Roll/Crouch Height" index="0"]
+script = ExtResource( 14 )
+node_path = NodePath("../../../..")
+FUNCTION_NAME = "set_height"
+new_value = 50
+
+[node name="Exit Height" type="Node" parent="State Machine/Back Roll/Crouch Height" index="1"]
+script = ExtResource( 19 )
+active = false
+node_path = NodePath("../../../..")
+FUNCTION_NAME = "set_height"
+new_value = 100
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="6"]
 
 [node name="StatesStackDiplayer" parent="CanvasLayer" index="0" instance=ExtResource( 23 )]
 [connection signal="state_changed" from="State Machine" to="CanvasLayer/StatesStackDiplayer" method="_on_StateMachine_state_changed"]
 [connection signal="timeout" from="State Machine/Lunge/Dash/Timer" to="State Machine/Lunge/Dash" method="_on_Timer_timeout"]
 [connection signal="timeout" from="State Machine/Retreat/Dash/Timer" to="State Machine/Retreat/Dash" method="_on_Timer_timeout"]
+[connection signal="timeout" from="State Machine/Somersault/Dash/Timer" to="State Machine/Somersault/Dash" method="_on_Timer_timeout"]
+[connection signal="timeout" from="State Machine/Back Roll/Dash/Timer" to="State Machine/Back Roll/Dash" method="_on_Timer_timeout"]
