@@ -7,6 +7,9 @@ var _look_direction := Vector2(1, 0) setget set_look_direction, get_look_directi
 
 
 func set_look_direction(new_look_direction: Vector2) -> void:
+	if new_look_direction == Vector2.ZERO:
+		return
+	
 	_look_direction = new_look_direction
 	emit_signal("direction_changed", new_look_direction)
 

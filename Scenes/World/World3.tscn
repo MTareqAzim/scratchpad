@@ -84,8 +84,8 @@ polygon = PoolVector2Array( 50, 150, -50, 150, -50, -150, 50, -150 )
 polygon = PoolVector2Array( 50, 150, -50, 150, -50, -150, 50, -150 )
 
 [node name="Rise" parent="StaticSlope2P5D3" index="4"]
-position = Vector2( 1.83691e-014, -150 )
-cast_to = Vector2( -3.67382e-014, 220 )
+position = Vector2( 1.83691e-14, -150 )
+cast_to = Vector2( -3.67382e-14, 220 )
 
 [node name="StaticSlope2P5D4" parent="." instance=ExtResource( 1 )]
 editor/display_folded = true
@@ -153,8 +153,8 @@ margin_right = -185.0
 margin_bottom = -35.0
 
 [node name="StatesStackDiplayer" parent="CanvasLayer" instance=ExtResource( 5 )]
-[connection signal="state_changed" from="Player/StateMachine" to="CanvasLayer/StatesStackDiplayer" method="_on_StateMachine_state_changed"]
 [connection signal="state_changed" from="Player/StateMachine" to="CanvasLayer/InputUIBase" method="_on_StateMachine_state_changed"]
+[connection signal="state_changed" from="Player/StateMachine" to="CanvasLayer/StatesStackDiplayer" method="_on_StateMachine_state_changed"]
 
 [editable path="StaticSlope2P5D"]
 

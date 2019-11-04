@@ -10,13 +10,10 @@ export (NodePath) var input_handler
 
 func update(delta: float) -> void:
 	var look_direction = _input_handler.get_direction()
-	update_look_direction(look_direction)
+	_update_look_direction(look_direction)
 
 
-func update_look_direction(direction: Vector2) -> void:
-	if direction == Vector2.ZERO or not direction:
-		return
-	
+func _update_look_direction(direction: Vector2) -> void:
 	if _look_direction.get_look_direction() == direction:
 		return
 	
