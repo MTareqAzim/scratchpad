@@ -23,6 +23,7 @@ func _unhandled_input(event):
 		var mapped_event = action_map.map(event)
 		if mapped_event:
 			_state_machine.handle_input(mapped_event)
+			_register_event(mapped_event)
 			get_tree().set_input_as_handled()
 
 
@@ -44,6 +45,10 @@ func get_direction() -> Vector2:
 	return input_direction
 
 
+func is_action_pressed(action: String) -> bool:
+	return Input.is_action_pressed(action)
+
+
 func repopulate_map() -> void:
 	_map = _populate_map()
 
@@ -56,3 +61,10 @@ func _populate_map() -> Array:
 			map.append(child)
 	
 	return map
+
+
+func _register_event(event: InputEventAction) -> void:
+	if event.is_pressed():
+		Input.action_press(event.get_action(), 1)
+	else:
+		Input.action_release(event.get_action())
