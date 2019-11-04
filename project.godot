@@ -55,6 +55,11 @@ _global_script_classes=[ {
 "path": "res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/greater_than_transition_state_component.gd"
 }, {
 "base": "Node",
+"class": "GroupingNode",
+"language": "GDScript",
+"path": "res://Utils/Grouping Node/grouping_node.gd"
+}, {
+"base": "Node",
 "class": "InputHandler",
 "language": "GDScript",
 "path": "res://Utils/Input Handler/input_handler.gd"
@@ -169,6 +174,7 @@ _global_script_class_icons={
 "EqualsTransitionStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_transition.png",
 "Geometry2D": "",
 "GreaterThanTransitionStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/greater_than_transition.png",
+"GroupingNode": "res://Utils/Grouping Node/folder.png",
 "InputHandler": "",
 "KinematicBody2P5D": "res://Utils/Physics Bodies/kinematic_body_2p5d.png",
 "LessThanTransitionStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/less_than_transition.png",

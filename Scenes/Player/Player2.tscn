@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Utils/Physics Bodies/KinematicBody2P5D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Utils/Entity/Look Direction/look_direction.gd" type="Script" id=2]
@@ -8,17 +8,18 @@
 [ext_resource path="res://Utils/State Machine/State/component_state.gd" type="Script" id=6]
 [ext_resource path="res://Utils/Entity/State Components/move_state_component.gd" type="Script" id=7]
 [ext_resource path="res://Utils/Entity/State Components/look_direction_state_component.gd" type="Script" id=8]
-[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/not_equals_transition_state_component.gd" type="Script" id=9]
-[ext_resource path="res://Utils/State Machine/State/State Components/Input Transitions/pressed_transition_state_component.gd" type="Script" id=10]
-[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_transition_state_component.gd" type="Script" id=11]
-[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Enter/modify_int_enter_state_component.gd" type="Script" id=12]
-[ext_resource path="res://Scenes/Player/States/State Components/max_jump_component.gd" type="Script" id=13]
-[ext_resource path="res://Scenes/Player/States/State Components/min_jump_component.gd" type="Script" id=14]
-[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/greater_than_transition_state_component.gd" type="Script" id=15]
-[ext_resource path="res://Scenes/Player/crouch.gd" type="Script" id=16]
-[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Exit/modify_int_exit_state_component.gd" type="Script" id=17]
-[ext_resource path="res://Utils/State Machine/State/State Components/Input Transitions/released_transition_state_component.gd" type="Script" id=18]
-[ext_resource path="res://Scenes/Scratch/StatesStackDiplayer.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Utils/Grouping Node/grouping_node.gd" type="Script" id=9]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/not_equals_transition_state_component.gd" type="Script" id=10]
+[ext_resource path="res://Utils/State Machine/State/State Components/Input Transitions/pressed_transition_state_component.gd" type="Script" id=11]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_transition_state_component.gd" type="Script" id=12]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Enter/modify_int_enter_state_component.gd" type="Script" id=13]
+[ext_resource path="res://Scenes/Player/States/State Components/max_jump_component.gd" type="Script" id=14]
+[ext_resource path="res://Scenes/Player/States/State Components/min_jump_component.gd" type="Script" id=15]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/greater_than_transition_state_component.gd" type="Script" id=16]
+[ext_resource path="res://Scenes/Player/crouch.gd" type="Script" id=17]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Exit/modify_int_exit_state_component.gd" type="Script" id=18]
+[ext_resource path="res://Utils/State Machine/State/State Components/Input Transitions/released_transition_state_component.gd" type="Script" id=19]
+[ext_resource path="res://Scenes/Scratch/StatesStackDiplayer.tscn" type="PackedScene" id=20]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 25, 65 )
@@ -45,6 +46,7 @@ polygons = [ PoolVector2Array( -20, -10, 20, -10, 20, 10, -20, 10 ) ]
 script = ExtResource( 2 )
 
 [node name="Player Input" type="Node" parent="." index="4"]
+editor/display_folded = true
 script = ExtResource( 3 )
 state_machine = NodePath("../State Machine")
 
@@ -90,28 +92,29 @@ input_handler = NodePath("../../../Player Input")
 
 [node name="Transitions" type="Node" parent="State Machine/Idle" index="2"]
 editor/display_folded = true
+script = ExtResource( 9 )
 
 [node name="Move Transition" type="Node" parent="State Machine/Idle/Transitions" index="0"]
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "get_velocity_2d"
 not_equals = "(0, 0)"
 NEXT_STATE = "move"
 
 [node name="Fall Transition" type="Node" parent="State Machine/Idle/Transitions" index="1"]
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "is_grounded"
 not_equals = "True"
 NEXT_STATE = "fall"
 
 [node name="Jump Transition" type="Node" parent="State Machine/Idle/Transitions" index="2"]
-script = ExtResource( 10 )
+script = ExtResource( 11 )
 ACTION = "jump"
 NEXT_STATE = "jump"
 
 [node name="Crouch Transition" type="Node" parent="State Machine/Idle/Transitions" index="3"]
-script = ExtResource( 10 )
+script = ExtResource( 11 )
 ACTION = "crouch"
 NEXT_STATE = "crouch"
 
@@ -133,28 +136,29 @@ input_handler = NodePath("../../../Player Input")
 
 [node name="Transitions" type="Node" parent="State Machine/Move" index="2"]
 editor/display_folded = true
+script = ExtResource( 9 )
 
 [node name="Idle Transition" type="Node" parent="State Machine/Move/Transitions" index="0"]
-script = ExtResource( 11 )
+script = ExtResource( 12 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "get_velocity_2d"
 equals = "(0, 0)"
 NEXT_STATE = "idle"
 
 [node name="Fall Transition" type="Node" parent="State Machine/Move/Transitions" index="1"]
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "is_grounded"
 not_equals = "True"
 NEXT_STATE = "fall"
 
 [node name="Jump Transition" type="Node" parent="State Machine/Move/Transitions" index="2"]
-script = ExtResource( 10 )
+script = ExtResource( 11 )
 ACTION = "jump"
 NEXT_STATE = "jump"
 
 [node name="Crouch Transition" type="Node" parent="State Machine/Move/Transitions" index="3"]
-script = ExtResource( 10 )
+script = ExtResource( 11 )
 ACTION = "crouch"
 NEXT_STATE = "crouch"
 
@@ -177,16 +181,17 @@ look_direction = NodePath("../../../Look Direction")
 input_handler = NodePath("../../../Player Input")
 
 [node name="Enter Gravity" type="Node" parent="State Machine/Fall" index="2"]
-script = ExtResource( 12 )
+script = ExtResource( 13 )
 node_path = NodePath("../../..")
 FUNCTION_NAME = "set_grav"
 new_value = 2000
 
 [node name="Transitions" type="Node" parent="State Machine/Fall" index="3"]
 editor/display_folded = true
+script = ExtResource( 9 )
 
 [node name="Grounded Transition2" type="Node" parent="State Machine/Fall/Transitions" index="0"]
-script = ExtResource( 11 )
+script = ExtResource( 12 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "is_grounded"
 equals = "True"
@@ -211,34 +216,35 @@ input_handler = NodePath("../../../Player Input")
 
 [node name="Max Jump" type="Node" parent="State Machine/Jump" index="2"]
 editor/display_folded = true
-script = ExtResource( 13 )
+script = ExtResource( 14 )
 max_jump_height = 200
 
 [node name="Enter Gravity" type="Node" parent="State Machine/Jump/Max Jump" index="0"]
-script = ExtResource( 12 )
+script = ExtResource( 13 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "set_grav"
 
 [node name="Enter Z Velocity" type="Node" parent="State Machine/Jump/Max Jump" index="1"]
-script = ExtResource( 12 )
+script = ExtResource( 13 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "set_z_velocity"
 
 [node name="Min Jump" type="Node" parent="State Machine/Jump" index="3"]
-script = ExtResource( 14 )
+script = ExtResource( 15 )
 node_path = NodePath("../../..")
 
 [node name="Transitions" type="Node" parent="State Machine/Jump" index="4"]
 editor/display_folded = true
+script = ExtResource( 9 )
 
 [node name="Fall Transition" type="Node" parent="State Machine/Jump/Transitions" index="0"]
-script = ExtResource( 15 )
+script = ExtResource( 16 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "get_z_velocity"
 NEXT_STATE = "fall"
 
 [node name="Fall Transition 2" type="Node" parent="State Machine/Jump/Transitions" index="1"]
-script = ExtResource( 11 )
+script = ExtResource( 12 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "get_z_velocity"
 equals = "0"
@@ -263,30 +269,92 @@ input_handler = NodePath("../../../Player Input")
 
 [node name="Crouch Height" type="Node" parent="State Machine/Crouch" index="2"]
 editor/display_folded = true
-script = ExtResource( 16 )
+script = ExtResource( 17 )
 body = NodePath("../../..")
 
 [node name="Enter Height" type="Node" parent="State Machine/Crouch/Crouch Height" index="0"]
-script = ExtResource( 12 )
+script = ExtResource( 13 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "set_height"
 new_value = 50
 
 [node name="Exit Height" type="Node" parent="State Machine/Crouch/Crouch Height" index="1"]
-script = ExtResource( 17 )
+script = ExtResource( 18 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "set_height"
 new_value = 100
 
 [node name="Transitions" type="Node" parent="State Machine/Crouch" index="3"]
 editor/display_folded = true
+script = ExtResource( 9 )
 
-[node name="Previous Transition" type="Node" parent="State Machine/Crouch/Transitions" index="0"]
-script = ExtResource( 18 )
+[node name="Stand Up Transition" type="Node" parent="State Machine/Crouch/Transitions" index="0"]
+script = ExtResource( 19 )
 ACTION = "crouch"
 NEXT_STATE = "previous"
 
+[node name="High Jump Transition" type="Node" parent="State Machine/Crouch/Transitions" index="1"]
+script = ExtResource( 11 )
+ACTION = "jump"
+NEXT_STATE = "high jump"
+
+[node name="High Jump" type="Node" parent="State Machine" index="5"]
+editor/display_folded = true
+script = ExtResource( 6 )
+state_name = "high jump"
+push_down = true
+overwrite = true
+
+[node name="Move" type="Node" parent="State Machine/High Jump" index="0"]
+script = ExtResource( 7 )
+body = NodePath("../../..")
+input_handler = NodePath("../../../Player Input")
+max_speed = 300
+
+[node name="Look Direction" type="Node" parent="State Machine/High Jump" index="1"]
+script = ExtResource( 8 )
+look_direction = NodePath("../../../Look Direction")
+input_handler = NodePath("../../../Player Input")
+
+[node name="Max Jump" type="Node" parent="State Machine/High Jump" index="2"]
+editor/display_folded = true
+script = ExtResource( 14 )
+max_jump_height = 300
+jump_duration = 0.6
+
+[node name="Enter Gravity" type="Node" parent="State Machine/High Jump/Max Jump" index="0"]
+script = ExtResource( 13 )
+node_path = NodePath("../../../..")
+FUNCTION_NAME = "set_grav"
+
+[node name="Enter Z Velocity" type="Node" parent="State Machine/High Jump/Max Jump" index="1"]
+script = ExtResource( 13 )
+node_path = NodePath("../../../..")
+FUNCTION_NAME = "set_z_velocity"
+
+[node name="Min Jump" type="Node" parent="State Machine/High Jump" index="3"]
+script = ExtResource( 15 )
+node_path = NodePath("../../..")
+min_jump_height = 100
+
+[node name="Transitions" type="Node" parent="State Machine/High Jump" index="4"]
+editor/display_folded = true
+script = ExtResource( 9 )
+
+[node name="Fall Transition" type="Node" parent="State Machine/High Jump/Transitions" index="0"]
+script = ExtResource( 16 )
+node_path = NodePath("../../../..")
+FUNCTION_NAME = "get_z_velocity"
+NEXT_STATE = "fall"
+
+[node name="Fall Transition 2" type="Node" parent="State Machine/High Jump/Transitions" index="1"]
+script = ExtResource( 12 )
+node_path = NodePath("../../../..")
+FUNCTION_NAME = "get_z_velocity"
+equals = "0"
+NEXT_STATE = "fall"
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="6"]
 
-[node name="StatesStackDiplayer" parent="CanvasLayer" index="0" instance=ExtResource( 19 )]
+[node name="StatesStackDiplayer" parent="CanvasLayer" index="0" instance=ExtResource( 20 )]
 [connection signal="state_changed" from="State Machine" to="CanvasLayer/StatesStackDiplayer" method="_on_StateMachine_state_changed"]
