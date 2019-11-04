@@ -198,7 +198,6 @@ equals = "True"
 NEXT_STATE = "previous"
 
 [node name="Jump" type="Node" parent="State Machine" index="3"]
-editor/display_folded = true
 script = ExtResource( 6 )
 state_name = "jump"
 push_down = true
@@ -214,24 +213,24 @@ script = ExtResource( 8 )
 look_direction = NodePath("../../../Look Direction")
 input_handler = NodePath("../../../Player Input")
 
-[node name="Max Jump" type="Node" parent="State Machine/Jump" index="2"]
+[node name="Jump" type="Node" parent="State Machine/Jump" index="2"]
 editor/display_folded = true
 script = ExtResource( 14 )
 max_jump_height = 200
 
-[node name="Enter Gravity" type="Node" parent="State Machine/Jump/Max Jump" index="0"]
+[node name="Enter Gravity" type="Node" parent="State Machine/Jump/Jump" index="0"]
 script = ExtResource( 13 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "set_grav"
 
-[node name="Enter Z Velocity" type="Node" parent="State Machine/Jump/Max Jump" index="1"]
+[node name="Enter Z Velocity" type="Node" parent="State Machine/Jump/Jump" index="1"]
 script = ExtResource( 13 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "set_z_velocity"
 
 [node name="Min Jump" type="Node" parent="State Machine/Jump" index="3"]
 script = ExtResource( 15 )
-node_path = NodePath("../../..")
+body = NodePath("../../..")
 
 [node name="Transitions" type="Node" parent="State Machine/Jump" index="4"]
 editor/display_folded = true
@@ -316,25 +315,24 @@ script = ExtResource( 8 )
 look_direction = NodePath("../../../Look Direction")
 input_handler = NodePath("../../../Player Input")
 
-[node name="Max Jump" type="Node" parent="State Machine/High Jump" index="2"]
-editor/display_folded = true
+[node name="Jump" type="Node" parent="State Machine/High Jump" index="2"]
 script = ExtResource( 14 )
 max_jump_height = 300
 jump_duration = 0.6
 
-[node name="Enter Gravity" type="Node" parent="State Machine/High Jump/Max Jump" index="0"]
+[node name="Enter Gravity" type="Node" parent="State Machine/High Jump/Jump" index="0"]
 script = ExtResource( 13 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "set_grav"
 
-[node name="Enter Z Velocity" type="Node" parent="State Machine/High Jump/Max Jump" index="1"]
+[node name="Enter Z Velocity" type="Node" parent="State Machine/High Jump/Jump" index="1"]
 script = ExtResource( 13 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "set_z_velocity"
 
 [node name="Min Jump" type="Node" parent="State Machine/High Jump" index="3"]
 script = ExtResource( 15 )
-node_path = NodePath("../../..")
+body = NodePath("../../..")
 min_jump_height = 100
 
 [node name="Transitions" type="Node" parent="State Machine/High Jump" index="4"]
