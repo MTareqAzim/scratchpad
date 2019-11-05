@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Utils/Physics Bodies/KinematicBody2P5D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Utils/Entity/Look Direction/look_direction.gd" type="Script" id=2]
@@ -11,19 +11,24 @@
 [ext_resource path="res://Utils/Entity/State Components/look_direction_state_component.gd" type="Script" id=9]
 [ext_resource path="res://Utils/Grouping Node/grouping_node.gd" type="Script" id=10]
 [ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/not_equals_transition_state_component.gd" type="Script" id=11]
-[ext_resource path="res://Utils/State Machine/State/State Components/Input Transitions/pressed_transition_state_component.gd" type="Script" id=12]
+[ext_resource path="res://Utils/State Machine/State/State Components/Transitions/pressed_transition_state_component.gd" type="Script" id=12]
 [ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_arg_transition_state_component.gd" type="Script" id=13]
-[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_transition_state_component.gd" type="Script" id=14]
-[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Enter/modify_int_enter_state_component.gd" type="Script" id=15]
-[ext_resource path="res://Utils/Entity/State Components/Movement/jump_component.gd" type="Script" id=16]
-[ext_resource path="res://Utils/Entity/State Components/Movement/min_jump_component.gd" type="Script" id=17]
-[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/greater_than_transition_state_component.gd" type="Script" id=18]
-[ext_resource path="res://Utils/Entity/State Components/Movement/crouch_height.gd" type="Script" id=19]
-[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Exit/modify_int_exit_state_component.gd" type="Script" id=20]
-[ext_resource path="res://Utils/State Machine/State/State Components/Input Transitions/released_transition_state_component.gd" type="Script" id=21]
-[ext_resource path="res://Utils/Entity/State Components/Movement/dash_component.gd" type="Script" id=22]
-[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Enter/modify_vector2_enter_state_component.gd" type="Script" id=23]
-[ext_resource path="res://Scenes/Scratch/StatesStackDiplayer.tscn" type="PackedScene" id=24]
+[ext_resource path="res://Utils/Entity/State Components/Action Buffer/action_buffer_deactivate_state_component.gd" type="Script" id=14]
+[ext_resource path="res://Utils/Entity/State Components/Action Buffer/action_buffer_activate_state_component.gd" type="Script" id=15]
+[ext_resource path="res://Utils/State Machine/State/State Components/Transitions/transition_state_component.gd" type="Script" id=16]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Exit/modify_string_exit_state_component.gd" type="Script" id=17]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_transition_state_component.gd" type="Script" id=18]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Enter/modify_int_enter_state_component.gd" type="Script" id=19]
+[ext_resource path="res://Utils/Entity/State Components/Movement/jump_component.gd" type="Script" id=20]
+[ext_resource path="res://Utils/Entity/State Components/Movement/min_jump_component.gd" type="Script" id=21]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/greater_than_transition_state_component.gd" type="Script" id=22]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Enter/modify_string_enter_state_component.gd" type="Script" id=23]
+[ext_resource path="res://Utils/Entity/State Components/Movement/crouch_height.gd" type="Script" id=24]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Exit/modify_int_exit_state_component.gd" type="Script" id=25]
+[ext_resource path="res://Utils/State Machine/State/State Components/Transitions/released_transition_state_component.gd" type="Script" id=26]
+[ext_resource path="res://Utils/Entity/State Components/Movement/dash_component.gd" type="Script" id=27]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Enter/modify_vector2_enter_state_component.gd" type="Script" id=28]
+[ext_resource path="res://Scenes/Scratch/StatesStackDiplayer.tscn" type="PackedScene" id=29]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 25, 65 )
@@ -54,6 +59,7 @@ script = ExtResource( 2 )
 editor/display_folded = true
 script = ExtResource( 3 )
 state_machine = NodePath("../State Machine")
+action_buffer = NodePath("../ActionBuffer")
 
 [node name="Jump" type="Node" parent="Player Input" index="0"]
 script = ExtResource( 4 )
@@ -77,7 +83,6 @@ mapped_action = "retreat"
 
 [node name="ActionBuffer" type="Node" parent="." index="5"]
 script = ExtResource( 5 )
-FRAME_BUFFER_LIMIT = 60
 
 [node name="State Machine" type="Node" parent="." index="6"]
 script = ExtResource( 6 )
@@ -126,23 +131,74 @@ script = ExtResource( 12 )
 ACTION = "crouch"
 NEXT_STATE = "crouch"
 
-[node name="Lunge" type="Node" parent="State Machine/Idle/Transitions" index="4"]
-script = ExtResource( 12 )
-ACTION = "lunge"
-NEXT_STATE = "lunge"
-
-[node name="Retreat" type="Node" parent="State Machine/Idle/Transitions" index="5"]
-script = ExtResource( 12 )
-ACTION = "retreat"
-NEXT_STATE = "retreat"
-
-[node name="Crouch 2" type="Node" parent="State Machine/Idle/Transitions" index="6"]
+[node name="Crouch 2" type="Node" parent="State Machine/Idle/Transitions" index="4"]
 script = ExtResource( 13 )
 node_path = NodePath("../../../../Player Input")
 FUNCTION_NAME = "is_action_pressed"
 arg = "crouch"
 equals = "True"
 NEXT_STATE = "crouch"
+
+[node name="Dashed" type="Node" parent="State Machine/Idle/Transitions" index="5"]
+script = ExtResource( 14 )
+action_buffer = NodePath("../../../../ActionBuffer")
+action = "dashed"
+frames = 5
+
+[node name="Lunge" type="Node" parent="State Machine/Idle/Transitions/Dashed" index="0"]
+script = ExtResource( 12 )
+ACTION = "lunge"
+NEXT_STATE = "lunge"
+
+[node name="Retreat" type="Node" parent="State Machine/Idle/Transitions/Dashed" index="1"]
+script = ExtResource( 12 )
+ACTION = "retreat"
+NEXT_STATE = "retreat"
+
+[node name="Lunge Pressed" type="Node" parent="State Machine/Idle/Transitions/Dashed" index="2"]
+editor/display_folded = true
+script = ExtResource( 15 )
+action_buffer = NodePath("../../../../../ActionBuffer")
+action = "lunge_pressed"
+frames = 5
+
+[node name="Lunge" type="Node" parent="State Machine/Idle/Transitions/Dashed/Lunge Pressed" index="0"]
+script = ExtResource( 16 )
+active = false
+NEXT_STATE = "lunge"
+
+[node name="Retreat Pressed" type="Node" parent="State Machine/Idle/Transitions/Dashed" index="3"]
+editor/display_folded = true
+script = ExtResource( 15 )
+action_buffer = NodePath("../../../../../ActionBuffer")
+action = "retreat_pressed"
+frames = 5
+
+[node name="Retreat" type="Node" parent="State Machine/Idle/Transitions/Dashed/Retreat Pressed" index="0"]
+script = ExtResource( 16 )
+active = false
+NEXT_STATE = "retreat"
+
+[node name="Jump Pressed" type="Node" parent="State Machine/Idle/Transitions" index="6"]
+script = ExtResource( 15 )
+action_buffer = NodePath("../../../../ActionBuffer")
+action = "jump_pressed"
+frames = 5
+
+[node name="Jump" type="Node" parent="State Machine/Idle/Transitions/Jump Pressed" index="0"]
+script = ExtResource( 16 )
+active = false
+NEXT_STATE = "jump"
+
+[node name="Action Buffer" type="Node" parent="State Machine/Idle" index="3"]
+editor/display_folded = true
+script = ExtResource( 10 )
+
+[node name="Was Grounded" type="Node" parent="State Machine/Idle/Action Buffer" index="0"]
+script = ExtResource( 17 )
+node_path = NodePath("../../../../ActionBuffer")
+FUNCTION_NAME = "add_action"
+new_string = "was_grounded"
 
 [node name="Move" type="Node" parent="State Machine" index="1"]
 editor/display_folded = true
@@ -164,7 +220,7 @@ input_handler = NodePath("../../../Player Input")
 script = ExtResource( 10 )
 
 [node name="Idle" type="Node" parent="State Machine/Move/Transitions" index="0"]
-script = ExtResource( 14 )
+script = ExtResource( 18 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "get_velocity_2d"
 equals = "(0, 0)"
@@ -187,23 +243,75 @@ script = ExtResource( 12 )
 ACTION = "crouch"
 NEXT_STATE = "crouch"
 
-[node name="Lunge" type="Node" parent="State Machine/Move/Transitions" index="4"]
-script = ExtResource( 12 )
-ACTION = "lunge"
-NEXT_STATE = "lunge"
-
-[node name="Retreat" type="Node" parent="State Machine/Move/Transitions" index="5"]
-script = ExtResource( 12 )
-ACTION = "retreat"
-NEXT_STATE = "retreat"
-
-[node name="Crouch 2" type="Node" parent="State Machine/Move/Transitions" index="6"]
+[node name="Crouch 2" type="Node" parent="State Machine/Move/Transitions" index="4"]
 script = ExtResource( 13 )
 node_path = NodePath("../../../../Player Input")
 FUNCTION_NAME = "is_action_pressed"
 arg = "crouch"
 equals = "True"
 NEXT_STATE = "crouch"
+
+[node name="Dashed" type="Node" parent="State Machine/Move/Transitions" index="5"]
+script = ExtResource( 14 )
+action_buffer = NodePath("../../../../ActionBuffer")
+action = "dashed"
+frames = 5
+
+[node name="Lunge" type="Node" parent="State Machine/Move/Transitions/Dashed" index="0"]
+script = ExtResource( 12 )
+ACTION = "lunge"
+NEXT_STATE = "lunge"
+
+[node name="Retreat" type="Node" parent="State Machine/Move/Transitions/Dashed" index="1"]
+script = ExtResource( 12 )
+ACTION = "retreat"
+NEXT_STATE = "retreat"
+
+[node name="Lunge Pressed" type="Node" parent="State Machine/Move/Transitions/Dashed" index="2"]
+editor/display_folded = true
+script = ExtResource( 15 )
+action_buffer = NodePath("../../../../../ActionBuffer")
+action = "lunge_pressed"
+frames = 5
+
+[node name="Lunge" type="Node" parent="State Machine/Move/Transitions/Dashed/Lunge Pressed" index="0"]
+script = ExtResource( 16 )
+active = false
+NEXT_STATE = "lunge"
+
+[node name="Retreat Pressed" type="Node" parent="State Machine/Move/Transitions/Dashed" index="3"]
+editor/display_folded = true
+script = ExtResource( 15 )
+action_buffer = NodePath("../../../../../ActionBuffer")
+action = "retreat_pressed"
+frames = 5
+
+[node name="Retreat" type="Node" parent="State Machine/Move/Transitions/Dashed/Retreat Pressed" index="0"]
+script = ExtResource( 16 )
+active = false
+NEXT_STATE = "retreat"
+
+[node name="Jump Pressed" type="Node" parent="State Machine/Move/Transitions" index="6"]
+editor/display_folded = true
+script = ExtResource( 15 )
+action_buffer = NodePath("../../../../ActionBuffer")
+action = "jump_pressed"
+frames = 5
+
+[node name="Jump" type="Node" parent="State Machine/Move/Transitions/Jump Pressed" index="0"]
+script = ExtResource( 16 )
+active = false
+NEXT_STATE = "jump"
+
+[node name="Action Buffer" type="Node" parent="State Machine/Move" index="3"]
+editor/display_folded = true
+script = ExtResource( 10 )
+
+[node name="Was Grounded" type="Node" parent="State Machine/Move/Action Buffer" index="0"]
+script = ExtResource( 17 )
+node_path = NodePath("../../../../ActionBuffer")
+FUNCTION_NAME = "add_action"
+new_string = "was_grounded"
 
 [node name="Fall" type="Node" parent="State Machine" index="2"]
 editor/display_folded = true
@@ -224,16 +332,17 @@ look_direction = NodePath("../../../Look Direction")
 input_handler = NodePath("../../../Player Input")
 
 [node name="Enter Gravity" type="Node" parent="State Machine/Fall" index="2"]
-script = ExtResource( 15 )
+script = ExtResource( 19 )
 node_path = NodePath("../../..")
 FUNCTION_NAME = "set_grav"
 new_value = 2000
 
 [node name="Transitions" type="Node" parent="State Machine/Fall" index="3"]
+editor/display_folded = true
 script = ExtResource( 10 )
 
 [node name="Grounded" type="Node" parent="State Machine/Fall/Transitions" index="0"]
-script = ExtResource( 14 )
+script = ExtResource( 18 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "is_grounded"
 equals = "True"
@@ -243,6 +352,18 @@ NEXT_STATE = "previous"
 script = ExtResource( 12 )
 ACTION = "lunge"
 NEXT_STATE = "air dash"
+
+[node name="Coyote Frames" type="Node" parent="State Machine/Fall/Transitions" index="2"]
+editor/display_folded = true
+script = ExtResource( 15 )
+action_buffer = NodePath("../../../../ActionBuffer")
+action = "was_grounded"
+frames = 5
+
+[node name="Jump" type="Node" parent="State Machine/Fall/Transitions/Coyote Frames" index="0"]
+script = ExtResource( 12 )
+ACTION = "jump"
+NEXT_STATE = "jump"
 
 [node name="Jump" type="Node" parent="State Machine" index="3"]
 editor/display_folded = true
@@ -263,35 +384,36 @@ input_handler = NodePath("../../../Player Input")
 
 [node name="Jump" type="Node" parent="State Machine/Jump" index="2"]
 editor/display_folded = true
-script = ExtResource( 16 )
+script = ExtResource( 20 )
 max_jump_height = 200
 
 [node name="Enter Gravity" type="Node" parent="State Machine/Jump/Jump" index="0"]
-script = ExtResource( 15 )
+script = ExtResource( 19 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "set_grav"
 
 [node name="Enter Z Velocity" type="Node" parent="State Machine/Jump/Jump" index="1"]
-script = ExtResource( 15 )
+script = ExtResource( 19 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "set_z_velocity"
 
 [node name="Min Jump" type="Node" parent="State Machine/Jump" index="3"]
-script = ExtResource( 17 )
+script = ExtResource( 21 )
 body = NodePath("../../..")
+input = NodePath("../../../Player Input")
 
 [node name="Transitions" type="Node" parent="State Machine/Jump" index="4"]
 editor/display_folded = true
 script = ExtResource( 10 )
 
 [node name="Fall" type="Node" parent="State Machine/Jump/Transitions" index="0"]
-script = ExtResource( 18 )
+script = ExtResource( 22 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "get_z_velocity"
 NEXT_STATE = "fall"
 
 [node name="Fall 2" type="Node" parent="State Machine/Jump/Transitions" index="1"]
-script = ExtResource( 14 )
+script = ExtResource( 18 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "get_z_velocity"
 equals = "0"
@@ -301,6 +423,16 @@ NEXT_STATE = "fall"
 script = ExtResource( 12 )
 ACTION = "lunge"
 NEXT_STATE = "air dash"
+
+[node name="Action Buffer" type="Node" parent="State Machine/Jump" index="5"]
+editor/display_folded = true
+script = ExtResource( 10 )
+
+[node name="Jump Handled" type="Node" parent="State Machine/Jump/Action Buffer" index="0"]
+script = ExtResource( 23 )
+node_path = NodePath("../../../../ActionBuffer")
+FUNCTION_NAME = "action_handled"
+new_string = "jump_pressed"
 
 [node name="Crouch" type="Node" parent="State Machine" index="4"]
 editor/display_folded = true
@@ -321,22 +453,23 @@ input_handler = NodePath("../../../Player Input")
 
 [node name="Crouch Height" type="Node" parent="State Machine/Crouch" index="2"]
 editor/display_folded = true
-script = ExtResource( 19 )
+script = ExtResource( 24 )
 body = NodePath("../../..")
 
 [node name="Enter Height" type="Node" parent="State Machine/Crouch/Crouch Height" index="0"]
-script = ExtResource( 15 )
+script = ExtResource( 19 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "set_height"
 new_value = 50
 
 [node name="Exit Height" type="Node" parent="State Machine/Crouch/Crouch Height" index="1"]
-script = ExtResource( 20 )
+script = ExtResource( 25 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "set_height"
 new_value = 100
 
 [node name="Transitions" type="Node" parent="State Machine/Crouch" index="3"]
+editor/display_folded = true
 script = ExtResource( 10 )
 
 [node name="Fall" type="Node" parent="State Machine/Crouch/Transitions" index="0"]
@@ -347,7 +480,7 @@ not_equals = "True"
 NEXT_STATE = "fall"
 
 [node name="Stand Up" type="Node" parent="State Machine/Crouch/Transitions" index="1"]
-script = ExtResource( 21 )
+script = ExtResource( 26 )
 ACTION = "crouch"
 NEXT_STATE = "previous"
 
@@ -374,6 +507,16 @@ script = ExtResource( 12 )
 ACTION = "retreat"
 NEXT_STATE = "back_roll"
 
+[node name="Action Buffer" type="Node" parent="State Machine/Crouch" index="4"]
+editor/display_folded = true
+script = ExtResource( 10 )
+
+[node name="Was Grounded" type="Node" parent="State Machine/Crouch/Action Buffer" index="0"]
+script = ExtResource( 17 )
+node_path = NodePath("../../../../ActionBuffer")
+FUNCTION_NAME = "add_action"
+new_string = "was_grounded"
+
 [node name="High Jump" type="Node" parent="State Machine" index="5"]
 editor/display_folded = true
 script = ExtResource( 7 )
@@ -392,36 +535,39 @@ look_direction = NodePath("../../../Look Direction")
 input_handler = NodePath("../../../Player Input")
 
 [node name="Jump" type="Node" parent="State Machine/High Jump" index="2"]
-script = ExtResource( 16 )
+editor/display_folded = true
+script = ExtResource( 20 )
 max_jump_height = 300
 jump_duration = 0.6
 
 [node name="Enter Gravity" type="Node" parent="State Machine/High Jump/Jump" index="0"]
-script = ExtResource( 15 )
+script = ExtResource( 19 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "set_grav"
 
 [node name="Enter Z Velocity" type="Node" parent="State Machine/High Jump/Jump" index="1"]
-script = ExtResource( 15 )
+script = ExtResource( 19 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "set_z_velocity"
 
 [node name="Min Jump" type="Node" parent="State Machine/High Jump" index="3"]
-script = ExtResource( 17 )
+script = ExtResource( 21 )
 body = NodePath("../../..")
+input = NodePath("../../../Player Input")
 min_jump_height = 100
 
 [node name="Transitions" type="Node" parent="State Machine/High Jump" index="4"]
+editor/display_folded = true
 script = ExtResource( 10 )
 
 [node name="Fall" type="Node" parent="State Machine/High Jump/Transitions" index="0"]
-script = ExtResource( 18 )
+script = ExtResource( 22 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "get_z_velocity"
 NEXT_STATE = "fall"
 
 [node name="Fall 2" type="Node" parent="State Machine/High Jump/Transitions" index="1"]
-script = ExtResource( 14 )
+script = ExtResource( 18 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "get_z_velocity"
 equals = "0"
@@ -432,6 +578,16 @@ script = ExtResource( 12 )
 ACTION = "lunge"
 NEXT_STATE = "air dash"
 
+[node name="Action Buffer" type="Node" parent="State Machine/High Jump" index="5"]
+editor/display_folded = true
+script = ExtResource( 10 )
+
+[node name="Jump Handled" type="Node" parent="State Machine/High Jump/Action Buffer" index="0"]
+script = ExtResource( 23 )
+node_path = NodePath("../../../../ActionBuffer")
+FUNCTION_NAME = "action_handled"
+new_string = "jump_pressed"
+
 [node name="Lunge" type="Node" parent="State Machine" index="6"]
 editor/display_folded = true
 script = ExtResource( 7 )
@@ -440,17 +596,27 @@ push_down = true
 
 [node name="Dash" type="Node" parent="State Machine/Lunge" index="0"]
 editor/display_folded = true
-script = ExtResource( 22 )
+script = ExtResource( 27 )
 look_direction = NodePath("../../../Look Direction")
 next_state = "previous"
 
 [node name="Enter Velocity 2D" type="Node" parent="State Machine/Lunge/Dash" index="0"]
-script = ExtResource( 23 )
+script = ExtResource( 28 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "set_velocity_2d"
 
 [node name="Timer" type="Timer" parent="State Machine/Lunge/Dash" index="1"]
 process_mode = 0
+
+[node name="Action Buffer" type="Node" parent="State Machine/Lunge" index="1"]
+editor/display_folded = true
+script = ExtResource( 10 )
+
+[node name="Dashed" type="Node" parent="State Machine/Lunge/Action Buffer" index="0"]
+script = ExtResource( 17 )
+node_path = NodePath("../../../../ActionBuffer")
+FUNCTION_NAME = "add_action"
+new_string = "dashed"
 
 [node name="Retreat" type="Node" parent="State Machine" index="7"]
 editor/display_folded = true
@@ -460,18 +626,28 @@ push_down = true
 
 [node name="Dash" type="Node" parent="State Machine/Retreat" index="0"]
 editor/display_folded = true
-script = ExtResource( 22 )
+script = ExtResource( 27 )
 look_direction = NodePath("../../../Look Direction")
 dash_distance = -300
 next_state = "previous"
 
 [node name="Enter Velocity 2D" type="Node" parent="State Machine/Retreat/Dash" index="0"]
-script = ExtResource( 23 )
+script = ExtResource( 28 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "set_velocity_2d"
 
 [node name="Timer" type="Timer" parent="State Machine/Retreat/Dash" index="1"]
 process_mode = 0
+
+[node name="Action Buffer" type="Node" parent="State Machine/Retreat" index="1"]
+editor/display_folded = true
+script = ExtResource( 10 )
+
+[node name="Dashed" type="Node" parent="State Machine/Retreat/Action Buffer" index="0"]
+script = ExtResource( 17 )
+node_path = NodePath("../../../../ActionBuffer")
+FUNCTION_NAME = "add_action"
+new_string = "dashed"
 
 [node name="Somersault" type="Node" parent="State Machine" index="8"]
 editor/display_folded = true
@@ -481,12 +657,12 @@ push_down = true
 
 [node name="Dash" type="Node" parent="State Machine/Somersault" index="0"]
 editor/display_folded = true
-script = ExtResource( 22 )
+script = ExtResource( 27 )
 look_direction = NodePath("../../../Look Direction")
 next_state = "previous"
 
 [node name="Enter Velocity 2D" type="Node" parent="State Machine/Somersault/Dash" index="0"]
-script = ExtResource( 23 )
+script = ExtResource( 28 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "set_velocity_2d"
 
@@ -495,21 +671,31 @@ process_mode = 0
 
 [node name="Crouch Height" type="Node" parent="State Machine/Somersault" index="1"]
 editor/display_folded = true
-script = ExtResource( 19 )
+script = ExtResource( 24 )
 body = NodePath("../../..")
 
 [node name="Enter Height" type="Node" parent="State Machine/Somersault/Crouch Height" index="0"]
-script = ExtResource( 15 )
+script = ExtResource( 19 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "set_height"
 new_value = 50
 
 [node name="Exit Height" type="Node" parent="State Machine/Somersault/Crouch Height" index="1"]
-script = ExtResource( 20 )
+script = ExtResource( 25 )
 active = false
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "set_height"
 new_value = 100
+
+[node name="Action Buffer" type="Node" parent="State Machine/Somersault" index="2"]
+editor/display_folded = true
+script = ExtResource( 10 )
+
+[node name="Dashed" type="Node" parent="State Machine/Somersault/Action Buffer" index="0"]
+script = ExtResource( 17 )
+node_path = NodePath("../../../../ActionBuffer")
+FUNCTION_NAME = "add_action"
+new_string = "dashed"
 
 [node name="Back Roll" type="Node" parent="State Machine" index="9"]
 editor/display_folded = true
@@ -519,13 +705,13 @@ push_down = true
 
 [node name="Dash" type="Node" parent="State Machine/Back Roll" index="0"]
 editor/display_folded = true
-script = ExtResource( 22 )
+script = ExtResource( 27 )
 look_direction = NodePath("../../../Look Direction")
 dash_distance = -300
 next_state = "previous"
 
 [node name="Enter Velocity 2D" type="Node" parent="State Machine/Back Roll/Dash" index="0"]
-script = ExtResource( 23 )
+script = ExtResource( 28 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "set_velocity_2d"
 
@@ -534,21 +720,31 @@ process_mode = 0
 
 [node name="Crouch Height" type="Node" parent="State Machine/Back Roll" index="1"]
 editor/display_folded = true
-script = ExtResource( 19 )
+script = ExtResource( 24 )
 body = NodePath("../../..")
 
 [node name="Enter Height" type="Node" parent="State Machine/Back Roll/Crouch Height" index="0"]
-script = ExtResource( 15 )
+script = ExtResource( 19 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "set_height"
 new_value = 50
 
 [node name="Exit Height" type="Node" parent="State Machine/Back Roll/Crouch Height" index="1"]
-script = ExtResource( 20 )
+script = ExtResource( 25 )
 active = false
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "set_height"
 new_value = 100
+
+[node name="Action Buffer" type="Node" parent="State Machine/Back Roll" index="2"]
+editor/display_folded = true
+script = ExtResource( 10 )
+
+[node name="Dashed" type="Node" parent="State Machine/Back Roll/Action Buffer" index="0"]
+script = ExtResource( 17 )
+node_path = NodePath("../../../../ActionBuffer")
+FUNCTION_NAME = "add_action"
+new_string = "dashed"
 
 [node name="Air Dash" type="Node" parent="State Machine" index="10"]
 editor/display_folded = true
@@ -558,13 +754,14 @@ push_down = true
 overwrite = true
 
 [node name="Dash" type="Node" parent="State Machine/Air Dash" index="0"]
-script = ExtResource( 22 )
+editor/display_folded = true
+script = ExtResource( 27 )
 look_direction = NodePath("../../../Look Direction")
 dash_duration = 0.25
 next_state = "previous"
 
 [node name="Enter Velocity 2D" type="Node" parent="State Machine/Air Dash/Dash" index="0"]
-script = ExtResource( 23 )
+script = ExtResource( 28 )
 node_path = NodePath("../../../..")
 FUNCTION_NAME = "set_velocity_2d"
 
@@ -572,18 +769,28 @@ FUNCTION_NAME = "set_velocity_2d"
 process_mode = 0
 
 [node name="Enter Gravity" type="Node" parent="State Machine/Air Dash" index="1"]
-script = ExtResource( 15 )
+script = ExtResource( 19 )
 node_path = NodePath("../../..")
 FUNCTION_NAME = "set_grav"
 
 [node name="Enter Z Velocity" type="Node" parent="State Machine/Air Dash" index="2"]
-script = ExtResource( 15 )
+script = ExtResource( 19 )
 node_path = NodePath("../../..")
 FUNCTION_NAME = "set_z_velocity"
 
+[node name="Action Buffer" type="Node" parent="State Machine/Air Dash" index="3"]
+editor/display_folded = true
+script = ExtResource( 10 )
+
+[node name="Air Dashed" type="Node" parent="State Machine/Air Dash/Action Buffer" index="0"]
+script = ExtResource( 17 )
+node_path = NodePath("../../../../ActionBuffer")
+FUNCTION_NAME = "add_action"
+new_string = "air_dashed"
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="7"]
 
-[node name="StatesStackDiplayer" parent="CanvasLayer" index="0" instance=ExtResource( 24 )]
+[node name="StatesStackDiplayer" parent="CanvasLayer" index="0" instance=ExtResource( 29 )]
 [connection signal="state_changed" from="State Machine" to="CanvasLayer/StatesStackDiplayer" method="_on_StateMachine_state_changed"]
 [connection signal="timeout" from="State Machine/Lunge/Dash/Timer" to="State Machine/Lunge/Dash" method="_on_Timer_timeout"]
 [connection signal="timeout" from="State Machine/Retreat/Dash/Timer" to="State Machine/Retreat/Dash" method="_on_Timer_timeout"]

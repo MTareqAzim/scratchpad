@@ -1,6 +1,5 @@
-tool
 extends Node
-class_name ActionBuffer, "action-buffer-icon.png"
+class_name ActionBuffer, "action_buffer.png"
 
 export (int) var FRAME_BUFFER_LIMIT := 60
 

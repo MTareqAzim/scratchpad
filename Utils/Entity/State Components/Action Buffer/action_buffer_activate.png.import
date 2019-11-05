@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/action-buffer-icon.png-74824a6043117d5f24403db0b3e2b873.stex"
+path="res://.import/action_buffer_activate.png-c8b2d279d9dd80b1f2508e21c062e0c3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Utils/Action Buffer/action-buffer-icon.png"
-dest_files=[ "res://.import/action-buffer-icon.png-74824a6043117d5f24403db0b3e2b873.stex" ]
+source_file="res://Utils/Entity/State Components/Action Buffer/action_buffer_activate.png"
+dest_files=[ "res://.import/action_buffer_activate.png-c8b2d279d9dd80b1f2508e21c062e0c3.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

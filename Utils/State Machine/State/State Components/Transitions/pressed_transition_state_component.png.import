@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/pressed_transition_state_component.png-5891dd876b10b57c163e8e2bdbc6a023.stex"
+path="res://.import/pressed_transition_state_component.png-8536986ddb7ae21b3fa9136b3911cf3b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Utils/State Machine/State/State Components/Input Transitions/pressed_transition_state_component.png"
-dest_files=[ "res://.import/pressed_transition_state_component.png-5891dd876b10b57c163e8e2bdbc6a023.stex" ]
+source_file="res://Utils/State Machine/State/State Components/Transitions/pressed_transition_state_component.png"
+dest_files=[ "res://.import/pressed_transition_state_component.png-8536986ddb7ae21b3fa9136b3911cf3b.stex" ]
 
 [params]
 

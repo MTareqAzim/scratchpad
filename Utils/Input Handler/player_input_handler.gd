@@ -2,8 +2,10 @@ extends InputHandler
 class_name PlayerInputHandler, "input.png"
 
 onready var _state_machine : StateMachine = get_node(state_machine)
+onready var _action_buffer : ActionBuffer = get_node(action_buffer)
 
 export (NodePath) var state_machine
+export (NodePath) var action_buffer
 
 var _map : Array = []
 
@@ -66,5 +68,7 @@ func _populate_map() -> Array:
 func _register_event(event: InputEventAction) -> void:
 	if event.is_pressed():
 		Input.action_press(event.get_action(), 1)
+		_action_buffer.add_action(event.get_action() + "_pressed")
 	else:
 		Input.action_release(event.get_action())
+		_action_buffer.add_action(event.get_action() + "_released")

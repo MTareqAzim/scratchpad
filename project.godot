@@ -14,6 +14,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Utils/Action Buffer/action_buffer.gd"
 }, {
+"base": "ActionBufferStateComponent",
+"class": "ActionBufferActivateStateComponent",
+"language": "GDScript",
+"path": "res://Utils/Entity/State Components/Action Buffer/action_buffer_activate_state_component.gd"
+}, {
+"base": "ActionBufferStateComponent",
+"class": "ActionBufferDeactivateStateComponent",
+"language": "GDScript",
+"path": "res://Utils/Entity/State Components/Action Buffer/action_buffer_deactivate_state_component.gd"
+}, {
+"base": "EntityStateComponent",
+"class": "ActionBufferStateComponent",
+"language": "GDScript",
+"path": "res://Utils/Entity/State Components/Action Buffer/action_buffer_state_component.gd"
+}, {
 "base": "Node",
 "class": "ActionMap",
 "language": "GDScript",
@@ -105,6 +120,16 @@ _global_script_classes=[ {
 "path": "res://Utils/State Machine/State/State Components/Node State Components/Update/modify_int_update_state_component.gd"
 }, {
 "base": "NodeStateComponent",
+"class": "ModifyStringEnterStateComponent",
+"language": "GDScript",
+"path": "res://Utils/State Machine/State/State Components/Node State Components/Enter/modify_string_enter_state_component.gd"
+}, {
+"base": "NodeStateComponent",
+"class": "ModifyStringExitStateComponent",
+"language": "GDScript",
+"path": "res://Utils/State Machine/State/State Components/Node State Components/Exit/modify_string_exit_state_component.gd"
+}, {
+"base": "NodeStateComponent",
 "class": "ModifyVector2EnterStateComponent",
 "language": "GDScript",
 "path": "res://Utils/State Machine/State/State Components/Node State Components/Enter/modify_vector2_enter_state_component.gd"
@@ -137,12 +162,12 @@ _global_script_classes=[ {
 "base": "StateComponent",
 "class": "PressedTransitionStateComponent",
 "language": "GDScript",
-"path": "res://Utils/State Machine/State/State Components/Input Transitions/pressed_transition_state_component.gd"
+"path": "res://Utils/State Machine/State/State Components/Transitions/pressed_transition_state_component.gd"
 }, {
 "base": "StateComponent",
 "class": "ReleasedTransitionStateComponent",
 "language": "GDScript",
-"path": "res://Utils/State Machine/State/State Components/Input Transitions/released_transition_state_component.gd"
+"path": "res://Utils/State Machine/State/State Components/Transitions/released_transition_state_component.gd"
 }, {
 "base": "Node",
 "class": "State",
@@ -173,9 +198,17 @@ _global_script_classes=[ {
 "class": "StaticWall2P5D",
 "language": "GDScript",
 "path": "res://Utils/Physics Bodies/static_wall_2p5d.gd"
+}, {
+"base": "StateComponent",
+"class": "TransitionStateComponent",
+"language": "GDScript",
+"path": "res://Utils/State Machine/State/State Components/Transitions/transition_state_component.gd"
 } ]
 _global_script_class_icons={
-"ActionBuffer": "res://Utils/Action Buffer/action-buffer-icon.png",
+"ActionBuffer": "res://Utils/Action Buffer/action_buffer.png",
+"ActionBufferActivateStateComponent": "res://Utils/Entity/State Components/Action Buffer/action_buffer_activate.png",
+"ActionBufferDeactivateStateComponent": "res://Utils/Entity/State Components/Action Buffer/action_buffer_deactivate.png",
+"ActionBufferStateComponent": "",
 "ActionMap": "res://Utils/Input Handler/Action Map/action_map.png",
 "Collision2D": "",
 "ComponentState": "res://Utils/State Machine/State/state.png",
@@ -194,20 +227,23 @@ _global_script_class_icons={
 "ModifyIntEnterStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Enter/int_enter.png",
 "ModifyIntExitStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Exit/int_exit.png",
 "ModifyIntUpdateStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Update/int_update.png",
+"ModifyStringEnterStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Enter/str_enter.png",
+"ModifyStringExitStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Exit/str_exit.png",
 "ModifyVector2EnterStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Enter/vec2_enter.png",
-"MoveStateComponent": "",
+"MoveStateComponent": "res://Utils/Entity/State Components/Movement/move_state_component.png",
 "NodeStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/node_state_component.png",
 "NotEqualsTransitionStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/not_equals_transition.png",
 "PhysicsBody2P5D": "",
 "PlayerInputHandler": "res://Utils/Input Handler/input.png",
-"PressedTransitionStateComponent": "res://Utils/State Machine/State/State Components/Input Transitions/pressed_transition_state_component.png",
-"ReleasedTransitionStateComponent": "res://Utils/State Machine/State/State Components/Input Transitions/released_transition_state_component.png",
+"PressedTransitionStateComponent": "res://Utils/State Machine/State/State Components/Transitions/pressed_transition_state_component.png",
+"ReleasedTransitionStateComponent": "res://Utils/State Machine/State/State Components/Transitions/released_transition_state_component.png",
 "State": "res://Utils/State Machine/State/state.png",
 "StateComponent": "res://Utils/State Machine/State/State Components/state_component.png",
 "StateMachine": "res://Utils/State Machine/state_machine.png",
 "StaticBody2P5D": "",
 "StaticSlope2P5D": "res://Utils/Physics Bodies/static_slope_2p5d.png",
-"StaticWall2P5D": "res://Utils/Physics Bodies/static_wall_2p5d.png"
+"StaticWall2P5D": "res://Utils/Physics Bodies/static_wall_2p5d.png",
+"TransitionStateComponent": ""
 }
 
 [application]
