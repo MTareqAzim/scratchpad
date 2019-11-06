@@ -140,6 +140,7 @@ GRAVITY = 980
 _z_pos = 0
 
 [node name="StateMachine" parent="Player" index="3"]
+editor/display_folded = true
 _active = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

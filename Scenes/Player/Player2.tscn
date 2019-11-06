@@ -105,6 +105,7 @@ look_direction = NodePath("../../../Look Direction")
 input_handler = NodePath("../../../Player Input")
 
 [node name="Transitions" type="Node" parent="State Machine/Idle" index="2"]
+editor/display_folded = true
 script = ExtResource( 10 )
 
 [node name="Move" type="Node" parent="State Machine/Idle/Transitions" index="0"]
@@ -140,6 +141,7 @@ equals = "True"
 NEXT_STATE = "crouch"
 
 [node name="Dashed" type="Node" parent="State Machine/Idle/Transitions" index="5"]
+editor/display_folded = true
 script = ExtResource( 14 )
 action_buffer = NodePath("../../../../ActionBuffer")
 action = "dashed"
@@ -164,7 +166,6 @@ frames = 5
 
 [node name="Lunge" type="Node" parent="State Machine/Idle/Transitions/Dashed/Lunge Pressed" index="0"]
 script = ExtResource( 16 )
-active = false
 NEXT_STATE = "lunge"
 
 [node name="Retreat Pressed" type="Node" parent="State Machine/Idle/Transitions/Dashed" index="3"]
@@ -176,7 +177,6 @@ frames = 5
 
 [node name="Retreat" type="Node" parent="State Machine/Idle/Transitions/Dashed/Retreat Pressed" index="0"]
 script = ExtResource( 16 )
-active = false
 NEXT_STATE = "retreat"
 
 [node name="Jump Pressed" type="Node" parent="State Machine/Idle/Transitions" index="6"]
@@ -187,7 +187,6 @@ frames = 5
 
 [node name="Jump" type="Node" parent="State Machine/Idle/Transitions/Jump Pressed" index="0"]
 script = ExtResource( 16 )
-active = false
 NEXT_STATE = "jump"
 
 [node name="Action Buffer" type="Node" parent="State Machine/Idle" index="3"]
@@ -252,6 +251,7 @@ equals = "True"
 NEXT_STATE = "crouch"
 
 [node name="Dashed" type="Node" parent="State Machine/Move/Transitions" index="5"]
+editor/display_folded = true
 script = ExtResource( 14 )
 action_buffer = NodePath("../../../../ActionBuffer")
 action = "dashed"
@@ -276,7 +276,6 @@ frames = 5
 
 [node name="Lunge" type="Node" parent="State Machine/Move/Transitions/Dashed/Lunge Pressed" index="0"]
 script = ExtResource( 16 )
-active = false
 NEXT_STATE = "lunge"
 
 [node name="Retreat Pressed" type="Node" parent="State Machine/Move/Transitions/Dashed" index="3"]
@@ -288,7 +287,6 @@ frames = 5
 
 [node name="Retreat" type="Node" parent="State Machine/Move/Transitions/Dashed/Retreat Pressed" index="0"]
 script = ExtResource( 16 )
-active = false
 NEXT_STATE = "retreat"
 
 [node name="Jump Pressed" type="Node" parent="State Machine/Move/Transitions" index="6"]
@@ -354,7 +352,6 @@ ACTION = "lunge"
 NEXT_STATE = "air dash"
 
 [node name="Coyote Frames" type="Node" parent="State Machine/Fall/Transitions" index="2"]
-editor/display_folded = true
 script = ExtResource( 15 )
 action_buffer = NodePath("../../../../ActionBuffer")
 action = "was_grounded"

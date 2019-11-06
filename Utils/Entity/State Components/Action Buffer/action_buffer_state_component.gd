@@ -9,9 +9,8 @@ export (String) var action
 export (int) var frames
 
 var _activate : bool = true
-var _state_components : Array = []
+var _state_components : Dictionary = {}
 var _activated : bool
-var _force : bool = true
 
 
 func _ready() -> void:
@@ -28,18 +27,13 @@ func enter() -> void:
 
 
 func update(delta: float) -> void:
-	_check_and_activate(_force)
-
-
-func set_active(new_active: bool) -> void:
-	_force = true
-	.set_active(new_active)
+	_check_and_activate()
 
 
 func _append_state_components(node : Node) -> void:
 	for child in node.get_children():
 		if child is StateComponent:
-			_state_components.append(child)
+			_state_components[child] = child.active
 		if child.get_child_count() > 0:
 			_append_state_components(child)
 
@@ -49,8 +43,6 @@ func _check_and_activate(force: bool = false) -> void:
 		_set_activated(_activate, force)
 	else:
 		_set_activated(not _activate, force)
-	
-	_force = false
 
 
 func _set_activated(activated: bool, force: bool = false) -> void:
@@ -64,4 +56,7 @@ func _set_activated(activated: bool, force: bool = false) -> void:
 
 func _activate_children(active: bool) -> void:
 	for component in _state_components:
-		component.set_active(active)
+		if active:
+			component.set_active(_state_components[component])
+		else:
+			component.set_active(active)
