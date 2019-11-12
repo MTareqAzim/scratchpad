@@ -3,6 +3,7 @@ extends StateComponent
 class_name ActionBufferStateComponent
 
 export (String) var action_buffer_key
+export (bool) var oneshot := false
 export (String) var action
 export (int) var frames
 
@@ -26,7 +27,8 @@ func enter() -> void:
 
 
 func update(delta: float) -> void:
-	_check_and_activate()
+	if not oneshot:
+		_check_and_activate()
 
 
 func assign_dependencies() -> void:
