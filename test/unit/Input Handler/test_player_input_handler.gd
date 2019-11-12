@@ -38,9 +38,13 @@ func test_input():
 	var doubled_state_machine = double(StateMachine).new()
 	add_child(doubled_state_machine)
 	
+	var doubled_action_buffer = double(ActionBuffer).new()
+	add_child(doubled_action_buffer)
+	
 	var doubled_action_map = double(ActionMap).new()
 	player_input.add_child(doubled_action_map)
 	player_input.state_machine = doubled_state_machine.get_path()
+	player_input.action_buffer = doubled_action_buffer.get_path()
 	add_child(player_input)
 	
 	var test_input = InputEventAction.new()

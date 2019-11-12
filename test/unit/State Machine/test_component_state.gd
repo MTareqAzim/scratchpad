@@ -41,7 +41,7 @@ func test_append_state_components():
 	component_state.add_child(state_component_b)
 	
 	add_child(component_state)
-	var components = component_state.components
+	var components = component_state._components
 	assert_has(components, state_component_a, "Component not added.")
 	assert_has(components, state_component_b, "Component not added.")
 	assert_has(components, state_component_c, "Descendent component not added.")

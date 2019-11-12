@@ -19,8 +19,15 @@ func test_get_body():
 	var node : Node = Node.new()
 	add_child(node)
 	
-	node_state_component.node_path = node.get_path()
-	add_child(node_state_component)
+	var doubled_component_state = double(ComponentState).new()
+	stub(doubled_component_state, "get_dependency").to_return(node).when_passed("node")
 	
+	node_state_component.node_key = "node"
+	node_state_component.component_state = doubled_component_state
+	doubled_component_state.add_child(node_state_component)
+	
+	add_child(doubled_component_state)
+	
+	node_state_component.assign_dependencies()
 	assert_eq(node_state_component.node, node, "Incorrect node.")
 	

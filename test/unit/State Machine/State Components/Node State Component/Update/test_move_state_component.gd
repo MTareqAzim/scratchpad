@@ -11,8 +11,8 @@ func before_each():
 	add_child(doubled_body)
 	add_child(doubled_input)
 	
-	input_move.body = doubled_body.get_path()
-	input_move.input_handler = doubled_input.get_path()
+	input_move._body = doubled_body
+	input_move._input_handler = doubled_input
 	add_child(input_move)
 
 func after_each():

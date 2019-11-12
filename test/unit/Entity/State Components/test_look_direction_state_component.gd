@@ -26,8 +26,8 @@ func _test_look_direction_state_component():
 	add_child(doubled_input_handler)
 	add_child(doubled_look_direction)
 	
-	look_direction_state_component.look_direction = doubled_look_direction.get_path()
-	look_direction_state_component.input_handler = doubled_input_handler.get_path()
+	look_direction_state_component._look_direction = doubled_look_direction
+	look_direction_state_component._input_handler = doubled_input_handler
 	
 	add_child(look_direction_state_component)
 	
@@ -41,8 +41,8 @@ func test_same_direction():
 	add_child(doubled_input_handler)
 	add_child(doubled_look_direction)
 	
-	look_direction_state_component.look_direction = doubled_look_direction.get_path()
-	look_direction_state_component.input_handler = doubled_input_handler.get_path()
+	look_direction_state_component._look_direction = doubled_look_direction
+	look_direction_state_component._input_handler = doubled_input_handler
 	
 	add_child(look_direction_state_component)
 	
