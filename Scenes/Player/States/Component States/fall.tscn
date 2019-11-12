@@ -1,0 +1,65 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Utils/State Machine/State/component_state.gd" type="Script" id=1]
+[ext_resource path="res://Utils/Entity/State Components/Movement/move_state_component.gd" type="Script" id=2]
+[ext_resource path="res://Utils/Entity/State Components/look_direction_state_component.gd" type="Script" id=3]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Enter/modify_int_enter_state_component.gd" type="Script" id=4]
+[ext_resource path="res://Utils/Grouping Node/grouping_node.gd" type="Script" id=5]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_transition_state_component.gd" type="Script" id=6]
+[ext_resource path="res://Utils/State Machine/State/State Components/Transitions/pressed_transition_state_component.gd" type="Script" id=7]
+[ext_resource path="res://Utils/Entity/State Components/Action Buffer/action_buffer_activate_state_component.gd" type="Script" id=8]
+
+[node name="Fall" type="Node"]
+script = ExtResource( 1 )
+state_name = "fall"
+push_down = true
+overwrite = true
+dependencies = {
+"body": NodePath(""),
+"buffer": NodePath(""),
+"input": NodePath(""),
+"look": NodePath("")
+}
+
+[node name="Move" type="Node" parent="."]
+script = ExtResource( 2 )
+body_key = "body"
+input_handler_key = "input"
+max_speed = 300
+
+[node name="Look Direction" type="Node" parent="."]
+script = ExtResource( 3 )
+look_direction_key = "look"
+input_handler_key = "input"
+
+[node name="Enter Gravity" type="Node" parent="."]
+script = ExtResource( 4 )
+node_key = "body"
+FUNCTION_NAME = "set_grav"
+new_value = 2000
+
+[node name="Transitions" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="Grounded" type="Node" parent="Transitions"]
+script = ExtResource( 6 )
+node_key = "body"
+FUNCTION_NAME = "is_grounded"
+equals = "True"
+NEXT_STATE = "previous"
+
+[node name="Air Dash" type="Node" parent="Transitions"]
+script = ExtResource( 7 )
+ACTION = "lunge"
+NEXT_STATE = "air dash"
+
+[node name="Coyote Frames" type="Node" parent="Transitions"]
+script = ExtResource( 8 )
+action_buffer_key = "buffer"
+action = "was_grounded"
+frames = 5
+
+[node name="Jump" type="Node" parent="Transitions/Coyote Frames"]
+script = ExtResource( 7 )
+ACTION = "jump"
+NEXT_STATE = "jump"

@@ -1,12 +1,13 @@
 extends EntityStateComponent
 
-onready var _look_direction : LookDirection = get_node(look_direction)
 onready var _timer : Timer = $Timer
 
-export (NodePath) var look_direction
+export (String) var look_direction_key
 export (int) var dash_distance := 300
 export (float) var dash_duration := 0.5
 export (String) var next_state
+
+var _look_direction : LookDirection
 
 
 func enter() -> void:
@@ -22,6 +23,10 @@ func update(delta: float) -> void:
 
 func exit() -> void:
 	_timer.stop()
+
+
+func assign_dependencies() -> void:
+	_look_direction = component_state.get_dependency(look_direction_key)
 
 
 func _set_values() -> void:

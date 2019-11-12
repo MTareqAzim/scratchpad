@@ -1,0 +1,125 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Utils/State Machine/State/component_state.gd" type="Script" id=1]
+[ext_resource path="res://Utils/Entity/State Components/Movement/move_state_component.gd" type="Script" id=2]
+[ext_resource path="res://Utils/Entity/State Components/look_direction_state_component.gd" type="Script" id=3]
+[ext_resource path="res://Utils/Grouping Node/grouping_node.gd" type="Script" id=4]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/not_equals_transition_state_component.gd" type="Script" id=5]
+[ext_resource path="res://Utils/State Machine/State/State Components/Transitions/pressed_transition_state_component.gd" type="Script" id=6]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_arg_transition_state_component.gd" type="Script" id=7]
+[ext_resource path="res://Utils/Entity/State Components/Action Buffer/action_buffer_deactivate_state_component.gd" type="Script" id=8]
+[ext_resource path="res://Utils/Entity/State Components/Action Buffer/action_buffer_activate_state_component.gd" type="Script" id=9]
+[ext_resource path="res://Utils/State Machine/State/State Components/Transitions/transition_state_component.gd" type="Script" id=10]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Exit/modify_string_exit_state_component.gd" type="Script" id=11]
+
+[node name="Idle" type="Node"]
+script = ExtResource( 1 )
+state_name = "idle"
+dependencies = {
+"body": NodePath(""),
+"buffer": NodePath(""),
+"input": NodePath(""),
+"look": NodePath("")
+}
+
+[node name="Move" type="Node" parent="."]
+script = ExtResource( 2 )
+body_key = "body"
+input_handler_key = "input"
+max_speed = 300
+
+[node name="Look Direction" type="Node" parent="."]
+script = ExtResource( 3 )
+look_direction_key = "look"
+input_handler_key = "input"
+
+[node name="Transitions" type="Node" parent="."]
+script = ExtResource( 4 )
+
+[node name="Move" type="Node" parent="Transitions"]
+script = ExtResource( 5 )
+node_key = "body"
+FUNCTION_NAME = "get_velocity_2d"
+not_equals = "(0, 0)"
+NEXT_STATE = "move"
+
+[node name="Fall" type="Node" parent="Transitions"]
+script = ExtResource( 5 )
+node_key = "body"
+FUNCTION_NAME = "is_grounded"
+not_equals = "True"
+NEXT_STATE = "fall"
+
+[node name="Jump" type="Node" parent="Transitions"]
+script = ExtResource( 6 )
+ACTION = "jump"
+NEXT_STATE = "jump"
+
+[node name="Crouch" type="Node" parent="Transitions"]
+script = ExtResource( 6 )
+ACTION = "crouch"
+NEXT_STATE = "crouch"
+
+[node name="Crouch 2" type="Node" parent="Transitions"]
+script = ExtResource( 7 )
+node_key = "input"
+FUNCTION_NAME = "is_action_pressed"
+arg = "crouch"
+equals = "True"
+NEXT_STATE = "crouch"
+
+[node name="Dashed" type="Node" parent="Transitions"]
+script = ExtResource( 8 )
+action_buffer_key = "buffer"
+action = "dashed"
+frames = 5
+
+[node name="Lunge" type="Node" parent="Transitions/Dashed"]
+script = ExtResource( 6 )
+ACTION = "lunge"
+NEXT_STATE = "lunge"
+
+[node name="Retreat" type="Node" parent="Transitions/Dashed"]
+script = ExtResource( 6 )
+ACTION = "retreat"
+NEXT_STATE = "retreat"
+
+[node name="Lunge Pressed" type="Node" parent="Transitions/Dashed"]
+script = ExtResource( 9 )
+action_buffer_key = "buffer"
+action = "lunge_pressed"
+frames = 5
+
+[node name="Lunge" type="Node" parent="Transitions/Dashed/Lunge Pressed"]
+script = ExtResource( 10 )
+NEXT_STATE = "lunge"
+
+[node name="Retreat Pressed" type="Node" parent="Transitions/Dashed"]
+editor/display_folded = true
+script = ExtResource( 9 )
+action_buffer_key = "buffer"
+action = "retreat_pressed"
+frames = 5
+
+[node name="Retreat" type="Node" parent="Transitions/Dashed/Retreat Pressed"]
+script = ExtResource( 10 )
+NEXT_STATE = "retreat"
+
+[node name="Jump Pressed" type="Node" parent="Transitions"]
+script = ExtResource( 9 )
+action_buffer_key = "buffer"
+action = "jump_pressed"
+frames = 5
+
+[node name="Jump" type="Node" parent="Transitions/Jump Pressed"]
+script = ExtResource( 10 )
+NEXT_STATE = "jump"
+
+[node name="Action Buffer" type="Node" parent="."]
+script = ExtResource( 4 )
+
+[node name="Was Grounded" type="Node" parent="Action Buffer"]
+script = ExtResource( 11 )
+node_key = "buffer"
+FUNCTION_NAME = "add_action"
+new_string = "was_grounded"

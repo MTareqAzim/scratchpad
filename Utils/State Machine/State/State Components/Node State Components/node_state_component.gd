@@ -1,9 +1,9 @@
 extends StateComponent
 class_name NodeStateComponent, "node_state_component.png"
 
-onready var node : Node = get_node(node_path)
+var node : Node
 
-export (NodePath) var node_path
+export (String) var node_key
 
 
 func get_class() -> String:
@@ -12,3 +12,7 @@ func get_class() -> String:
 
 func is_class(type: String) -> bool:
 	return type == "NodeStateComponent" or .is_class(type)
+
+
+func assign_dependencies() -> void:
+	node = component_state.get_dependency(node_key)

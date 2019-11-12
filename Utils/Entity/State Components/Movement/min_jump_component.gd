@@ -1,11 +1,11 @@
 extends EntityStateComponent
 
-onready var _body : KinematicBody2P5D = get_node(body)
-onready var _input : InputHandler = get_node(input)
-
-export (NodePath) var body
-export (NodePath) var input
+export (String) var body_key
+export (String) var input_handler_key
 export (int) var min_jump_height := 50
+
+var _body : KinematicBody2P5D
+var _input : InputHandler
 
 
 func handle_input(event: InputEvent) -> void:
@@ -16,6 +16,11 @@ func handle_input(event: InputEvent) -> void:
 func update(delta: float) -> void:
 	if not _input.is_action_pressed("jump"):
 		_limit_z_velocity()
+
+
+func assign_dependencies() -> void:
+	_body = component_state.get_dependency(body_key)
+	_input = component_state.get_dependency(input_handler_key)
 
 
 func _limit_z_velocity() -> void:

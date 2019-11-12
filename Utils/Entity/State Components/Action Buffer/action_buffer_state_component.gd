@@ -2,12 +2,11 @@ tool
 extends EntityStateComponent
 class_name ActionBufferStateComponent
 
-onready var _action_buffer : ActionBuffer = get_node(action_buffer)
-
-export (NodePath) var action_buffer
+export (String) var action_buffer_key
 export (String) var action
 export (int) var frames
 
+var _action_buffer : ActionBuffer
 var _activate : bool = true
 var _state_components : Dictionary = {}
 var _activated : bool
@@ -28,6 +27,10 @@ func enter() -> void:
 
 func update(delta: float) -> void:
 	_check_and_activate()
+
+
+func assign_dependencies() -> void:
+	_action_buffer = component_state.get_dependency(action_buffer_key)
 
 
 func _append_state_components(node : Node) -> void:

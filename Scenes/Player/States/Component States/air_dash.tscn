@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Utils/State Machine/State/component_state.gd" type="Script" id=1]
+[ext_resource path="res://Utils/Entity/State Components/Movement/dash_component.gd" type="Script" id=2]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Enter/modify_vector2_enter_state_component.gd" type="Script" id=3]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Enter/modify_int_enter_state_component.gd" type="Script" id=4]
+[ext_resource path="res://Utils/Grouping Node/grouping_node.gd" type="Script" id=5]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Exit/modify_string_exit_state_component.gd" type="Script" id=6]
+
+[node name="Air Dash" type="Node"]
+script = ExtResource( 1 )
+state_name = "air dash"
+push_down = true
+overwrite = true
+dependencies = {
+"body": NodePath(""),
+"buffer": NodePath(""),
+"look": NodePath("")
+}
+
+[node name="Dash" type="Node" parent="."]
+script = ExtResource( 2 )
+look_direction_key = "look"
+dash_duration = 0.25
+next_state = "previous"
+
+[node name="Enter Velocity 2D" type="Node" parent="Dash"]
+script = ExtResource( 3 )
+node_key = "body"
+FUNCTION_NAME = "set_velocity_2d"
+
+[node name="Timer" type="Timer" parent="Dash"]
+process_mode = 0
+
+[node name="Enter Gravity" type="Node" parent="."]
+script = ExtResource( 4 )
+node_key = "body"
+FUNCTION_NAME = "set_grav"
+
+[node name="Enter Z Velocity" type="Node" parent="."]
+script = ExtResource( 4 )
+node_key = "body"
+FUNCTION_NAME = "set_z_velocity"
+
+[node name="Action Buffer" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="Air Dashed" type="Node" parent="Action Buffer"]
+script = ExtResource( 6 )
+node_key = "buffer"
+FUNCTION_NAME = "add_action"
+new_string = "air_dashed"
+[connection signal="timeout" from="Dash/Timer" to="Dash" method="_on_Timer_timeout"]

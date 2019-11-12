@@ -1,16 +1,20 @@
 extends EntityStateComponent
 class_name LookDirectionStateComponent, "look_direction.png"
 
-onready var _look_direction : LookDirection = get_node(look_direction)
-onready var _input_handler : InputHandler = get_node(input_handler)
+export (String) var look_direction_key
+export (String) var input_handler_key
 
-export (NodePath) var look_direction
-export (NodePath) var input_handler
-
+var _look_direction : LookDirection
+var _input_handler : InputHandler
 
 func update(delta: float) -> void:
 	var look_direction = _input_handler.get_direction()
 	_update_look_direction(look_direction)
+
+
+func assign_dependencies() -> void:
+	_look_direction = component_state.get_dependency(look_direction_key)
+	_input_handler = component_state.get_dependency(input_handler_key)
 
 
 func _update_look_direction(direction: Vector2) -> void:

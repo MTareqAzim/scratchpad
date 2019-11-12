@@ -80,6 +80,10 @@ func _change_state(state_name: String) -> void:
 	if not _active:
 		return
 	
+	if state_name != "previous":
+		if not states_map.has(state_name):
+			return
+	
 	if state_name in overwrite_states:
 		if states_stack.size() > 1:
 			states_stack.pop_front()
