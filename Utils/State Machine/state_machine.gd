@@ -5,13 +5,14 @@ signal state_changed(states_stack)
 
 export (bool) var _active := false setget set_active
 
-var _start_state : Node = null
 
-var states_map : Dictionary = {}
-var states_stack : Array = []
 var current_state : State = null
-var push_down_states : Array = []
-var overwrite_states : Array = []
+
+var _start_state : Node = null
+var _states_map : Dictionary = {}
+var _states_stack : Array = []
+var _push_down_states : Array = []
+var _overwrite_states : Array = []
 
 
 func _ready() -> void:
@@ -38,8 +39,8 @@ func is_class(type: String) -> bool:
 
 func initialize() -> void:
 	set_active(true)
-	states_stack.push_front(_start_state)
-	current_state = states_stack[0]
+	_states_stack.push_front(_start_state)
+	current_state = _states_stack[0]
 	current_state.enter()
 
 
@@ -48,7 +49,7 @@ func set_active(active: bool) -> void:
 	set_physics_process(active)
 	set_process_input(active)
 	if not _active:
-		states_stack = []
+		_states_stack = []
 		current_state = null
 
 
@@ -61,18 +62,18 @@ func _append_states(node: Node) -> void:
 		if child is State:
 			if not _start_state:
 				_start_state = child
-			states_map[child.state_name] = child
+			_states_map[child.state_name] = child
 			if child.push_down:
-				push_down_states.append(child.state_name)
+				_push_down_states.append(child.state_name)
 			if child.overwrite:
-				overwrite_states.append(child.state_name)
+				_overwrite_states.append(child.state_name)
 		
 		if child.get_child_count() > 0:
 			_append_states(child)
 
 
 func _attach_finished_signals() -> void:
-	for state in states_map.values():
+	for state in _states_map.values():
 		state.connect("finished", self, "_change_state")
 
 
@@ -81,25 +82,25 @@ func _change_state(state_name: String) -> void:
 		return
 	
 	if state_name != "previous":
-		if not states_map.has(state_name):
+		if not _states_map.has(state_name):
 			return
 	
-	if state_name in overwrite_states:
-		if states_stack.size() > 1:
-			states_stack.pop_front()
+	if state_name in _overwrite_states:
+		if _states_stack.size() > 1:
+			_states_stack.pop_front()
 	
-	if state_name in push_down_states:
-		states_stack.push_front(states_map[state_name])
+	if state_name in _push_down_states:
+		_states_stack.push_front(_states_map[state_name])
 	
 	current_state.exit()
 	
 	if state_name == "previous":
-		states_stack.pop_front()
+		_states_stack.pop_front()
 	else:
-		states_stack[0] = states_map[state_name]
+		_states_stack[0] = _states_map[state_name]
 	
-	current_state = states_stack[0]
-	emit_signal("state_changed", states_stack)
+	current_state = _states_stack[0]
+	emit_signal("state_changed", _states_stack)
 	
 	if state_name != "previous":
 		current_state.enter()

@@ -17,17 +17,17 @@ _global_script_classes=[ {
 "base": "ActionBufferStateComponent",
 "class": "ActionBufferActivateStateComponent",
 "language": "GDScript",
-"path": "res://Utils/Entity/State Components/Action Buffer/action_buffer_activate_state_component.gd"
+"path": "res://Utils/State Machine/State/State Components/Action Buffer/action_buffer_activate_state_component.gd"
 }, {
 "base": "ActionBufferStateComponent",
 "class": "ActionBufferDeactivateStateComponent",
 "language": "GDScript",
-"path": "res://Utils/Entity/State Components/Action Buffer/action_buffer_deactivate_state_component.gd"
+"path": "res://Utils/State Machine/State/State Components/Action Buffer/action_buffer_deactivate_state_component.gd"
 }, {
-"base": "EntityStateComponent",
+"base": "StateComponent",
 "class": "ActionBufferStateComponent",
 "language": "GDScript",
-"path": "res://Utils/Entity/State Components/Action Buffer/action_buffer_state_component.gd"
+"path": "res://Utils/State Machine/State/State Components/Action Buffer/action_buffer_state_component.gd"
 }, {
 "base": "Node",
 "class": "ActionMap",
@@ -206,8 +206,8 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "ActionBuffer": "res://Utils/Action Buffer/action_buffer.png",
-"ActionBufferActivateStateComponent": "res://Utils/Entity/State Components/Action Buffer/action_buffer_activate.png",
-"ActionBufferDeactivateStateComponent": "res://Utils/Entity/State Components/Action Buffer/action_buffer_deactivate.png",
+"ActionBufferActivateStateComponent": "res://Utils/State Machine/State/State Components/Action Buffer/action_buffer_activate.png",
+"ActionBufferDeactivateStateComponent": "res://Utils/State Machine/State/State Components/Action Buffer/action_buffer_deactivate.png",
 "ActionBufferStateComponent": "",
 "ActionMap": "res://Utils/Input Handler/Action Map/action_map.png",
 "Collision2D": "",

@@ -74,6 +74,11 @@ script = ExtResource( 10 )
 ACTION = "lunge"
 NEXT_STATE = "air dash"
 
+[node name="Back Air Dash" type="Node" parent="Transitions"]
+script = ExtResource( 10 )
+ACTION = "retreat"
+NEXT_STATE = "back air dash"
+
 [node name="Action Buffer" type="Node" parent="."]
 script = ExtResource( 7 )
 

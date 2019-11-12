@@ -16,5 +16,4 @@ _run_on_load = true
 _yield_between_tests = false
 _include_subdirectories = true
 _directory1 = "res://test/unit"
-_directory2 = "res://test/integration"
 _double_strategy = 1

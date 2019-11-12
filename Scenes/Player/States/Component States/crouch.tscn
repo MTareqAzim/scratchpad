@@ -52,7 +52,6 @@ FUNCTION_NAME = "set_height"
 new_value = 100
 
 [node name="Transitions" type="Node" parent="."]
-editor/display_folded = true
 script = ExtResource( 7 )
 
 [node name="Fall" type="Node" parent="Transitions"]
@@ -88,7 +87,7 @@ NEXT_STATE = "somersault"
 [node name="Back Roll" type="Node" parent="Transitions"]
 script = ExtResource( 11 )
 ACTION = "retreat"
-NEXT_STATE = "back_roll"
+NEXT_STATE = "back roll"
 
 [node name="Action Buffer" type="Node" parent="."]
 script = ExtResource( 7 )

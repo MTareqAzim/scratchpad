@@ -29,7 +29,7 @@ func test_populate_state_machine():
 	state_machine.add_child(state_b)
 	
 	add_child(state_machine)
-	var states = state_machine.states_map
+	var states = state_machine._states_map
 	assert_has(states, "state_a", "Child not added.")
 	assert_has(states, "state_b", "Child not added.")
 	assert_has(states, "state_c", "Descendent not added.")

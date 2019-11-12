@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Utils/State Machine/State/component_state.gd" type="Script" id=1]
 [ext_resource path="res://Utils/Entity/State Components/Movement/dash_component.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Enter/modify_int_enter_state_component.gd" type="Script" id=4]
 [ext_resource path="res://Utils/Grouping Node/grouping_node.gd" type="Script" id=5]
 [ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Exit/modify_string_exit_state_component.gd" type="Script" id=6]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Enter/modify_string_enter_state_component.gd" type="Script" id=7]
 
 [node name="Air Dash" type="Node"]
 script = ExtResource( 1 )
@@ -22,7 +23,7 @@ dependencies = {
 script = ExtResource( 2 )
 look_direction_key = "look"
 dash_duration = 0.25
-next_state = "previous"
+next_state = "fall"
 
 [node name="Enter Velocity 2D" type="Node" parent="Dash"]
 script = ExtResource( 3 )
@@ -50,4 +51,9 @@ script = ExtResource( 6 )
 node_key = "buffer"
 FUNCTION_NAME = "add_action"
 new_string = "air_dashed"
+
+[node name="Dash Handled" type="Node" parent="Action Buffer"]
+script = ExtResource( 7 )
+node_key = "buffer"
+FUNCTION_NAME = "action_handled"
 [connection signal="timeout" from="Dash/Timer" to="Dash" method="_on_Timer_timeout"]

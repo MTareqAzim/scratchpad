@@ -1,5 +1,5 @@
 tool
-extends EntityStateComponent
+extends StateComponent
 class_name ActionBufferStateComponent
 
 export (String) var action_buffer_key

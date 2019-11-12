@@ -7,7 +7,7 @@
 [ext_resource path="res://Utils/Grouping Node/grouping_node.gd" type="Script" id=5]
 [ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_transition_state_component.gd" type="Script" id=6]
 [ext_resource path="res://Utils/State Machine/State/State Components/Transitions/pressed_transition_state_component.gd" type="Script" id=7]
-[ext_resource path="res://Utils/Entity/State Components/Action Buffer/action_buffer_activate_state_component.gd" type="Script" id=8]
+[ext_resource path="res://Utils/State Machine/State/State Components/Action Buffer/action_buffer_activate_state_component.gd" type="Script" id=8]
 
 [node name="Fall" type="Node"]
 script = ExtResource( 1 )
@@ -52,6 +52,11 @@ NEXT_STATE = "previous"
 script = ExtResource( 7 )
 ACTION = "lunge"
 NEXT_STATE = "air dash"
+
+[node name="Back Air Dash" type="Node" parent="Transitions"]
+script = ExtResource( 7 )
+ACTION = "retreat"
+NEXT_STATE = "back air dash"
 
 [node name="Coyote Frames" type="Node" parent="Transitions"]
 script = ExtResource( 8 )
