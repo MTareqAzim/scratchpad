@@ -11,5 +11,5 @@ func _set_values():
 	var new_gravity = int(round((2 * max_jump_height) / pow(jump_duration, 2)))
 	var z_velocity = int(-new_gravity * jump_duration)
 	
-	$"Enter Gravity".new_value = new_gravity
-	$"Enter Z Velocity".new_value = z_velocity
+	$"Enter Gravity".args = [new_gravity]
+	$"Enter Z Velocity".args = [z_velocity]

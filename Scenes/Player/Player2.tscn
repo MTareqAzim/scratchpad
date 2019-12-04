@@ -105,6 +105,9 @@ editor/display_folded = true
 [node name="Transitions" parent="State Machine/Crouch" index="3"]
 editor/display_folded = true
 
+[node name="Action Buffer" parent="State Machine/Crouch" index="4"]
+editor/display_folded = true
+
 [node name="Fall" parent="State Machine" index="3" instance=ExtResource( 10 )]
 dependencies = {
 "body": NodePath("../.."),
@@ -149,7 +152,7 @@ dependencies = {
 }
 
 [node name="Dash Handled" parent="State Machine/Lunge/Action Buffer" index="1"]
-new_string = "lunge_pressed"
+args = [ "lunge" ]
 
 [node name="Retreat" parent="State Machine" index="7" instance=ExtResource( 12 )]
 editor/display_folded = true
@@ -164,7 +167,7 @@ dependencies = {
 dash_distance = -300
 
 [node name="Dash Handled" parent="State Machine/Retreat/Action Buffer" index="1"]
-new_string = "retreat_pressed"
+args = [ "retreat" ]
 
 [node name="Somersault" parent="State Machine" index="8" instance=ExtResource( 13 )]
 editor/display_folded = true
@@ -176,7 +179,7 @@ dependencies = {
 }
 
 [node name="Dash Handled" parent="State Machine/Somersault/Action Buffer" index="1"]
-new_string = "lunge_pressed"
+args = [ "lunge" ]
 
 [node name="Back Roll" parent="State Machine" index="9" instance=ExtResource( 13 )]
 editor/display_folded = true
@@ -191,7 +194,7 @@ dependencies = {
 dash_distance = -300
 
 [node name="Dash Handled" parent="State Machine/Back Roll/Action Buffer" index="1"]
-new_string = "retreat_pressed"
+args = [ "retreat" ]
 
 [node name="Air Dash" parent="State Machine" index="10" instance=ExtResource( 14 )]
 editor/display_folded = true
@@ -202,10 +205,9 @@ dependencies = {
 }
 
 [node name="Dash Handled" parent="State Machine/Air Dash/Action Buffer" index="1"]
-new_string = "lunge_pressed"
+args = [ "lunge" ]
 
 [node name="Back Air Dash" parent="State Machine" index="11" instance=ExtResource( 14 )]
-editor/display_folded = true
 state_name = "back air dash"
 dependencies = {
 "body": NodePath("../.."),
@@ -218,7 +220,7 @@ editor/display_folded = true
 dash_distance = -300
 
 [node name="Dash Handled" parent="State Machine/Back Air Dash/Action Buffer" index="1"]
-new_string = "retreat_pressed"
+args = [ "retreat" ]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="7"]
 

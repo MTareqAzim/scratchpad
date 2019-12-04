@@ -33,7 +33,7 @@ func _set_values() -> void:
 	var speed : float = dash_distance / dash_duration
 	var direction : Vector2 = _look_direction.get_look_direction()
 	
-	$"Enter Velocity 2D".new_vector = direction * speed
+	$"Enter Velocity 2D".args = [direction * speed]
 	$Timer.set_wait_time(dash_duration)
 
 

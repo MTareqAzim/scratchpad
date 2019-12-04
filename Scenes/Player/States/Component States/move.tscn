@@ -11,8 +11,7 @@
 [ext_resource path="res://Utils/State Machine/State/State Components/Action Buffer/action_buffer_deactivate_state_component.gd" type="Script" id=9]
 [ext_resource path="res://Utils/State Machine/State/State Components/Action Buffer/action_buffer_activate_state_component.gd" type="Script" id=10]
 [ext_resource path="res://Utils/State Machine/State/State Components/Transitions/transition_state_component.gd" type="Script" id=11]
-[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Exit/modify_string_exit_state_component.gd" type="Script" id=12]
-
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Exit/call_function_exit_state_component.gd" type="Script" id=12]
 
 [node name="Move" type="Node"]
 script = ExtResource( 1 )
@@ -124,4 +123,4 @@ script = ExtResource( 4 )
 script = ExtResource( 12 )
 node_key = "buffer"
 FUNCTION_NAME = "add_action"
-new_string = "was_grounded"
+args = [ "was_grounded" ]

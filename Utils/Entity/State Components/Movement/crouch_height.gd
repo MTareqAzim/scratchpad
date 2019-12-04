@@ -7,8 +7,8 @@ var _body : KinematicBody2P5D
 
 
 func enter() -> void:
-	$"Enter Height".new_value = crouch_height
-	$"Exit Height".new_value = _body.get_height()
+	$"Enter Height".args = [crouch_height]
+	$"Exit Height".args = [_body.get_height()]
 
 
 func assign_dependencies() -> void:

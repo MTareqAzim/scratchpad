@@ -1,16 +1,15 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Utils/State Machine/State/component_state.gd" type="Script" id=1]
 [ext_resource path="res://Utils/Entity/State Components/Movement/move_state_component.gd" type="Script" id=2]
 [ext_resource path="res://Utils/Entity/State Components/look_direction_state_component.gd" type="Script" id=3]
 [ext_resource path="res://Utils/Entity/State Components/Movement/jump_component.gd" type="Script" id=4]
-[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Enter/modify_int_enter_state_component.gd" type="Script" id=5]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Enter/call_function_enter_state_component.gd" type="Script" id=5]
 [ext_resource path="res://Utils/Entity/State Components/Movement/min_jump_component.gd" type="Script" id=6]
 [ext_resource path="res://Utils/Grouping Node/grouping_node.gd" type="Script" id=7]
 [ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/greater_than_transition_state_component.gd" type="Script" id=8]
 [ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_transition_state_component.gd" type="Script" id=9]
 [ext_resource path="res://Utils/State Machine/State/State Components/Transitions/pressed_transition_state_component.gd" type="Script" id=10]
-[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Enter/modify_string_enter_state_component.gd" type="Script" id=11]
 
 [node name="Jump" type="Node"]
 script = ExtResource( 1 )
@@ -83,7 +82,7 @@ NEXT_STATE = "back air dash"
 script = ExtResource( 7 )
 
 [node name="Jump Handled" type="Node" parent="Action Buffer"]
-script = ExtResource( 11 )
+script = ExtResource( 5 )
 node_key = "buffer"
 FUNCTION_NAME = "action_handled"
-new_string = "jump_pressed"
+args = [ "jump_pressed" ]

@@ -10,8 +10,7 @@
 [ext_resource path="res://Utils/State Machine/State/State Components/Action Buffer/action_buffer_deactivate_state_component.gd" type="Script" id=8]
 [ext_resource path="res://Utils/State Machine/State/State Components/Action Buffer/action_buffer_activate_state_component.gd" type="Script" id=9]
 [ext_resource path="res://Utils/State Machine/State/State Components/Transitions/transition_state_component.gd" type="Script" id=10]
-[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Exit/modify_string_exit_state_component.gd" type="Script" id=11]
-
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Exit/call_function_exit_state_component.gd" type="Script" id=11]
 
 [node name="Idle" type="Node"]
 script = ExtResource( 1 )
@@ -35,6 +34,7 @@ look_direction_key = "look"
 input_handler_key = "input"
 
 [node name="Transitions" type="Node" parent="."]
+editor/display_folded = true
 script = ExtResource( 4 )
 
 [node name="Move" type="Node" parent="Transitions"]
@@ -117,10 +117,11 @@ script = ExtResource( 10 )
 NEXT_STATE = "jump"
 
 [node name="Action Buffer" type="Node" parent="."]
+editor/display_folded = true
 script = ExtResource( 4 )
 
 [node name="Was Grounded" type="Node" parent="Action Buffer"]
 script = ExtResource( 11 )
 node_key = "buffer"
 FUNCTION_NAME = "add_action"
-new_string = "was_grounded"
+args = [ "was_grounded" ]
