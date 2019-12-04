@@ -329,6 +329,10 @@ retreat={
 2d_physics/layer_1="Kinematic Body 2.5D"
 2d_physics/layer_2="Static Body 2.5D"
 
+[physics]
+
+common/physics_fps=30
+
 [rendering]
 
 quality/2d/use_pixel_snap=true

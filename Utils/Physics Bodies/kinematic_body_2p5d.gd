@@ -165,10 +165,14 @@ func _handle_steps(delta_movement: Vector3) -> Vector3:
 	var closest_floor_dist := 0
 	
 	if delta_movement.z >= 0:
-		closest_floor_dist = _get_closest_step_down_dist(delta_movement)
+		var closest_step_down_dist = _get_closest_step_down_dist(delta_movement)
+		if closest_step_down_dist != 0:
+			closest_floor_dist = closest_step_down_dist
 	
 	if delta_movement.z <= 0:
-		closest_floor_dist = _get_closest_step_up_dist(delta_movement)
+		var closest_step_up_dist = _get_closest_step_up_dist(delta_movement)
+		if closest_step_up_dist != 0:
+			closest_floor_dist = closest_step_up_dist
 	
 	delta_movement.z += closest_floor_dist
 	
