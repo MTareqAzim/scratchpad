@@ -65,7 +65,7 @@ NEXT_STATE = "fall"
 script = ExtResource( 9 )
 node_key = "body"
 FUNCTION_NAME = "get_z_velocity"
-equals = "0"
+equals = [ 0 ]
 NEXT_STATE = "fall"
 
 [node name="Air Dash" type="Node" parent="Transitions"]

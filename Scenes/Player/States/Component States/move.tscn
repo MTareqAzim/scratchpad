@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Utils/State Machine/State/component_state.gd" type="Script" id=1]
 [ext_resource path="res://Utils/Entity/State Components/Movement/move_state_component.gd" type="Script" id=2]
@@ -7,11 +7,10 @@
 [ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_transition_state_component.gd" type="Script" id=5]
 [ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/not_equals_transition_state_component.gd" type="Script" id=6]
 [ext_resource path="res://Utils/State Machine/State/State Components/Transitions/pressed_transition_state_component.gd" type="Script" id=7]
-[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_arg_transition_state_component.gd" type="Script" id=8]
-[ext_resource path="res://Utils/State Machine/State/State Components/Action Buffer/action_buffer_deactivate_state_component.gd" type="Script" id=9]
-[ext_resource path="res://Utils/State Machine/State/State Components/Action Buffer/action_buffer_activate_state_component.gd" type="Script" id=10]
-[ext_resource path="res://Utils/State Machine/State/State Components/Transitions/transition_state_component.gd" type="Script" id=11]
-[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Exit/call_function_exit_state_component.gd" type="Script" id=12]
+[ext_resource path="res://Utils/State Machine/State/State Components/Action Buffer/action_buffer_deactivate_state_component.gd" type="Script" id=8]
+[ext_resource path="res://Utils/State Machine/State/State Components/Action Buffer/action_buffer_activate_state_component.gd" type="Script" id=9]
+[ext_resource path="res://Utils/State Machine/State/State Components/Transitions/transition_state_component.gd" type="Script" id=10]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Exit/call_function_exit_state_component.gd" type="Script" id=11]
 
 [node name="Move" type="Node"]
 script = ExtResource( 1 )
@@ -41,7 +40,7 @@ script = ExtResource( 4 )
 script = ExtResource( 5 )
 node_key = "body"
 FUNCTION_NAME = "get_velocity_2d"
-equals = "(0, 0)"
+equals = [ Vector2( 0, 0 ) ]
 NEXT_STATE = "idle"
 
 [node name="Fall" type="Node" parent="Transitions"]
@@ -62,15 +61,16 @@ ACTION = "crouch"
 NEXT_STATE = "crouch"
 
 [node name="Crouch 2" type="Node" parent="Transitions"]
-script = ExtResource( 8 )
+script = ExtResource( 5 )
 node_key = "input"
 FUNCTION_NAME = "is_action_pressed"
-arg = "crouch"
-equals = "True"
+has_args = true
+args = [ "crouch" ]
+equals = [ true ]
 NEXT_STATE = "crouch"
 
 [node name="Dashed" type="Node" parent="Transitions"]
-script = ExtResource( 9 )
+script = ExtResource( 8 )
 action_buffer_key = "buffer"
 action = "dashed"
 frames = 5
@@ -86,33 +86,33 @@ ACTION = "retreat"
 NEXT_STATE = "retreat"
 
 [node name="Lunge Pressed" type="Node" parent="Transitions/Dashed"]
-script = ExtResource( 10 )
+script = ExtResource( 9 )
 action_buffer_key = "buffer"
 action = "lunge_pressed"
 frames = 5
 
 [node name="Lunge" type="Node" parent="Transitions/Dashed/Lunge Pressed"]
-script = ExtResource( 11 )
+script = ExtResource( 10 )
 NEXT_STATE = "lunge"
 
 [node name="Retreat Pressed" type="Node" parent="Transitions/Dashed"]
-script = ExtResource( 10 )
+script = ExtResource( 9 )
 action_buffer_key = "buffer"
 action = "retreat_pressed"
 frames = 5
 
 [node name="Retreat" type="Node" parent="Transitions/Dashed/Retreat Pressed"]
-script = ExtResource( 11 )
+script = ExtResource( 10 )
 NEXT_STATE = "retreat"
 
 [node name="Jump Pressed" type="Node" parent="Transitions"]
-script = ExtResource( 10 )
+script = ExtResource( 9 )
 action_buffer_key = "buffer"
 action = "jump_pressed"
 frames = 5
 
 [node name="Jump" type="Node" parent="Transitions/Jump Pressed"]
-script = ExtResource( 11 )
+script = ExtResource( 10 )
 active = false
 NEXT_STATE = "jump"
 
@@ -120,7 +120,7 @@ NEXT_STATE = "jump"
 script = ExtResource( 4 )
 
 [node name="Was Grounded" type="Node" parent="Action Buffer"]
-script = ExtResource( 12 )
+script = ExtResource( 11 )
 node_key = "buffer"
 FUNCTION_NAME = "add_action"
 args = [ "was_grounded" ]

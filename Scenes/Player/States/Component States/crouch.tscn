@@ -9,7 +9,7 @@
 [ext_resource path="res://Utils/Grouping Node/grouping_node.gd" type="Script" id=7]
 [ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/not_equals_transition_state_component.gd" type="Script" id=8]
 [ext_resource path="res://Utils/State Machine/State/State Components/Transitions/released_transition_state_component.gd" type="Script" id=9]
-[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_arg_transition_state_component.gd" type="Script" id=10]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_transition_state_component.gd" type="Script" id=10]
 [ext_resource path="res://Utils/State Machine/State/State Components/Transitions/pressed_transition_state_component.gd" type="Script" id=11]
 
 [node name="Crouch" type="Node"]
@@ -67,8 +67,9 @@ NEXT_STATE = "previous"
 script = ExtResource( 10 )
 node_key = "input"
 FUNCTION_NAME = "is_action_pressed"
-arg = "crouch"
-equals = "False"
+has_args = true
+args = [ "crouch" ]
+equals = [ false ]
 NEXT_STATE = "previous"
 
 [node name="High Jump" type="Node" parent="Transitions"]

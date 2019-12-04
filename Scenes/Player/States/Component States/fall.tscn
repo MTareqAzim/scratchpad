@@ -46,7 +46,7 @@ script = ExtResource( 5 )
 script = ExtResource( 6 )
 node_key = "body"
 FUNCTION_NAME = "is_grounded"
-equals = "True"
+equals = [ true ]
 NEXT_STATE = "previous"
 
 [node name="Air Dashed" type="Node" parent="Transitions"]
