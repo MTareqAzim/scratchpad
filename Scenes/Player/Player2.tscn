@@ -152,7 +152,7 @@ dependencies = {
 }
 
 [node name="Dash Handled" parent="State Machine/Lunge/Action Buffer" index="1"]
-args = [ "lunge" ]
+args = [ "lunge_pressed" ]
 
 [node name="Retreat" parent="State Machine" index="7" instance=ExtResource( 12 )]
 editor/display_folded = true
@@ -167,7 +167,7 @@ dependencies = {
 dash_distance = -300
 
 [node name="Dash Handled" parent="State Machine/Retreat/Action Buffer" index="1"]
-args = [ "retreat" ]
+args = [ "retreat_pressed" ]
 
 [node name="Somersault" parent="State Machine" index="8" instance=ExtResource( 13 )]
 editor/display_folded = true
@@ -179,7 +179,7 @@ dependencies = {
 }
 
 [node name="Dash Handled" parent="State Machine/Somersault/Action Buffer" index="1"]
-args = [ "lunge" ]
+args = [ "lunge_pressed" ]
 
 [node name="Back Roll" parent="State Machine" index="9" instance=ExtResource( 13 )]
 editor/display_folded = true
@@ -194,7 +194,7 @@ dependencies = {
 dash_distance = -300
 
 [node name="Dash Handled" parent="State Machine/Back Roll/Action Buffer" index="1"]
-args = [ "retreat" ]
+args = [ "retreat_pressed" ]
 
 [node name="Air Dash" parent="State Machine" index="10" instance=ExtResource( 14 )]
 editor/display_folded = true
@@ -205,7 +205,7 @@ dependencies = {
 }
 
 [node name="Dash Handled" parent="State Machine/Air Dash/Action Buffer" index="1"]
-args = [ "lunge" ]
+args = [ "lunge_pressed" ]
 
 [node name="Back Air Dash" parent="State Machine" index="11" instance=ExtResource( 14 )]
 editor/display_folded = true
@@ -220,7 +220,7 @@ dependencies = {
 dash_distance = -300
 
 [node name="Dash Handled" parent="State Machine/Back Air Dash/Action Buffer" index="1"]
-args = [ "retreat" ]
+args = [ "retreat_pressed" ]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="7"]
 

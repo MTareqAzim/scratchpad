@@ -24,8 +24,8 @@ func _unhandled_input(event):
 	for action_map in _map:
 		var mapped_event = action_map.map(event)
 		if mapped_event:
-			_state_machine.handle_input(mapped_event)
 			_register_event(mapped_event)
+			_state_machine.handle_input(mapped_event)
 			get_tree().set_input_as_handled()
 
 
