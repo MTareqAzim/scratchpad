@@ -6,7 +6,7 @@
 [ext_resource path="res://Utils/Grouping Node/grouping_node.gd" type="Script" id=4]
 [ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/not_equals_transition_state_component.gd" type="Script" id=5]
 [ext_resource path="res://Utils/State Machine/State/State Components/Transitions/pressed_transition_state_component.gd" type="Script" id=6]
-[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_arg_transition_state_component.gd" type="Script" id=7]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_transition_state_component.gd" type="Script" id=7]
 [ext_resource path="res://Utils/State Machine/State/State Components/Action Buffer/action_buffer_deactivate_state_component.gd" type="Script" id=8]
 [ext_resource path="res://Utils/State Machine/State/State Components/Action Buffer/action_buffer_activate_state_component.gd" type="Script" id=9]
 [ext_resource path="res://Utils/State Machine/State/State Components/Transitions/transition_state_component.gd" type="Script" id=10]
@@ -34,7 +34,6 @@ look_direction_key = "look"
 input_handler_key = "input"
 
 [node name="Transitions" type="Node" parent="."]
-editor/display_folded = true
 script = ExtResource( 4 )
 
 [node name="Move" type="Node" parent="Transitions"]
@@ -65,8 +64,9 @@ NEXT_STATE = "crouch"
 script = ExtResource( 7 )
 node_key = "input"
 FUNCTION_NAME = "is_action_pressed"
-arg = "crouch"
-equals = "True"
+has_args = true
+args = [ "crouch" ]
+equals = [ true ]
 NEXT_STATE = "crouch"
 
 [node name="Dashed" type="Node" parent="Transitions"]
