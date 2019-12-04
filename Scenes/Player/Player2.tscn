@@ -208,6 +208,7 @@ dependencies = {
 args = [ "lunge" ]
 
 [node name="Back Air Dash" parent="State Machine" index="11" instance=ExtResource( 14 )]
+editor/display_folded = true
 state_name = "back air dash"
 dependencies = {
 "body": NodePath("../.."),
@@ -216,7 +217,6 @@ dependencies = {
 }
 
 [node name="Dash" parent="State Machine/Back Air Dash" index="0"]
-editor/display_folded = true
 dash_distance = -300
 
 [node name="Dash Handled" parent="State Machine/Back Air Dash/Action Buffer" index="1"]
