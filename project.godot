@@ -70,11 +70,6 @@ _global_script_classes=[ {
 "path": "res://Utils/Entity/State Components/entity_state_component.gd"
 }, {
 "base": "NodeStateComponent",
-"class": "EqualsArgTransitionStateComponent",
-"language": "GDScript",
-"path": "res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_arg_transition_state_component.gd"
-}, {
-"base": "NodeStateComponent",
 "class": "EqualsTransitionStateComponent",
 "language": "GDScript",
 "path": "res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_transition_state_component.gd"
@@ -202,7 +197,6 @@ _global_script_class_icons={
 "ComponentState": "res://Utils/State Machine/State/state.png",
 "CompositePolygon2D": "",
 "EntityStateComponent": "res://Utils/Entity/State Components/entity_state_component.png",
-"EqualsArgTransitionStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_arg_transition.png",
 "EqualsTransitionStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_transition.png",
 "Geometry2D": "",
 "GreaterThanTransitionStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/greater_than_transition.png",
