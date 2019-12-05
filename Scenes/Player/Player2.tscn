@@ -91,7 +91,6 @@ dependencies = {
 }
 
 [node name="Crouch" parent="State Machine" index="2" instance=ExtResource( 9 )]
-editor/display_folded = true
 dependencies = {
 "body": NodePath("../.."),
 "buffer": NodePath("../../ActionBuffer"),
@@ -100,9 +99,6 @@ dependencies = {
 }
 
 [node name="Crouch Height" parent="State Machine/Crouch" index="2"]
-editor/display_folded = true
-
-[node name="Action Buffer" parent="State Machine/Crouch" index="4"]
 editor/display_folded = true
 
 [node name="Fall" parent="State Machine" index="3" instance=ExtResource( 10 )]
