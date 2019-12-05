@@ -60,7 +60,7 @@ func _append_components(node: Node) -> void:
 			child.component_state = self
 		
 		if child.get_child_count() > 0:
-			if not child is ComponentState:
+			if not child.get_class() == "ComponentState":
 				_append_components(child)
 
 

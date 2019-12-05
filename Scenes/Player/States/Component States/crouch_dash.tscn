@@ -11,6 +11,7 @@
 script = ExtResource( 1 )
 state_name = "crouch_dash"
 push_down = true
+overwrite = true
 dependencies = {
 "body": NodePath(""),
 "buffer": NodePath(""),
