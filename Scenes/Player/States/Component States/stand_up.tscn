@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Utils/State Machine/State/component_state.gd" type="Script" id=1]
 [ext_resource path="res://Utils/Entity/State Components/Movement/move_state_component.gd" type="Script" id=2]
@@ -8,13 +8,12 @@
 [ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Exit/call_function_exit_state_component.gd" type="Script" id=6]
 [ext_resource path="res://Utils/Grouping Node/grouping_node.gd" type="Script" id=7]
 [ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/not_equals_transition_state_component.gd" type="Script" id=8]
-[ext_resource path="res://Utils/State Machine/State/State Components/Transitions/released_transition_state_component.gd" type="Script" id=9]
-[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_transition_state_component.gd" type="Script" id=10]
-[ext_resource path="res://Utils/State Machine/State/State Components/Transitions/pressed_transition_state_component.gd" type="Script" id=11]
+[ext_resource path="res://Utils/State Machine/State/State Components/Transitions/pressed_transition_state_component.gd" type="Script" id=9]
+[ext_resource path="res://Utils/Entity/State Components/Movement/stand_up_component.gd" type="Script" id=10]
 
-[node name="Crouch" type="Node"]
+[node name="Stand Up" type="Node"]
 script = ExtResource( 1 )
-state_name = "crouch"
+state_name = "stand up"
 push_down = true
 overwrite = true
 dependencies = {
@@ -51,7 +50,6 @@ node_key = "body"
 FUNCTION_NAME = "set_height"
 
 [node name="Transitions" type="Node" parent="."]
-editor/display_folded = true
 script = ExtResource( 7 )
 
 [node name="Fall" type="Node" parent="Transitions"]
@@ -61,32 +59,23 @@ FUNCTION_NAME = "is_grounded"
 not_equals = [ true ]
 NEXT_STATE = "fall"
 
-[node name="Stand Up" type="Node" parent="Transitions"]
+[node name="Crouch" type="Node" parent="Transitions"]
 script = ExtResource( 9 )
 ACTION = "crouch"
-NEXT_STATE = "stand up"
-
-[node name="Stand Up 2" type="Node" parent="Transitions"]
-script = ExtResource( 10 )
-node_key = "input"
-FUNCTION_NAME = "is_action_pressed"
-has_args = true
-args = [ "crouch" ]
-equals = [ false ]
-NEXT_STATE = "stand up"
+NEXT_STATE = "crouch"
 
 [node name="High Jump" type="Node" parent="Transitions"]
-script = ExtResource( 11 )
+script = ExtResource( 9 )
 ACTION = "jump"
 NEXT_STATE = "high jump"
 
 [node name="Somersault" type="Node" parent="Transitions"]
-script = ExtResource( 11 )
+script = ExtResource( 9 )
 ACTION = "lunge"
 NEXT_STATE = "somersault"
 
 [node name="Back Roll" type="Node" parent="Transitions"]
-script = ExtResource( 11 )
+script = ExtResource( 9 )
 ACTION = "retreat"
 NEXT_STATE = "back roll"
 
@@ -99,8 +88,15 @@ node_key = "buffer"
 FUNCTION_NAME = "add_action"
 args = [ "was_grounded" ]
 
-[node name="Crouch Handled" type="Node" parent="Action Buffer"]
+[node name="Release Handled" type="Node" parent="Action Buffer"]
 script = ExtResource( 5 )
 node_key = "buffer"
 FUNCTION_NAME = "action_handled"
-args = [ "crouch_pressed" ]
+args = [ "crouch_released" ]
+
+[node name="Stand Up" type="Node" parent="."]
+script = ExtResource( 10 )
+next_state = "previous"
+
+[node name="Timer" type="Timer" parent="Stand Up"]
+[connection signal="timeout" from="Stand Up/Timer" to="Stand Up" method="_on_Timer_timeout"]

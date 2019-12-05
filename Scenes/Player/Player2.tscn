@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Utils/Physics Bodies/KinematicBody2P5D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Utils/Entity/Look Direction/look_direction.gd" type="Script" id=2]
@@ -9,12 +9,14 @@
 [ext_resource path="res://Scenes/Player/States/Component States/idle.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Player/States/Component States/move.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Player/States/Component States/crouch.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Scenes/Player/States/Component States/fall.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Scenes/Player/States/Component States/jump.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Scenes/Player/States/Component States/dash.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Scenes/Player/States/Component States/crouch_dash.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Scenes/Player/States/Component States/air_dash.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Scenes/Scratch/StatesStackDiplayer.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Scenes/Player/States/Component States/stand_up.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/Player/States/Component States/fall.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/Player/States/Component States/jump.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Scenes/Player/States/Component States/dash.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Scenes/Player/States/Component States/crouch_dash.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Scenes/Player/States/Component States/air_dash.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Scenes/Scratch/StatesStackDiplayer.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Scenes/Scratch/BufferStackDiplayer.tscn" type="PackedScene" id=17]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 25, 65 )
@@ -99,15 +101,7 @@ dependencies = {
 "look": NodePath("../../Look Direction")
 }
 
-[node name="Stand Up" parent="State Machine/Crouch" index="5"]
-dependencies = {
-"body": NodePath("../../.."),
-"buffer": NodePath("../../../ActionBuffer"),
-"input": NodePath("../../../Player Input"),
-"look": NodePath("../../../Look Direction")
-}
-
-[node name="Fall" parent="State Machine" index="3" instance=ExtResource( 10 )]
+[node name="Stand Up" parent="State Machine" index="3" instance=ExtResource( 10 )]
 dependencies = {
 "body": NodePath("../.."),
 "buffer": NodePath("../../ActionBuffer"),
@@ -115,7 +109,7 @@ dependencies = {
 "look": NodePath("../../Look Direction")
 }
 
-[node name="Jump" parent="State Machine" index="4" instance=ExtResource( 11 )]
+[node name="Fall" parent="State Machine" index="4" instance=ExtResource( 11 )]
 dependencies = {
 "body": NodePath("../.."),
 "buffer": NodePath("../../ActionBuffer"),
@@ -123,7 +117,15 @@ dependencies = {
 "look": NodePath("../../Look Direction")
 }
 
-[node name="High Jump" parent="State Machine" index="5" instance=ExtResource( 11 )]
+[node name="Jump" parent="State Machine" index="5" instance=ExtResource( 12 )]
+dependencies = {
+"body": NodePath("../.."),
+"buffer": NodePath("../../ActionBuffer"),
+"input": NodePath("../../Player Input"),
+"look": NodePath("../../Look Direction")
+}
+
+[node name="High Jump" parent="State Machine" index="6" instance=ExtResource( 12 )]
 editor/display_folded = true
 state_name = "high jump"
 overwrite = true
@@ -141,7 +143,7 @@ jump_duration = 0.6
 [node name="Min Jump" parent="State Machine/High Jump" index="3"]
 min_jump_height = 100
 
-[node name="Lunge" parent="State Machine" index="6" instance=ExtResource( 12 )]
+[node name="Lunge" parent="State Machine" index="7" instance=ExtResource( 13 )]
 editor/display_folded = true
 state_name = "lunge"
 dependencies = {
@@ -153,7 +155,7 @@ dependencies = {
 [node name="Dash Handled" parent="State Machine/Lunge/Action Buffer" index="1"]
 args = [ "lunge_pressed" ]
 
-[node name="Retreat" parent="State Machine" index="7" instance=ExtResource( 12 )]
+[node name="Retreat" parent="State Machine" index="8" instance=ExtResource( 13 )]
 editor/display_folded = true
 state_name = "retreat"
 dependencies = {
@@ -168,7 +170,7 @@ dash_distance = -300
 [node name="Dash Handled" parent="State Machine/Retreat/Action Buffer" index="1"]
 args = [ "retreat_pressed" ]
 
-[node name="Somersault" parent="State Machine" index="8" instance=ExtResource( 13 )]
+[node name="Somersault" parent="State Machine" index="9" instance=ExtResource( 14 )]
 editor/display_folded = true
 state_name = "somersault"
 dependencies = {
@@ -180,7 +182,7 @@ dependencies = {
 [node name="Dash Handled" parent="State Machine/Somersault/Action Buffer" index="1"]
 args = [ "lunge_pressed" ]
 
-[node name="Back Roll" parent="State Machine" index="9" instance=ExtResource( 13 )]
+[node name="Back Roll" parent="State Machine" index="10" instance=ExtResource( 14 )]
 editor/display_folded = true
 state_name = "back roll"
 dependencies = {
@@ -195,7 +197,7 @@ dash_distance = -300
 [node name="Dash Handled" parent="State Machine/Back Roll/Action Buffer" index="1"]
 args = [ "retreat_pressed" ]
 
-[node name="Air Dash" parent="State Machine" index="10" instance=ExtResource( 14 )]
+[node name="Air Dash" parent="State Machine" index="11" instance=ExtResource( 15 )]
 editor/display_folded = true
 dependencies = {
 "body": NodePath("../.."),
@@ -206,7 +208,7 @@ dependencies = {
 [node name="Dash Handled" parent="State Machine/Air Dash/Action Buffer" index="1"]
 args = [ "lunge_pressed" ]
 
-[node name="Back Air Dash" parent="State Machine" index="11" instance=ExtResource( 14 )]
+[node name="Back Air Dash" parent="State Machine" index="12" instance=ExtResource( 15 )]
 editor/display_folded = true
 state_name = "back air dash"
 dependencies = {
@@ -223,10 +225,11 @@ args = [ "retreat_pressed" ]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="7"]
 
-[node name="StatesStackDiplayer" parent="CanvasLayer" index="0" instance=ExtResource( 15 )]
-[connection signal="state_changed" from="State Machine" to="CanvasLayer/StatesStackDiplayer" method="_on_StateMachine_state_changed"]
+[node name="StatesStackDiplayer" parent="CanvasLayer" index="0" instance=ExtResource( 16 )]
 
-[editable path="State Machine/Crouch"]
+[node name="BufferStackDiplayer" parent="CanvasLayer" index="1" instance=ExtResource( 17 )]
+[connection signal="buffer_changed" from="ActionBuffer" to="CanvasLayer/BufferStackDiplayer" method="_on_ActionBuffer_buffer_changed"]
+[connection signal="state_changed" from="State Machine" to="CanvasLayer/StatesStackDiplayer" method="_on_StateMachine_state_changed"]
 
 [editable path="State Machine/High Jump"]
 

@@ -1,6 +1,8 @@
 extends Node
 class_name ActionBuffer, "action_buffer.png"
 
+signal buffer_changed(buffer_stack)
+
 export (int) var FRAME_BUFFER_LIMIT := 60
 
 var action_buffer : Dictionary = {}
@@ -10,6 +12,7 @@ func _physics_process(delta: float) -> void:
 		action_buffer[key] += 1
 	
 	action_buffer = _erase_old_inputs(action_buffer)
+	emit_signal("buffer_changed", action_buffer)
 
 
 func get_class() -> String:
