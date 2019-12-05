@@ -135,6 +135,7 @@ polygon = PoolVector2Array( -67, -10, 87, -10, 87, 59, -67, 59 )
 polygons = [ PoolVector2Array( -67, -10, 87, -10, 87, 59, -67, 59 ) ]
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
+editor/display_folded = true
 position = Vector2( 496, 492 )
 GRAVITY = 980
 _z_pos = 0

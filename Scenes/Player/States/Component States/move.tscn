@@ -47,7 +47,7 @@ NEXT_STATE = "idle"
 script = ExtResource( 6 )
 node_key = "body"
 FUNCTION_NAME = "is_grounded"
-not_equals = "True"
+not_equals = [ true ]
 NEXT_STATE = "fall"
 
 [node name="Jump" type="Node" parent="Transitions"]

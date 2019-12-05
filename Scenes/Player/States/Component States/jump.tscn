@@ -59,6 +59,7 @@ script = ExtResource( 7 )
 script = ExtResource( 8 )
 node_key = "body"
 FUNCTION_NAME = "get_z_velocity"
+greater_than = [ 0 ]
 NEXT_STATE = "fall"
 
 [node name="Fall 2" type="Node" parent="Transitions"]

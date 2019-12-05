@@ -55,7 +55,7 @@ script = ExtResource( 7 )
 script = ExtResource( 8 )
 node_key = "body"
 FUNCTION_NAME = "is_grounded"
-not_equals = "True"
+not_equals = [ true ]
 NEXT_STATE = "fall"
 
 [node name="Stand Up" type="Node" parent="Transitions"]
