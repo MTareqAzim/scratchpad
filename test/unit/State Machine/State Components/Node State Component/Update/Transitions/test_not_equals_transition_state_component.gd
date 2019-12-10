@@ -52,3 +52,16 @@ func test_equals_no_transition():
 	
 	not_equals_component.update(0.1)
 	assert_not_called(doubled_state, "finished", ["next_state"])
+
+
+func test_function_with_args():
+	stub(doubled_body, "get_top_z_pos").to_return(5).when_passed([1, 2, 3])
+	
+	not_equals_component.FUNCTION_NAME = "get_top_z_pos"
+	not_equals_component.has_args = true
+	not_equals_component.args = [[1, 2, 3]]
+	not_equals_component.not_equals = [3]
+	not_equals_component.NEXT_STATE = "next_state"
+	
+	not_equals_component.update(0.1)
+	assert_called(doubled_state, "finished", ["next_state"])
