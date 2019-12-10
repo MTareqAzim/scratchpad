@@ -6,15 +6,15 @@
 [ext_resource path="res://Utils/Input Handler/Action Map/action_map.gd" type="Script" id=4]
 [ext_resource path="res://Utils/Action Buffer/action_buffer.gd" type="Script" id=5]
 [ext_resource path="res://Utils/State Machine/state_machine.gd" type="Script" id=6]
-[ext_resource path="res://Scenes/Player/States/Component States/idle.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Scenes/Player/States/Component States/move.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Scenes/Player/States/Component States/crouch.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Scenes/Player/States/Component States/stand_up.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Scenes/Player/States/Component States/fall.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Scenes/Player/States/Component States/jump.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Scenes/Player/States/Component States/dash.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Scenes/Player/States/Component States/crouch_dash.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Scenes/Player/States/Component States/air_dash.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Scenes/Player/Component States/idle.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Player/Component States/move.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Player/Component States/crouch.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Player/Component States/stand_up.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/Player/Component States/fall.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/Player/Component States/jump.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Scenes/Player/Component States/dash.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Scenes/Player/Component States/crouch_dash.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Scenes/Player/Component States/air_dash.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Scenes/Scratch/StatesStackDiplayer.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Scenes/Scratch/BufferStackDiplayer.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Scenes/Player/look_direction_arrow.gd" type="Script" id=18]
@@ -25,7 +25,7 @@ extents = Vector2( 25, 65 )
 [sub_resource type="CircleShape2D" id=2]
 radius = 28.0
 
-[node name="Player2" index="0" instance=ExtResource( 1 )]
+[node name="Player2" instance=ExtResource( 1 )]
 MAX_SPEED = 2000
 _height = 100
 
@@ -236,6 +236,9 @@ script = ExtResource( 18 )
 [node name="RayCast2D" type="RayCast2D" parent="Look Arrow" index="0"]
 scale = Vector2( 5, 5 )
 cast_to = Vector2( 10, 0 )
+
+[node name="Camera2D" type="Camera2D" parent="." index="9"]
+current = true
 [connection signal="direction_changed" from="Look Direction" to="Look Arrow" method="_on_Look_Direction_direction_changed"]
 [connection signal="buffer_changed" from="ActionBuffer" to="CanvasLayer/BufferStackDiplayer" method="_on_ActionBuffer_buffer_changed"]
 [connection signal="state_changed" from="State Machine" to="CanvasLayer/StatesStackDiplayer" method="_on_StateMachine_state_changed"]

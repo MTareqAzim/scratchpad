@@ -3,7 +3,7 @@ extends EntityStateComponent
 class_name ActionBufferStateComponent
 
 export (String) var action_buffer_key
-export (bool) var oneshot := false
+export (bool) var enter_only := false
 export (String) var action
 export (int) var frames
 
@@ -27,7 +27,7 @@ func enter() -> void:
 
 
 func update(delta: float) -> void:
-	if not oneshot:
+	if not enter_only:
 		_check_and_activate()
 
 
