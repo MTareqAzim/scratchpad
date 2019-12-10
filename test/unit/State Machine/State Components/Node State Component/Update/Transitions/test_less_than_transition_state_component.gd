@@ -30,8 +30,10 @@ func test_less_than_transition():
 	stub(doubled_body, "get_velocity").to_return(2.0)
 	
 	less_than_component.FUNCTION_NAME = "get_velocity"
+	less_than_component.has_args = false
+	less_than_component.args = []
+	less_than_component.less_than = [7.0]
 	less_than_component.NEXT_STATE = "next_state"
-	less_than_component.less_than = 7.0
 	
 	less_than_component.update(0.1)
 	assert_called(doubled_state, "finished", ["next_state"])
@@ -40,8 +42,10 @@ func test_greater_than_no_transition():
 	stub(doubled_body, "get_velocity").to_return(10.0)
 	
 	less_than_component.FUNCTION_NAME = "get_velocity"
+	less_than_component.has_args = false
+	less_than_component.args = []
+	less_than_component.less_than = [8.0]
 	less_than_component.NEXT_STATE = "next_state"
-	less_than_component.less_than = 8.0
 	
 	less_than_component.update(0.1)
 	assert_not_called(doubled_state, "finished", ["next_state"])
@@ -50,8 +54,10 @@ func test_equals_no_transition():
 	stub(doubled_body, "get_velocity").to_return(5.0)
 	
 	less_than_component.FUNCTION_NAME = "get_velocity"
+	less_than_component.has_args = false
+	less_than_component.args = []
+	less_than_component.less_than = [5.0]
 	less_than_component.NEXT_STATE = "next_state"
-	less_than_component.less_than = 5.0
 	
 	less_than_component.update(0.1)
 	assert_not_called(doubled_state, "finished", ["next_state"])
