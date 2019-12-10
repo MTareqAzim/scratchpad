@@ -188,7 +188,7 @@ _global_script_class_icons={
 "ActionBuffer": "res://Utils/Action Buffer/action_buffer.png",
 "ActionBufferActivateStateComponent": "res://Utils/Entity/State Components/Action Buffer/action_buffer_activate.png",
 "ActionBufferDeactivateStateComponent": "res://Utils/Entity/State Components/Action Buffer/action_buffer_deactivate.png",
-"ActionBufferStateComponent": "",
+"ActionBufferStateComponent": "res://Utils/Entity/State Components/Action Buffer/action_buffer.png",
 "ActionMap": "res://Utils/Input Handler/Action Map/action_map.png",
 "CallFunctionEnterStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Enter/fun_enter.png",
 "CallFunctionExitStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Exit/fun_exit.png",

@@ -1,6 +1,6 @@
 tool
 extends EntityStateComponent
-class_name ActionBufferStateComponent
+class_name ActionBufferStateComponent, "action_buffer.png"
 
 export (String) var action_buffer_key
 export (bool) var enter_only := false
