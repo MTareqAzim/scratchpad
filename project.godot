@@ -35,17 +35,17 @@ _global_script_classes=[ {
 "path": "res://Utils/Input Handler/Action Map/action_map.gd"
 }, {
 "base": "NodeStateComponent",
-"class": "CallFuncitonEnterStateComponent",
+"class": "CallFunctionEnterStateComponent",
 "language": "GDScript",
 "path": "res://Utils/State Machine/State/State Components/Node State Components/Enter/call_function_enter_state_component.gd"
 }, {
 "base": "NodeStateComponent",
-"class": "CallFuncitonExitStateComponent",
+"class": "CallFunctionExitStateComponent",
 "language": "GDScript",
 "path": "res://Utils/State Machine/State/State Components/Node State Components/Exit/call_function_exit_state_component.gd"
 }, {
 "base": "NodeStateComponent",
-"class": "CallFuncitonUpdateStateComponent",
+"class": "CallFunctionUpdateStateComponent",
 "language": "GDScript",
 "path": "res://Utils/State Machine/State/State Components/Node State Components/Update/call_function_update_state_component.gd"
 }, {
@@ -190,9 +190,9 @@ _global_script_class_icons={
 "ActionBufferDeactivateStateComponent": "res://Utils/State Machine/State/State Components/Action Buffer/action_buffer_deactivate.png",
 "ActionBufferStateComponent": "",
 "ActionMap": "res://Utils/Input Handler/Action Map/action_map.png",
-"CallFuncitonEnterStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Enter/fun_enter.png",
-"CallFuncitonExitStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Exit/fun_exit.png",
-"CallFuncitonUpdateStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Update/fun_update.png",
+"CallFunctionEnterStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Enter/fun_enter.png",
+"CallFunctionExitStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Exit/fun_exit.png",
+"CallFunctionUpdateStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Update/fun_update.png",
 "Collision2D": "",
 "ComponentState": "res://Utils/State Machine/State/state.png",
 "CompositePolygon2D": "",

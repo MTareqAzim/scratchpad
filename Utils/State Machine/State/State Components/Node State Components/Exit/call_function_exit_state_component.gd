@@ -1,5 +1,5 @@
 extends NodeStateComponent
-class_name CallFuncitonExitStateComponent, "fun_exit.png"
+class_name CallFunctionExitStateComponent, "fun_exit.png"
 
 export (String) var FUNCTION_NAME
 export (bool) var has_args := true
