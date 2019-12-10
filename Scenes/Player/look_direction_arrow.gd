@@ -1,4 +1,4 @@
 extends Position2D
 
-func _physics_process(delta: float) -> void:
-	rotation = owner.get_look_direction().angle()
+func _on_Look_Direction_direction_changed(new_direction):
+	rotation = new_direction.angle()
