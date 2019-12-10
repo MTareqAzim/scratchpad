@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Utils/Physics Bodies/StaticSlope2P5D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Utils/Physics Bodies/StaticWall2P5D.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/Player/Player2.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=3]
 
 [node name="World" type="Node"]
 
