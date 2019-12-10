@@ -25,7 +25,7 @@ extents = Vector2( 25, 65 )
 [sub_resource type="CircleShape2D" id=2]
 radius = 28.0
 
-[node name="Player2" instance=ExtResource( 1 )]
+[node name="Player2" index="0" instance=ExtResource( 1 )]
 MAX_SPEED = 2000
 _height = 100
 
@@ -225,12 +225,14 @@ dash_distance = -300
 args = [ "retreat_pressed" ]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="7"]
+editor/display_folded = true
 
 [node name="StatesStackDiplayer" parent="CanvasLayer" index="0" instance=ExtResource( 16 )]
 
 [node name="BufferStackDiplayer" parent="CanvasLayer" index="1" instance=ExtResource( 17 )]
 
 [node name="Look Arrow" type="Position2D" parent="." index="8"]
+editor/display_folded = true
 script = ExtResource( 18 )
 
 [node name="RayCast2D" type="RayCast2D" parent="Look Arrow" index="0"]
