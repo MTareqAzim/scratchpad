@@ -28,21 +28,27 @@ func after_all():
 	pass
 
 func test_not_equals_transition():
-	stub(doubled_body, "get_velocity").to_return("pass")
+	var velocity = Vector3(1, 2, 3)
+	stub(doubled_body, "get_velocity").to_return(velocity)
 	
 	not_equals_component.FUNCTION_NAME = "get_velocity"
+	not_equals_component.has_args = false
+	not_equals_component.args = []
+	not_equals_component.not_equals = [Vector3(0, 0, 0)]
 	not_equals_component.NEXT_STATE = "next_state"
-	not_equals_component.not_equals = "not equals"
 	
 	not_equals_component.update(0.1)
 	assert_called(doubled_state, "finished", ["next_state"])
 
 func test_equals_no_transition():
-	stub(doubled_body, "get_velocity").to_return("equals")
+	var velocity = Vector3(1, 0, 0)
+	stub(doubled_body, "get_velocity").to_return(velocity)
 
 	not_equals_component.FUNCTION_NAME = "get_velocity"
+	not_equals_component.has_args = false
+	not_equals_component.args = []
+	not_equals_component.not_equals = [Vector3(1, 0, 0)]
 	not_equals_component.NEXT_STATE = "next_state"
-	not_equals_component.not_equals = "equals"
 	
 	not_equals_component.update(0.1)
 	assert_not_called(doubled_state, "finished", ["next_state"])
