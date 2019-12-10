@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/look_direction.png-45bacf0bf9ca701c7a247090339d0074.stex"
+path="res://.import/look_direction.png-da1be923f368910527f00e640fccd7e1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Utils/Entity/State Components/look_direction.png"
-dest_files=[ "res://.import/look_direction.png-45bacf0bf9ca701c7a247090339d0074.stex" ]
+source_file="res://Utils/Entity/State Components/Look Direction/look_direction.png"
+dest_files=[ "res://.import/look_direction.png-da1be923f368910527f00e640fccd7e1.stex" ]
 
 [params]
 
