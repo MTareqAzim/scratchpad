@@ -15,7 +15,7 @@ func before_all():
 func after_all():
 	pass
 
-func test_get_body():
+func test_get_node():
 	var node : Node = Node.new()
 	add_child(node)
 	
