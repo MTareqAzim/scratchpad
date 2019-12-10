@@ -47,6 +47,24 @@ func test_append_state_components():
 	assert_has(components, state_component_c, "Descendent component not added.")
 	assert_does_not_have(components, state_component_d, "Component added when shouldn't have.")
 
+func test_nested_component_states():
+	var diff_component_state = ComponentState.new()
+	var state_component_a = StateComponent.new()
+	var state_component_b = StateComponent.new()
+	
+	diff_component_state.add_child(state_component_b)
+	component_state.add_child(state_component_a)
+	component_state.add_child(diff_component_state)
+	
+	add_child(component_state)
+	var components = component_state._components
+	var diff_components = diff_component_state._components
+	
+	assert_has(components, state_component_a, "Component not added.")
+	assert_does_not_have(components, state_component_b, "Component added to wrong component state.")
+	assert_has(diff_components, state_component_b, "Component not added.")
+	assert_does_not_have(diff_components, state_component_a, "Component added to wrong component state.")
+
 func test_finished():
 	var component_state_a = ComponentState.new()
 	component_state_a.state_name = "state_a"
