@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Utils/Physics Bodies/KinematicBody2P5D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Utils/Entity/Health/health.gd" type="Script" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://Scenes/Player/look_direction_arrow.gd" type="Script" id=17]
 [ext_resource path="res://Scenes/Scratch/StatesStackDiplayer.tscn" type="PackedScene" id=18]
 [ext_resource path="res://Scenes/Scratch/BufferStackDiplayer.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Scenes/Input UI/InputUIBase.tscn" type="PackedScene" id=20]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 25, 65 )
@@ -26,7 +27,7 @@ extents = Vector2( 25, 65 )
 [sub_resource type="CircleShape2D" id=2]
 radius = 28.0
 
-[node name="Player2" index="0" instance=ExtResource( 1 )]
+[node name="Player2" instance=ExtResource( 1 )]
 MAX_SPEED = 2000
 _height = 100
 
@@ -43,6 +44,7 @@ polygons = [ PoolVector2Array( -20, -10, 20, -10, 20, 10, -20, 10 ) ]
 
 [node name="Health" type="Node" parent="." index="3"]
 script = ExtResource( 2 )
+max_health = 100
 
 [node name="Look Direction" type="Node" parent="." index="4"]
 script = ExtResource( 3 )
@@ -237,17 +239,27 @@ scale = Vector2( 5, 5 )
 cast_to = Vector2( 10, 0 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="9"]
-editor/display_folded = true
 
 [node name="StatesStackDiplayer" parent="CanvasLayer" index="0" instance=ExtResource( 18 )]
 
 [node name="BufferStackDiplayer" parent="CanvasLayer" index="1" instance=ExtResource( 19 )]
+
+[node name="InputUIBase" parent="CanvasLayer" index="2" instance=ExtResource( 20 )]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -286.0
+margin_top = -154.0
+margin_right = -170.0
+margin_bottom = -34.0
 
 [node name="Camera2D" type="Camera2D" parent="." index="10"]
 current = true
 [connection signal="direction_changed" from="Look Direction" to="Look Arrow" method="_on_Look_Direction_direction_changed"]
 [connection signal="buffer_changed" from="ActionBuffer" to="CanvasLayer/BufferStackDiplayer" method="_on_ActionBuffer_buffer_changed"]
 [connection signal="state_changed" from="State Machine" to="CanvasLayer/StatesStackDiplayer" method="_on_StateMachine_state_changed"]
+[connection signal="state_changed" from="State Machine" to="CanvasLayer/InputUIBase" method="_on_State_Machine_state_changed"]
 
 [editable path="State Machine/High Jump"]
 
