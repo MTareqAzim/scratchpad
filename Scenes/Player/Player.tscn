@@ -24,24 +24,29 @@
 [ext_resource path="res://Scenes/Input UI/InputUIBase.tscn" type="PackedScene" id=22]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 15, 46 )
+extents = Vector2( 25, 77.5 )
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 18.0
+radius = 28.0
 
 [node name="Player2" index="0" instance=ExtResource( 1 )]
 MAX_SPEED = 2000
-_height = 62
+_height = 125
 
 [node name="VolumeShape" parent="." index="0"]
-position = Vector2( 0, -31 )
+position = Vector2( 0, -62.5 )
 shape = SubResource( 1 )
 
 [node name="BaseSkin" parent="." index="1"]
 shape = SubResource( 2 )
 
+[node name="BaseShape" parent="." index="2"]
+polygon = PoolVector2Array( -20, -10, 20, -10, 20, 10, -20, 10 )
+polygons = [ PoolVector2Array( -20, -10, 20, -10, 20, 10, -20, 10 ) ]
+
 [node name="AnimatedSprite" type="AnimatedSprite" parent="." index="3"]
-position = Vector2( 0, -35 )
+position = Vector2( 0, -65 )
+scale = Vector2( 2, 2 )
 frames = ExtResource( 2 )
 animation = "idle_s"
 script = ExtResource( 3 )
