@@ -11,7 +11,6 @@
 [ext_resource path="res://Utils/State Machine/State/State Components/Transitions/pressed_transition_state_component.gd" type="Script" id=9]
 [ext_resource path="res://Utils/Entity/State Components/Movement/stand_up_component.gd" type="Script" id=10]
 
-
 [node name="Stand Up" type="Node"]
 script = ExtResource( 1 )
 state_name = "stand up"
@@ -39,6 +38,7 @@ input_handler_key = "input"
 editor/display_folded = true
 script = ExtResource( 4 )
 body_key = "body"
+crouch_height = 36
 
 [node name="Enter Height" type="Node" parent="Crouch Height"]
 script = ExtResource( 5 )

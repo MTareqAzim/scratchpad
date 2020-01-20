@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Sprites/UI/Input/UI (Base).png" type="Texture" id=1]
+[ext_resource path="res://Sprites/UI/Buttons/Base.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Input UI/input_ui_base.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/Input UI/A Button/ATextBox.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Input UI/B Button/BTextBox.tscn" type="PackedScene" id=4]
@@ -12,10 +12,11 @@
 [ext_resource path="res://Scenes/Input UI/B Button/BButton.tscn" type="PackedScene" id=10]
 
 [node name="InputUIBase" type="TextureRect"]
-margin_left = -58.0
-margin_top = -60.0
-margin_right = 58.0
-margin_bottom = 60.0
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 64, 64 )
 texture = ExtResource( 1 )
 stretch_mode = 3
 script = ExtResource( 2 )
@@ -26,8 +27,9 @@ anchor_left = 0.5
 anchor_top = 0.767
 anchor_right = 0.5
 anchor_bottom = 0.767
-margin_top = -0.0400009
-margin_bottom = 39.96
+margin_top = 0.911999
+margin_right = 112.0
+margin_bottom = 20.912
 
 [node name="BTextBox" parent="." instance=ExtResource( 4 )]
 show_behind_parent = true
@@ -35,8 +37,10 @@ anchor_left = 0.802
 anchor_top = 0.5
 anchor_right = 0.802
 anchor_bottom = 0.5
-margin_left = 14.968
-margin_right = 178.968
+margin_left = 5.672
+margin_top = -8.0
+margin_right = 101.672
+margin_bottom = 12.0
 
 [node name="XTextBox" parent="." instance=ExtResource( 5 )]
 show_behind_parent = true
@@ -44,8 +48,10 @@ anchor_left = 0.207
 anchor_top = 0.5
 anchor_right = 0.207
 anchor_bottom = 0.5
-margin_left = -180.012
-margin_right = -16.012
+margin_left = -118.248
+margin_top = -8.0
+margin_right = -6.248
+margin_bottom = 12.0
 
 [node name="YTextBox" parent="." instance=ExtResource( 6 )]
 show_behind_parent = true
@@ -53,39 +59,42 @@ anchor_left = 0.5
 anchor_top = 0.233
 anchor_right = 0.5
 anchor_bottom = 0.233
-margin_top = -39.96
-margin_bottom = 0.039999
+margin_left = -112.0
+margin_top = -16.912
+margin_bottom = 3.088
 
 [node name="XButton" parent="." instance=ExtResource( 7 )]
 anchor_left = 0.224
 anchor_top = 0.467
 anchor_right = 0.224
 anchor_bottom = 0.467
-margin_left = -31.984
-margin_top = -32.04
-margin_right = 32.016
-margin_bottom = 31.96
+margin_left = -14.336
+margin_top = -13.888
+margin_right = 17.664
+margin_bottom = 18.112
 
 [node name="AButton" parent="." instance=ExtResource( 8 )]
 anchor_left = 0.5
 anchor_top = 0.733
 anchor_right = 0.5
 anchor_bottom = 0.733
-margin_top = -31.96
-margin_bottom = 32.04
+margin_top = -14.912
+margin_bottom = 17.088
 
 [node name="YButton" parent="." instance=ExtResource( 9 )]
 anchor_left = 0.5
 anchor_top = 0.2
 anchor_right = 0.5
 anchor_bottom = 0.2
+margin_top = -12.8
+margin_bottom = 19.2
 
 [node name="BButton" parent="." instance=ExtResource( 10 )]
 anchor_left = 0.776
 anchor_top = 0.467
 anchor_right = 0.776
 anchor_bottom = 0.467
-margin_left = -32.016
-margin_top = -32.04
-margin_right = 31.984
-margin_bottom = 31.96
+margin_left = -17.664
+margin_top = -13.888
+margin_right = 14.336
+margin_bottom = 18.112

@@ -1,13 +1,11 @@
 extends NinePatchRect
 
 onready var label : Label = $Label
-onready var grayed : Sprite = $Grayed
 
 var prev_state := ""
-var dashed := false
 
-func state_changed(new_state: State) -> void:
-	match new_state.state_name:
+func state_changed(new_state: String) -> void:
+	match new_state:
 		"crouch":
 			label.text = "Back Roll"
 		"back roll":
@@ -28,17 +26,4 @@ func state_changed(new_state: State) -> void:
 			if not prev_state in ["jump", "high jump", "air dash", "air back dash"]:
 				label.text = "Retreat"
 	
-	if dashed:
-		grayed.visible = true
-	elif new_state.state_name in ["back roll", "air back dash", "somersault", "air dash", "lunge", "retreat"]:
-		grayed.visible = true
-	else:
-		grayed.visible = false
-	
-	if new_state.state_name in ["air dash", "air back dash"]:
-		dashed = true
-	
-	if new_state.state_name == "fall":
-		dashed = false
-	
-	prev_state = new_state.state_name
+	prev_state = new_state

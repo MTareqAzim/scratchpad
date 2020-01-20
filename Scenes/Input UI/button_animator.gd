@@ -1,6 +1,6 @@
 extends Control
 
-onready var animation_player = $Sprite/AnimationPlayer
+onready var animated_sprite : AnimatedSprite = $AnimatedSprite
 
 export (String) var ACTION := ""
 
@@ -11,11 +11,11 @@ func _input(event):
 
 func animate_button(action: String, event: InputEvent):
 	if event.is_action_pressed(action):
-		animation_player.clear_queue()
-		animation_player.queue("Press")
-		animation_player.queue("Pressed")
+		animated_sprite.play("press")
 	
 	if event.is_action_released(action):
-		animation_player.clear_queue()
-		animation_player.queue("Depress")
-		animation_player.queue("Idle")
+		animated_sprite.play("depress")
+
+func _on_AnimatedSprite_animation_finished():
+	if animated_sprite.get_animation() == "depress":
+		animated_sprite.play("idle")
