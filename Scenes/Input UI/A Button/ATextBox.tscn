@@ -17,14 +17,12 @@ patch_margin_bottom = 3
 script = ExtResource( 2 )
 
 [node name="Label" type="Label" parent="."]
-anchor_top = 0.5
-anchor_bottom = 0.5
 margin_left = 19.0
-margin_top = -10.0
 margin_right = 99.0
-margin_bottom = 10.0
+margin_bottom = 20.0
 rect_min_size = Vector2( 70, 20 )
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0.811765, 0.458824, 0.168627, 1 )
 text = "Jump"
 valign = 1
+percent_visible = -0.25

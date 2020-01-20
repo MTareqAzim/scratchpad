@@ -87,7 +87,6 @@ mapped_action = "retreat"
 script = ExtResource( 8 )
 
 [node name="State Machine" type="Node" parent="." index="8"]
-editor/display_folded = true
 script = ExtResource( 9 )
 _active = true
 

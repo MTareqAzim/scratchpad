@@ -12,7 +12,6 @@
 [ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_transition_state_component.gd" type="Script" id=10]
 [ext_resource path="res://Utils/State Machine/State/State Components/Transitions/pressed_transition_state_component.gd" type="Script" id=11]
 
-
 [node name="Crouch" type="Node"]
 script = ExtResource( 1 )
 state_name = "crouch"
@@ -40,6 +39,7 @@ input_handler_key = "input"
 editor/display_folded = true
 script = ExtResource( 4 )
 body_key = "body"
+crouch_height = 36
 
 [node name="Enter Height" type="Node" parent="Crouch Height"]
 script = ExtResource( 5 )
