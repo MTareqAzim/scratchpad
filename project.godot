@@ -159,6 +159,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Utils/State Machine/State/State Components/Transitions/released_transition_state_component.gd"
 }, {
+"base": "Node2D",
+"class": "Shadow2D",
+"language": "GDScript",
+"path": "res://Utils/Shadow/shadow_2d.gd"
+}, {
+"base": "Area2D",
+"class": "ShadowMask",
+"language": "GDScript",
+"path": "res://Utils/Shadow/shadow_mask.gd"
+}, {
 "base": "Node",
 "class": "State",
 "language": "GDScript",
@@ -225,6 +235,8 @@ _global_script_class_icons={
 "PlayerInputHandler": "res://Utils/Input Handler/input.png",
 "PressedTransitionStateComponent": "res://Utils/State Machine/State/State Components/Transitions/pressed_transition_state_component.png",
 "ReleasedTransitionStateComponent": "res://Utils/State Machine/State/State Components/Transitions/released_transition_state_component.png",
+"Shadow2D": "",
+"ShadowMask": "",
 "State": "res://Utils/State Machine/State/state.png",
 "StateComponent": "res://Utils/State Machine/State/State Components/state_component.png",
 "StateMachine": "res://Utils/State Machine/state_machine.png",
@@ -279,7 +291,8 @@ texture={
 
 ui_accept={
 "deadzone": 0.5,
-"events": [  ]
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777221,"unicode":0,"echo":false,"script":null)
+ ]
 }
 ui_left={
 "deadzone": 0.5,

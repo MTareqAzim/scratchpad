@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scenes/Scratch/Area2D.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Scratch/body.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 59, 47 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 37, 26 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 18, 42 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( 321, 231 )
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 1 )
+disabled = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 186, 61 )
+shape = SubResource( 2 )
+disabled = true
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
+shape = SubResource( 3 )
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_Area2D_body_entered"]
+[connection signal="body_shape_entered" from="Area2D" to="Area2D" method="_on_Area2D_body_shape_entered"]
