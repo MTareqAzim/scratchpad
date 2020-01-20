@@ -6,120 +6,40 @@
 
 [node name="World" type="Node"]
 
-[node name="StaticSlope2P5D" parent="." instance=ExtResource( 1 )]
-editor/display_folded = true
-position = Vector2( 197, 255 )
-_z_pos = 0
-_height = 80
-_width = 100
-_length = 300
-_angle = 45
-
-[node name="DistToGround" parent="StaticSlope2P5D" index="0"]
-visible = false
-cast_to = Vector2( 0, 0 )
-
-[node name="TopShape" parent="StaticSlope2P5D" index="1"]
-polygon = PoolVector2Array( -141.421, -150.711, -70.7107, -221.421, 141.421, 70.7107, 70.7107, 141.421 )
-
-[node name="BaseShape" parent="StaticSlope2P5D" index="2"]
-polygon = PoolVector2Array( -141.421, -70.7107, -70.7107, -141.421, 141.421, 70.7107, 70.7107, 141.421 )
-
-[node name="VolumeShape" parent="StaticSlope2P5D" index="3"]
-polygon = PoolVector2Array( -141.421, -150.711, -70.7107, -221.421, 141.421, 70.7107, 70.7107, 141.421, -141.421, -70.7107 )
-
-[node name="Rise" parent="StaticSlope2P5D" index="4"]
-position = Vector2( 106.066, 106.066 )
-cast_to = Vector2( -212.132, -292.132 )
-
 [node name="StaticSlope2P5D2" parent="." instance=ExtResource( 1 )]
 editor/display_folded = true
 position = Vector2( 408, 264 )
-_z_pos = 0
 _height = 80
-_width = 100
+_width = 500
 _length = 300
-_angle = 0
 
 [node name="DistToGround" parent="StaticSlope2P5D2" index="0"]
 visible = false
 cast_to = Vector2( 0, 0 )
 
 [node name="TopShape" parent="StaticSlope2P5D2" index="1"]
-polygon = PoolVector2Array( -50, -230, 50, -230, 50, 150, -50, 150 )
+polygon = PoolVector2Array( -250, -230, 250, -230, 250, 150, -250, 150 )
 
 [node name="BaseShape" parent="StaticSlope2P5D2" index="2"]
-polygon = PoolVector2Array( -50, -150, 50, -150, 50, 150, -50, 150 )
+polygon = PoolVector2Array( -250, -150, 250, -150, 250, 150, -250, 150 )
 
 [node name="VolumeShape" parent="StaticSlope2P5D2" index="3"]
 position = Vector2( 0, -2 )
-polygon = PoolVector2Array( -50, -230, 50, -230, 50, 150, -50, 150 )
+polygon = PoolVector2Array( -250, -230, 250, -230, 250, 150, -250, 150 )
 
 [node name="Rise" parent="StaticSlope2P5D2" index="4"]
 position = Vector2( 0, 150 )
 cast_to = Vector2( 0, -380 )
 
-[node name="StaticSlope2P5D3" parent="." instance=ExtResource( 1 )]
-editor/display_folded = true
-position = Vector2( 565, 260 )
-_z_pos = 0
-_height = 80
-_width = 100
-_length = 300
-_angle = 180
-
-[node name="DistToGround" parent="StaticSlope2P5D3" index="0"]
-visible = false
-cast_to = Vector2( 0, 0 )
-
-[node name="TopShape" parent="StaticSlope2P5D3" index="1"]
-polygon = PoolVector2Array( 50, 70, -50, 70, -50, -150, 50, -150 )
-
-[node name="BaseShape" parent="StaticSlope2P5D3" index="2"]
-polygon = PoolVector2Array( 50, 150, -50, 150, -50, -150, 50, -150 )
-
-[node name="VolumeShape" parent="StaticSlope2P5D3" index="3"]
-polygon = PoolVector2Array( 50, 150, -50, 150, -50, -150, 50, -150 )
-
-[node name="Rise" parent="StaticSlope2P5D3" index="4"]
-position = Vector2( 1.83691e-014, -150 )
-cast_to = Vector2( -3.67382e-014, 220 )
-
-[node name="StaticSlope2P5D4" parent="." instance=ExtResource( 1 )]
-editor/display_folded = true
-position = Vector2( 798, 258 )
-_z_pos = 0
-_height = 80
-_width = 100
-_length = 300
-_angle = 225
-
-[node name="DistToGround" parent="StaticSlope2P5D4" index="0"]
-visible = false
-cast_to = Vector2( 0, 0 )
-
-[node name="TopShape" parent="StaticSlope2P5D4" index="1"]
-polygon = PoolVector2Array( 141.421, -9.28932, 70.7107, 61.4214, -141.421, -70.7107, -70.7107, -141.421 )
-
-[node name="BaseShape" parent="StaticSlope2P5D4" index="2"]
-polygon = PoolVector2Array( 141.421, 70.7107, 70.7107, 141.421, -141.421, -70.7107, -70.7107, -141.421 )
-
-[node name="VolumeShape" parent="StaticSlope2P5D4" index="3"]
-polygon = PoolVector2Array( 141.421, -9.28932, 141.421, 70.7107, 70.7107, 141.421, -141.421, -70.7107, -70.7107, -141.421 )
-
-[node name="Rise" parent="StaticSlope2P5D4" index="4"]
-position = Vector2( -106.066, -106.066 )
-cast_to = Vector2( 212.132, 132.132 )
-
 [node name="StaticWall2P5D" parent="." instance=ExtResource( 2 )]
 editor/display_folded = true
-position = Vector2( 318, 692 )
-_z_pos = -20
+position = Vector2( 318, 642 )
+_z_pos = -70
 _height = 40
 
 [node name="DistToGround" parent="StaticWall2P5D" index="0"]
 visible = true
-cast_to = Vector2( 0, 20 )
+cast_to = Vector2( 0, 70 )
 
 [node name="TopShape" parent="StaticWall2P5D" index="1"]
 position = Vector2( 0, -40 )
@@ -134,15 +54,7 @@ polygons = [ PoolVector2Array( -67, -10, 87, -10, 87, 59, -67, 59 ) ]
 
 [node name="Player2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 573, 474 )
-GRAVITY = 980
-_z_pos = 0
-
-[editable path="StaticSlope2P5D"]
 
 [editable path="StaticSlope2P5D2"]
-
-[editable path="StaticSlope2P5D3"]
-
-[editable path="StaticSlope2P5D4"]
 
 [editable path="StaticWall2P5D"]

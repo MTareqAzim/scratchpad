@@ -33,12 +33,16 @@ func _physics_process(delta):
 	var collision_results = space_state.intersect_shape(shape_query_parameters)
 	
 	for result in collision_results:
-		result["collider"].draw_shadow(_body, shape)
+		result["collider"].draw_shadow(self)
 
 
 func _set_shape(new_shape: CapsuleShape2D) -> void:
 	shape = new_shape
 	update()
+
+
+func get_global_pos() -> Vector3:
+	return _body.get_global_pos()
 
 
 func _generate_shape_query() -> Physics2DShapeQueryParameters:

@@ -58,8 +58,8 @@ func get_top_z_pos(points: Array) -> int:
 		point = to_local(point)
 		altitude = max(altitude, _get_altitude(point))
 	
-	var fraction = 1.0 * altitude / _length
-	return _z_pos - int(round(_height * fraction))
+	var fraction = 1.0 * altitude / float(_length)
+	return _z_pos - int(ceil(_height * fraction))
 
 
 func get_base_transform() -> Transform2D:

@@ -256,6 +256,8 @@ config/icon="res://icon.png"
 
 window/size/width=640
 window/size/height=360
+window/size/test_width=1120
+window/size/test_height=630
 window/vsync/use_vsync=false
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
@@ -371,10 +373,6 @@ retreat={
 
 2d_physics/layer_1="Kinematic Body 2.5D"
 2d_physics/layer_2="Static Body 2.5D"
-
-[physics]
-
-common/physics_fps=30
 
 [rendering]
 
