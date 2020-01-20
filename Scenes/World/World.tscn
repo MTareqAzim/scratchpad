@@ -1,12 +1,18 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Utils/Physics Bodies/StaticSlope2P5D.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Utils/Physics Bodies/StaticWall2P5D.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Utils/Shadow/Shadow Mask.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Utils/Physics Bodies/StaticSlope2P5D.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Utils/Physics Bodies/StaticWall2P5D.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=4]
 
 [node name="World" type="Node"]
 
-[node name="StaticSlope2P5D2" parent="." instance=ExtResource( 1 )]
+[node name="Shadow Mask" parent="." instance=ExtResource( 1 )]
+position = Vector2( 394, 677 )
+collision_layer = 8
+collision_mask = 0
+
+[node name="StaticSlope2P5D2" parent="." instance=ExtResource( 2 )]
 editor/display_folded = true
 position = Vector2( 408, 264 )
 _height = 80
@@ -31,7 +37,7 @@ polygon = PoolVector2Array( -250, -230, 250, -230, 250, 150, -250, 150 )
 position = Vector2( 0, 150 )
 cast_to = Vector2( 0, -380 )
 
-[node name="StaticWall2P5D" parent="." instance=ExtResource( 2 )]
+[node name="StaticWall2P5D" parent="." instance=ExtResource( 3 )]
 editor/display_folded = true
 position = Vector2( 318, 642 )
 _z_pos = -70
@@ -52,7 +58,7 @@ polygon = PoolVector2Array( -67, -50, 87, -50, 87, 59, -67, 59 )
 polygon = PoolVector2Array( -67, -10, 87, -10, 87, 59, -67, 59 )
 polygons = [ PoolVector2Array( -67, -10, 87, -10, 87, 59, -67, 59 ) ]
 
-[node name="Player2" parent="." instance=ExtResource( 3 )]
+[node name="Player2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 573, 474 )
 
 [editable path="StaticSlope2P5D2"]

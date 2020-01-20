@@ -57,7 +57,7 @@ func get_height() -> int:
 
 
 func get_global_pos() -> Vector3:
-	var pos = Vector3(global_position.x, global_position.y, _z_pos)
+	var pos = Vector3(global_position.x, global_position.y - _z_pos, _z_pos)
 	return pos
 
 
