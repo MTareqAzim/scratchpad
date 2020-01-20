@@ -1,7 +1,8 @@
 extends Node
 class_name StateMachine, "state_machine.png"
 
-signal state_changed(states_stack)
+signal states_stack_changed(states_stack)
+signal state_changed(state_name)
 
 export (bool) var _active := false setget set_active
 
@@ -100,7 +101,8 @@ func _change_state(state_name: String) -> void:
 		_states_stack[0] = _states_map[state_name]
 	
 	current_state = _states_stack[0]
-	emit_signal("state_changed", _states_stack)
+	emit_signal("states_stack_changed", _states_stack)
+	emit_signal("state_changed", current_state.state_name)
 	
 	if state_name != "previous":
 		current_state.enter()

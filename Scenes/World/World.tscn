@@ -82,8 +82,8 @@ polygon = PoolVector2Array( 50, 150, -50, 150, -50, -150, 50, -150 )
 polygon = PoolVector2Array( 50, 150, -50, 150, -50, -150, 50, -150 )
 
 [node name="Rise" parent="StaticSlope2P5D3" index="4"]
-position = Vector2( 1.83691e-14, -150 )
-cast_to = Vector2( -3.67382e-14, 220 )
+position = Vector2( 1.83691e-014, -150 )
+cast_to = Vector2( -3.67382e-014, 220 )
 
 [node name="StaticSlope2P5D4" parent="." instance=ExtResource( 1 )]
 editor/display_folded = true
@@ -134,6 +134,8 @@ polygons = [ PoolVector2Array( -67, -10, 87, -10, 87, 59, -67, 59 ) ]
 
 [node name="Player2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 573, 474 )
+GRAVITY = 980
+_z_pos = 0
 
 [editable path="StaticSlope2P5D"]
 

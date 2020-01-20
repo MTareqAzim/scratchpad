@@ -5,7 +5,7 @@ func _ready():
 	set_as_toplevel(true)
 
 
-func _on_StateMachine_state_changed(states_stack):
+func _on_State_Machine_states_stack_changed(states_stack):
 	var states_names = ''
 	var numbers = ''
 	var index = 0

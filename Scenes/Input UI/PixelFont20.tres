@@ -3,6 +3,6 @@
 [ext_resource path="res://Sprites/UI/Input/pixelart.ttf" type="DynamicFontData" id=1]
 
 [resource]
-size = 20
+size = 12
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 1 )
