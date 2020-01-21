@@ -61,6 +61,18 @@ func get_top_z_pos(points: Array) -> int:
 	return _z_pos - int(ceil(_height * fraction))
 
 
+func is_within(pos: Vector2) -> bool:
+	var is_within := false
+	var local_pos = to_local(pos) + Vector2(0, _z_pos)
+	
+	for shape in get_base_shapes(_z_pos):
+		is_within = Geometry2D.point_in_polygon(local_pos, shape)
+		if is_within:
+			break
+	
+	return is_within
+
+
 func _get_altitude(pos: Vector2) -> float:
 	var br = _base.polygon[2]
 	var bl = _base.polygon[3]

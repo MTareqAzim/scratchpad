@@ -24,7 +24,7 @@ func _physics_process(delta):
 	
 	var highest_shadow_mask = _get_highest_shadow_mask(space_state, global_position)
 	
-	if highest_shadow_mask:
+	if highest_shadow_mask != []:
 		highest_shadow_mask[0].draw_shadow(self)
 
 
@@ -58,9 +58,11 @@ func _get_highest_shadow_mask(space_state: Physics2DDirectSpaceState, ray_from: 
 	if direct_collision_result:
 		for collision in direct_collision_result:
 			var collider = collision["collider"]
+			exclude.append(collision["rid"])
+			if not collider.is_within(position_2d):
+				continue
 			var collider_z_pos = collider.get_z_pos()
 			var collider_top_z_pos = collider.get_top_z_pos([position_2d + Vector2(0, collider_z_pos)])
-			exclude.append(collision["rid"])
 			if highest_shadow_mask == []:
 				highest_shadow_mask = [collider, collider_top_z_pos]
 			elif collider_top_z_pos < highest_shadow_mask[1]:
@@ -76,14 +78,17 @@ func _get_highest_shadow_mask(space_state: Physics2DDirectSpaceState, ray_from: 
 	
 	while collision_results:
 		var collider = collision_results["collider"]
-		var collider_z_pos = collider.get_z_pos()
-		var collider_top_z_pos = collider.get_top_z_pos([position_2d + Vector2(0, collider_z_pos)])
-		if collider.get_z_pos() >= _body.get_z_pos():
-			if highest_shadow_mask == []:
-				highest_shadow_mask = [collider, collider_top_z_pos]
-			elif collider_top_z_pos < highest_shadow_mask[1]:
-				highest_shadow_mask = [collider, collider_top_z_pos]
 		exclude.append(collision_results["rid"])
+		
+		if collider.is_within(position_2d):
+			var collider_z_pos = collider.get_z_pos()
+			var collider_top_z_pos = collider.get_top_z_pos([position_2d + Vector2(0, collider_z_pos)])
+			if collider.get_z_pos() >= _body.get_z_pos():
+				if highest_shadow_mask == []:
+					highest_shadow_mask = [collider, collider_top_z_pos]
+				elif collider_top_z_pos < highest_shadow_mask[1]:
+					highest_shadow_mask = [collider, collider_top_z_pos]
+		
 		collision_results = \
 			space_state.intersect_ray(ray_from,
 							ray_to,
