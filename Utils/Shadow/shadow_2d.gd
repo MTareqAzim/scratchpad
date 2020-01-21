@@ -46,8 +46,15 @@ func _physics_process(delta):
 							collide_with_bodies,
 							collide_with_areas)
 	
+	var highest_shadow_mask
+	
 	while collision_results:
-		collision_results["collider"].draw_shadow(self)
+		var shadow_mask = collision_results["collider"]
+		if shadow_mask.get_z_pos() >= _body.get_z_pos():
+			if highest_shadow_mask == null:
+				highest_shadow_mask = shadow_mask
+			if shadow_mask.get_z_pos() < highest_shadow_mask.get_z_pos():
+				highest_shadow_mask = shadow_mask
 		exclude.append(collision_results["rid"])
 		collision_results = \
 			space_state.intersect_ray(ray_from,
@@ -56,6 +63,9 @@ func _physics_process(delta):
 							collision_layer,
 							collide_with_bodies,
 							collide_with_areas)
+	
+	if highest_shadow_mask:
+		highest_shadow_mask.draw_shadow(self)
 
 
 func _set_shape(new_shape: CapsuleShape2D) -> void:

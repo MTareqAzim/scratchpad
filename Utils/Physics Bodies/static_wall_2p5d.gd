@@ -6,6 +6,7 @@ onready var _base_shape = $BaseShape
 onready var _top_shape = $TopShape
 onready var _volume_shape = $VolumeShape
 onready var _dist_to_ground = $DistToGround
+onready var _shadow_mask = $ShadowMask
 onready var _ready := true
 
 export (int) var _z_pos: = 0 setget _set_z, get_z_pos
@@ -18,6 +19,10 @@ func get_class() -> String:
 
 func is_class(type: String) -> bool:
 	return type == "StaticWall2P5D" or .is_class(type)
+
+
+func get_global_pos() -> Vector3:
+	return Vector3(global_position.x, global_position.y - _z_pos, _z_pos)
 
 
 func get_z_pos() -> int:

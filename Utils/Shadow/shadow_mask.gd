@@ -34,15 +34,19 @@ func get_z_pos() -> int:
 	return z_pos
 
 
+func set_extents(new_extents: Vector2) -> void:
+	_collider.shape.extents = new_extents
+
+
 func draw_shadow(shadow: Shadow2D) -> void:
 	var texture = shadow.texture
 	var position_3d = shadow.get_global_pos()
-	var position_2d = Vector2(position_3d.x, position_3d.y + z_pos) - texture.get_size()/2
+	var position_2d = Vector2(position_3d.x, position_3d.y + z_pos)
 	var local_position = to_local(position_2d)
 	
 	for shape in get_base_shapes():
 		if Geometry2D.point_in_polygon(local_position, shape):
-			shadows_to_draw[texture] = local_position
+			shadows_to_draw[texture] = local_position - texture.get_size()/2
 			update()
 
 func get_base_shapes() -> Array:

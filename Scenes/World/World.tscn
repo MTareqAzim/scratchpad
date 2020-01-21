@@ -1,16 +1,26 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Utils/Shadow/Shadow Mask.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Utils/Physics Bodies/StaticSlope2P5D.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Utils/Physics Bodies/StaticWall2P5D.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=4]
 
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 460, 276 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 89, 43 )
+
 [node name="World" type="Node"]
 
 [node name="Shadow Mask" parent="." instance=ExtResource( 1 )]
-position = Vector2( 394, 677 )
+position = Vector2( 396, 677 )
 collision_layer = 8
 collision_mask = 0
+
+[node name="CollisionShape2D" parent="Shadow Mask" index="0"]
+position = Vector2( 35, -25 )
+shape = SubResource( 2 )
 
 [node name="StaticSlope2P5D2" parent="." instance=ExtResource( 2 )]
 editor/display_folded = true
@@ -38,29 +48,36 @@ position = Vector2( 0, 150 )
 cast_to = Vector2( 0, -380 )
 
 [node name="StaticWall2P5D" parent="." instance=ExtResource( 3 )]
-editor/display_folded = true
-position = Vector2( 318, 642 )
-_z_pos = -70
-_height = 40
-
-[node name="DistToGround" parent="StaticWall2P5D" index="0"]
-visible = true
-cast_to = Vector2( 0, 70 )
+position = Vector2( 318, 712 )
+_height = 110
 
 [node name="TopShape" parent="StaticWall2P5D" index="1"]
-position = Vector2( 0, -40 )
+position = Vector2( 0, -110 )
 polygon = PoolVector2Array( -67, -10, 87, -10, 87, 59, -67, 59 )
 
 [node name="VolumeShape" parent="StaticWall2P5D" index="2"]
-polygon = PoolVector2Array( -67, -50, 87, -50, 87, 59, -67, 59 )
+polygon = PoolVector2Array( -67, -120, 87, -120, 87, 59, -67, 59 )
 
 [node name="BaseShape" parent="StaticWall2P5D" index="3"]
 polygon = PoolVector2Array( -67, -10, 87, -10, 87, 59, -67, 59 )
 polygons = [ PoolVector2Array( -67, -10, 87, -10, 87, 59, -67, 59 ) ]
 
+[node name="Shadow Mask" parent="StaticWall2P5D" instance=ExtResource( 1 )]
+position = Vector2( 10, -87 )
+collision_layer = 8
+collision_mask = 0
+z_pos = -110
+
+[node name="CollisionShape2D" parent="StaticWall2P5D/Shadow Mask" index="0"]
+shape = SubResource( 1 )
+
 [node name="Player2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 573, 474 )
+
+[editable path="Shadow Mask"]
 
 [editable path="StaticSlope2P5D2"]
 
 [editable path="StaticWall2P5D"]
+
+[editable path="StaticWall2P5D/Shadow Mask"]
