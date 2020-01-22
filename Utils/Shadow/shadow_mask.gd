@@ -3,6 +3,7 @@ extends Area2D
 class_name ShadowMask
 
 const HALF_OPACTIY = Color(1, 1, 1, 0.5)
+const MAX_DISTANCE_FROM_SHADOW = 100
 
 export (int) var _z_pos := 0 setget _set_z_pos, get_z_pos
 export (int) var _height := 0 setget _set_height, get_height
@@ -21,8 +22,8 @@ var shadows_to_draw : Dictionary = {}
 
 func _draw() -> void:
 	for texture in shadows_to_draw:
-		var texture_position = shadows_to_draw[texture]
-		draw_texture(texture, texture_position, HALF_OPACTIY)
+		var texture_rect = shadows_to_draw[texture]
+		draw_texture_rect(texture, texture_rect, false, HALF_OPACTIY)
 
 
 func _physics_process(delta: float) -> void:
@@ -36,14 +37,6 @@ func get_class() -> String:
 
 func is_class(type: String) -> bool:
 	return type == "ShadowMask" or .is_class(type)
-
-
-func _set_z_pos(new_z_pos: int) -> void:
-	var diff = _z_pos - new_z_pos
-	_z_pos = new_z_pos
-	
-	if _ready:
-		translate(Vector2(0, -diff))
 
 
 func get_z_pos() -> int:
@@ -73,15 +66,42 @@ func is_within(pos: Vector2) -> bool:
 	return is_within
 
 
-func _get_altitude(pos: Vector2) -> float:
-	var br = _base.polygon[2]
-	var bl = _base.polygon[3]
+func draw_shadow(shadow: Shadow2D) -> void:
+	var texture = shadow.texture
+	var position_3d = shadow.get_global_pos()
+	var position_2d = Vector2(position_3d.x, position_3d.y + _z_pos)
+	var top_z_pos = get_top_z_pos([position_2d])
+	var local_position = to_local(position_2d)
 	
-	var area = Geometry2D.area([br, bl, pos])
-	var width = br.distance_to(bl)
-	var altitude = 2.0 * area / width
+	for shape in get_base_shapes(_z_pos):
+		if Geometry2D.point_in_polygon(local_position, shape):
+			var ratio = _get_ratio_size(position_3d)
+			var texture_position = local_position - (texture.get_size()/2 * ratio) + Vector2(0, top_z_pos - _z_pos)
+			var texture_rect = Rect2(texture_position, texture.get_size() * ratio)
+			shadows_to_draw[texture] = texture_rect
+			update()
+
+
+func get_base_shapes(z_pos: int) -> Array:
+	var polygons = []
 	
-	return altitude
+	for polygon in _base.polygons:
+		var translated_polygon = []
+		for point in polygon:
+			translated_polygon.append(point + _base.position)
+		
+		polygons.append(translated_polygon)
+	
+	return polygons
+
+
+#Private getters and setters
+func _set_z_pos(new_z_pos: int) -> void:
+	var diff = _z_pos - new_z_pos
+	_z_pos = new_z_pos
+	
+	if _ready:
+		translate(Vector2(0, -diff))
 
 
 func _set_height(new_height: int) -> void:
@@ -108,32 +128,32 @@ func _set_angle(new_angle: int) -> void:
 	_update_components()
 
 
-func draw_shadow(shadow: Shadow2D) -> void:
-	var texture = shadow.texture
-	var position_3d = shadow.get_global_pos()
-	var position_2d = Vector2(position_3d.x, position_3d.y + _z_pos)
-	var top_z_pos = get_top_z_pos([position_2d])
-	var local_position = to_local(position_2d)
+#Helper methods
+func _get_altitude(pos: Vector2) -> float:
+	var br = _base.polygon[2]
+	var bl = _base.polygon[3]
 	
-	for shape in get_base_shapes(_z_pos):
-		if Geometry2D.point_in_polygon(local_position, shape):
-			shadows_to_draw[texture] = local_position - texture.get_size()/2 + Vector2(0, top_z_pos - _z_pos)
-			update()
-
-
-func get_base_shapes(z_pos: int) -> Array:
-	var polygons = []
+	var area = Geometry2D.area([br, bl, pos])
+	var width = br.distance_to(bl)
+	var altitude = 2.0 * area / width
 	
-	for polygon in _base.polygons:
-		var translated_polygon = []
-		for point in polygon:
-			translated_polygon.append(point + _base.position)
-		
-		polygons.append(translated_polygon)
+	return altitude
+
+
+func _get_ratio_size(other_pos: Vector3) -> float:
+	var other_position_2d = Vector2(other_pos.x, other_pos.y)
+	var diff = abs(get_top_z_pos([other_position_2d]) - other_pos.z)
+	var ratio
 	
-	return polygons
+	if diff >= MAX_DISTANCE_FROM_SHADOW:
+		ratio = 0.75
+	elif diff < MAX_DISTANCE_FROM_SHADOW:
+		ratio = 1 - (0.25 * diff / MAX_DISTANCE_FROM_SHADOW)
+	
+	return ratio
 
 
+#Editor functions
 func _update_components() -> void:
 	if _ready:
 		_update_base()

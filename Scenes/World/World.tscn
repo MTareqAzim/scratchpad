@@ -25,6 +25,7 @@ position = Vector2( 0, 250 )
 cast_to = Vector2( 0, -500 )
 
 [node name="StaticSlope2P5D2" parent="." instance=ExtResource( 2 )]
+editor/display_folded = true
 position = Vector2( 408, 264 )
 _height = 80
 _width = 500
@@ -98,6 +99,43 @@ polygons = [ PoolVector2Array( -80, -37.5, 80, -37.5, 80, 37.5, -80, 37.5 ) ]
 position = Vector2( 0, 37.5 )
 cast_to = Vector2( 0, -75 )
 
+[node name="StaticSlope2P5D" parent="." instance=ExtResource( 2 )]
+position = Vector2( -170, 264 )
+_height = 60
+_width = 100
+_length = 300
+_angle = 270
+
+[node name="TopShape" parent="StaticSlope2P5D" index="1"]
+polygon = PoolVector2Array( 150, -110, 150, -10, -150, 50, -150, -50 )
+
+[node name="BaseShape" parent="StaticSlope2P5D" index="2"]
+polygon = PoolVector2Array( 150, -50, 150, 50, -150, 50, -150, -50 )
+
+[node name="VolumeShape" parent="StaticSlope2P5D" index="3"]
+polygon = PoolVector2Array( 150, -110, 150, 50, -150, 50, -150, -50 )
+
+[node name="Rise" parent="StaticSlope2P5D" index="4"]
+position = Vector2( -150, -2.75536e-014 )
+cast_to = Vector2( 300, -60 )
+
+[node name="Shadow Mask" parent="StaticSlope2P5D" instance=ExtResource( 1 )]
+_height = 60
+_width = 110
+_length = 300
+_angle = 270
+
+[node name="CollisionPolygon2D" parent="StaticSlope2P5D/Shadow Mask" index="0"]
+polygon = PoolVector2Array( 150, -55, 150, 55, -150, 55, -150, -55 )
+
+[node name="Base" parent="StaticSlope2P5D/Shadow Mask" index="1"]
+polygon = PoolVector2Array( 150, -55, 150, 55, -150, 55, -150, -55 )
+polygons = [ PoolVector2Array( 150, -55, 150, 55, -150, 55, -150, -55 ) ]
+
+[node name="Rise" parent="StaticSlope2P5D/Shadow Mask" index="2"]
+position = Vector2( -150, -2.75536e-014 )
+cast_to = Vector2( 300, -60 )
+
 [node name="Player2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 573, 474 )
 
@@ -110,3 +148,7 @@ position = Vector2( 573, 474 )
 [editable path="StaticWall2P5D"]
 
 [editable path="StaticWall2P5D/Shadow Mask"]
+
+[editable path="StaticSlope2P5D"]
+
+[editable path="StaticSlope2P5D/Shadow Mask"]
