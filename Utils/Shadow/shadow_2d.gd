@@ -2,7 +2,7 @@ tool
 extends Node2D
 class_name Shadow2D
 
-const SHADOW_COLOR = Color(0, 0, 0, 0.5)
+const HALF_OPACITY = Color(1, 1, 1, 0.5)
 
 export (NodePath) var body
 export (Texture) var texture setget set_texture
@@ -13,7 +13,7 @@ onready var _body = get_node(body)
 
 func _draw() -> void:
 	if Engine.editor_hint:
-		draw_texture(texture, position - texture.get_size()/2)
+		draw_texture(texture, position - texture.get_size()/2, HALF_OPACITY)
 
 
 func _physics_process(delta):
@@ -43,6 +43,8 @@ func _get_highest_shadow_mask(space_state: Physics2DDirectSpaceState, ray_from: 
 	var collide_with_bodies = false
 	var collision_layer = 1 << shadow_mask_layer
 	var exclude = []
+	var highest_shadow_mask = []
+	var position_2d = ray_from - Vector2(0, get_global_pos().z)
 	
 	var direct_collision_result = \
 			space_state.intersect_point(ray_from,
@@ -52,23 +54,16 @@ func _get_highest_shadow_mask(space_state: Physics2DDirectSpaceState, ray_from: 
 							collide_with_bodies,
 							collide_with_areas)
 	
-	var highest_shadow_mask = []
-	var position_2d = Vector2(get_global_pos().x, get_global_pos().y)
-	
 	if direct_collision_result:
 		for collision in direct_collision_result:
-			var collider = collision["collider"]
+			var shadow_mask = collision["collider"]
 			exclude.append(collision["rid"])
-			if not collider.is_within(position_2d):
+			if not shadow_mask.is_within(position_2d):
 				continue
-			var collider_z_pos = collider.get_z_pos()
-			var collider_top_z_pos = collider.get_top_z_pos([position_2d + Vector2(0, collider_z_pos)])
-			if highest_shadow_mask == []:
-				highest_shadow_mask = [collider, collider_top_z_pos]
-			elif collider_top_z_pos < highest_shadow_mask[1]:
-				highest_shadow_mask = [collider, collider_top_z_pos]
+			highest_shadow_mask = _compare_with_highest_shadow_mask(shadow_mask, 
+										highest_shadow_mask, position_2d)
 	
-	var collision_results = \
+	var collision_result = \
 			space_state.intersect_ray(ray_from,
 							ray_to,
 							exclude,
@@ -76,25 +71,32 @@ func _get_highest_shadow_mask(space_state: Physics2DDirectSpaceState, ray_from: 
 							collide_with_bodies,
 							collide_with_areas)
 	
-	while collision_results:
-		var collider = collision_results["collider"]
-		exclude.append(collision_results["rid"])
+	while collision_result:
+		var shadow_mask = collision_result["collider"]
+		exclude.append(collision_result["rid"])
 		
-		if collider.is_within(position_2d):
-			var collider_z_pos = collider.get_z_pos()
-			var collider_top_z_pos = collider.get_top_z_pos([position_2d + Vector2(0, collider_z_pos)])
-			if collider.get_z_pos() >= _body.get_z_pos():
-				if highest_shadow_mask == []:
-					highest_shadow_mask = [collider, collider_top_z_pos]
-				elif collider_top_z_pos < highest_shadow_mask[1]:
-					highest_shadow_mask = [collider, collider_top_z_pos]
+		if shadow_mask.is_within(position_2d):
+			highest_shadow_mask = _compare_with_highest_shadow_mask(shadow_mask,
+										highest_shadow_mask, position_2d)
 		
-		collision_results = \
+		collision_result = \
 			space_state.intersect_ray(ray_from,
 							ray_to,
 							exclude,
 							collision_layer,
 							collide_with_bodies,
 							collide_with_areas)
+	
+	return highest_shadow_mask
+
+
+func _compare_with_highest_shadow_mask(shadow_mask, highest_shadow_mask, position_2d) -> Array:
+	var shadow_mask_z_pos = shadow_mask.get_z_pos()
+	var shadow_mask_top_z_pos = shadow_mask.get_top_z_pos([position_2d + Vector2(0, shadow_mask_z_pos)])
+	if shadow_mask_top_z_pos >= _body.get_z_pos():
+		if highest_shadow_mask == []:
+			highest_shadow_mask = [shadow_mask, shadow_mask_top_z_pos]
+		elif shadow_mask_top_z_pos < highest_shadow_mask[1]:
+			highest_shadow_mask = [shadow_mask, shadow_mask_top_z_pos]
 	
 	return highest_shadow_mask

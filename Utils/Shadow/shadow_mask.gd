@@ -73,13 +73,11 @@ func draw_shadow(shadow: Shadow2D) -> void:
 	var top_z_pos = get_top_z_pos([position_2d])
 	var local_position = to_local(position_2d)
 	
-	for shape in get_base_shapes(_z_pos):
-		if Geometry2D.point_in_polygon(local_position, shape):
-			var ratio = _get_ratio_size(position_3d)
-			var texture_position = local_position - (texture.get_size()/2 * ratio) + Vector2(0, top_z_pos - _z_pos)
-			var texture_rect = Rect2(texture_position, texture.get_size() * ratio)
-			shadows_to_draw[texture] = texture_rect
-			update()
+	var ratio = _get_ratio_size(position_3d)
+	var texture_position = local_position - (texture.get_size()/2 * ratio) + Vector2(0, top_z_pos - _z_pos)
+	var texture_rect = Rect2(texture_position, texture.get_size() * ratio)
+	shadows_to_draw[texture] = texture_rect
+	update()
 
 
 func get_base_shapes(z_pos: int) -> Array:
