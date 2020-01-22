@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Utils/Physics Bodies/KinematicBody2P5D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Utils/Shadow/shadow_2d.gd" type="Script" id=2]
@@ -24,12 +24,16 @@
 [ext_resource path="res://Scenes/Scratch/StatesStackDiplayer.tscn" type="PackedScene" id=22]
 [ext_resource path="res://Scenes/Scratch/BufferStackDiplayer.tscn" type="PackedScene" id=23]
 [ext_resource path="res://Scenes/Input UI/InputUIBase.tscn" type="PackedScene" id=24]
+[ext_resource path="res://Utils/Depth Sorting/DepthSort.tscn" type="PackedScene" id=25]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 15, 43 )
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 18.0
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 18, 44 )
 
 [node name="Player2" instance=ExtResource( 1 )]
 MAX_SPEED = 2000
@@ -281,6 +285,13 @@ margin_bottom = -11.0
 
 [node name="Camera2D" type="Camera2D" parent="." index="12"]
 current = true
+
+[node name="Depth Sort" parent="." index="13" instance=ExtResource( 25 )]
+position = Vector2( 0, -33 )
+body = NodePath("..")
+
+[node name="Bounding Box" parent="Depth Sort" index="0"]
+shape = SubResource( 3 )
 [connection signal="direction_changed" from="Look Direction" to="Look Arrow" method="_on_Look_Direction_direction_changed"]
 [connection signal="direction_changed" from="Look Direction" to="AnimatedSprite" method="_on_Look_Direction_direction_changed"]
 [connection signal="buffer_changed" from="ActionBuffer" to="CanvasLayer/BufferStackDiplayer" method="_on_ActionBuffer_buffer_changed"]
@@ -300,3 +311,5 @@ current = true
 [editable path="State Machine/Air Dash"]
 
 [editable path="State Machine/Back Air Dash"]
+
+[editable path="Depth Sort"]
