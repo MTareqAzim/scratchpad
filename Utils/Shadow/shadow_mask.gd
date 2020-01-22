@@ -2,32 +2,32 @@ tool
 extends Area2D
 class_name ShadowMask
 
-const HALF_OPACTIY = Color(1, 1, 1, 0.5)
+const SHADOW_OPACTIY = Color(1, 1, 1, 0.5)
 const MAX_DISTANCE_FROM_SHADOW = 100
+const MIN_FRACTION_SIZE = 0.75
 
 export (int) var _z_pos := 0 setget _set_z_pos, get_z_pos
 export (int) var _height := 0 setget _set_height, get_height
-export (int) var _width := 10 setget _set_width
-export (int) var _length := 10 setget _set_length
+export (int) var _width := 20 setget _set_width
+export (int) var _length := 20 setget _set_length
 export (int, 0, 315, 45) var _angle := 0 setget _set_angle
-
 
 onready var _ready : bool = true
 onready var _collider : CollisionPolygon2D = $CollisionPolygon2D
 onready var _base : CompositePolygon2D = $Base
 onready var _rise : RayCast2D = $Rise
 
-var shadows_to_draw : Dictionary = {}
+var _shadows_to_draw : Dictionary = {}
 
 
 func _draw() -> void:
-	for texture in shadows_to_draw:
-		var texture_rect = shadows_to_draw[texture]
-		draw_texture_rect(texture, texture_rect, false, HALF_OPACTIY)
+	for texture in _shadows_to_draw:
+		var texture_rect = _shadows_to_draw[texture]
+		draw_texture_rect(texture, texture_rect, false, SHADOW_OPACTIY)
 
 
 func _physics_process(delta: float) -> void:
-	shadows_to_draw.clear()
+	_shadows_to_draw.clear()
 	update()
 
 
@@ -73,10 +73,12 @@ func draw_shadow(shadow: Shadow2D) -> void:
 	var top_z_pos = get_top_z_pos([position_2d])
 	var local_position = to_local(position_2d)
 	
-	var ratio = _get_ratio_size(position_3d)
-	var texture_position = local_position - (texture.get_size()/2 * ratio) + Vector2(0, top_z_pos - _z_pos)
-	var texture_rect = Rect2(texture_position, texture.get_size() * ratio)
-	shadows_to_draw[texture] = texture_rect
+	var fraction = _get_size_fraction(position_3d)
+	var texture_size = texture.get_size()
+	texture_size = Vector2(texture_size.x * shadow.scale.x, texture_size.y * shadow.scale.y)
+	var texture_position = local_position - (texture_size/2 * fraction) + Vector2(0, top_z_pos - _z_pos)
+	var texture_rect = Rect2(texture_position, texture_size * fraction)
+	_shadows_to_draw[texture] = texture_rect
 	update()
 
 
@@ -138,17 +140,17 @@ func _get_altitude(pos: Vector2) -> float:
 	return altitude
 
 
-func _get_ratio_size(other_pos: Vector3) -> float:
+func _get_size_fraction(other_pos: Vector3) -> float:
 	var other_position_2d = Vector2(other_pos.x, other_pos.y)
 	var diff = abs(get_top_z_pos([other_position_2d]) - other_pos.z)
-	var ratio
+	var fraction := 1.0
 	
 	if diff >= MAX_DISTANCE_FROM_SHADOW:
-		ratio = 0.75
+		fraction = MIN_FRACTION_SIZE
 	elif diff < MAX_DISTANCE_FROM_SHADOW:
-		ratio = 1 - (0.25 * diff / MAX_DISTANCE_FROM_SHADOW)
+		fraction = 1 - ((1 - MIN_FRACTION_SIZE) * diff / MAX_DISTANCE_FROM_SHADOW)
 	
-	return ratio
+	return fraction
 
 
 #Editor functions
