@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Utils/Depth Sorting/depth_sorter.gd" type="Script" id=1]
+
+[node name="Depth Sorter" type="Node"]
+script = ExtResource( 1 )

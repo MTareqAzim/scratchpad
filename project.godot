@@ -69,6 +69,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Utils/Composite Polygon 2D/composite_polygon_2d.gd"
 }, {
+"base": "Area2D",
+"class": "DepthSort",
+"language": "GDScript",
+"path": "res://Utils/Depth Sorting/depth_sort.gd"
+}, {
+"base": "Node",
+"class": "DepthSorter",
+"language": "GDScript",
+"path": "res://Utils/Depth Sorting/depth_sorter.gd"
+}, {
+"base": "Reference",
+"class": "DirectedGraph",
+"language": "GDScript",
+"path": "res://Utils/Directed Graph/directed_graph.gd"
+}, {
 "base": "StateComponent",
 "class": "EntityStateComponent",
 "language": "GDScript",
@@ -217,6 +232,9 @@ _global_script_class_icons={
 "Collision2D": "",
 "ComponentState": "res://Utils/State Machine/State/state.png",
 "CompositePolygon2D": "",
+"DepthSort": "",
+"DepthSorter": "",
+"DirectedGraph": "",
 "EntityStateComponent": "res://Utils/Entity/State Components/entity_state_component.png",
 "EqualsTransitionStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_transition.png",
 "Geometry2D": "",
@@ -254,8 +272,8 @@ config/icon="res://icon.png"
 
 [display]
 
-window/size/width=640
-window/size/height=360
+window/size/width=1120
+window/size/height=630
 window/size/test_width=1120
 window/size/test_height=630
 window/vsync/use_vsync=false
@@ -373,6 +391,8 @@ retreat={
 
 2d_physics/layer_1="Kinematic Body 2.5D"
 2d_physics/layer_2="Static Body 2.5D"
+2d_physics/layer_4="Shadow Mask"
+2d_physics/layer_5="Depth Sort"
 
 [rendering]
 

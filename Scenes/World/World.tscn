@@ -10,8 +10,11 @@
 [node name="Shadow Mask" parent="." instance=ExtResource( 1 )]
 editor/display_folded = true
 position = Vector2( 420, 580 )
+_z_pos = 0
+_height = 0
 _width = 1000
 _length = 500
+_angle = 0
 
 [node name="CollisionPolygon2D" parent="Shadow Mask" index="0"]
 polygon = PoolVector2Array( -500, -250, 500, -250, 500, 250, -500, 250 )
@@ -27,9 +30,11 @@ cast_to = Vector2( 0, -500 )
 [node name="StaticSlope2P5D2" parent="." instance=ExtResource( 2 )]
 editor/display_folded = true
 position = Vector2( 408, 264 )
+_z_pos = 0
 _height = 80
 _width = 500
 _length = 300
+_angle = 0
 
 [node name="DistToGround" parent="StaticSlope2P5D2" index="0"]
 visible = false
@@ -50,9 +55,11 @@ position = Vector2( 0, 150 )
 cast_to = Vector2( 0, -380 )
 
 [node name="Shadow Mask" parent="StaticSlope2P5D2" instance=ExtResource( 1 )]
+_z_pos = 0
 _height = 80
 _width = 500
 _length = 300
+_angle = 0
 
 [node name="CollisionPolygon2D" parent="StaticSlope2P5D2/Shadow Mask" index="0"]
 polygon = PoolVector2Array( -250, -150, 250, -150, 250, 150, -250, 150 )
@@ -85,8 +92,10 @@ polygons = [ PoolVector2Array( -67, -10, 87, -10, 87, 59, -67, 59 ) ]
 [node name="Shadow Mask" parent="StaticWall2P5D" instance=ExtResource( 1 )]
 position = Vector2( 12, -82 )
 _z_pos = -110
+_height = 0
 _width = 160
 _length = 75
+_angle = 0
 
 [node name="CollisionPolygon2D" parent="StaticWall2P5D/Shadow Mask" index="0"]
 polygon = PoolVector2Array( -80, -37.5, 80, -37.5, 80, 37.5, -80, 37.5 )
@@ -102,6 +111,7 @@ cast_to = Vector2( 0, -75 )
 [node name="StaticSlope2P5D" parent="." instance=ExtResource( 2 )]
 editor/display_folded = true
 position = Vector2( -170, 264 )
+_z_pos = 0
 _height = 60
 _width = 100
 _length = 300
@@ -121,6 +131,7 @@ position = Vector2( -150, -2.75536e-014 )
 cast_to = Vector2( 300, -60 )
 
 [node name="Shadow Mask" parent="StaticSlope2P5D" instance=ExtResource( 1 )]
+_z_pos = 0
 _height = 60
 _width = 110
 _length = 300
@@ -139,6 +150,8 @@ cast_to = Vector2( 300, -60 )
 
 [node name="Player2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 573, 474 )
+GRAVITY = 980
+_z_pos = 0
 
 [editable path="Shadow Mask"]
 
