@@ -219,6 +219,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Utils/Physics Bodies/static_wall_2p5d.gd"
 }, {
+"base": "Reference",
+"class": "TarjanAlgorithm",
+"language": "GDScript",
+"path": "res://Utils/Directed Graph/tarjan_algorithm.gd"
+}, {
 "base": "StateComponent",
 "class": "TransitionStateComponent",
 "language": "GDScript",
@@ -267,6 +272,7 @@ _global_script_class_icons={
 "StaticBody2P5D": "",
 "StaticSlope2P5D": "res://Utils/Physics Bodies/static_slope_2p5d.png",
 "StaticWall2P5D": "res://Utils/Physics Bodies/static_wall_2p5d.png",
+"TarjanAlgorithm": "",
 "TransitionStateComponent": ""
 }
 

@@ -1,5 +1,16 @@
 class_name DirectedGraphSorter
 
+
+static func copy_directed_graph(digraph: DirectedGraph) -> DirectedGraph:
+	var copy = DirectedGraph.new(digraph.number_of_vertices())
+	
+	for vertex in copy.number_of_vertices():
+		for vertex_to in digraph.adjacent_to(vertex):
+			copy.add_edge(vertex, vertex_to)
+	
+	return copy
+
+
 static func kahn_sort(directed_graph: DirectedGraph) -> Array:
 	var digraph = copy_directed_graph(directed_graph)
 	var sorted_list = []
@@ -23,13 +34,3 @@ static func kahn_sort(directed_graph: DirectedGraph) -> Array:
 		return []
 	
 	return sorted_list
-
-
-static func copy_directed_graph(digraph: DirectedGraph) -> DirectedGraph:
-	var copy = DirectedGraph.new(digraph.number_of_vertices())
-	
-	for vertex in copy.number_of_vertices():
-		for vertex_to in digraph.adjacent_to(vertex):
-			copy.add_edge(vertex, vertex_to)
-	
-	return copy
