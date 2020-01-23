@@ -1,3 +1,4 @@
+extends Reference
 class_name DirectedGraph
 
 var _number_of_vertices : int = 0

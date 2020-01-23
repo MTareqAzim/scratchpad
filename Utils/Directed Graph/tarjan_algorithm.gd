@@ -1,3 +1,4 @@
+extends Reference
 class_name TarjanAlgorithm
 
 var digraph : DirectedGraph
