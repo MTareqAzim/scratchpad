@@ -3,6 +3,7 @@ class_name DirectedGraph
 var _number_of_vertices : int = 0
 var _number_of_edges : int = 0
 var _adjacent : Array = []
+var _indegree : Array = []
 
 func _init(vertices: int):
 	if vertices < 0:
@@ -10,6 +11,7 @@ func _init(vertices: int):
 	
 	for i in vertices:
 		_adjacent.append([])
+		_indegree.append(0)
 	
 	_number_of_vertices = vertices
 
@@ -23,9 +25,9 @@ func number_of_edges() -> int:
 
 
 func add_edge(vertex_from: int, vertex_to: int) -> void:
-	if vertex_from < 0 or vertex_from >= _number_of_vertices:
+	if _validate_vertex(vertex_from):
 		return
-	if vertex_to < 0 or vertex_to >= _number_of_vertices:
+	if _validate_vertex(vertex_to):
 		return
 	if vertex_from == vertex_to:
 		return
@@ -33,11 +35,46 @@ func add_edge(vertex_from: int, vertex_to: int) -> void:
 		return
 	
 	_adjacent[vertex_from].append(vertex_to)
-	_number_of_edges = _number_of_edges + 1
+	_adjacent[vertex_from].sort()
+	_indegree[vertex_to] += 1
+	_number_of_edges += 1
+
+
+func remove_edge(vertex_from: int, vertex_to: int) -> void:
+	if _validate_vertex(vertex_from):
+		return
+	if _validate_vertex(vertex_to):
+		return
+	if vertex_from == vertex_to:
+		return
+	if not _adjacent[vertex_from].has(vertex_to):
+		return
+	
+	_adjacent[vertex_from].erase(vertex_to)
+	_indegree[vertex_to] -= 1
+	_number_of_edges -= 1
 
 
 func adjacent_to(vertex: int) -> Array:
-	if vertex < 0 or vertex >= _number_of_vertices:
+	if _validate_vertex(vertex):
 		return []
 	
 	return _adjacent[vertex]
+
+
+func outdegree(vertex: int) -> int:
+	if _validate_vertex(vertex):
+		return 0
+	
+	return _adjacent[vertex].size()
+
+
+func indegree(vertex: int) -> int:
+	if _validate_vertex(vertex):
+		return 0
+	
+	return _indegree[vertex]
+
+
+func _validate_vertex(vertex: int) -> bool:
+	return vertex < 0 or vertex >= _number_of_vertices

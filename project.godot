@@ -84,6 +84,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Utils/Directed Graph/directed_graph.gd"
 }, {
+"base": "Reference",
+"class": "DirectedGraphSorter",
+"language": "GDScript",
+"path": "res://Utils/Directed Graph/directed_graph_sorter.gd"
+}, {
 "base": "StateComponent",
 "class": "EntityStateComponent",
 "language": "GDScript",
@@ -235,6 +240,7 @@ _global_script_class_icons={
 "DepthSort": "",
 "DepthSorter": "",
 "DirectedGraph": "",
+"DirectedGraphSorter": "",
 "EntityStateComponent": "res://Utils/Entity/State Components/entity_state_component.png",
 "EqualsTransitionStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_transition.png",
 "Geometry2D": "",
