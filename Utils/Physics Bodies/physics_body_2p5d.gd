@@ -75,11 +75,11 @@ func in_front_of(body: Node2D) -> bool:
 		
 		if above:
 			var collision_points = Collision2D.collide_and_get_contacts(depth_slice, Transform2D(), other_depth_slice, Transform2D())
-			if collision_points:
+			if collision_points.size() > 2:
 				in_front_of = true
 		if below:
 			var collision_points = Collision2D.collide_and_get_contacts(depth_slice, Transform2D(), other_depth_slice, Transform2D())
-			if collision_points:
+			if collision_points.size() > 2:
 				in_front_of = false
 	else:
 		in_front_of = get_global_pos().y > body.global_position.y

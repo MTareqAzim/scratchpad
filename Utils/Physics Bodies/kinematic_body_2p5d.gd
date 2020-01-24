@@ -5,7 +5,7 @@ class_name KinematicBody2P5D, "kinematic_body_2p5d.png"
 onready var _ready := true
 onready var _base_shape : Polygon2D = $BaseShape
 
-const SKIN_WIDTH := 2
+const SKIN_WIDTH := 1
 const BASE_SKIN_RADIUS := 8
 const VOLUME_SKIN_WIDTH := 5
 const FLOOR_SKIN_RADIUS := 15
