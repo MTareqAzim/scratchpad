@@ -52,19 +52,46 @@ func in_front_of(body: Node2D) -> bool:
 	var in_front_of := false
 	
 	if body is PhysicsBody2P5D:
-		in_front_of = get_back_y_pos() > body.get_back_y_pos(get_global_pos())
+		var other_z_pos = body.get_z_pos()
+		var highest_common_z_pos = -INF
+		if other_z_pos > _z_pos:
+			highest_common_z_pos = _z_pos
+		else:
+			highest_common_z_pos = other_z_pos
+		
+		var depth_slice = get_depth_slice(highest_common_z_pos)
+		var other_depth_slice = body.get_depth_slice(highest_common_z_pos)
+		
+		if depth_slice:
+			if other_depth_slice:
+				in_front_of = Geometry2D.in_front_of(depth_slice, other_depth_slice)
+			else:
+				in_front_of = true
+		else:
+			in_front_of = false
 	else:
-		in_front_of = get_back_y_pos() > body.global_position.y
+		in_front_of = get_global_pos().y > body.global_position.y
 	
 	return in_front_of
 
 
-func get_back_y_pos(global_pos: Vector3 = Vector3.INF) -> int:
-	var base_points : Array = _base_shape.get_polygon()
-	var bounding_box : Rect2 = Geometry2D.bounding_box(base_points)
-	bounding_box.position = bounding_box.position + _base_shape.global_position
+func get_depth_slice(z_pos: int) -> Array:
+	var slice = []
 	
-	return int(round(bounding_box.position.y - _z_pos))
+	if z_pos <= _z_pos or z_pos >= _z_pos - _height:
+		var base_shapes = get_base_shapes(z_pos)
+		for shape in base_shapes:
+			for point in shape:
+				if not slice.has(point):
+					slice.append(point)
+	
+	if slice:
+		var base_transform = get_base_transform()
+		for index in slice.size():
+			slice[index] = base_transform.xform(slice[index])
+		slice = Collision2D._sort_points_clockwise(slice)
+	
+	return slice
 
 
 func _set_z(new_z: int) -> void:

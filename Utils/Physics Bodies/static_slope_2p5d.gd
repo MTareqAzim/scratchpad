@@ -80,65 +80,46 @@ func in_front_of(body: Node2D) -> bool:
 	var in_front_of := false
 	
 	if body is PhysicsBody2P5D:
-		in_front_of = get_back_y_pos() > body.get_back_y_pos(get_global_pos())
+		var other_z_pos = body.get_z_pos()
+		var highest_common_z_pos = -INF
+		if other_z_pos > _z_pos:
+			highest_common_z_pos = _z_pos
+		else:
+			highest_common_z_pos = other_z_pos
+		
+		var depth_slice = get_depth_slice(highest_common_z_pos)
+		var other_depth_slice = body.get_depth_slice(highest_common_z_pos)
+		
+		if depth_slice:
+			if other_depth_slice:
+				in_front_of = Geometry2D.in_front_of(depth_slice, other_depth_slice)
+			else:
+				in_front_of = true
+		else:
+			in_front_of = false
 	else:
-		in_front_of = get_back_y_pos() > body.global_position.y
+		in_front_of = get_global_pos().y > body.global_position.y
 	
 	return in_front_of
 
 
-func get_back_y_pos(global_pos: Vector3 = Vector3.INF) -> int:
-	var furthest_y_pos = 0
-	var position_2d = Vector2(global_pos.x, global_pos.y)
+func get_depth_slice(z_pos: int) -> Array:
+	var slice = []
 	
-	var base_points : Array
-	base_points = _base_shape.get_polygon()
-	for index in base_points.size():
-		base_points[index] = base_points[index] + _base_shape.global_position
+	if z_pos <= _z_pos or z_pos >= _z_pos - _height:
+		var base_shapes = get_base_shapes(z_pos)
+		for shape in base_shapes:
+			for point in shape:
+				if not slice.has(point):
+					slice.append(point)
 	
-	if global_pos != Vector3.INF and Geometry2D.point_in_polygon(position_2d, base_points):
-		var top_z_pos = get_top_z_pos([position_2d])
-		var base_shapes = get_base_shapes(top_z_pos)
-		if base_shapes:
-			base_points = base_shapes[0]
-			for index in base_points.size():
-				base_points[index] = get_base_transform().xform(base_points[index])
+	if slice:
+		var base_transform = get_base_transform()
+		for index in slice.size():
+			slice[index] = base_transform.xform(slice[index])
+		slice = Collision2D._sort_points_clockwise(slice)
 	
-	var bounding_box : Rect2 = Geometry2D.bounding_box(base_points)
-	
-	furthest_y_pos = int(round(bounding_box.position.y))
-	
-	var visual_position_2d = Vector2(global_pos.x, global_pos.y + global_pos.z)
-	
-	if _angle in [45, 135, 225, 315]:
-		if global_pos != Vector3.INF:
-			if global_pos.z > _z_pos + get_top_z_pos([position_2d]):
-				if global_pos.y > furthest_y_pos:
-					var smallest_y_point = base_points[0]
-					for point in base_points:
-						if point.y < smallest_y_point.y:
-							smallest_y_point = point
-					
-					var largest_y_point = base_points[0]
-					for point in base_points:
-						if point.y > largest_y_point.y:
-							largest_y_point = point
-					
-					var closest_point = Geometry.get_closest_point_to_segment_2d(visual_position_2d, smallest_y_point, largest_y_point)
-					if global_pos.x < closest_point.x:
-						var left_most_point = base_points[0]
-						for point in base_points:
-							if point.x < left_most_point.x:
-								left_most_point = point
-						furthest_y_pos = int(round(left_most_point.y))
-					else:
-						var right_most_point = base_points[0]
-						for point in base_points:
-							if point.x > right_most_point.x:
-								right_most_point = point
-						furthest_y_pos = int(round(right_most_point.y))
-	
-	return furthest_y_pos
+	return slice
 
 
 func _get_altitude(pos: Vector2) -> float:

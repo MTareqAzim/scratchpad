@@ -97,11 +97,7 @@ func get_base_shapes(z_pos: int) -> Array:
 
 #Private getters and setters
 func _set_z_pos(new_z_pos: int) -> void:
-	var diff = _z_pos - new_z_pos
 	_z_pos = new_z_pos
-	
-	if _ready:
-		translate(Vector2(0, -diff))
 
 
 func _set_height(new_height: int) -> void:

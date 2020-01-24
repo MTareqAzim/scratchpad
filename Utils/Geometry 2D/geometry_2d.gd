@@ -88,6 +88,55 @@ static func rect_to_array(rect: Rect2) -> Array:
 	return points
 
 
+static func in_front_of(polygon: Array, comparison: Array) -> bool:
+	var polygon_y_values = []
+	for point in polygon:
+		polygon_y_values.append(point.y)
+	polygon_y_values.sort()
+	polygon_y_values.invert()
+	
+	var comparison_y_values = []
+	for point in comparison:
+		comparison_y_values.append(point.y)
+	comparison_y_values.sort()
+	comparison_y_values.invert()
+	
+	var tally = []
+	var polygon_index = 0
+	var comparison_index = 0
+	for i in polygon.size() + comparison.size():
+		if polygon_index >= polygon.size():
+			tally.append(1)
+			comparison_index += 1
+			continue
+		
+		if comparison_index >= comparison.size():
+			tally.append(0)
+			polygon_index += 1
+			continue
+		
+		if polygon_y_values[polygon_index] > comparison_y_values[comparison_index]:
+			tally.append(0)
+			polygon_index += 1
+		else:
+			tally.append(1)
+			comparison_index += 1
+	
+	var polygon_tally = 0
+	var comparison_tally = 0
+	for i in 3:
+		if tally[i] == 0:
+			polygon_tally += 1
+		else:
+			comparison_tally += 1
+	
+	var closer = false
+	if polygon_tally > comparison_tally:
+		closer = true
+	
+	return closer
+
+
 static func _area(points: Array) -> float:
 	var area := 0.0
 	
