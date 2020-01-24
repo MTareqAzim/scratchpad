@@ -38,15 +38,17 @@ static func point_in_polygon(point: Vector2, polygon: Array) -> bool:
 		var next_i = (i + 1) % polygon.size()
 		if polygon[i].y <= point.y:
 			if polygon[next_i].y > point.y:
-				if clockwise(polygon[i], polygon[next_i], point) < 0:
+				var clockwise_value = clockwise(polygon[i], polygon[next_i], point)
+				if clockwise_value < 0:
 					wn += 1
-				if clockwise(polygon[i], polygon[next_i], point) == 0:
+				if clockwise_value == 0:
 					wn = 1
 					break
 		elif polygon[next_i].y <= point.y:
-			if clockwise(polygon[i], polygon[next_i], point) > 0:
+			var clockwise_value = clockwise(polygon[i], polygon[next_i], point)
+			if clockwise_value > 0:
 				wn -= 1
-			if clockwise(polygon[i], polygon[next_i], point) == 0:
+			if clockwise_value == 0:
 					wn = -1
 					break
 	

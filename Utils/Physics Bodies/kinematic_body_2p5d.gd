@@ -5,7 +5,7 @@ class_name KinematicBody2P5D, "kinematic_body_2p5d.png"
 onready var _ready := true
 onready var _base_shape : Polygon2D = $BaseShape
 
-const SKIN_WIDTH := 1
+const SKIN_WIDTH := 2
 const BASE_SKIN_RADIUS := 8
 const VOLUME_SKIN_WIDTH := 5
 const FLOOR_SKIN_RADIUS := 15
@@ -121,57 +121,6 @@ func is_grounded() -> bool:
 		return true
 	
 	return false
-
-
-func in_front_of(body: Node2D) -> bool:
-	var in_front_of := false
-	
-	if body is PhysicsBody2P5D:
-		var other_z_pos = body.get_z_pos()
-		var lowest_common_z_pos = -INF
-		if other_z_pos > _z_pos:
-			lowest_common_z_pos = _z_pos
-		else:
-			lowest_common_z_pos = other_z_pos
-		
-		var depth_slice = get_depth_slice(lowest_common_z_pos)
-		var other_depth_slice = body.get_depth_slice(lowest_common_z_pos)
-		
-		if depth_slice:
-			if other_depth_slice:
-				in_front_of = Geometry2D.in_front_of(depth_slice, other_depth_slice)
-				print("Kinematic body: ", in_front_of)
-			else:
-				in_front_of = true
-		else:
-			in_front_of = false
-	else:
-		in_front_of = get_global_pos().y > body.global_position.y
-	
-	return in_front_of
-
-
-func get_depth_slice(z_pos: int) -> Array:
-	var slice = []
-	
-	if z_pos <= _z_pos or z_pos >= _z_pos - _height:
-		var base_shapes = get_base_shapes(z_pos)
-		for shape in base_shapes:
-			for point in shape:
-				if not slice.has(point):
-					slice.append(point)
-	
-	if slice:
-		var base_transform = get_base_transform()
-		for index in slice.size():
-			slice[index] = base_transform.xform(slice[index])
-		if not z_pos == _z_pos:
-			for index in slice.size():
-				slice[index] = slice[index] + Vector2(0, z_pos)
-		slice = Collision2D._sort_points_clockwise(slice)
-	
-	
-	return slice
 
 
 func _is_on_floor() -> bool:
@@ -339,7 +288,7 @@ func _handle_base_collision(delta_movement: Vector3, delta: float, other_base: A
 	var delta_movement_2D = Vector2(delta_movement.x, delta_movement.y)
 	
 	var knockback = _get_base_resolution_vector(delta_movement_2D, other_base, other_transform, height_diff)
-	delta_movement_2D += knockback
+	delta_movement_2D += knockback + Vector2(sign(knockback.x), sign(knockback.y)) * SKIN_WIDTH
 	
 	delta_movement = Vector3(delta_movement_2D.x, delta_movement_2D.y, delta_movement.z)
 	delta_movement = _clamp_delta_movement(delta_movement, delta)
