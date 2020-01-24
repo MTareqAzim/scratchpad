@@ -91,7 +91,7 @@ shape = SubResource( 1 )
 
 [node name="StaticWall2P5D" parent="DepthSorter" instance=ExtResource( 5 )]
 editor/display_folded = true
-position = Vector2( 318, 712 )
+position = Vector2( 300, 500 )
 _z_pos = 0
 _height = 110
 
@@ -184,8 +184,6 @@ shape = SubResource( 3 )
 
 [node name="Player2" parent="DepthSorter" instance=ExtResource( 6 )]
 position = Vector2( 573, 474 )
-GRAVITY = 980
-_z_pos = 0
 
 [editable path="Shadow Mask"]
 
