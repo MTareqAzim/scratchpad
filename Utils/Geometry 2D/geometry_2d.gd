@@ -88,53 +88,49 @@ static func rect_to_array(rect: Rect2) -> Array:
 	return points
 
 
+static func point_on_segment_2d(point: Vector2, from: Vector2, to: Vector2) -> bool:
+	var point_on_segment = false
+	var closest_point = Geometry.get_closest_point_to_segment_2d(point, from, to)
+	if closest_point.round() == point.round():
+		point_on_segment = true
+	
+	return point_on_segment
+
+
 static func in_front_of(polygon: Array, comparison: Array) -> bool:
-	var polygon_y_values = []
+	var in_front_of = true
+	
 	for point in polygon:
-		polygon_y_values.append(point.y)
-	polygon_y_values.sort()
-	polygon_y_values.invert()
+		var point_to_inf = point + Vector2(0, 1000)
+		var intersection_occured = false
+		for comparison_index in comparison.size():
+			var comparison_index_next = (comparison_index + 1) % comparison.size()
+			var intersection = Geometry.segment_intersects_segment_2d(point, point_to_inf,
+									comparison[comparison_index], comparison[comparison_index_next])
+			if intersection:
+				if not point_on_segment_2d(point, comparison[comparison_index], comparison[comparison_index_next]):
+					intersection_occured = true
+		
+		if intersection_occured:
+			in_front_of = false
+			break
 	
-	var comparison_y_values = []
 	for point in comparison:
-		comparison_y_values.append(point.y)
-	comparison_y_values.sort()
-	comparison_y_values.invert()
-	
-	var tally = []
-	var polygon_index = 0
-	var comparison_index = 0
-	for i in polygon.size() + comparison.size():
-		if polygon_index >= polygon.size():
-			tally.append(1)
-			comparison_index += 1
-			continue
+		var point_to_neg_inf = point + Vector2(0, -1000)
+		var intersection_occured = false
+		for polygon_index in polygon.size():
+			var polygon_index_next = (polygon_index + 1) % polygon.size()
+			var intersection = Geometry.segment_intersects_segment_2d(point, point_to_neg_inf,
+									polygon[polygon_index], polygon[polygon_index_next])
+			if intersection:
+				if not point_on_segment_2d(point, polygon[polygon_index], polygon[polygon_index_next]):
+					intersection_occured = true
 		
-		if comparison_index >= comparison.size():
-			tally.append(0)
-			polygon_index += 1
-			continue
-		
-		if polygon_y_values[polygon_index] > comparison_y_values[comparison_index]:
-			tally.append(0)
-			polygon_index += 1
-		else:
-			tally.append(1)
-			comparison_index += 1
+		if intersection_occured:
+			in_front_of = false
+			break
 	
-	var polygon_tally = 0
-	var comparison_tally = 0
-	for i in 3:
-		if tally[i] == 0:
-			polygon_tally += 1
-		else:
-			comparison_tally += 1
-	
-	var closer = false
-	if polygon_tally > comparison_tally:
-		closer = true
-	
-	return closer
+	return in_front_of
 
 
 static func _area(points: Array) -> float:

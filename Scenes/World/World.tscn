@@ -1,22 +1,15 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Utils/Shadow/Shadow Mask.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Utils/Depth Sorting/depth_sorter.gd" type="Script" id=2]
 [ext_resource path="res://Utils/Physics Bodies/StaticSlope2P5D.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Utils/Depth Sorting/DepthSort.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Utils/Physics Bodies/StaticWall2P5D.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 252, 194 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 72, 100 )
-
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 150, 176 )
-
-[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 140, 140 )
 
 [node name="World" type="Node"]
@@ -84,147 +77,6 @@ body = NodePath("..")
 [node name="Bounding Box" parent="DepthSorter/StaticSlope2P5D2/Depth Sort" index="0"]
 shape = SubResource( 1 )
 
-[node name="StaticWall2P5D" parent="DepthSorter" instance=ExtResource( 5 )]
-editor/display_folded = true
-position = Vector2( 300, 500 )
-_height = 110
-
-[node name="TopShape" parent="DepthSorter/StaticWall2P5D" index="1"]
-position = Vector2( 0, -110 )
-polygon = PoolVector2Array( -68, -42, 62, -42, 62, 38, -68, 38 )
-
-[node name="VolumeShape" parent="DepthSorter/StaticWall2P5D" index="2"]
-polygon = PoolVector2Array( -68, -152, 62, -152, 62, 38, -68, 38 )
-
-[node name="BaseShape" parent="DepthSorter/StaticWall2P5D" index="3"]
-polygon = PoolVector2Array( -68, -42, 62, -42, 62, 38, -68, 38 )
-polygons = [ PoolVector2Array( -68, -42, 62, -42, 62, 38, -68, 38 ) ]
-
-[node name="Shadow Mask" parent="DepthSorter/StaticWall2P5D" instance=ExtResource( 1 )]
-editor/display_folded = true
-position = Vector2( 0, -112 )
-_z_pos = -110
-_width = 140
-_length = 83
-
-[node name="CollisionPolygon2D" parent="DepthSorter/StaticWall2P5D/Shadow Mask" index="0"]
-polygon = PoolVector2Array( -70, -41.5, 70, -41.5, 70, 41.5, -70, 41.5 )
-
-[node name="Base" parent="DepthSorter/StaticWall2P5D/Shadow Mask" index="1"]
-polygon = PoolVector2Array( -70, -41.5, 70, -41.5, 70, 41.5, -70, 41.5 )
-polygons = [ PoolVector2Array( -70, -41.5, 70, -41.5, 70, 41.5, -70, 41.5 ) ]
-
-[node name="Rise" parent="DepthSorter/StaticWall2P5D/Shadow Mask" index="2"]
-position = Vector2( 0, 41.5 )
-cast_to = Vector2( 0, -83 )
-
-[node name="Depth Sort" parent="DepthSorter/StaticWall2P5D" instance=ExtResource( 4 )]
-editor/display_folded = true
-position = Vector2( 0, -52 )
-body = NodePath("..")
-
-[node name="Bounding Box" parent="DepthSorter/StaticWall2P5D/Depth Sort" index="0"]
-shape = SubResource( 2 )
-
-[node name="StaticSlope2P5D" parent="DepthSorter" instance=ExtResource( 3 )]
-editor/display_folded = true
-position = Vector2( -170, 264 )
-_height = 60
-_width = 100
-_length = 300
-_angle = 270
-
-[node name="TopShape" parent="DepthSorter/StaticSlope2P5D" index="1"]
-polygon = PoolVector2Array( 150, -110, 150, -10, -150, 50, -150, -50 )
-
-[node name="BaseShape" parent="DepthSorter/StaticSlope2P5D" index="2"]
-polygon = PoolVector2Array( 150, -50, 150, 50, -150, 50, -150, -50 )
-
-[node name="VolumeShape" parent="DepthSorter/StaticSlope2P5D" index="3"]
-polygon = PoolVector2Array( 150, -110, 150, 50, -150, 50, -150, -50 )
-
-[node name="Rise" parent="DepthSorter/StaticSlope2P5D" index="4"]
-position = Vector2( -150, -2.75536e-014 )
-cast_to = Vector2( 300, -60 )
-
-[node name="Shadow Mask" parent="DepthSorter/StaticSlope2P5D" instance=ExtResource( 1 )]
-editor/display_folded = true
-_height = 60
-_width = 110
-_length = 300
-_angle = 270
-
-[node name="CollisionPolygon2D" parent="DepthSorter/StaticSlope2P5D/Shadow Mask" index="0"]
-polygon = PoolVector2Array( 150, -55, 150, 55, -150, 55, -150, -55 )
-
-[node name="Base" parent="DepthSorter/StaticSlope2P5D/Shadow Mask" index="1"]
-polygon = PoolVector2Array( 150, -55, 150, 55, -150, 55, -150, -55 )
-polygons = [ PoolVector2Array( 150, -55, 150, 55, -150, 55, -150, -55 ) ]
-
-[node name="Rise" parent="DepthSorter/StaticSlope2P5D/Shadow Mask" index="2"]
-position = Vector2( -150, -2.75536e-014 )
-cast_to = Vector2( 300, -60 )
-
-[node name="Depth Sort" parent="DepthSorter/StaticSlope2P5D" instance=ExtResource( 4 )]
-position = Vector2( 0, -24 )
-body = NodePath("..")
-
-[node name="Bounding Box" parent="DepthSorter/StaticSlope2P5D/Depth Sort" index="0"]
-shape = SubResource( 3 )
-
-[node name="StaticSlope2P5D3" parent="DepthSorter" instance=ExtResource( 3 )]
-editor/display_folded = true
-position = Vector2( 880, 389 )
-_z_pos = -45
-_height = 60
-_width = 100
-_length = 300
-_angle = 315
-
-[node name="DistToGround" parent="DepthSorter/StaticSlope2P5D3" index="0"]
-cast_to = Vector2( 0, 45 )
-
-[node name="TopShape" parent="DepthSorter/StaticSlope2P5D3" index="1"]
-polygon = PoolVector2Array( 70.7107, -201.421, 141.421, -130.711, -70.7107, 141.421, -141.421, 70.7107 )
-
-[node name="BaseShape" parent="DepthSorter/StaticSlope2P5D3" index="2"]
-polygon = PoolVector2Array( 70.7107, -141.421, 141.421, -70.7107, -70.7107, 141.421, -141.421, 70.7107 )
-
-[node name="VolumeShape" parent="DepthSorter/StaticSlope2P5D3" index="3"]
-polygon = PoolVector2Array( 70.7107, -201.421, 141.421, -130.711, 141.421, -70.7107, -70.7107, 141.421, -141.421, 70.7107 )
-
-[node name="Rise" parent="DepthSorter/StaticSlope2P5D3" index="4"]
-position = Vector2( -106.066, 106.066 )
-cast_to = Vector2( 212.132, -272.132 )
-
-[node name="Shadow Mask" parent="DepthSorter/StaticSlope2P5D3" instance=ExtResource( 1 )]
-editor/display_folded = true
-position = Vector2( 0, -1 )
-_z_pos = -45
-_height = 60
-_width = 110
-_length = 300
-_angle = 315
-
-[node name="CollisionPolygon2D" parent="DepthSorter/StaticSlope2P5D3/Shadow Mask" index="0"]
-polygon = PoolVector2Array( 67.1751, -144.957, 144.957, -67.1751, -67.1751, 144.957, -144.957, 67.1751 )
-
-[node name="Base" parent="DepthSorter/StaticSlope2P5D3/Shadow Mask" index="1"]
-polygon = PoolVector2Array( 67.1751, -144.957, 144.957, -67.1751, -67.1751, 144.957, -144.957, 67.1751 )
-polygons = [ PoolVector2Array( 67.1751, -144.957, 144.957, -67.1751, -67.1751, 144.957, -144.957, 67.1751 ) ]
-
-[node name="Rise" parent="DepthSorter/StaticSlope2P5D3/Shadow Mask" index="2"]
-position = Vector2( -106.066, 106.066 )
-cast_to = Vector2( 212.132, -272.132 )
-
-[node name="Depth Sort" parent="DepthSorter/StaticSlope2P5D3" instance=ExtResource( 4 )]
-visible = false
-position = Vector2( 0, -24 )
-body = NodePath("..")
-
-[node name="Bounding Box" parent="DepthSorter/StaticSlope2P5D3/Depth Sort" index="0"]
-shape = SubResource( 3 )
-
 [node name="StaticSlope2P5D4" parent="DepthSorter" instance=ExtResource( 3 )]
 position = Vector2( 560, 655 )
 _z_pos = -45
@@ -255,9 +107,9 @@ body = NodePath("..")
 
 [node name="Bounding Box" parent="DepthSorter/StaticSlope2P5D4/Depth Sort" index="0"]
 position = Vector2( 0, 24 )
-shape = SubResource( 4 )
+shape = SubResource( 2 )
 
-[node name="Player2" parent="DepthSorter" instance=ExtResource( 6 )]
+[node name="Player2" parent="DepthSorter" instance=ExtResource( 5 )]
 position = Vector2( 573, 474 )
 
 [editable path="Shadow Mask"]
@@ -267,24 +119,6 @@ position = Vector2( 573, 474 )
 [editable path="DepthSorter/StaticSlope2P5D2/Shadow Mask"]
 
 [editable path="DepthSorter/StaticSlope2P5D2/Depth Sort"]
-
-[editable path="DepthSorter/StaticWall2P5D"]
-
-[editable path="DepthSorter/StaticWall2P5D/Shadow Mask"]
-
-[editable path="DepthSorter/StaticWall2P5D/Depth Sort"]
-
-[editable path="DepthSorter/StaticSlope2P5D"]
-
-[editable path="DepthSorter/StaticSlope2P5D/Shadow Mask"]
-
-[editable path="DepthSorter/StaticSlope2P5D/Depth Sort"]
-
-[editable path="DepthSorter/StaticSlope2P5D3"]
-
-[editable path="DepthSorter/StaticSlope2P5D3/Shadow Mask"]
-
-[editable path="DepthSorter/StaticSlope2P5D3/Depth Sort"]
 
 [editable path="DepthSorter/StaticSlope2P5D4"]
 

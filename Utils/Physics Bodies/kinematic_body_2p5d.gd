@@ -134,20 +134,17 @@ func in_front_of(body: Node2D) -> bool:
 		else:
 			highest_common_z_pos = other_z_pos
 		
-		if highest_common_z_pos <= body.get_top_z_pos([Vector2(get_global_pos().x, get_global_pos().y)]):
-			in_front_of = true
-		else:
-			var depth_slice = get_depth_slice(highest_common_z_pos)
-			var other_depth_slice = body.get_depth_slice(highest_common_z_pos)
-			
-			if depth_slice:
-				if other_depth_slice:
-					print(Geometry2D.in_front_of(depth_slice, other_depth_slice))
-					in_front_of = Geometry2D.in_front_of(depth_slice, other_depth_slice)
-				else:
-					in_front_of = true
+		var depth_slice = get_depth_slice(highest_common_z_pos)
+		var other_depth_slice = body.get_depth_slice(highest_common_z_pos)
+		
+		if depth_slice:
+			if other_depth_slice:
+				in_front_of = Geometry2D.in_front_of(depth_slice, other_depth_slice)
+				print("Kinematic body: ", in_front_of)
 			else:
-				in_front_of = false
+				in_front_of = true
+		else:
+			in_front_of = false
 	else:
 		in_front_of = get_global_pos().y > body.global_position.y
 	

@@ -93,6 +93,7 @@ func in_front_of(body: Node2D) -> bool:
 		if depth_slice:
 			if other_depth_slice:
 				in_front_of = Geometry2D.in_front_of(depth_slice, other_depth_slice)
+				print("Slope in front of: ", in_front_of)
 			else:
 				in_front_of = true
 		else:
