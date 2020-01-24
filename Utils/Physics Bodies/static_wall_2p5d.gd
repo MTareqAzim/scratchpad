@@ -89,6 +89,9 @@ func get_depth_slice(z_pos: int) -> Array:
 		var base_transform = get_base_transform()
 		for index in slice.size():
 			slice[index] = base_transform.xform(slice[index])
+		if not z_pos == _z_pos:
+			for index in slice.size():
+				slice[index] = slice[index] + Vector2(0, z_pos)
 		slice = Collision2D._sort_points_clockwise(slice)
 	
 	return slice

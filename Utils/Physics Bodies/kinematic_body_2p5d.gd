@@ -128,14 +128,14 @@ func in_front_of(body: Node2D) -> bool:
 	
 	if body is PhysicsBody2P5D:
 		var other_z_pos = body.get_z_pos()
-		var highest_common_z_pos = -INF
+		var lowest_common_z_pos = -INF
 		if other_z_pos > _z_pos:
-			highest_common_z_pos = _z_pos
+			lowest_common_z_pos = _z_pos
 		else:
-			highest_common_z_pos = other_z_pos
+			lowest_common_z_pos = other_z_pos
 		
-		var depth_slice = get_depth_slice(highest_common_z_pos)
-		var other_depth_slice = body.get_depth_slice(highest_common_z_pos)
+		var depth_slice = get_depth_slice(lowest_common_z_pos)
+		var other_depth_slice = body.get_depth_slice(lowest_common_z_pos)
 		
 		if depth_slice:
 			if other_depth_slice:
@@ -165,6 +165,9 @@ func get_depth_slice(z_pos: int) -> Array:
 		var base_transform = get_base_transform()
 		for index in slice.size():
 			slice[index] = base_transform.xform(slice[index])
+		if not z_pos == _z_pos:
+			for index in slice.size():
+				slice[index] = slice[index] + Vector2(0, z_pos)
 		slice = Collision2D._sort_points_clockwise(slice)
 	
 	
