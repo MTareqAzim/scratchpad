@@ -19,7 +19,13 @@ func get_overlapping_depth_sorts() -> Array:
 
 
 func in_front_of(depth_sort: DepthSort) -> bool:
-	return true
+	var in_front_of = false
+	
+	var body_y_position = _body.global_position.y
+	var other_y_position = depth_sort.get_body().global_position.y
+	in_front_of = body_y_position > other_y_position
+	
+	return in_front_of
 
 
 func _set_body(new_body: Node2D) -> void:
