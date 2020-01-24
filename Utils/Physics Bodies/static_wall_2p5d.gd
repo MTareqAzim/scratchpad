@@ -48,6 +48,25 @@ func get_top_z_pos(points: Array) -> int:
 	return _z_pos - _height
 
 
+func in_front_of(body: Node2D) -> bool:
+	var in_front_of := false
+	
+	if body is PhysicsBody2P5D:
+		in_front_of = get_back_y_pos() > body.get_back_y_pos(get_global_pos())
+	else:
+		in_front_of = get_back_y_pos() > body.global_position.y
+	
+	return in_front_of
+
+
+func get_back_y_pos(global_pos: Vector3 = Vector3.INF) -> int:
+	var base_points : Array = _base_shape.get_polygon()
+	var bounding_box : Rect2 = Geometry2D.bounding_box(base_points)
+	bounding_box.position = bounding_box.position + _base_shape.global_position
+	
+	return int(round(bounding_box.position.y - _z_pos))
+
+
 func _set_z(new_z: int) -> void:
 	var diff = _z_pos - new_z
 	_z_pos = new_z

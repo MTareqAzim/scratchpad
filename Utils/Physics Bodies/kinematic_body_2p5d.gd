@@ -123,6 +123,22 @@ func is_grounded() -> bool:
 	return false
 
 
+func in_front_of(body: Node2D) -> bool:
+	var in_front_of := false
+	
+	if body is PhysicsBody2P5D:
+		
+		in_front_of = get_back_y_pos() > body.get_back_y_pos(get_global_pos())
+	else:
+		in_front_of = get_back_y_pos() > body.global_position.y
+	
+	return in_front_of
+
+
+func get_back_y_pos(global_pos: Vector3 = Vector3.INF) -> int:
+	return int(round(get_global_pos().y))
+
+
 func _is_on_floor() -> bool:
 	for collision in get_overlapping_areas():
 		var collision_z_pos = collision.get_z_pos()

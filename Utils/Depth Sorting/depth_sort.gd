@@ -21,9 +21,12 @@ func get_overlapping_depth_sorts() -> Array:
 func in_front_of(depth_sort: DepthSort) -> bool:
 	var in_front_of = false
 	
-	var body_y_position = _body.global_position.y
-	var other_y_position = depth_sort.get_body().global_position.y
-	in_front_of = body_y_position > other_y_position
+	if _body is PhysicsBody2P5D:
+		in_front_of = _body.in_front_of(depth_sort.get_body())
+	else:
+		var body_y_position = _body.global_position.y
+		var other_y_position = depth_sort.get_body().global_position.y
+		in_front_of = body_y_position > other_y_position
 	
 	return in_front_of
 

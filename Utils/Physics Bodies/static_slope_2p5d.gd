@@ -43,7 +43,11 @@ func get_base_shapes(z_pos: int) -> Array:
 	
 	if z_pos <= _z_pos and z_pos >= _z_pos - _height:
 		var z_diff = abs(z_pos - _z_pos) * 1.0
-		var percent = (1.0 - z_diff / _height) * 100.0
+		var percent
+		if _height == 0:
+			percent = 100
+		else:
+			percent = (1.0 - z_diff / _height) * 100.0
 		
 		if percent <= 0:
 			shapes = []
@@ -63,11 +67,78 @@ func get_top_z_pos(points: Array) -> int:
 		altitude = max(altitude, _get_altitude(point))
 	
 	var fraction = 1.0 * altitude / float(_length)
+	if fraction > 1.0:
+		fraction = 1.0
 	return _z_pos - int(ceil(_height * fraction))
 
 
 func get_base_transform() -> Transform2D:
 	return _base_shape.get_global_transform()
+
+
+func in_front_of(body: Node2D) -> bool:
+	var in_front_of := false
+	
+	if body is PhysicsBody2P5D:
+		in_front_of = get_back_y_pos() > body.get_back_y_pos(get_global_pos())
+	else:
+		in_front_of = get_back_y_pos() > body.global_position.y
+	
+	return in_front_of
+
+
+func get_back_y_pos(global_pos: Vector3 = Vector3.INF) -> int:
+	var furthest_y_pos = 0
+	var position_2d = Vector2(global_pos.x, global_pos.y)
+	
+	var base_points : Array
+	base_points = _base_shape.get_polygon()
+	for index in base_points.size():
+		base_points[index] = base_points[index] + _base_shape.global_position
+	
+	if global_pos != Vector3.INF and Geometry2D.point_in_polygon(position_2d, base_points):
+		var top_z_pos = get_top_z_pos([position_2d])
+		var base_shapes = get_base_shapes(top_z_pos)
+		if base_shapes:
+			base_points = base_shapes[0]
+			for index in base_points.size():
+				base_points[index] = get_base_transform().xform(base_points[index])
+	
+	var bounding_box : Rect2 = Geometry2D.bounding_box(base_points)
+	
+	furthest_y_pos = int(round(bounding_box.position.y))
+	
+	var visual_position_2d = Vector2(global_pos.x, global_pos.y + global_pos.z)
+	
+	if _angle in [45, 135, 225, 315]:
+		if global_pos != Vector3.INF:
+			if global_pos.z > _z_pos + get_top_z_pos([position_2d]):
+				if global_pos.y > furthest_y_pos:
+					var smallest_y_point = base_points[0]
+					for point in base_points:
+						if point.y < smallest_y_point.y:
+							smallest_y_point = point
+					
+					var largest_y_point = base_points[0]
+					for point in base_points:
+						if point.y > largest_y_point.y:
+							largest_y_point = point
+					
+					var closest_point = Geometry.get_closest_point_to_segment_2d(visual_position_2d, smallest_y_point, largest_y_point)
+					if global_pos.x < closest_point.x:
+						var left_most_point = base_points[0]
+						for point in base_points:
+							if point.x < left_most_point.x:
+								left_most_point = point
+						furthest_y_pos = int(round(left_most_point.y))
+					else:
+						var right_most_point = base_points[0]
+						for point in base_points:
+							if point.x > right_most_point.x:
+								right_most_point = point
+						furthest_y_pos = int(round(right_most_point.y))
+	
+	return furthest_y_pos
 
 
 func _get_altitude(pos: Vector2) -> float:

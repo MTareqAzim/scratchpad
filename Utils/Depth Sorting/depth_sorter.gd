@@ -57,9 +57,7 @@ func _calculate_graph() -> DirectedGraph:
 
 func _calculate_z_indexes() -> Array:
 	var z_indexes = DirectedGraphSorter.kahn_sort(_depth_graph)
-	print(z_indexes)
 	z_indexes.invert()
-	print("Inverted: ", z_indexes)
 	
 	return z_indexes
 
