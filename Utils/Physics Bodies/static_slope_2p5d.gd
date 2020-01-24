@@ -26,6 +26,10 @@ func is_class(type: String) -> bool:
 	return type == "StaticSlope2P5D" or .is_class(type)
 
 
+func get_global_pos() -> Vector3:
+	return Vector3(global_position.x, global_position.y - _z_pos, _z_pos)
+
+
 func get_z_pos() -> int:
 	return _z_pos
 
