@@ -10,8 +10,6 @@
 [ext_resource path="res://Utils/State Machine/State/State Components/Transitions/pressed_transition_state_component.gd" type="Script" id=8]
 [ext_resource path="res://Utils/Entity/State Components/Action Buffer/action_buffer_activate_state_component.gd" type="Script" id=9]
 
-
-
 [node name="Fall" type="Node"]
 script = ExtResource( 1 )
 state_name = "fall"
@@ -23,12 +21,12 @@ dependencies = {
 "input": NodePath(""),
 "look": NodePath("")
 }
+variables = {
+"max_speed": 250
+}
 
 [node name="Move" type="Node" parent="."]
 script = ExtResource( 2 )
-body_key = "body"
-input_handler_key = "input"
-max_speed = 300
 
 [node name="Look Direction" type="Node" parent="."]
 script = ExtResource( 3 )
@@ -54,7 +52,6 @@ NEXT_STATE = "previous"
 [node name="Air Dashed" type="Node" parent="Transitions"]
 script = ExtResource( 7 )
 action_buffer_key = "buffer"
-oneshot = true
 action = "air_dashed"
 frames = 5
 

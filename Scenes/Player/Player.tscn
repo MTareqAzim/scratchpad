@@ -100,7 +100,6 @@ mapped_action = "retreat"
 script = ExtResource( 10 )
 
 [node name="State Machine" type="Node" parent="." index="9"]
-editor/display_folded = true
 script = ExtResource( 11 )
 _active = true
 
@@ -111,6 +110,9 @@ dependencies = {
 "input": NodePath("../../Player Input"),
 "look": NodePath("../../Look Direction")
 }
+variables = {
+"max_speed": 250
+}
 
 [node name="Move" parent="State Machine" index="1" instance=ExtResource( 13 )]
 dependencies = {
@@ -118,6 +120,9 @@ dependencies = {
 "buffer": NodePath("../../ActionBuffer"),
 "input": NodePath("../../Player Input"),
 "look": NodePath("../../Look Direction")
+}
+variables = {
+"max_speed": 250
 }
 
 [node name="Crouch" parent="State Machine" index="2" instance=ExtResource( 14 )]
@@ -128,6 +133,9 @@ dependencies = {
 "input": NodePath("../../Player Input"),
 "look": NodePath("../../Look Direction")
 }
+variables = {
+"max_speed": 150
+}
 
 [node name="Stand Up" parent="State Machine" index="3" instance=ExtResource( 15 )]
 dependencies = {
@@ -135,6 +143,9 @@ dependencies = {
 "buffer": NodePath("../../ActionBuffer"),
 "input": NodePath("../../Player Input"),
 "look": NodePath("../../Look Direction")
+}
+variables = {
+"max_speed": 150
 }
 
 [node name="Fall" parent="State Machine" index="4" instance=ExtResource( 16 )]
@@ -144,6 +155,9 @@ dependencies = {
 "input": NodePath("../../Player Input"),
 "look": NodePath("../../Look Direction")
 }
+variables = {
+"max_speed": 250
+}
 
 [node name="Jump" parent="State Machine" index="5" instance=ExtResource( 17 )]
 dependencies = {
@@ -151,6 +165,9 @@ dependencies = {
 "buffer": NodePath("../../ActionBuffer"),
 "input": NodePath("../../Player Input"),
 "look": NodePath("../../Look Direction")
+}
+variables = {
+"max_speed": 250
 }
 
 [node name="High Jump" parent="State Machine" index="6" instance=ExtResource( 17 )]
@@ -162,6 +179,9 @@ dependencies = {
 "buffer": NodePath("../../ActionBuffer"),
 "input": NodePath("../../Player Input"),
 "look": NodePath("../../Look Direction")
+}
+variables = {
+"max_speed": 250
 }
 
 [node name="Jump" parent="State Machine/High Jump" index="2"]
@@ -290,8 +310,8 @@ body = NodePath("..")
 
 [node name="Bounding Box" parent="Depth Sort" index="0"]
 shape = SubResource( 3 )
-[connection signal="direction_changed" from="Look Direction" to="Look Arrow" method="_on_Look_Direction_direction_changed"]
 [connection signal="direction_changed" from="Look Direction" to="AnimatedSprite" method="_on_Look_Direction_direction_changed"]
+[connection signal="direction_changed" from="Look Direction" to="Look Arrow" method="_on_Look_Direction_direction_changed"]
 [connection signal="buffer_changed" from="ActionBuffer" to="CanvasLayer/BufferStackDiplayer" method="_on_ActionBuffer_buffer_changed"]
 [connection signal="state_changed" from="State Machine" to="CanvasLayer/InputUIBase" method="_on_State_Machine_state_changed"]
 [connection signal="states_stack_changed" from="State Machine" to="CanvasLayer/StatesStackDiplayer" method="_on_State_Machine_states_stack_changed"]

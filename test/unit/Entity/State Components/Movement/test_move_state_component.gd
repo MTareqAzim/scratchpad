@@ -32,7 +32,7 @@ func test_move():
 
 func test_move_inputs():
 	var max_speed = 300
-	input_move.max_speed = max_speed
+	input_move._max_speed = max_speed
 	
 	stub(doubled_input, "get_direction").to_return(Vector2(0, 1))
 	input_move.update(0.1)
