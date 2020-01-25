@@ -18,12 +18,13 @@ dependencies = {
 "look": NodePath("")
 }
 variables = {
-"crouch_height": 40
+"crouch_height": 40,
+"dash_distance": 300,
+"dash_duration": 0.5
 }
 
 [node name="Dash" type="Node" parent="."]
 script = ExtResource( 2 )
-look_direction_key = "look"
 next_state = "previous"
 
 [node name="Enter Velocity 2D" type="Node" parent="Dash"]

@@ -202,6 +202,10 @@ dependencies = {
 "buffer": NodePath("../../ActionBuffer"),
 "look": NodePath("../../Look Direction")
 }
+variables = {
+"dash_distance": 300,
+"dash_duration": 0.5
+}
 
 [node name="Dash Handled" parent="State Machine/Lunge/Action Buffer" index="1"]
 args = [ "lunge_pressed" ]
@@ -214,9 +218,10 @@ dependencies = {
 "buffer": NodePath("../../ActionBuffer"),
 "look": NodePath("../../Look Direction")
 }
-
-[node name="Dash" parent="State Machine/Retreat" index="0"]
-dash_distance = -300
+variables = {
+"dash_distance": -300,
+"dash_duration": 0.5
+}
 
 [node name="Dash Handled" parent="State Machine/Retreat/Action Buffer" index="1"]
 args = [ "retreat_pressed" ]
@@ -230,7 +235,9 @@ dependencies = {
 "look": NodePath("../../Look Direction")
 }
 variables = {
-"crouch_height": 40
+"crouch_height": 40,
+"dash_distance": 300,
+"dash_duration": 0.5
 }
 
 [node name="Dash Handled" parent="State Machine/Somersault/Action Buffer" index="1"]
@@ -245,11 +252,10 @@ dependencies = {
 "look": NodePath("../../Look Direction")
 }
 variables = {
-"crouch_height": 40
+"crouch_height": 40,
+"dash_distance": -300,
+"dash_duration": 0.5
 }
-
-[node name="Dash" parent="State Machine/Back Roll" index="0"]
-dash_distance = -300
 
 [node name="Dash Handled" parent="State Machine/Back Roll/Action Buffer" index="1"]
 args = [ "retreat_pressed" ]
@@ -260,6 +266,10 @@ dependencies = {
 "body": NodePath("../.."),
 "buffer": NodePath("../../ActionBuffer"),
 "look": NodePath("../../Look Direction")
+}
+variables = {
+"dash_distance": 300,
+"dash_duration": 0.5
 }
 
 [node name="Dash Handled" parent="State Machine/Air Dash/Action Buffer" index="1"]
@@ -273,9 +283,10 @@ dependencies = {
 "buffer": NodePath("../../ActionBuffer"),
 "look": NodePath("../../Look Direction")
 }
-
-[node name="Dash" parent="State Machine/Back Air Dash" index="0"]
-dash_distance = -300
+variables = {
+"dash_distance": -300,
+"dash_duration": 0.5
+}
 
 [node name="Dash Handled" parent="State Machine/Back Air Dash/Action Buffer" index="1"]
 args = [ "retreat_pressed" ]
