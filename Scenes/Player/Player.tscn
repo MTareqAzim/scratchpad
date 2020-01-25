@@ -170,6 +170,8 @@ dependencies = {
 "look": NodePath("../../Look Direction")
 }
 variables = {
+"jump_duration": 0.35,
+"max_jump_height": 100,
 "max_speed": 250
 }
 
@@ -184,12 +186,10 @@ dependencies = {
 "look": NodePath("../../Look Direction")
 }
 variables = {
+"jump_duration": 0.45,
+"max_jump_height": 150,
 "max_speed": 250
 }
-
-[node name="Jump" parent="State Machine/High Jump" index="2"]
-max_jump_height = 300
-jump_duration = 0.6
 
 [node name="Min Jump" parent="State Machine/High Jump" index="3"]
 min_jump_height = 100
