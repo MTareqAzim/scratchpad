@@ -134,6 +134,7 @@ dependencies = {
 "look": NodePath("../../Look Direction")
 }
 variables = {
+"crouch_height": 40,
 "max_speed": 150
 }
 
@@ -145,6 +146,7 @@ dependencies = {
 "look": NodePath("../../Look Direction")
 }
 variables = {
+"crouch_height": 40,
 "max_speed": 150
 }
 
@@ -226,6 +228,9 @@ dependencies = {
 "buffer": NodePath("../../ActionBuffer"),
 "look": NodePath("../../Look Direction")
 }
+variables = {
+"crouch_height": 40
+}
 
 [node name="Dash Handled" parent="State Machine/Somersault/Action Buffer" index="1"]
 args = [ "lunge_pressed" ]
@@ -237,6 +242,9 @@ dependencies = {
 "body": NodePath("../.."),
 "buffer": NodePath("../../ActionBuffer"),
 "look": NodePath("../../Look Direction")
+}
+variables = {
+"crouch_height": 40
 }
 
 [node name="Dash" parent="State Machine/Back Roll" index="0"]

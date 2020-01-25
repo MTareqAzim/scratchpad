@@ -17,6 +17,9 @@ dependencies = {
 "buffer": NodePath(""),
 "look": NodePath("")
 }
+variables = {
+"crouch_height": 40
+}
 
 [node name="Dash" type="Node" parent="."]
 script = ExtResource( 2 )
@@ -33,8 +36,6 @@ process_mode = 0
 
 [node name="Crouch Height" type="Node" parent="."]
 script = ExtResource( 4 )
-body_key = "body"
-crouch_height = 36
 
 [node name="Enter Height" type="Node" parent="Crouch Height"]
 script = ExtResource( 3 )
