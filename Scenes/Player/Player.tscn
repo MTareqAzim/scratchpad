@@ -147,7 +147,8 @@ dependencies = {
 }
 variables = {
 "crouch_height": 40,
-"max_speed": 150
+"max_speed": 150,
+"stand_up_duration": 0.2
 }
 
 [node name="Fall" parent="State Machine" index="4" instance=ExtResource( 16 )]

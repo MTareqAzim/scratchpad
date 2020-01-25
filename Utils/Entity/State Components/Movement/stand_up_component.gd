@@ -2,8 +2,10 @@ extends EntityStateComponent
 
 onready var _timer : Timer = $Timer
 
-export (float) var duration := 0.2
+export (String) var duration_key := "stand_up_duration"
 export (String) var next_state
+
+var _duration : float = 0.2
 
 
 func enter() -> void:
@@ -16,8 +18,12 @@ func exit() -> void:
 	_timer.stop()
 
 
+func assign_variables() -> void:
+	_duration = component_state.get_variable(duration_key)
+
+
 func _set_values() -> void:
-	_timer.set_wait_time(duration)
+	_timer.set_wait_time(_duration)
 
 
 func _on_Timer_timeout():
