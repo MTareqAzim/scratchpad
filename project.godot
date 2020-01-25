@@ -34,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Utils/Input Handler/Action Map/action_map.gd"
 }, {
+"base": "StateComponent",
+"class": "AnimationFinishedTransitionStateComponent",
+"language": "GDScript",
+"path": "res://Utils/State Machine/State/State Components/Transitions/animation_finished_transition_state_component.gd"
+}, {
 "base": "CallFunctionStateComponent",
 "class": "CallFunctionEnterStateComponent",
 "language": "GDScript",
@@ -53,6 +58,26 @@ _global_script_classes=[ {
 "class": "CallFunctionUpdateStateComponent",
 "language": "GDScript",
 "path": "res://Utils/State Machine/State/State Components/Node State Components/Update/call_function_update_state_component.gd"
+}, {
+"base": "CallFunctionVariableStateComponent",
+"class": "CallFunctionVariableEnterStateComponent",
+"language": "GDScript",
+"path": "res://Utils/State Machine/State/State Components/Node State Components/Enter/call_function_variable_enter_state_component.gd"
+}, {
+"base": "CallFunctionVariableStateComponent",
+"class": "CallFunctionVariableExitStateComponent",
+"language": "GDScript",
+"path": "res://Utils/State Machine/State/State Components/Node State Components/Exit/call_function_variable_exit_state_component.gd"
+}, {
+"base": "NodeStateComponent",
+"class": "CallFunctionVariableStateComponent",
+"language": "GDScript",
+"path": "res://Utils/State Machine/State/State Components/Node State Components/call_function_variable_state_component.gd"
+}, {
+"base": "CallFunctionVariableStateComponent",
+"class": "CallFunctionVariableUpdateStateComponent",
+"language": "GDScript",
+"path": "res://Utils/State Machine/State/State Components/Node State Components/Update/call_function_variable_update_state_component.gd"
 }, {
 "base": "Reference",
 "class": "Collision2D",
@@ -98,6 +123,11 @@ _global_script_classes=[ {
 "class": "EqualsTransitionStateComponent",
 "language": "GDScript",
 "path": "res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_transition_state_component.gd"
+}, {
+"base": "NodeStateComponent",
+"class": "FunctionActivateComponentStateComponent",
+"language": "GDScript",
+"path": "res://Utils/State Machine/State/State Components/Node State Components/function_activate_component_state_component.gd"
 }, {
 "base": "Reference",
 "class": "Geometry2D",
@@ -235,10 +265,15 @@ _global_script_class_icons={
 "ActionBufferDeactivateStateComponent": "res://Utils/Entity/State Components/Action Buffer/action_buffer_deactivate.png",
 "ActionBufferStateComponent": "res://Utils/Entity/State Components/Action Buffer/action_buffer.png",
 "ActionMap": "res://Utils/Input Handler/Action Map/action_map.png",
+"AnimationFinishedTransitionStateComponent": "",
 "CallFunctionEnterStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Enter/fun_enter.png",
 "CallFunctionExitStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Exit/fun_exit.png",
 "CallFunctionStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/fun.png",
 "CallFunctionUpdateStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Update/fun_update.png",
+"CallFunctionVariableEnterStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Enter/funv_enter.png",
+"CallFunctionVariableExitStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Exit/funv_exit.png",
+"CallFunctionVariableStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/funv.png",
+"CallFunctionVariableUpdateStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Update/funv_update.png",
 "Collision2D": "",
 "ComponentState": "res://Utils/State Machine/State/state.png",
 "CompositePolygon2D": "",
@@ -248,6 +283,7 @@ _global_script_class_icons={
 "DirectedGraphSorter": "",
 "EntityStateComponent": "res://Utils/Entity/State Components/entity_state_component.png",
 "EqualsTransitionStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_transition.png",
+"FunctionActivateComponentStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/if.png",
 "Geometry2D": "",
 "GreaterThanTransitionStateComponent": "res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/greater_than_transition.png",
 "GroupingNode": "res://Utils/Grouping Node/folder.png",
