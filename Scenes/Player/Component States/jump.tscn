@@ -24,7 +24,8 @@ dependencies = {
 variables = {
 "jump_duration": 0.35,
 "max_jump_height": 100,
-"max_speed": 250
+"max_speed": 250,
+"min_jump_height": 50
 }
 
 [node name="Move" type="Node" parent="."]
@@ -50,8 +51,6 @@ FUNCTION_NAME = "set_z_velocity"
 
 [node name="Min Jump" type="Node" parent="."]
 script = ExtResource( 6 )
-body_key = "body"
-input_handler_key = "input"
 
 [node name="Transitions" type="Node" parent="."]
 script = ExtResource( 7 )

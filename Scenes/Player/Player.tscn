@@ -172,7 +172,8 @@ dependencies = {
 variables = {
 "jump_duration": 0.35,
 "max_jump_height": 100,
-"max_speed": 250
+"max_speed": 250,
+"min_jump_height": 50
 }
 
 [node name="High Jump" parent="State Machine" index="6" instance=ExtResource( 17 )]
@@ -188,11 +189,9 @@ dependencies = {
 variables = {
 "jump_duration": 0.45,
 "max_jump_height": 150,
-"max_speed": 250
+"max_speed": 250,
+"min_jump_height": 100
 }
-
-[node name="Min Jump" parent="State Machine/High Jump" index="3"]
-min_jump_height = 100
 
 [node name="Lunge" parent="State Machine" index="7" instance=ExtResource( 18 )]
 editor/display_folded = true
