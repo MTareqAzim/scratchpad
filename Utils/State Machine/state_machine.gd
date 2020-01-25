@@ -1,8 +1,8 @@
 extends Node
 class_name StateMachine, "state_machine.png"
 
+signal state_changed(current_state)
 signal states_stack_changed(states_stack)
-signal state_changed(state_name)
 
 export (bool) var _active := false setget set_active
 
@@ -30,6 +30,10 @@ func _physics_process(delta: float) -> void:
 	current_state.update(delta)
 
 
+func on_animation_finished(animation: String) -> void:
+	current_state.on_animation_finished(animation)
+
+
 func get_class() -> String:
 	return "StateMachine"
 
@@ -52,6 +56,14 @@ func set_active(active: bool) -> void:
 	if not _active:
 		_states_stack = []
 		current_state = null
+
+
+func get_current_state() -> State:
+	return current_state
+
+
+func get_current_state_name() -> String:
+	return current_state.state_name
 
 
 func handle_input(event: InputEvent) -> void:
@@ -101,8 +113,8 @@ func _change_state(state_name: String) -> void:
 		_states_stack[0] = _states_map[state_name]
 	
 	current_state = _states_stack[0]
-	emit_signal("states_stack_changed", _states_stack)
 	emit_signal("state_changed", current_state.state_name)
+	emit_signal("states_stack_changed", _states_stack)
 	
 	if state_name != "previous":
 		current_state.enter()

@@ -2,6 +2,7 @@ extends State
 class_name ComponentState, "state.png"
 
 export (Dictionary) var dependencies := {}
+export (Dictionary) var variables := {}
 
 var _components : Array = []
 var _dependencies : Dictionary = {}
@@ -11,6 +12,7 @@ func _ready() -> void:
 	_append_components(self)
 	_append_dependencies()
 	_assign_dependencies()
+	_assign_variables()
 
 
 func get_class() -> String:
@@ -22,27 +24,23 @@ func is_class(type: String) -> bool:
 
 
 func enter() -> void:
-	for component in _components:
-		if component.active and component.has_method("enter"):
-			component.enter()
+	_call_component_function("enter")
 
 
 func exit() -> void:
-	for component in _components:
-		if component.active and component.has_method("exit"):
-			component.exit()
+	_call_component_function("exit")
 
 
 func handle_input(event: InputEvent) -> void:
-	for component in _components:
-		if component.active and component.has_method("handle_input"):
-			component.handle_input(event)
+	_call_component_function("handle_input", [event])
 
 
 func update(delta: float) -> void:
-	for component in _components:
-		if component.active and component.has_method("update"):
-			component.update(delta)
+	_call_component_function("update", [delta])
+
+
+func on_animation_finished(animation: String) -> void:
+	_call_component_function("on_animation_finished", [animation])
 
 
 func finished(next_state: String) -> void:
@@ -51,6 +49,10 @@ func finished(next_state: String) -> void:
 
 func get_dependency(key: String) -> Node:
 	return _dependencies[key]
+
+
+func get_variable(key: String):
+	return variables[key]
 
 
 func _append_components(node: Node) -> void:
@@ -71,6 +73,20 @@ func _append_dependencies() -> void:
 
 
 func _assign_dependencies() -> void:
+	_call_component_function_always("assign_dependencies")
+
+
+func _assign_variables() -> void:
+	_call_component_function_always("assign_variables")
+
+
+func _call_component_function(function: String, args: Array = []) -> void:
 	for component in _components:
-		if component.has_method("assign_dependencies"):
-			component.assign_dependencies()
+		if component.active and component.has_method(function):
+			component.callv(function, args)
+
+
+func _call_component_function_always(function: String, args: Array = []) -> void:
+	for component in _components:
+		if component.has_method(function):
+			component.callv(function, args)

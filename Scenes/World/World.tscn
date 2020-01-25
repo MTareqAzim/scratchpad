@@ -42,9 +42,11 @@ script = ExtResource( 2 )
 [node name="StaticSlope2P5D2" parent="DepthSorter" instance=ExtResource( 3 )]
 editor/display_folded = true
 position = Vector2( 408, 264 )
+_z_pos = 0
 _height = 80
 _width = 500
 _length = 300
+_angle = 0
 
 [node name="TopShape" parent="DepthSorter/StaticSlope2P5D2" index="1"]
 polygon = PoolVector2Array( -250, -230, 250, -230, 250, 150, -250, 150 )
@@ -88,6 +90,7 @@ shape = SubResource( 1 )
 [node name="StaticSlope2P5D4" parent="DepthSorter" instance=ExtResource( 3 )]
 editor/display_folded = true
 position = Vector2( 560, 700 )
+_z_pos = 0
 _height = 60
 _width = 100
 _length = 300
@@ -139,6 +142,7 @@ cast_to = Vector2( 212.132, 152.132 )
 [node name="StaticSlope2P5D5" parent="DepthSorter" instance=ExtResource( 3 )]
 editor/display_folded = true
 position = Vector2( 220, 700 )
+_z_pos = 0
 _height = 60
 _width = 100
 _length = 300
@@ -191,6 +195,7 @@ cast_to = Vector2( -212.132, 152.132 )
 [node name="StaticSlope2P5D6" parent="DepthSorter" instance=ExtResource( 3 )]
 editor/display_folded = true
 position = Vector2( -40, 440 )
+_z_pos = 0
 _height = 60
 _width = 100
 _length = 300
