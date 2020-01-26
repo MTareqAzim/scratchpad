@@ -7,6 +7,7 @@ onready var _top_shape = $TopShape
 onready var _volume_shape = $VolumeShape
 onready var _rise = $Rise
 onready var _dist_to_ground = $DistToGround
+onready var _ground = $GroundShape
 onready var _ready := true
 
 const SKIN_WIDTH := 3
@@ -104,7 +105,7 @@ func _set_z_pos(new_z: int) -> void:
 	
 	if _ready:
 		translate(Vector2(0, -diff))
-		_update_dist_to_ground()
+		_update_components()
 
 
 func _set_height(new_height: int) -> void:
@@ -134,6 +135,7 @@ func _update_components() -> void:
 	_update_base()
 	_update_top()
 	_update_volume()
+	_update_ground()
 	_update_rise()
 
 
@@ -176,6 +178,11 @@ func _update_volume() -> void:
 		vector_array.append(_base_shape.polygon[0])
 	
 	_volume_shape.set_polygon(vector_array)
+
+
+func _update_ground() -> void:
+	_ground.set_polygon(_base_shape.get_polygon())
+	_ground.set_position(_base_shape.get_position() - Vector2(0, _z_pos))
 
 
 func _update_rise() -> void:

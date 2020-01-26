@@ -6,7 +6,7 @@ onready var _base_shape = $BaseShape
 onready var _top_shape = $TopShape
 onready var _volume_shape = $VolumeShape
 onready var _dist_to_ground = $DistToGround
-onready var _shadow_mask = $ShadowMask
+onready var _ground_shape = $GroundShape
 onready var _ready := true
 
 export (int) var _z_pos: = 0 setget _set_z, get_z_pos
@@ -54,7 +54,7 @@ func _set_z(new_z: int) -> void:
 	
 	if _ready:
 		translate(Vector2(0, -diff))
-		_update_dist_to_ground()
+		_update_components()
 
 
 func _set_height(new_height: int) -> void:
@@ -69,6 +69,8 @@ func _update_components() -> void:
 	
 	_update_top()
 	_update_volume()
+	_update_ground()
+	_update_dist_to_ground()
 
 
 func _update_volume() -> void:
@@ -86,6 +88,11 @@ func _update_volume() -> void:
 func _update_top() -> void:
 	_top_shape.set_polygon(_base_shape.get_polygon())
 	_top_shape.set_position(_base_shape.get_position() - Vector2(0, _height))
+
+
+func _update_ground() -> void:
+	_ground_shape.set_polygon(_base_shape.get_polygon())
+	_ground_shape.set_position(_base_shape.get_position() - Vector2(0, _z_pos))
 
 
 func _update_dist_to_ground() -> void:

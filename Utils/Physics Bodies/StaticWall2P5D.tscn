@@ -26,4 +26,8 @@ polygon = PoolVector2Array( -10, -10, 10, -10, 10, 10, -10, 10 )
 polygon = PoolVector2Array( -10, -10, 10, -10, 10, 10, -10, 10 )
 polygons = [ PoolVector2Array( -10, -10, 10, -10, 10, 10, -10, 10 ) ]
 script = ExtResource( 2 )
+
+[node name="GroundShape" type="Polygon2D" parent="."]
+color = Color( 0.784314, 1, 0.00784314, 0.45098 )
+polygon = PoolVector2Array( -10, -10, 10, -10, 10, 10, -10, 10 )
 [connection signal="polygon_changed" from="BaseShape" to="." method="_on_CompositePolygon2D_polygon_changed"]
