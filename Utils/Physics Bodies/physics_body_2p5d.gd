@@ -56,13 +56,13 @@ func in_front_of(body: Node2D) -> bool:
 		var depth_slice = []
 		var other_depth_slice = []
 		if above:
-			depth_slice = get_depth_slice(lowest_common_z_pos)
 			other_depth_slice = body.get_depth_slice(body.get_top_z_pos([global_position]))
 		elif below:
 			depth_slice = get_depth_slice(get_top_z_pos([global_position]))
-			other_depth_slice = body.get_depth_slice(lowest_common_z_pos)
-		else:
+		
+		if depth_slice == []:
 			depth_slice = get_depth_slice(lowest_common_z_pos)
+		if other_depth_slice == []:
 			other_depth_slice = body.get_depth_slice(lowest_common_z_pos)
 		
 		if depth_slice:
@@ -103,7 +103,7 @@ func get_depth_slice(z_pos: int) -> Array:
 			slice[index] = base_transform.xform(slice[index])
 		if not z_pos == get_z_pos():
 			for index in slice.size():
-				slice[index] = slice[index] + Vector2(0, z_pos)
+				slice[index] = slice[index] + Vector2(0, z_pos - get_z_pos())
 		slice = Collision2D._sort_points_clockwise(slice)
 	
 	
