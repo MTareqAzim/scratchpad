@@ -44,14 +44,18 @@ func get_z_pos() -> int:
 
 
 func get_top_z_pos(points: Array) -> int:
+	var top_z_pos = _z_pos
 	var altitude = 0
 	
-	for point in points:
-		point = to_local(point)
-		altitude = max(altitude, _get_altitude(point))
+	if _height != 0:
+		for point in points:
+			point = to_local(point)
+			altitude = max(altitude, _get_altitude(point))
+		
+		var fraction = 1.0 * altitude / float(_length)
+		top_z_pos = _z_pos - int(ceil(_height * fraction))
 	
-	var fraction = 1.0 * altitude / float(_length)
-	return _z_pos - int(ceil(_height * fraction))
+	return top_z_pos
 
 
 func is_within(pos: Vector2) -> bool:

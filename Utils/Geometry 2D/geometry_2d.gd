@@ -90,17 +90,33 @@ static func rect_to_array(rect: Rect2) -> Array:
 	return points
 
 
-static func point_on_segment_2d(point: Vector2, from: Vector2, to: Vector2) -> bool:
+static func point_on_segment_2d(point: Vector2, from: Vector2, to: Vector2, error: Vector2) -> bool:
 	var point_on_segment = false
 	var closest_point = Geometry.get_closest_point_to_segment_2d(point, from, to)
-	if closest_point.round() == point.round():
+	if vector_within_error(point.round(), closest_point.round(), error):
 		point_on_segment = true
 	
 	return point_on_segment
 
 
+static func vector_within_error(point: Vector2, comparison: Vector2, error: Vector2) -> bool:
+	var x_within = false
+	var y_within = false
+	var within_error = false
+	
+	if point.x <= comparison.x + error.x and point.x >= comparison.x - error.x:
+		x_within = true
+	
+	if point.y <= comparison.y + error.y and point.y >= comparison.y - error.y:
+		y_within = true
+	
+	within_error = x_within and y_within
+	return within_error
+
+
 static func in_front_of(polygon: Array, comparison: Array) -> bool:
 	var in_front_of = true
+	var error = Vector2(1, 1)
 	
 	for point in polygon:
 		var point_to_inf = point + Vector2(0, 1000)
@@ -110,27 +126,28 @@ static func in_front_of(polygon: Array, comparison: Array) -> bool:
 			var intersection = Geometry.segment_intersects_segment_2d(point, point_to_inf,
 									comparison[comparison_index], comparison[comparison_index_next])
 			if intersection:
-				if not point_on_segment_2d(point, comparison[comparison_index], comparison[comparison_index_next]):
+				if not point_on_segment_2d(point, comparison[comparison_index], comparison[comparison_index_next], error):
 					intersection_occured = true
 		
 		if intersection_occured:
 			in_front_of = false
 			break
 	
-	for point in comparison:
-		var point_to_neg_inf = point + Vector2(0, -1000)
-		var intersection_occured = false
-		for polygon_index in polygon.size():
-			var polygon_index_next = (polygon_index + 1) % polygon.size()
-			var intersection = Geometry.segment_intersects_segment_2d(point, point_to_neg_inf,
-									polygon[polygon_index], polygon[polygon_index_next])
-			if intersection:
-				if not point_on_segment_2d(point, polygon[polygon_index], polygon[polygon_index_next]):
-					intersection_occured = true
-		
-		if intersection_occured:
-			in_front_of = false
-			break
+	if not in_front_of:
+		for point in comparison:
+			var point_to_neg_inf = point + Vector2(0, -1000)
+			var intersection_occured = false
+			for polygon_index in polygon.size():
+				var polygon_index_next = (polygon_index + 1) % polygon.size()
+				var intersection = Geometry.segment_intersects_segment_2d(point, point_to_neg_inf,
+										polygon[polygon_index], polygon[polygon_index_next])
+				if intersection:
+					if not point_on_segment_2d(point, polygon[polygon_index], polygon[polygon_index_next], error):
+						intersection_occured = true
+			
+			if intersection_occured:
+				in_front_of = false
+				break
 	
 	return in_front_of
 

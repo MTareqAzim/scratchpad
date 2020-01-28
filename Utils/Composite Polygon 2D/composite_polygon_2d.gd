@@ -6,8 +6,8 @@ signal polygon_changed
 
 
 func _ready() -> void:
-	if Engine.editor_hint:
-		_visualize_components()
+	#if Engine.editor_hint:
+	_visualize_components()
 
 
 func get_class() -> String:

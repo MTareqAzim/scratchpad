@@ -13,6 +13,7 @@ script = ExtResource( 1 )
 polygon = PoolVector2Array( -10, -10, 10, -10, 10, 10, -10, 10 )
 
 [node name="Base" type="Polygon2D" parent="."]
+visible = false
 modulate = Color( 0.713726, 0, 0.858824, 1 )
 polygon = PoolVector2Array( -10, -10, 10, -10, 10, 10, -10, 10 )
 polygons = [ PoolVector2Array( -10, -10, 10, -10, 10, 10, -10, 10 ) ]

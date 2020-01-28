@@ -16,11 +16,12 @@ export (int) var GRAVITY := 980 setget set_grav, get_grav
 export (int) var _height := 0 setget set_height, get_height
 export (int) var _z_pos := 0 setget set_z_pos, get_z_pos
 
-var STEP_HEIGHT_LIMIT := 10
+var STEP_HEIGHT_LIMIT := 5
 
 var _velocity := Vector3() setget set_velocity, get_velocity
 
 func _physics_process(delta: float) -> void:
+	_velocity = _collide_with_ceiling(_velocity, delta)
 	_velocity = _apply_gravity(_velocity, delta)
 	_velocity = _clamp_velocity(_velocity)
 	
@@ -140,6 +141,27 @@ func _is_on_floor() -> bool:
 	return false
 
 
+func _collide_with_ceiling(velocity: Vector3, delta: float) -> Vector3:
+	var new_velocity = velocity
+	var delta_movement = (velocity * delta).round()
+	var delta_movement_2d = Vector2(delta_movement.x, delta_movement.y)
+	
+	for collision in get_overlapping_areas():
+		var collision_z_pos = collision.get_z_pos()
+		var collision_transform = collision.get_base_transform()
+		var future_z_pos = _z_pos + delta_movement.z
+		var future_top_z_pos = future_z_pos - _height
+		var height_diff = collision_z_pos - _z_pos
+		
+		if future_top_z_pos <= collision_z_pos and future_top_z_pos > collision_z_pos - collision.get_height():
+				for collision_shape in collision.get_base_shapes(collision_z_pos):
+					var collision_points = _get_base_collision_points(Vector2(), collision_shape, collision_transform, height_diff)
+					if collision_points.size() > 3:
+						new_velocity = Vector3(velocity.x, velocity.y, 0)
+	
+	return new_velocity
+
+
 func _apply_gravity(velocity: Vector3, delta: float) -> Vector3:
 	if not is_grounded():
 		velocity.z += round(GRAVITY * delta)
@@ -225,8 +247,9 @@ func _handle_floor_collisions(delta_movement: Vector3) -> Vector3:
 	
 	for floor_pos in _get_floor_positions(delta_movement):
 		var dist_to_floor = floor_pos - _z_pos
-		if abs(dist_to_floor) < abs(closest_floor_dist):
-			closest_floor_dist = dist_to_floor
+		if dist_to_floor < closest_floor_dist:
+			if dist_to_floor >= 0:
+				closest_floor_dist = dist_to_floor
 	
 	if (delta_movement.z > 0) and (delta_movement.z > closest_floor_dist):
 		delta_movement.z = closest_floor_dist
