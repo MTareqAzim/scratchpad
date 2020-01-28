@@ -23,11 +23,8 @@ extents = Vector2( 97, 74 )
 
 [node name="Shadow Mask" parent="." instance=ExtResource( 1 )]
 position = Vector2( 420, 530 )
-_z_pos = 0
-_height = 0
 _width = 1300
 _length = 1000
-_angle = 0
 
 [node name="CollisionPolygon2D" parent="Shadow Mask" index="0"]
 polygon = PoolVector2Array( -650, -500, 650, -500, 650, 500, -650, 500 )
@@ -68,11 +65,9 @@ cast_to = Vector2( 0, -380 )
 
 [node name="Shadow Mask" parent="DepthSorter/StaticSlope2P5D2" instance=ExtResource( 1 )]
 editor/display_folded = true
-_z_pos = 0
 _height = 80
 _width = 500
 _length = 300
-_angle = 0
 
 [node name="CollisionPolygon2D" parent="DepthSorter/StaticSlope2P5D2/Shadow Mask" index="0"]
 polygon = PoolVector2Array( -250, -150, 250, -150, 250, 150, -250, 150 )
@@ -187,7 +182,6 @@ position = Vector2( 0, 24 )
 shape = SubResource( 2 )
 
 [node name="Shadow Mask" parent="DepthSorter/StaticSlope2P5D5" instance=ExtResource( 1 )]
-_z_pos = 0
 _height = 60
 _width = 100
 _length = 300
@@ -205,6 +199,7 @@ position = Vector2( 106.066, -106.066 )
 cast_to = Vector2( -212.132, 152.132 )
 
 [node name="StaticSlope2P5D6" parent="DepthSorter" instance=ExtResource( 3 )]
+editor/display_folded = true
 position = Vector2( -54, 367 )
 _height = 60
 _width = 100
@@ -240,7 +235,6 @@ position = Vector2( 0, -6 )
 shape = SubResource( 3 )
 
 [node name="Shadow Mask" parent="DepthSorter/StaticSlope2P5D6" instance=ExtResource( 1 )]
-_z_pos = 0
 _height = 60
 _width = 100
 _length = 300
@@ -258,16 +252,16 @@ position = Vector2( 106.066, 106.066 )
 cast_to = Vector2( -212.132, -272.132 )
 
 [node name="StaticWall2P5D" parent="DepthSorter" instance=ExtResource( 5 )]
-position = Vector2( 830, 330 )
-_z_pos = -100
+position = Vector2( 830, 370 )
+_z_pos = -60
 _height = 60
 
 [node name="DistToGround" parent="DepthSorter/StaticWall2P5D" index="0"]
 visible = true
-cast_to = Vector2( 0, 100 )
+cast_to = Vector2( 0, 60 )
 
 [node name="GroundShape" parent="DepthSorter/StaticWall2P5D" index="1"]
-position = Vector2( 0, 100 )
+position = Vector2( 0, 60 )
 polygon = PoolVector2Array( -51, -34, 86, -34, 110, 44, -76, 44 )
 
 [node name="TopShape" parent="DepthSorter/StaticWall2P5D" index="2"]
@@ -289,42 +283,21 @@ body = NodePath("..")
 shape = SubResource( 4 )
 
 [node name="Shadow Mask" parent="DepthSorter/StaticWall2P5D" instance=ExtResource( 1 )]
-position = Vector2( 18, -34 )
-_z_pos = -60
-_height = 0
-_width = 190
-_length = 50
-_angle = 0
+position = Vector2( 14, -52 )
+_z_pos = -120
+_width = 200
+_length = 100
 
 [node name="CollisionPolygon2D" parent="DepthSorter/StaticWall2P5D/Shadow Mask" index="0"]
-polygon = PoolVector2Array( -95, -25, 95, -25, 95, 25, -95, 25 )
+polygon = PoolVector2Array( -100, -50, 100, -50, 100, 50, -100, 50 )
 
 [node name="Base" parent="DepthSorter/StaticWall2P5D/Shadow Mask" index="1"]
-polygon = PoolVector2Array( -95, -25, 95, -25, 95, 25, -95, 25 )
-polygons = [ PoolVector2Array( -95, -25, 95, -25, 95, 25, -95, 25 ) ]
+polygon = PoolVector2Array( -100, -50, 100, -50, 100, 50, -100, 50 )
+polygons = [ PoolVector2Array( -100, -50, 100, -50, 100, 50, -100, 50 ) ]
 
 [node name="Rise" parent="DepthSorter/StaticWall2P5D/Shadow Mask" index="2"]
-position = Vector2( 0, 25 )
-cast_to = Vector2( 0, -50 )
-
-[node name="Shadow Mask2" parent="DepthSorter/StaticWall2P5D" instance=ExtResource( 1 )]
-position = Vector2( 19, -73 )
-_z_pos = -60
-_height = 0
-_width = 170
-_length = 50
-_angle = 0
-
-[node name="CollisionPolygon2D" parent="DepthSorter/StaticWall2P5D/Shadow Mask2" index="0"]
-polygon = PoolVector2Array( -85, -25, 85, -25, 85, 25, -85, 25 )
-
-[node name="Base" parent="DepthSorter/StaticWall2P5D/Shadow Mask2" index="1"]
-polygon = PoolVector2Array( -85, -25, 85, -25, 85, 25, -85, 25 )
-polygons = [ PoolVector2Array( -85, -25, 85, -25, 85, 25, -85, 25 ) ]
-
-[node name="Rise" parent="DepthSorter/StaticWall2P5D/Shadow Mask2" index="2"]
-position = Vector2( 0, 25 )
-cast_to = Vector2( 0, -50 )
+position = Vector2( 0, 50 )
+cast_to = Vector2( 0, -100 )
 
 [node name="Player2" parent="DepthSorter" instance=ExtResource( 6 )]
 position = Vector2( 573, 474 )
@@ -360,5 +333,3 @@ position = Vector2( 573, 474 )
 [editable path="DepthSorter/StaticWall2P5D/Depth Sort"]
 
 [editable path="DepthSorter/StaticWall2P5D/Shadow Mask"]
-
-[editable path="DepthSorter/StaticWall2P5D/Shadow Mask2"]
