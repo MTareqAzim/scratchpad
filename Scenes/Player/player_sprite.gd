@@ -18,7 +18,7 @@ func _play_proper_animation() -> void:
 	play(next_animation)
 
 
-func _on_Look_Direction_direction_changed(new_direction: Vector2) -> void:
+func _on_Look_direction_changed(new_direction: Vector2) -> void:
 	match new_direction:
 		NORTH:
 			_direction = "n"

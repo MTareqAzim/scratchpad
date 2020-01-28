@@ -315,7 +315,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Scratchpad"
-run/main_scene="res://Scenes/World/World.tscn"
+run/main_scene="res://Scenes/Player/Player.tscn"
 config/icon="res://icon.png"
 
 [display]
