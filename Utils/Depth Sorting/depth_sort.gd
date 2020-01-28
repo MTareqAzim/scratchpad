@@ -1,9 +1,12 @@
 extends Area2D
 class_name DepthSort
 
+const ALPHA_SEVENTY_FIVE = Color(1, 1, 1, 0.75)
+
 export (NodePath) var body
 
 onready var _body : Node2D = get_node(body) setget _set_body, get_body
+onready var _body_modulate : Color = _body.get_modulate()
 
 
 func get_body() -> Node2D:
@@ -64,7 +67,7 @@ func _in_front_of(other_depth_sort: Area2D) -> bool:
 	var above = false
 	var below = false
 	
-	if other_body.is_class("PhysicsBody2P5D"):
+	if other_body is PhysicsBody2P5D:
 		var other_z_pos = other_body.get_z_pos()
 		var lowest_common_z_pos = 0
 		if other_z_pos > _body.get_z_pos():
@@ -76,7 +79,7 @@ func _in_front_of(other_depth_sort: Area2D) -> bool:
 		else:
 			lowest_common_z_pos = other_z_pos
 			var position_2d = Vector2(other_body.get_global_pos().x, other_body.get_global_pos().y + other_body.get_z_pos())
-			if lowest_common_z_pos < _body.get_top_z_pos([position_2d]):
+			if lowest_common_z_pos <= _body.get_top_z_pos([position_2d]):
 				below = true
 		
 		var depth_slice = []
@@ -99,11 +102,11 @@ func _in_front_of(other_depth_sort: Area2D) -> bool:
 		
 		if above:
 			var collision_points = Collision2D.collide_and_get_contacts(depth_slice, Transform2D(), other_depth_slice, Transform2D())
-			if collision_points.size() > 2:
+			if collision_points:
 				in_front_of = true
 		if below:
 			var collision_points = Collision2D.collide_and_get_contacts(depth_slice, Transform2D(), other_depth_slice, Transform2D())
-			if collision_points.size() > 2:
+			if collision_points:
 				in_front_of = false
 	else:
 		in_front_of = _body.get_global_pos().y > other_body.global_position.y

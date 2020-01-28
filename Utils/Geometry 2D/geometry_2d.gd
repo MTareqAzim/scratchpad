@@ -119,7 +119,7 @@ static func in_front_of(polygon: Array, comparison: Array) -> bool:
 	var error = Vector2(1, 1)
 	
 	for point in polygon:
-		var point_to_inf = point + Vector2(0, 1000)
+		var point_to_inf = point + Vector2(0, 10000)
 		var intersection_occured = false
 		for comparison_index in comparison.size():
 			var comparison_index_next = (comparison_index + 1) % comparison.size()
@@ -133,9 +133,9 @@ static func in_front_of(polygon: Array, comparison: Array) -> bool:
 			in_front_of = false
 			break
 	
-	if not in_front_of:
+	if in_front_of:
 		for point in comparison:
-			var point_to_neg_inf = point + Vector2(0, -1000)
+			var point_to_neg_inf = point + Vector2(0, -10000)
 			var intersection_occured = false
 			for polygon_index in polygon.size():
 				var polygon_index_next = (polygon_index + 1) % polygon.size()

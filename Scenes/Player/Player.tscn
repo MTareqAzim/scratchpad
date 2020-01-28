@@ -27,10 +27,10 @@
 [ext_resource path="res://Utils/Depth Sorting/DepthSort.tscn" type="PackedScene" id=25]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 15, 43 )
+extents = Vector2( 20, 43 )
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 18.0
+radius = 23.0
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 18, 44 )
@@ -48,8 +48,8 @@ shape = SubResource( 2 )
 
 [node name="BaseShape" parent="." index="2"]
 visible = false
-polygon = PoolVector2Array( -10, -8, 10, -8, 10, 8, -10, 8 )
-polygons = [ PoolVector2Array( -10, -8, 10, -8, 10, 8, -10, 8 ) ]
+polygon = PoolVector2Array( -15, -8, 15, -8, 15, 8, -15, 8 )
+polygons = [ PoolVector2Array( -15, -8, 15, -8, 15, 8, -15, 8 ) ]
 
 [node name="Shadow2D" type="Node2D" parent="." index="3"]
 script = ExtResource( 2 )

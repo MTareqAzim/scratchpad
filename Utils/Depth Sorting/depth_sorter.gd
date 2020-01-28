@@ -1,9 +1,10 @@
-extends Node
+extends Node2D
 class_name DepthSorter
 
 var _depth_sorts = []
 var _depth_graph : DirectedGraph
 var _z_indexes = []
+var _player_vertex = 0
 
 func _ready() -> void:
 	_append_depth_sorts(self)
