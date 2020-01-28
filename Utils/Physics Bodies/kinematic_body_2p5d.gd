@@ -5,7 +5,7 @@ class_name KinematicBody2P5D, "kinematic_body_2p5d.png"
 onready var _ready := true
 onready var _base_shape : Polygon2D = $BaseShape
 
-const SKIN_WIDTH := 2
+const SKIN_WIDTH := 1
 const BASE_SKIN_RADIUS := 8
 const VOLUME_SKIN_WIDTH := 5
 const FLOOR_SKIN_RADIUS := 15
@@ -141,6 +141,27 @@ func _is_on_floor() -> bool:
 	return false
 
 
+func _collide_with_ceiling(velocity: Vector3, delta: float) -> Vector3:
+	var new_velocity = velocity
+	var delta_movement = (velocity * delta).round()
+	var delta_movement_2d = Vector2(delta_movement.x, delta_movement.y)
+	
+	for collision in get_overlapping_areas():
+		var collision_z_pos = collision.get_z_pos()
+		var collision_transform = collision.get_base_transform()
+		var future_z_pos = _z_pos + delta_movement.z
+		var future_top_z_pos = future_z_pos - _height
+		var height_diff = collision_z_pos - _z_pos
+		
+		if future_top_z_pos <= collision_z_pos and future_top_z_pos > collision_z_pos - collision.get_height():
+				for collision_shape in collision.get_base_shapes(collision_z_pos):
+					var collision_points = _get_base_collision_points(Vector2(), collision_shape, collision_transform, height_diff)
+					if collision_points.size() > 3:
+						new_velocity = Vector3(velocity.x, velocity.y, 0)
+	
+	return new_velocity
+
+
 func _apply_gravity(velocity: Vector3, delta: float) -> Vector3:
 	if not is_grounded():
 		velocity.z += round(GRAVITY * delta)
@@ -267,27 +288,6 @@ func _get_base_collision_points(delta_movement_2D: Vector2, other_base: Array, o
 			Vector2())
 	
 	return collision_points
-
-
-func _collide_with_ceiling(velocity: Vector3, delta: float) -> Vector3:
-	var new_velocity = velocity
-	var delta_movement = (velocity * delta).round()
-	var delta_movement_2d = Vector2(delta_movement.x, delta_movement.y)
-	
-	for collision in get_overlapping_areas():
-		var collision_z_pos = collision.get_z_pos()
-		var collision_transform = collision.get_base_transform()
-		var future_z_pos = _z_pos + delta_movement.z
-		var future_top_z_pos = future_z_pos - _height
-		var height_diff = collision_z_pos - _z_pos
-		
-		if future_top_z_pos <= collision_z_pos and future_top_z_pos > collision_z_pos - collision.get_height():
-				for collision_shape in collision.get_base_shapes(collision_z_pos):
-					var collision_points = _get_base_collision_points(Vector2(), collision_shape, collision_transform, height_diff)
-					if collision_points.size() > 2:
-						new_velocity = Vector3(velocity.x, velocity.y, 0)
-	
-	return new_velocity
 
 
 func _handle_wall_collisions(delta_movement: Vector3, delta: float) -> Vector3:

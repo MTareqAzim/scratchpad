@@ -116,6 +116,7 @@ static func vector_within_error(point: Vector2, comparison: Vector2, error: Vect
 
 static func in_front_of(polygon: Array, comparison: Array) -> bool:
 	var in_front_of = true
+	var error = Vector2(1, 1)
 	
 	for point in polygon:
 		var point_to_inf = point + Vector2(0, 1000)
@@ -125,7 +126,6 @@ static func in_front_of(polygon: Array, comparison: Array) -> bool:
 			var intersection = Geometry.segment_intersects_segment_2d(point, point_to_inf,
 									comparison[comparison_index], comparison[comparison_index_next])
 			if intersection:
-				var error = Vector2(2, 2)
 				if not point_on_segment_2d(point, comparison[comparison_index], comparison[comparison_index_next], error):
 					intersection_occured = true
 		
@@ -133,21 +133,21 @@ static func in_front_of(polygon: Array, comparison: Array) -> bool:
 			in_front_of = false
 			break
 	
-	for point in comparison:
-		var point_to_neg_inf = point + Vector2(0, -1000)
-		var intersection_occured = false
-		for polygon_index in polygon.size():
-			var polygon_index_next = (polygon_index + 1) % polygon.size()
-			var intersection = Geometry.segment_intersects_segment_2d(point, point_to_neg_inf,
-									polygon[polygon_index], polygon[polygon_index_next])
-			if intersection:
-				var error = Vector2(2, 2)
-				if not point_on_segment_2d(point, polygon[polygon_index], polygon[polygon_index_next], error):
-					intersection_occured = true
-		
-		if intersection_occured:
-			in_front_of = false
-			break
+	if not in_front_of:
+		for point in comparison:
+			var point_to_neg_inf = point + Vector2(0, -1000)
+			var intersection_occured = false
+			for polygon_index in polygon.size():
+				var polygon_index_next = (polygon_index + 1) % polygon.size()
+				var intersection = Geometry.segment_intersects_segment_2d(point, point_to_neg_inf,
+										polygon[polygon_index], polygon[polygon_index_next])
+				if intersection:
+					if not point_on_segment_2d(point, polygon[polygon_index], polygon[polygon_index_next], error):
+						intersection_occured = true
+			
+			if intersection_occured:
+				in_front_of = false
+				break
 	
 	return in_front_of
 

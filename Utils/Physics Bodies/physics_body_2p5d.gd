@@ -57,8 +57,6 @@ func in_front_of(body: Node2D) -> bool:
 		var other_depth_slice = []
 		if above:
 			other_depth_slice = body.get_depth_slice(body.get_top_z_pos([global_position]))
-		elif below:
-			depth_slice = get_depth_slice(body.get_top_z_pos([body.global_position]))
 		
 		if depth_slice == []:
 			depth_slice = get_depth_slice(lowest_common_z_pos)
