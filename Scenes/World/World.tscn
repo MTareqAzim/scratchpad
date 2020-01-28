@@ -205,8 +205,7 @@ position = Vector2( 106.066, -106.066 )
 cast_to = Vector2( -212.132, 152.132 )
 
 [node name="StaticSlope2P5D6" parent="DepthSorter" instance=ExtResource( 3 )]
-editor/display_folded = true
-position = Vector2( -40, 440 )
+position = Vector2( -54, 367 )
 _height = 60
 _width = 100
 _length = 300
@@ -259,10 +258,16 @@ position = Vector2( 106.066, 106.066 )
 cast_to = Vector2( -212.132, -272.132 )
 
 [node name="StaticWall2P5D" parent="DepthSorter" instance=ExtResource( 5 )]
-position = Vector2( 830, 430 )
+position = Vector2( 830, 330 )
+_z_pos = -100
 _height = 60
 
+[node name="DistToGround" parent="DepthSorter/StaticWall2P5D" index="0"]
+visible = true
+cast_to = Vector2( 0, 100 )
+
 [node name="GroundShape" parent="DepthSorter/StaticWall2P5D" index="1"]
+position = Vector2( 0, 100 )
 polygon = PoolVector2Array( -51, -34, 86, -34, 110, 44, -76, 44 )
 
 [node name="TopShape" parent="DepthSorter/StaticWall2P5D" index="2"]

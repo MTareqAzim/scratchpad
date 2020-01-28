@@ -50,7 +50,7 @@ func in_front_of(body: Node2D) -> bool:
 		else:
 			lowest_common_z_pos = other_z_pos
 			var position_2d = Vector2(body.get_global_pos().x, body.get_global_pos().y + body.get_z_pos())
-			if lowest_common_z_pos <= get_top_z_pos([position_2d]):
+			if lowest_common_z_pos < get_top_z_pos([position_2d]):
 				below = true
 		
 		var depth_slice = []
@@ -58,7 +58,7 @@ func in_front_of(body: Node2D) -> bool:
 		if above:
 			other_depth_slice = body.get_depth_slice(body.get_top_z_pos([global_position]))
 		elif below:
-			depth_slice = get_depth_slice(get_top_z_pos([global_position]))
+			depth_slice = get_depth_slice(body.get_top_z_pos([body.global_position]))
 		
 		if depth_slice == []:
 			depth_slice = get_depth_slice(lowest_common_z_pos)
@@ -90,7 +90,7 @@ func in_front_of(body: Node2D) -> bool:
 func get_depth_slice(z_pos: int) -> Array:
 	var slice = []
 	
-	if z_pos <= get_z_pos() or z_pos >= get_z_pos() - get_height():
+	if z_pos <= get_z_pos() and z_pos >= get_z_pos() - get_height():
 		var base_shapes = get_base_shapes(z_pos)
 		for shape in base_shapes:
 			for point in shape:
