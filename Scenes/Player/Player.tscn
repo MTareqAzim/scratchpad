@@ -1,174 +1,86 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://Utils/Physics Bodies/KinematicBody2P5D.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Utils/Shadow/shadow_2d.gd" type="Script" id=2]
-[ext_resource path="res://Sprites/Fita/shadow.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/Fita_v2/fita_sprite.tres" type="SpriteFrames" id=4]
-[ext_resource path="res://Scenes/Player/player_sprite.gd" type="Script" id=5]
-[ext_resource path="res://Utils/Entity/Health/health.gd" type="Script" id=6]
-[ext_resource path="res://Utils/Entity/Look Direction/look_direction.gd" type="Script" id=7]
-[ext_resource path="res://Utils/Input Handler/player_input_handler.gd" type="Script" id=8]
-[ext_resource path="res://Utils/Input Handler/Action Map/action_map.gd" type="Script" id=9]
-[ext_resource path="res://Utils/Action Buffer/action_buffer.gd" type="Script" id=10]
-[ext_resource path="res://Utils/State Machine/state_machine.gd" type="Script" id=11]
-[ext_resource path="res://Scenes/Player/Component States/idle.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Scenes/Player/Component States/move.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Scenes/Player/Component States/crouch.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Scenes/Player/Component States/stand_up.tscn" type="PackedScene" id=15]
-[ext_resource path="res://Scenes/Player/Component States/fall.tscn" type="PackedScene" id=16]
-[ext_resource path="res://Scenes/Player/Component States/jump.tscn" type="PackedScene" id=17]
-[ext_resource path="res://Scenes/Player/Component States/dash.tscn" type="PackedScene" id=18]
-[ext_resource path="res://Scenes/Player/Component States/crouch_dash.tscn" type="PackedScene" id=19]
-[ext_resource path="res://Scenes/Player/Component States/air_dash.tscn" type="PackedScene" id=20]
-[ext_resource path="res://Scenes/Player/look_direction_arrow.gd" type="Script" id=21]
-[ext_resource path="res://Scenes/Scratch/StatesStackDiplayer.tscn" type="PackedScene" id=22]
-[ext_resource path="res://Scenes/Scratch/BufferStackDiplayer.tscn" type="PackedScene" id=23]
-[ext_resource path="res://Scenes/Input UI/InputUIBase.tscn" type="PackedScene" id=24]
-[ext_resource path="res://Utils/Depth Sorting/DepthSort.tscn" type="PackedScene" id=25]
+[ext_resource path="res://Scenes/Player/player.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Fita/shadow.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Fita_v2/fita_sprite.tres" type="SpriteFrames" id=3]
+[ext_resource path="res://Scenes/Player/player_sprite.gd" type="Script" id=4]
+[ext_resource path="res://Utils/Entity/Look Direction/look_direction.gd" type="Script" id=5]
+[ext_resource path="res://Utils/Action Buffer/action_buffer.gd" type="Script" id=6]
+[ext_resource path="res://Utils/Input Handler/player_input_handler.gd" type="Script" id=7]
+[ext_resource path="res://Utils/Input Handler/Action Map/action_map.gd" type="Script" id=8]
+[ext_resource path="res://Utils/State Machine/state_machine.gd" type="Script" id=9]
+[ext_resource path="res://Scenes/Player/Component States/idle.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/Player/Component States/move.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/Player/Component States/jump.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Scenes/Player/Component States/fall.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Scenes/Scratch/StatesStackDiplayer.tscn" type="PackedScene" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 20, 43 )
+extents = Vector2( 18, 12 )
 
-[sub_resource type="CircleShape2D" id=2]
-radius = 23.0
+[node name="Player" type="KinematicBody2D"]
+collision_mask = 2
+script = ExtResource( 1 )
 
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 18, 44 )
-
-[node name="Player2" index="0" instance=ExtResource( 1 )]
-MAX_SPEED = 2000
-_height = 60
-
-[node name="VolumeShape" parent="." index="0"]
-position = Vector2( 0, -30 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="BaseSkin" parent="." index="1"]
-shape = SubResource( 2 )
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.490196 )
+texture = ExtResource( 2 )
 
-[node name="BaseShape" parent="." index="2"]
-visible = false
-polygon = PoolVector2Array( -15, -8, 15, -8, 15, 8, -15, 8 )
-polygons = [ PoolVector2Array( -15, -8, 15, -8, 15, 8, -15, 8 ) ]
+[node name="Z Pos" type="Node2D" parent="."]
 
-[node name="Shadow2D" type="Node2D" parent="." index="3"]
-script = ExtResource( 2 )
-body = NodePath("..")
-texture = ExtResource( 3 )
-shadow_mask_layer = 3
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="." index="4"]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Z Pos"]
 position = Vector2( 0, -36 )
-frames = ExtResource( 4 )
+frames = ExtResource( 3 )
 animation = "idle_e"
+script = ExtResource( 4 )
+
+[node name="Look" type="Node" parent="."]
 script = ExtResource( 5 )
 
-[node name="Health" type="Node" parent="." index="5"]
+[node name="Buffer" type="Node" parent="."]
 script = ExtResource( 6 )
-max_health = 100
 
-[node name="Look Direction" type="Node" parent="." index="6"]
+[node name="Input" type="Node" parent="."]
 script = ExtResource( 7 )
-
-[node name="Player Input" type="Node" parent="." index="7"]
-editor/display_folded = true
-script = ExtResource( 8 )
 state_machine = NodePath("../State Machine")
-action_buffer = NodePath("../ActionBuffer")
+action_buffer = NodePath("../Buffer")
 
-[node name="Jump" type="Node" parent="Player Input" index="0"]
-script = ExtResource( 9 )
+[node name="Jump" type="Node" parent="Input"]
+script = ExtResource( 8 )
 action = "ui_a"
 mapped_action = "jump"
 
-[node name="Crouch" type="Node" parent="Player Input" index="1"]
+[node name="State Machine" type="Node" parent="."]
 script = ExtResource( 9 )
-action = "ui_b"
-mapped_action = "crouch"
 
-[node name="Lunge" type="Node" parent="Player Input" index="2"]
-script = ExtResource( 9 )
-action = "ui_x"
-mapped_action = "lunge"
-
-[node name="Retreat" type="Node" parent="Player Input" index="3"]
-script = ExtResource( 9 )
-action = "ui_y"
-mapped_action = "retreat"
-
-[node name="ActionBuffer" type="Node" parent="." index="8"]
-script = ExtResource( 10 )
-
-[node name="State Machine" type="Node" parent="." index="9"]
-editor/display_folded = true
-script = ExtResource( 11 )
-_active = true
-
-[node name="Idle" parent="State Machine" index="0" instance=ExtResource( 12 )]
+[node name="Idle" parent="State Machine" instance=ExtResource( 10 )]
 dependencies = {
 "body": NodePath("../.."),
-"buffer": NodePath("../../ActionBuffer"),
-"input": NodePath("../../Player Input"),
-"look": NodePath("../../Look Direction")
+"input": NodePath("../../Input"),
+"look": NodePath("../../Look")
 }
 variables = {
 "max_speed": 250
 }
 
-[node name="Move" parent="State Machine" index="1" instance=ExtResource( 13 )]
+[node name="Move" parent="State Machine" instance=ExtResource( 11 )]
 dependencies = {
 "body": NodePath("../.."),
-"buffer": NodePath("../../ActionBuffer"),
-"input": NodePath("../../Player Input"),
-"look": NodePath("../../Look Direction")
+"input": NodePath("../../Input"),
+"look": NodePath("../../Look")
 }
 variables = {
 "max_speed": 250
 }
 
-[node name="Crouch" parent="State Machine" index="2" instance=ExtResource( 14 )]
-editor/display_folded = true
+[node name="Jump" parent="State Machine" instance=ExtResource( 12 )]
 dependencies = {
 "body": NodePath("../.."),
-"buffer": NodePath("../../ActionBuffer"),
-"input": NodePath("../../Player Input"),
-"look": NodePath("../../Look Direction")
-}
-variables = {
-"crouch_height": 40,
-"max_speed": 150
-}
-
-[node name="Stand Up" parent="State Machine" index="3" instance=ExtResource( 15 )]
-dependencies = {
-"body": NodePath("../.."),
-"buffer": NodePath("../../ActionBuffer"),
-"input": NodePath("../../Player Input"),
-"look": NodePath("../../Look Direction")
-}
-variables = {
-"crouch_height": 40,
-"max_speed": 150,
-"stand_up_duration": 0.2
-}
-
-[node name="Fall" parent="State Machine" index="4" instance=ExtResource( 16 )]
-dependencies = {
-"body": NodePath("../.."),
-"buffer": NodePath("../../ActionBuffer"),
-"input": NodePath("../../Player Input"),
-"look": NodePath("../../Look Direction")
-}
-variables = {
-"max_speed": 250
-}
-
-[node name="Jump" parent="State Machine" index="5" instance=ExtResource( 17 )]
-dependencies = {
-"body": NodePath("../.."),
-"buffer": NodePath("../../ActionBuffer"),
-"input": NodePath("../../Player Input"),
-"look": NodePath("../../Look Direction")
+"input": NodePath("../../Input"),
+"look": NodePath("../../Look")
 }
 variables = {
 "jump_duration": 0.35,
@@ -177,177 +89,23 @@ variables = {
 "min_jump_height": 50
 }
 
-[node name="High Jump" parent="State Machine" index="6" instance=ExtResource( 17 )]
-editor/display_folded = true
-state_name = "high jump"
-overwrite = true
+[node name="Fall" parent="State Machine" instance=ExtResource( 13 )]
 dependencies = {
 "body": NodePath("../.."),
-"buffer": NodePath("../../ActionBuffer"),
-"input": NodePath("../../Player Input"),
-"look": NodePath("../../Look Direction")
+"input": NodePath("../../Input"),
+"look": NodePath("../../Look")
 }
 variables = {
-"jump_duration": 0.45,
-"max_jump_height": 150,
-"max_speed": 250,
-"min_jump_height": 100
+"max_speed": 250
 }
 
-[node name="Lunge" parent="State Machine" index="7" instance=ExtResource( 18 )]
-editor/display_folded = true
-state_name = "lunge"
-dependencies = {
-"body": NodePath("../.."),
-"buffer": NodePath("../../ActionBuffer"),
-"look": NodePath("../../Look Direction")
-}
-variables = {
-"dash_distance": 300,
-"dash_duration": 0.5
-}
-
-[node name="Dash Handled" parent="State Machine/Lunge/Action Buffer" index="1"]
-args = [ "lunge_pressed" ]
-
-[node name="Retreat" parent="State Machine" index="8" instance=ExtResource( 18 )]
-editor/display_folded = true
-state_name = "retreat"
-dependencies = {
-"body": NodePath("../.."),
-"buffer": NodePath("../../ActionBuffer"),
-"look": NodePath("../../Look Direction")
-}
-variables = {
-"dash_distance": -300,
-"dash_duration": 0.5
-}
-
-[node name="Dash Handled" parent="State Machine/Retreat/Action Buffer" index="1"]
-args = [ "retreat_pressed" ]
-
-[node name="Somersault" parent="State Machine" index="9" instance=ExtResource( 19 )]
-editor/display_folded = true
-state_name = "somersault"
-dependencies = {
-"body": NodePath("../.."),
-"buffer": NodePath("../../ActionBuffer"),
-"look": NodePath("../../Look Direction")
-}
-variables = {
-"crouch_height": 40,
-"dash_distance": 300,
-"dash_duration": 0.5
-}
-
-[node name="Dash Handled" parent="State Machine/Somersault/Action Buffer" index="1"]
-args = [ "lunge_pressed" ]
-
-[node name="Back Roll" parent="State Machine" index="10" instance=ExtResource( 19 )]
-editor/display_folded = true
-state_name = "back roll"
-dependencies = {
-"body": NodePath("../.."),
-"buffer": NodePath("../../ActionBuffer"),
-"look": NodePath("../../Look Direction")
-}
-variables = {
-"crouch_height": 40,
-"dash_distance": -300,
-"dash_duration": 0.5
-}
-
-[node name="Dash Handled" parent="State Machine/Back Roll/Action Buffer" index="1"]
-args = [ "retreat_pressed" ]
-
-[node name="Air Dash" parent="State Machine" index="11" instance=ExtResource( 20 )]
-editor/display_folded = true
-dependencies = {
-"body": NodePath("../.."),
-"buffer": NodePath("../../ActionBuffer"),
-"look": NodePath("../../Look Direction")
-}
-variables = {
-"dash_distance": 300,
-"dash_duration": 0.5
-}
-
-[node name="Dash Handled" parent="State Machine/Air Dash/Action Buffer" index="1"]
-args = [ "lunge_pressed" ]
-
-[node name="Back Air Dash" parent="State Machine" index="12" instance=ExtResource( 20 )]
-editor/display_folded = true
-state_name = "back air dash"
-dependencies = {
-"body": NodePath("../.."),
-"buffer": NodePath("../../ActionBuffer"),
-"look": NodePath("../../Look Direction")
-}
-variables = {
-"dash_distance": -300,
-"dash_duration": 0.5
-}
-
-[node name="Dash Handled" parent="State Machine/Back Air Dash/Action Buffer" index="1"]
-args = [ "retreat_pressed" ]
-
-[node name="Look Arrow" type="Position2D" parent="." index="10"]
-editor/display_folded = true
-script = ExtResource( 21 )
-
-[node name="RayCast2D" type="RayCast2D" parent="Look Arrow" index="0"]
-scale = Vector2( 5, 5 )
-cast_to = Vector2( 10, 0 )
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." index="11"]
-
-[node name="StatesStackDiplayer" parent="CanvasLayer" index="0" instance=ExtResource( 22 )]
-rect_scale = Vector2( 0.5, 0.5 )
-
-[node name="BufferStackDiplayer" parent="CanvasLayer" index="1" instance=ExtResource( 23 )]
-margin_left = -106.0
-margin_top = 1.0
-margin_right = 104.0
-margin_bottom = 171.0
-rect_scale = Vector2( 0.5, 0.5 )
-
-[node name="InputUIBase" parent="CanvasLayer" index="2" instance=ExtResource( 24 )]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -160.0
-margin_top = -75.0
-margin_right = -96.0
-margin_bottom = -11.0
-
-[node name="Camera2D" type="Camera2D" parent="." index="12"]
+[node name="Camera2D" type="Camera2D" parent="."]
 current = true
 
-[node name="Depth Sort" parent="." index="13" instance=ExtResource( 25 )]
-position = Vector2( 0, -33 )
-body = NodePath("..")
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
 
-[node name="Bounding Box" parent="Depth Sort" index="0"]
-shape = SubResource( 3 )
-[connection signal="direction_changed" from="Look Direction" to="AnimatedSprite" method="_on_Look_Direction_direction_changed"]
-[connection signal="direction_changed" from="Look Direction" to="Look Arrow" method="_on_Look_Direction_direction_changed"]
-[connection signal="buffer_changed" from="ActionBuffer" to="CanvasLayer/BufferStackDiplayer" method="_on_ActionBuffer_buffer_changed"]
-[connection signal="state_changed" from="State Machine" to="CanvasLayer/InputUIBase" method="_on_State_Machine_state_changed"]
+[node name="StatesStackDiplayer" parent="CanvasLayer" instance=ExtResource( 14 )]
+rect_scale = Vector2( 0.5, 0.5 )
+[connection signal="direction_changed" from="Look" to="Z Pos/AnimatedSprite" method="_on_Look_direction_changed"]
 [connection signal="states_stack_changed" from="State Machine" to="CanvasLayer/StatesStackDiplayer" method="_on_State_Machine_states_stack_changed"]
-
-[editable path="State Machine/High Jump"]
-
-[editable path="State Machine/Lunge"]
-
-[editable path="State Machine/Retreat"]
-
-[editable path="State Machine/Somersault"]
-
-[editable path="State Machine/Back Roll"]
-
-[editable path="State Machine/Air Dash"]
-
-[editable path="State Machine/Back Air Dash"]
-
-[editable path="Depth Sort"]

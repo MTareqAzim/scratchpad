@@ -1,8 +1,8 @@
 extends EntityStateComponent
 class_name LookDirectionStateComponent, "look_direction.png"
 
-export (String) var look_direction_key
-export (String) var input_handler_key
+export (String) var look_direction_key := "look"
+export (String) var input_handler_key := "input"
 
 var _look_direction : LookDirection
 var _input_handler : InputHandler
