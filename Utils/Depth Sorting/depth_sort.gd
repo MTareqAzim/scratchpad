@@ -86,6 +86,11 @@ func _in_front_of(other_depth_sort: Area2D) -> bool:
 		var other_depth_slice = []
 		if above:
 			other_depth_slice = other_depth_sort.get_depth_slice(other_body.get_top_z_pos([_body.global_position]))
+		if below:
+			var top_z_pos = _body.get_top_z_pos([other_body.global_position])
+			if top_z_pos < lowest_common_z_pos:
+				top_z_pos = lowest_common_z_pos
+			depth_slice = get_depth_slice(top_z_pos)
 		
 		if depth_slice == []:
 			depth_slice = get_depth_slice(lowest_common_z_pos)

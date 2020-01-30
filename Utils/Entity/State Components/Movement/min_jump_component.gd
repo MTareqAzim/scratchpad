@@ -4,7 +4,7 @@ export (String) var body_key = "body"
 export (String) var input_handler_key = "input"
 export (String) var min_jump_height_key = "min_jump_height"
 
-var _body : KinematicBody2D
+var _body
 var _input : InputHandler
 var _min_jump_height : int
 

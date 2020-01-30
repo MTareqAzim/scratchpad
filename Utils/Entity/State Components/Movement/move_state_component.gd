@@ -5,7 +5,7 @@ export (String) var body_key := "body"
 export (String) var input_handler_key := "input"
 export (String) var max_speed_key := "max_speed"
 
-var _body : KinematicBody2D
+var _body
 var _input_handler : InputHandler
 var _max_speed : int = 0
 

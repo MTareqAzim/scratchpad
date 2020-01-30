@@ -63,6 +63,7 @@ mapped_action = "jump"
 
 [node name="State Machine" type="Node" parent="."]
 script = ExtResource( 9 )
+_active = true
 
 [node name="Idle" parent="State Machine" instance=ExtResource( 10 )]
 dependencies = {

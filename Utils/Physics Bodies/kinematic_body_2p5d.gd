@@ -21,6 +21,9 @@ var STEP_HEIGHT_LIMIT := 5
 var _velocity := Vector3() setget set_velocity, get_velocity
 
 func _physics_process(delta: float) -> void:
+	if Engine.editor_hint:
+		return
+	
 	_velocity = _collide_with_ceiling(_velocity, delta)
 	_velocity = _apply_gravity(_velocity, delta)
 	_velocity = _clamp_velocity(_velocity)

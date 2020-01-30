@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Utils/State Machine/State/component_state.gd" type="Script" id=1]
+[ext_resource path="res://Utils/Entity/State Components/Movement/move_state_component.gd" type="Script" id=2]
+[ext_resource path="res://Utils/Entity/State Components/Look Direction/look_direction_state_component.gd" type="Script" id=3]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Enter/call_function_variable_enter_state_component.gd" type="Script" id=4]
+[ext_resource path="res://Utils/Grouping Node/grouping_node.gd" type="Script" id=5]
+[ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Update/Transitions/equals_transition_state_component.gd" type="Script" id=6]
+
+[node name="Fall" type="Node"]
+script = ExtResource( 1 )
+state_name = "fall"
+push_down = true
+overwrite = true
+dependencies = {
+"body": NodePath(""),
+"input": NodePath(""),
+"look": NodePath("")
+}
+variables = {
+"gravity": 2000,
+"max_speed": 250
+}
+
+[node name="Move" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="Look Direction" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[node name="Enter Gravity" type="Node" parent="."]
+script = ExtResource( 4 )
+node_key = "body"
+FUNCTION_NAME = "set_grav"
+variables = [ "gravity" ]
+
+[node name="Transitions" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="Grounded" type="Node" parent="Transitions"]
+script = ExtResource( 6 )
+node_key = "body"
+FUNCTION_NAME = "is_grounded"
+equals = [ true ]
+NEXT_STATE = "previous"
