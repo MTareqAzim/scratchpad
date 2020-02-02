@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Utils/Physics Bodies/KinematicBody2P5D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Utils/Input Handler/player_input_handler.gd" type="Script" id=2]
@@ -10,11 +10,18 @@
 [ext_resource path="res://Scenes/Player2P5D/Component States 2P5D/fall.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Player2P5D/Component States 2P5D/idle.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Utils/Input Handler/Action Map/action_map.gd" type="Script" id=10]
-[ext_resource path="res://Sprites/Fita_v2/fita_sprite.tres" type="SpriteFrames" id=11]
-[ext_resource path="res://Scenes/Player/player_sprite.gd" type="Script" id=12]
+[ext_resource path="res://Utils/Entity/eight_directional_sprite.gd" type="Script" id=11]
+[ext_resource path="res://Sprites/Fita/Animations/fita_se_animations.tres" type="SpriteFrames" id=12]
 [ext_resource path="res://Sprites/Fita/shadow.png" type="Texture" id=13]
 [ext_resource path="res://Utils/Shadow/shadow_2d.gd" type="Script" id=14]
 [ext_resource path="res://Utils/Depth Sorting/DepthSort.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Sprites/Fita/Animations/fita_sw_animations.tres" type="SpriteFrames" id=16]
+[ext_resource path="res://Sprites/Fita/Animations/fita_e_animations.tres" type="SpriteFrames" id=17]
+[ext_resource path="res://Sprites/Fita/Animations/fita_n_animations.tres" type="SpriteFrames" id=18]
+[ext_resource path="res://Sprites/Fita/Animations/fita_nw_animations.tres" type="SpriteFrames" id=19]
+[ext_resource path="res://Sprites/Fita/Animations/fita_s_animations.tres" type="SpriteFrames" id=20]
+[ext_resource path="res://Sprites/Fita/Animations/fita_w_animations.tres" type="SpriteFrames" id=21]
+[ext_resource path="res://Sprites/Fita/Animations/fita_ne_animations.tres" type="SpriteFrames" id=22]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 17, 47 )
@@ -36,11 +43,50 @@ body = NodePath("..")
 texture = ExtResource( 13 )
 shadow_mask_layer = 3
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="." index="4"]
-position = Vector2( 0, -38 )
-frames = ExtResource( 11 )
-animation = "idle_s"
-script = ExtResource( 12 )
+[node name="Sprite" type="Node2D" parent="." index="4"]
+position = Vector2( 0, -36 )
+script = ExtResource( 11 )
+initial_state = "idle"
+initial_direction = "e"
+
+[node name="E" type="AnimatedSprite" parent="Sprite" index="0"]
+frames = ExtResource( 17 )
+animation = "idle"
+
+[node name="N" type="AnimatedSprite" parent="Sprite" index="1"]
+visible = false
+frames = ExtResource( 18 )
+animation = "idle"
+
+[node name="NE" type="AnimatedSprite" parent="Sprite" index="2"]
+visible = false
+frames = ExtResource( 22 )
+animation = "idle"
+
+[node name="NW" type="AnimatedSprite" parent="Sprite" index="3"]
+visible = false
+frames = ExtResource( 19 )
+animation = "idle"
+
+[node name="S" type="AnimatedSprite" parent="Sprite" index="4"]
+visible = false
+frames = ExtResource( 20 )
+animation = "idle"
+
+[node name="SE" type="AnimatedSprite" parent="Sprite" index="5"]
+visible = false
+frames = ExtResource( 12 )
+animation = "idle"
+
+[node name="SW" type="AnimatedSprite" parent="Sprite" index="6"]
+visible = false
+frames = ExtResource( 16 )
+animation = "idle"
+
+[node name="W" type="AnimatedSprite" parent="Sprite" index="7"]
+visible = false
+frames = ExtResource( 21 )
+animation = "idle"
 
 [node name="Look" type="Node" parent="." index="5"]
 script = ExtResource( 3 )
@@ -115,6 +161,7 @@ body = NodePath("..")
 
 [node name="Bounding Box" parent="Depth Sort" index="0"]
 shape = SubResource( 1 )
-[connection signal="direction_changed" from="Look" to="AnimatedSprite" method="_on_Look_direction_changed"]
+[connection signal="direction_changed" from="Look" to="Sprite" method="_on_Look_direction_changed"]
+[connection signal="state_changed" from="State Machine" to="Sprite" method="_on_State_Machine_state_changed"]
 
 [editable path="Depth Sort"]

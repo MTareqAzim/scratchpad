@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Utils/Depth Sorting/depth_sorter.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player2P5D/Player2P5D.tscn" type="PackedScene" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://Sprites/Test Stage/middle_block.png" type="Texture" id=8]
 [ext_resource path="res://Utils/Physics Bodies/StaticSlope2P5D.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Sprites/Test Stage/ramp.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/Test Stage/p1.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/Test Stage/p2.png" type="Texture" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 130, 255 )
@@ -23,6 +25,12 @@ extents = Vector2( 313, 134 )
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 227, 138 )
 
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 30, 29 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 26, 29 )
+
 [node name="Test Stage" type="Node2D"]
 
 [node name="DepthSorter" type="Node2D" parent="."]
@@ -30,6 +38,7 @@ script = ExtResource( 1 )
 
 [node name="Right" parent="DepthSorter" instance=ExtResource( 3 )]
 position = Vector2( 1194, 333 )
+_z_pos = 0
 _height = 278
 
 [node name="GroundShape" parent="DepthSorter/Right" index="1"]
@@ -52,8 +61,10 @@ texture = ExtResource( 4 )
 [node name="Shadow Mask" parent="DepthSorter/Right" instance=ExtResource( 5 )]
 position = Vector2( 0, -141 )
 _z_pos = -278
+_height = 0
 _width = 260
 _length = 240
+_angle = 0
 
 [node name="CollisionPolygon2D" parent="DepthSorter/Right/Shadow Mask" index="0"]
 polygon = PoolVector2Array( -130, -120, 130, -120, 130, 120, -130, 120 )
@@ -74,6 +85,7 @@ shape = SubResource( 1 )
 
 [node name="Left" parent="DepthSorter" instance=ExtResource( 3 )]
 position = Vector2( 479, 333 )
+_z_pos = 0
 _height = 277
 
 [node name="GroundShape" parent="DepthSorter/Left" index="1"]
@@ -96,8 +108,10 @@ texture = ExtResource( 7 )
 [node name="Shadow Mask" parent="DepthSorter/Left" instance=ExtResource( 5 )]
 position = Vector2( -3, -137 )
 _z_pos = -277
+_height = 0
 _width = 320
 _length = 230
+_angle = 0
 
 [node name="CollisionPolygon2D" parent="DepthSorter/Left/Shadow Mask" index="0"]
 polygon = PoolVector2Array( -160, -115, 160, -115, 160, 115, -160, 115 )
@@ -118,6 +132,7 @@ shape = SubResource( 2 )
 
 [node name="Middle" parent="DepthSorter" instance=ExtResource( 3 )]
 position = Vector2( 858, 452 )
+_z_pos = 0
 _height = 36
 
 [node name="GroundShape" parent="DepthSorter/Middle" index="1"]
@@ -140,8 +155,10 @@ texture = ExtResource( 8 )
 [node name="Shadow Mask" parent="DepthSorter/Middle" instance=ExtResource( 5 )]
 position = Vector2( 2, -17 )
 _z_pos = -36
+_height = 0
 _width = 630
 _length = 230
+_angle = 0
 
 [node name="CollisionPolygon2D" parent="DepthSorter/Middle/Shadow Mask" index="0"]
 polygon = PoolVector2Array( -315, -115, 315, -115, 315, 115, -315, 115 )
@@ -217,8 +234,112 @@ body = NodePath("..")
 [node name="Bounding Box" parent="DepthSorter/StaticSlope2P5D/Depth Sort" index="0"]
 shape = SubResource( 4 )
 
+[node name="Platform1" parent="DepthSorter" instance=ExtResource( 3 )]
+position = Vector2( 687, 153 )
+_z_pos = -262
+_height = 15
+
+[node name="DistToGround" parent="DepthSorter/Platform1" index="0"]
+visible = true
+cast_to = Vector2( 0, 262 )
+
+[node name="GroundShape" parent="DepthSorter/Platform1" index="1"]
+position = Vector2( 0, 262 )
+polygon = PoolVector2Array( -15, -10, 25, -10, 18, 25, -26, 25 )
+
+[node name="TopShape" parent="DepthSorter/Platform1" index="2"]
+position = Vector2( 0, -15 )
+polygon = PoolVector2Array( -15, -10, 25, -10, 18, 25, -26, 25 )
+
+[node name="VolumeShape" parent="DepthSorter/Platform1" index="3"]
+polygon = PoolVector2Array( -26, -25, 25, -25, 25, 25, -26, 25 )
+
+[node name="BaseShape" parent="DepthSorter/Platform1" index="4"]
+polygon = PoolVector2Array( -15, -10, 25, -10, 18, 25, -26, 25 )
+polygons = [ PoolVector2Array( -15, -10, 25, -10, 18, 25, -26, 25 ) ]
+
+[node name="Sprite" type="Sprite" parent="DepthSorter/Platform1"]
+texture = ExtResource( 11 )
+
+[node name="Shadow Mask" parent="DepthSorter/Platform1" instance=ExtResource( 5 )]
+position = Vector2( 0, -10 )
+_z_pos = -277
+_height = 0
+_width = 60
+_length = 42
+_angle = 0
+
+[node name="CollisionPolygon2D" parent="DepthSorter/Platform1/Shadow Mask" index="0"]
+polygon = PoolVector2Array( -30, -21, 30, -21, 30, 21, -30, 21 )
+
+[node name="Base" parent="DepthSorter/Platform1/Shadow Mask" index="1"]
+polygon = PoolVector2Array( -30, -21, 30, -21, 30, 21, -30, 21 )
+polygons = [ PoolVector2Array( -30, -21, 30, -21, 30, 21, -30, 21 ) ]
+
+[node name="Rise" parent="DepthSorter/Platform1/Shadow Mask" index="2"]
+position = Vector2( 0, 21 )
+cast_to = Vector2( 0, -42 )
+
+[node name="Depth Sort" parent="DepthSorter/Platform1" instance=ExtResource( 6 )]
+body = NodePath("..")
+
+[node name="Bounding Box" parent="DepthSorter/Platform1/Depth Sort" index="0"]
+shape = SubResource( 5 )
+
+[node name="Platform 2" parent="DepthSorter" instance=ExtResource( 3 )]
+position = Vector2( 751, 206 )
+_z_pos = -262
+_height = 15
+
+[node name="DistToGround" parent="DepthSorter/Platform 2" index="0"]
+visible = true
+cast_to = Vector2( 0, 262 )
+
+[node name="GroundShape" parent="DepthSorter/Platform 2" index="1"]
+position = Vector2( 0, 262 )
+polygon = PoolVector2Array( -17, -12, 22, -12, 21, 27, -24, 27 )
+
+[node name="TopShape" parent="DepthSorter/Platform 2" index="2"]
+position = Vector2( 0, -15 )
+polygon = PoolVector2Array( -17, -12, 22, -12, 21, 27, -24, 27 )
+
+[node name="VolumeShape" parent="DepthSorter/Platform 2" index="3"]
+polygon = PoolVector2Array( -24, -27, 22, -27, 22, 27, -24, 27 )
+
+[node name="BaseShape" parent="DepthSorter/Platform 2" index="4"]
+polygon = PoolVector2Array( -17, -12, 22, -12, 21, 27, -24, 27 )
+polygons = [ PoolVector2Array( -17, -12, 22, -12, 21, 27, -24, 27 ) ]
+
+[node name="Sprite" type="Sprite" parent="DepthSorter/Platform 2"]
+texture = ExtResource( 12 )
+
+[node name="Shadow Mask" parent="DepthSorter/Platform 2" instance=ExtResource( 5 )]
+position = Vector2( 0, -7 )
+_z_pos = -277
+_height = 0
+_width = 50
+_length = 40
+_angle = 0
+
+[node name="CollisionPolygon2D" parent="DepthSorter/Platform 2/Shadow Mask" index="0"]
+polygon = PoolVector2Array( -25, -20, 25, -20, 25, 20, -25, 20 )
+
+[node name="Base" parent="DepthSorter/Platform 2/Shadow Mask" index="1"]
+polygon = PoolVector2Array( -25, -20, 25, -20, 25, 20, -25, 20 )
+polygons = [ PoolVector2Array( -25, -20, 25, -20, 25, 20, -25, 20 ) ]
+
+[node name="Rise" parent="DepthSorter/Platform 2/Shadow Mask" index="2"]
+position = Vector2( 0, 20 )
+cast_to = Vector2( 0, -40 )
+
+[node name="Depth Sort" parent="DepthSorter/Platform 2" instance=ExtResource( 6 )]
+body = NodePath("..")
+
+[node name="Bounding Box" parent="DepthSorter/Platform 2/Depth Sort" index="0"]
+shape = SubResource( 6 )
+
 [node name="Player" parent="DepthSorter" instance=ExtResource( 2 )]
-position = Vector2( 780.804, 236.653 )
+position = Vector2( 766, 196 )
 
 [editable path="DepthSorter/Right"]
 
@@ -243,3 +364,15 @@ position = Vector2( 780.804, 236.653 )
 [editable path="DepthSorter/StaticSlope2P5D/Shadow Mask"]
 
 [editable path="DepthSorter/StaticSlope2P5D/Depth Sort"]
+
+[editable path="DepthSorter/Platform1"]
+
+[editable path="DepthSorter/Platform1/Shadow Mask"]
+
+[editable path="DepthSorter/Platform1/Depth Sort"]
+
+[editable path="DepthSorter/Platform 2"]
+
+[editable path="DepthSorter/Platform 2/Shadow Mask"]
+
+[editable path="DepthSorter/Platform 2/Depth Sort"]

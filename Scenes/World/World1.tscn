@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Utils/Physics Bodies/StaticSlope2P5D.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Player2P5D/Player2P5D.tscn" type="PackedScene" id=2]
+
+[node name="World 1" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 487, 138 )
+
+[node name="StaticSlope2P5D" parent="." instance=ExtResource( 1 )]
+position = Vector2( 247, 152 )
+_z_pos = 0
+_height = 200
+_width = 100
+_length = 450
+_angle = 90
+
+[node name="GroundShape" parent="StaticSlope2P5D" index="1"]
+polygon = PoolVector2Array( -225, 50, -225, -50, 225, -50, 225, 50 )
+
+[node name="TopShape" parent="StaticSlope2P5D" index="2"]
+polygon = PoolVector2Array( -225, -150, -225, -250, 225, -50, 225, 50 )
+
+[node name="BaseShape" parent="StaticSlope2P5D" index="3"]
+polygon = PoolVector2Array( -225, 50, -225, -50, 225, -50, 225, 50 )
+
+[node name="VolumeShape" parent="StaticSlope2P5D" index="4"]
+polygon = PoolVector2Array( -225, 50, -225, -250, 225, -50, 225, 50 )
+
+[node name="Rise" parent="StaticSlope2P5D" index="5"]
+position = Vector2( 225, 1.37768e-14 )
+cast_to = Vector2( -450, -200 )
+
+[editable path="StaticSlope2P5D"]

@@ -1,0 +1,36 @@
+[gd_resource type="SpriteFrames" load_steps=12 format=2]
+
+[ext_resource path="res://Sprites/Fita/Idle/Idle_W.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Fita/Move/W/w1.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Fita/Move/W/w2.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Fita/Move/W/w5.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Fita/Move/W/w4.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/Fita/Move/W/w6.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Fita/Move/W/w8.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Fita/Move/W/w7.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/Fita/Move/W/w3.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/Fita/Jump/w.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/Fita/Fall/w.png" type="Texture" id=11]
+
+[resource]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": false,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 9 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 8 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "move",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 10 ) ],
+"loop": false,
+"name": "jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ) ],
+"loop": false,
+"name": "fall",
+"speed": 5.0
+} ]

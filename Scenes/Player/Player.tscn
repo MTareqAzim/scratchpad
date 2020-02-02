@@ -1,9 +1,7 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=25 format=2]
 
-[ext_resource path="res://Scenes/Player/player.gd" type="Script" id=1]
+[ext_resource path="res://Utils/Entity/entity.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Fita/shadow.png" type="Texture" id=2]
-[ext_resource path="res://Sprites/Fita_v2/fita_sprite.tres" type="SpriteFrames" id=3]
-[ext_resource path="res://Scenes/Player/player_sprite.gd" type="Script" id=4]
 [ext_resource path="res://Utils/Entity/Look Direction/look_direction.gd" type="Script" id=5]
 [ext_resource path="res://Utils/Action Buffer/action_buffer.gd" type="Script" id=6]
 [ext_resource path="res://Utils/Input Handler/player_input_handler.gd" type="Script" id=7]
@@ -15,6 +13,16 @@
 [ext_resource path="res://Scenes/Player/Component States/fall.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Scenes/Scratch/StatesStackDiplayer.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Utils/Shadow/shadow.gd" type="Script" id=15]
+[ext_resource path="res://Scenes/Input UI/InputUIBase.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Sprites/Fita/Animations/fita_e_animations.tres" type="SpriteFrames" id=17]
+[ext_resource path="res://Sprites/Fita/Animations/fita_w_animations.tres" type="SpriteFrames" id=18]
+[ext_resource path="res://Sprites/Fita/Animations/fita_nw_animations.tres" type="SpriteFrames" id=19]
+[ext_resource path="res://Sprites/Fita/Animations/fita_ne_animations.tres" type="SpriteFrames" id=20]
+[ext_resource path="res://Utils/Entity/eight_directional_sprite.gd" type="Script" id=21]
+[ext_resource path="res://Sprites/Fita/Animations/fita_n_animations.tres" type="SpriteFrames" id=26]
+[ext_resource path="res://Sprites/Fita/Animations/fita_s_animations.tres" type="SpriteFrames" id=30]
+[ext_resource path="res://Sprites/Fita/Animations/fita_se_animations.tres" type="SpriteFrames" id=31]
+[ext_resource path="res://Sprites/Fita/Animations/fita_sw_animations.tres" type="SpriteFrames" id=32]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 18, 12 )
@@ -22,8 +30,9 @@ extents = Vector2( 18, 12 )
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 2
 script = ExtResource( 1 )
+_height = 60
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Base" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
 [node name="Shadow" type="Sprite" parent="."]
@@ -34,16 +43,55 @@ body = NodePath("..")
 
 [node name="Z Pos" type="Node2D" parent="."]
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="Z Pos"]
-position = Vector2( 0, -36 )
-frames = ExtResource( 3 )
-animation = "idle_e"
-script = ExtResource( 4 )
-
 [node name="Camera2D" type="Camera2D" parent="Z Pos"]
 current = true
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
+
+[node name="Sprite" type="Node2D" parent="Z Pos"]
+position = Vector2( 0, -36 )
+script = ExtResource( 21 )
+initial_state = "idle"
+initial_direction = "e"
+
+[node name="E" type="AnimatedSprite" parent="Z Pos/Sprite"]
+frames = ExtResource( 17 )
+animation = "idle"
+
+[node name="N" type="AnimatedSprite" parent="Z Pos/Sprite"]
+visible = false
+frames = ExtResource( 26 )
+animation = "idle"
+
+[node name="NE" type="AnimatedSprite" parent="Z Pos/Sprite"]
+visible = false
+frames = ExtResource( 20 )
+animation = "idle"
+
+[node name="NW" type="AnimatedSprite" parent="Z Pos/Sprite"]
+visible = false
+frames = ExtResource( 19 )
+animation = "idle"
+
+[node name="S" type="AnimatedSprite" parent="Z Pos/Sprite"]
+visible = false
+frames = ExtResource( 30 )
+animation = "idle"
+
+[node name="SE" type="AnimatedSprite" parent="Z Pos/Sprite"]
+visible = false
+frames = ExtResource( 31 )
+animation = "idle"
+
+[node name="SW" type="AnimatedSprite" parent="Z Pos/Sprite"]
+visible = false
+frames = ExtResource( 32 )
+animation = "idle"
+
+[node name="W" type="AnimatedSprite" parent="Z Pos/Sprite"]
+visible = false
+frames = ExtResource( 18 )
+animation = "idle"
 
 [node name="Look" type="Node" parent="."]
 script = ExtResource( 5 )
@@ -114,5 +162,16 @@ layer = -1
 
 [node name="StatesStackDiplayer" parent="CanvasLayer" instance=ExtResource( 14 )]
 rect_scale = Vector2( 0.5, 0.5 )
-[connection signal="direction_changed" from="Look" to="Z Pos/AnimatedSprite" method="_on_Look_direction_changed"]
+
+[node name="InputUIBase" parent="CanvasLayer" instance=ExtResource( 16 )]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -163.0
+margin_top = -81.0
+margin_right = -99.0
+margin_bottom = -17.0
+[connection signal="direction_changed" from="Look" to="Z Pos/Sprite" method="_on_Look_direction_changed"]
+[connection signal="state_changed" from="State Machine" to="Z Pos/Sprite" method="_on_State_Machine_state_changed"]
 [connection signal="states_stack_changed" from="State Machine" to="CanvasLayer/StatesStackDiplayer" method="_on_State_Machine_states_stack_changed"]

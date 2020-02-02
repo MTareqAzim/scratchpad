@@ -160,7 +160,8 @@ func _collide_with_ceiling(velocity: Vector3, delta: float) -> Vector3:
 				for collision_shape in collision.get_base_shapes(collision_z_pos):
 					var collision_points = _get_base_collision_points(Vector2(), collision_shape, collision_transform, height_diff)
 					if collision_points.size() > 3:
-						new_velocity = Vector3(velocity.x, velocity.y, 0)
+						if future_top_z_pos > collision.get_top_z_pos(collision_points):
+							new_velocity = Vector3(velocity.x, velocity.y, 0)
 	
 	return new_velocity
 
