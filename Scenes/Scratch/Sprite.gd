@@ -2,28 +2,28 @@ extends KinematicBody2D
 
 const SPEED = 200
 
+var direction = Vector2()
 var motion = Vector2()
-var facing_right = true
+
 
 func _physics_process(delta):
-	var x_strength = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+	direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+	direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	
-	if Input.is_action_just_pressed("ui_right"):
-		facing_right = true
-	elif Input.is_action_just_pressed("ui_left"):
-		facing_right = false
-	else:
-		if x_strength > 0 and not facing_right:
-			facing_right = true
-		elif x_strength < 0 and facing_right:
-			facing_right = false
+	motion = direction.normalized() * SPEED
 	
-	if facing_right and Input.is_action_pressed("ui_right"):
-		motion.x = SPEED
-	elif not facing_right and Input.is_action_pressed("ui_left"):
-		motion.x = -SPEED
-	else:
-		motion.x = 0
-	
-	
-	motion = move_and_slide(motion)
+	var collision : KinematicCollision2D = move_and_collide(motion * delta)
+	if collision:
+		while collision:
+			#Do something with the collision object
+			var collided_object = collision.get_collider()
+			
+			#Collision resolution
+			var collided_normal = collision.get_normal().normalized()
+			var remainder = collision.get_remainder()
+			var component_vector = collided_normal * remainder.dot(collided_normal)
+			var resolution_vector = remainder - component_vector
+			if resolution_vector == Vector2.ZERO:
+				collision = null
+			else:
+				collision = move_and_collide(resolution_vector)

@@ -1,0 +1,177 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/Player2P5D/Player2P5D.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Sprites/Waiting Room/room.png" type="Texture" id=2]
+[ext_resource path="res://Utils/Physics Bodies/StaticWall2P5D.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Utils/Shadow/ShadowMask.tscn" type="PackedScene" id=4]
+
+[node name="Waiting Room" type="Node2D"]
+
+[node name="Room" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Top Left" parent="Room" instance=ExtResource( 3 )]
+visible = false
+position = Vector2( 301, 306 )
+_z_pos = 0
+_height = 500
+
+[node name="GroundShape" parent="Room/Top Left" index="1"]
+polygon = PoolVector2Array( 310, -179, 346, -159, -320, 177, -347, 152 )
+
+[node name="TopShape" parent="Room/Top Left" index="2"]
+position = Vector2( 0, -500 )
+polygon = PoolVector2Array( 310, -179, 346, -159, -320, 177, -347, 152 )
+
+[node name="VolumeShape" parent="Room/Top Left" index="3"]
+polygon = PoolVector2Array( -347, -679, 346, -679, 346, 177, -347, 177 )
+
+[node name="BaseShape" parent="Room/Top Left" index="4"]
+polygon = PoolVector2Array( 310, -179, 346, -159, -320, 177, -347, 152 )
+polygons = [ PoolVector2Array( 310, -179, 346, -159, -320, 177, -347, 152 ) ]
+
+[node name="Top Right" parent="Room" instance=ExtResource( 3 )]
+visible = false
+position = Vector2( 807, 239 )
+_z_pos = 0
+_height = 500
+
+[node name="GroundShape" parent="Room/Top Right" index="1"]
+polygon = PoolVector2Array( -197, -116, 255, 117, 238, 138, -221, -90 )
+
+[node name="TopShape" parent="Room/Top Right" index="2"]
+position = Vector2( 0, -500 )
+polygon = PoolVector2Array( -197, -116, 255, 117, 238, 138, -221, -90 )
+
+[node name="VolumeShape" parent="Room/Top Right" index="3"]
+polygon = PoolVector2Array( -221, -616, 255, -616, 255, 138, -221, 138 )
+
+[node name="BaseShape" parent="Room/Top Right" index="4"]
+polygon = PoolVector2Array( -197, -116, 255, 117, 238, 138, -221, -90 )
+polygons = [ PoolVector2Array( -197, -116, 255, 117, 238, 138, -221, -90 ) ]
+
+[node name="Bottom Left" parent="Room" instance=ExtResource( 3 )]
+visible = false
+position = Vector2( 164, 593 )
+_z_pos = 0
+_height = 500
+
+[node name="GroundShape" parent="Room/Bottom Left" index="1"]
+polygon = PoolVector2Array( -206, -132, 296, 123, 262, 146, -230, -96 )
+
+[node name="TopShape" parent="Room/Bottom Left" index="2"]
+position = Vector2( 0, -500 )
+polygon = PoolVector2Array( -206, -132, 296, 123, 262, 146, -230, -96 )
+
+[node name="VolumeShape" parent="Room/Bottom Left" index="3"]
+polygon = PoolVector2Array( -230, -632, 296, -632, 296, 146, -230, 146 )
+
+[node name="BaseShape" parent="Room/Bottom Left" index="4"]
+polygon = PoolVector2Array( -206, -132, 296, 123, 262, 146, -230, -96 )
+polygons = [ PoolVector2Array( -206, -132, 296, 123, 262, 146, -230, -96 ) ]
+
+[node name="Bottom Right" parent="Room" instance=ExtResource( 3 )]
+visible = false
+position = Vector2( 758, 539 )
+_z_pos = 0
+_height = 500
+
+[node name="GroundShape" parent="Room/Bottom Right" index="1"]
+polygon = PoolVector2Array( -382, 183, 324, -171, 371, -141, -341, 205 )
+
+[node name="TopShape" parent="Room/Bottom Right" index="2"]
+position = Vector2( 0, -500 )
+polygon = PoolVector2Array( -382, 183, 324, -171, 371, -141, -341, 205 )
+
+[node name="VolumeShape" parent="Room/Bottom Right" index="3"]
+polygon = PoolVector2Array( -382, -671, 371, -671, 371, 205, -382, 205 )
+
+[node name="BaseShape" parent="Room/Bottom Right" index="4"]
+polygon = PoolVector2Array( -382, 183, 324, -171, 371, -141, -341, 205 )
+polygons = [ PoolVector2Array( -382, 183, 324, -171, 371, -141, -341, 205 ) ]
+
+[node name="Shadow Mask" parent="Room" instance=ExtResource( 4 )]
+position = Vector2( 512, 430 )
+_z_pos = 0
+_height = 0
+_width = 1100
+_length = 550
+_angle = 0
+
+[node name="CollisionPolygon2D" parent="Room/Shadow Mask" index="0"]
+visible = false
+polygon = PoolVector2Array( -550, -275, 550, -275, 550, 275, -550, 275 )
+
+[node name="Base" parent="Room/Shadow Mask" index="1"]
+polygon = PoolVector2Array( -550, -275, 550, -275, 550, 275, -550, 275 )
+polygons = [ PoolVector2Array( -550, -275, 550, -275, 550, 275, -550, 275 ) ]
+
+[node name="Rise" parent="Room/Shadow Mask" index="2"]
+position = Vector2( 0, 275 )
+cast_to = Vector2( 0, -550 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 301, 468 )
+
+[node name="Idle" parent="Player/State Machine" index="0"]
+dependencies = {
+"body": NodePath("../.."),
+"input": NodePath("../../Input"),
+"look": NodePath("../../Look")
+}
+variables = {
+"max_speed": 250
+}
+
+[node name="Move" parent="Player/State Machine" index="1"]
+dependencies = {
+"body": NodePath("../.."),
+"input": NodePath("../../Input"),
+"look": NodePath("../../Look")
+}
+variables = {
+"max_speed": 250
+}
+
+[node name="Jump" parent="Player/State Machine" index="2"]
+dependencies = {
+"body": NodePath("../.."),
+"input": NodePath("../../Input"),
+"look": NodePath("../../Look")
+}
+variables = {
+"jump_duration": 0.35,
+"max_jump_height": 100,
+"max_speed": 250,
+"min_jump_height": 50
+}
+
+[node name="Fall" parent="Player/State Machine" index="3"]
+dependencies = {
+"body": NodePath("../.."),
+"input": NodePath("../../Input"),
+"look": NodePath("../../Look")
+}
+variables = {
+"gravity": 2000,
+"max_speed": 250
+}
+
+[node name="Camera2D" parent="Player" index="9"]
+limit_left = -40
+limit_top = -40
+limit_right = 1080
+limit_bottom = 720
+
+[editable path="Room/Top Left"]
+
+[editable path="Room/Top Right"]
+
+[editable path="Room/Bottom Left"]
+
+[editable path="Room/Bottom Right"]
+
+[editable path="Room/Shadow Mask"]
+
+[editable path="Player"]
