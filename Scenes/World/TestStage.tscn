@@ -39,7 +39,6 @@ script = ExtResource( 1 )
 
 [node name="Right" parent="DepthSorter" instance=ExtResource( 3 )]
 position = Vector2( 1194, 333 )
-_z_pos = 0
 _height = 278
 
 [node name="GroundShape" parent="DepthSorter/Right" index="1"]
@@ -59,30 +58,26 @@ polygons = [ PoolVector2Array( -128, 27, -17, 27, 127, 250, -29, 250 ) ]
 [node name="Sprite" type="Sprite" parent="DepthSorter/Right"]
 texture = ExtResource( 4 )
 
-[node name="Shadow Mask" parent="DepthSorter/Right" instance=ExtResource( 5 )]
-position = Vector2( 0, -141 )
-_z_pos = -278
-
-[node name="CollisionPolygon2D" parent="DepthSorter/Right/Shadow Mask" index="0"]
-polygon = PoolVector2Array( -130, -120, 130, -120, 130, 120, -130, 120 )
-
-[node name="Base" parent="DepthSorter/Right/Shadow Mask" index="1"]
-polygon = PoolVector2Array( -130, -120, 130, -120, 130, 120, -130, 120 )
-polygons = [ PoolVector2Array( -130, -120, 130, -120, 130, 120, -130, 120 ) ]
-
-[node name="Rise" parent="DepthSorter/Right/Shadow Mask" index="2"]
-position = Vector2( 0, 120 )
-cast_to = Vector2( 0, -240 )
-
 [node name="Depth Sort" parent="DepthSorter/Right" instance=ExtResource( 6 )]
 body = NodePath("..")
 
 [node name="Bounding Box" parent="DepthSorter/Right/Depth Sort" index="0"]
 shape = SubResource( 1 )
 
+[node name="Shadow Flat Mask" parent="DepthSorter/Right" instance=ExtResource( 13 )]
+position = Vector2( -19, -147 )
+_z_pos = -278
+
+[node name="CollisionPolygon2D" parent="DepthSorter/Right/Shadow Flat Mask" index="0"]
+polygon = PoolVector2Array( -111, -106, 2, -106, 148, 121, -10, 123 )
+
+[node name="Base" parent="DepthSorter/Right/Shadow Flat Mask" index="1"]
+visible = false
+polygon = PoolVector2Array( -111, -106, 2, -106, 148, 121, -10, 123 )
+polygons = [ PoolVector2Array( -111, -106, 2, -106, 148, 121, -10, 123 ) ]
+
 [node name="Left" parent="DepthSorter" instance=ExtResource( 3 )]
 position = Vector2( 479, 333 )
-_z_pos = 0
 _height = 277
 
 [node name="GroundShape" parent="DepthSorter/Left" index="1"]
@@ -122,7 +117,6 @@ polygons = [ PoolVector2Array( -26, -104, 139, -104, 63, 121, -172, 120 ) ]
 
 [node name="Middle" parent="DepthSorter" instance=ExtResource( 3 )]
 position = Vector2( 858, 452 )
-_z_pos = 0
 _height = 36
 
 [node name="GroundShape" parent="DepthSorter/Middle" index="1"]
@@ -142,26 +136,22 @@ polygons = [ PoolVector2Array( -222, -95, 203, -95, 307, 131, -299, 131 ) ]
 [node name="Sprite" type="Sprite" parent="DepthSorter/Middle"]
 texture = ExtResource( 8 )
 
-[node name="Shadow Mask" parent="DepthSorter/Middle" instance=ExtResource( 5 )]
-position = Vector2( 2, -17 )
-_z_pos = -36
-
-[node name="CollisionPolygon2D" parent="DepthSorter/Middle/Shadow Mask" index="0"]
-polygon = PoolVector2Array( -315, -115, 315, -115, 315, 115, -315, 115 )
-
-[node name="Base" parent="DepthSorter/Middle/Shadow Mask" index="1"]
-polygon = PoolVector2Array( -315, -115, 315, -115, 315, 115, -315, 115 )
-polygons = [ PoolVector2Array( -315, -115, 315, -115, 315, 115, -315, 115 ) ]
-
-[node name="Rise" parent="DepthSorter/Middle/Shadow Mask" index="2"]
-position = Vector2( 0, 115 )
-cast_to = Vector2( 0, -230 )
-
 [node name="Depth Sort" parent="DepthSorter/Middle" instance=ExtResource( 6 )]
 body = NodePath("../../Middle")
 
 [node name="Bounding Box" parent="DepthSorter/Middle/Depth Sort" index="0"]
 shape = SubResource( 3 )
+
+[node name="Shadow Flat Mask" parent="DepthSorter/Middle" instance=ExtResource( 13 )]
+_z_pos = -36
+
+[node name="CollisionPolygon2D" parent="DepthSorter/Middle/Shadow Flat Mask" index="0"]
+polygon = PoolVector2Array( -221, -133, 206, -132, 308, 98, -300, 94 )
+
+[node name="Base" parent="DepthSorter/Middle/Shadow Flat Mask" index="1"]
+visible = false
+polygon = PoolVector2Array( -221, -133, 206, -132, 308, 98, -300, 94 )
+polygons = [ PoolVector2Array( -221, -133, 206, -132, 308, 98, -300, 94 ) ]
 
 [node name="StaticSlope2P5D" parent="DepthSorter" instance=ExtResource( 9 )]
 position = Vector2( 784, 507 )
@@ -230,6 +220,7 @@ visible = true
 cast_to = Vector2( 0, 262 )
 
 [node name="GroundShape" parent="DepthSorter/Platform1" index="1"]
+visible = false
 position = Vector2( 0, 262 )
 polygon = PoolVector2Array( -15, -10, 25, -10, 18, 25, -26, 25 )
 
@@ -278,6 +269,7 @@ visible = true
 cast_to = Vector2( 0, 262 )
 
 [node name="GroundShape" parent="DepthSorter/Platform 2" index="1"]
+visible = false
 position = Vector2( 0, 262 )
 polygon = PoolVector2Array( -17, -12, 22, -12, 21, 27, -24, 27 )
 
@@ -317,16 +309,16 @@ body = NodePath("..")
 shape = SubResource( 6 )
 
 [node name="Player" parent="DepthSorter" instance=ExtResource( 2 )]
-position = Vector2( 766, 196 )
+position = Vector2( 495, 206 )
 MAX_SPEED = 1000
 GRAVITY = 980
-_z_pos = 0
+_z_pos = -280
 
 [editable path="DepthSorter/Right"]
 
-[editable path="DepthSorter/Right/Shadow Mask"]
-
 [editable path="DepthSorter/Right/Depth Sort"]
+
+[editable path="DepthSorter/Right/Shadow Flat Mask"]
 
 [editable path="DepthSorter/Left"]
 
@@ -336,9 +328,9 @@ _z_pos = 0
 
 [editable path="DepthSorter/Middle"]
 
-[editable path="DepthSorter/Middle/Shadow Mask"]
-
 [editable path="DepthSorter/Middle/Depth Sort"]
+
+[editable path="DepthSorter/Middle/Shadow Flat Mask"]
 
 [editable path="DepthSorter/StaticSlope2P5D"]
 

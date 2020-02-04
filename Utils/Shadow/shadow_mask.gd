@@ -11,17 +11,20 @@ export (int) var _z_pos := 0 setget _set_z_pos, get_z_pos
 onready var _base : CompositePolygon2D = $Base
 
 var _shadows_to_draw : Dictionary = {}
+var _previous_shadows : Dictionary = {}
 
 
 func _draw() -> void:
-	for texture in _shadows_to_draw:
-		var texture_rect = _shadows_to_draw[texture]
+	for texture in _previous_shadows:
+		var texture_rect = _previous_shadows[texture]
 		draw_texture_rect(texture, texture_rect, false, SHADOW_OPACTIY)
 
 
 func _physics_process(delta: float) -> void:
+	_previous_shadows = _shadows_to_draw.duplicate()
 	_shadows_to_draw.clear()
-	update()
+	if _previous_shadows.size() == 0 and _shadows_to_draw.size() == 0:
+		update()
 
 
 func get_class() -> String:

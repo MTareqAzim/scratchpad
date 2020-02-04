@@ -6,7 +6,6 @@ const ALPHA_SEVENTY_FIVE = Color(1, 1, 1, 0.75)
 export (NodePath) var body
 
 onready var _body : Node2D = get_node(body) setget _set_body, get_body
-onready var _body_modulate : Color = _body.get_modulate()
 
 
 func get_body() -> Node2D:
