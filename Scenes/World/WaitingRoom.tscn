@@ -3,7 +3,7 @@
 [ext_resource path="res://Scenes/Player2P5D/Player2P5D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Sprites/Waiting Room/room.png" type="Texture" id=2]
 [ext_resource path="res://Utils/Physics Bodies/StaticWall2P5D.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Utils/Shadow/ShadowMask.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Utils/Shadow/ShadowFlatMask.tscn" type="PackedScene" id=4]
 
 [node name="Waiting Room" type="Node2D"]
 
@@ -91,28 +91,23 @@ polygon = PoolVector2Array( -382, -671, 371, -671, 371, 205, -382, 205 )
 polygon = PoolVector2Array( -382, 183, 324, -171, 371, -141, -341, 205 )
 polygons = [ PoolVector2Array( -382, 183, 324, -171, 371, -141, -341, 205 ) ]
 
-[node name="Shadow Mask" parent="Room" instance=ExtResource( 4 )]
-position = Vector2( 512, 430 )
-_z_pos = 0
-_height = 0
-_width = 1100
-_length = 550
-_angle = 0
+[node name="Shadow Flat Mask" parent="Room" instance=ExtResource( 4 )]
+position = Vector2( 519, 396 )
 
-[node name="CollisionPolygon2D" parent="Room/Shadow Mask" index="0"]
+[node name="CollisionPolygon2D" parent="Room/Shadow Flat Mask" index="0"]
 visible = false
-polygon = PoolVector2Array( -550, -275, 550, -275, 550, 275, -550, 275 )
+polygon = PoolVector2Array( 98, -224, 509, -18, -98, 286, -510, 80 )
 
-[node name="Base" parent="Room/Shadow Mask" index="1"]
-polygon = PoolVector2Array( -550, -275, 550, -275, 550, 275, -550, 275 )
-polygons = [ PoolVector2Array( -550, -275, 550, -275, 550, 275, -550, 275 ) ]
-
-[node name="Rise" parent="Room/Shadow Mask" index="2"]
-position = Vector2( 0, 275 )
-cast_to = Vector2( 0, -550 )
+[node name="Base" parent="Room/Shadow Flat Mask" index="1"]
+visible = false
+polygon = PoolVector2Array( 98, -224, 509, -18, -98, 286, -510, 80 )
+polygons = [ PoolVector2Array( 98, -224, 509, -18, -98, 286, -510, 80 ) ]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 301, 468 )
+MAX_SPEED = 1000
+GRAVITY = 980
+_z_pos = 0
 
 [node name="Idle" parent="Player/State Machine" index="0"]
 dependencies = {
@@ -172,6 +167,6 @@ limit_bottom = 720
 
 [editable path="Room/Bottom Right"]
 
-[editable path="Room/Shadow Mask"]
+[editable path="Room/Shadow Flat Mask"]
 
 [editable path="Player"]
