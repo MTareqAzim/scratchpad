@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Utils/Shadow/shadow_2d.gd" type="Script" id=1]
+[ext_resource path="res://Utils/Depth Sorting/DepthSort.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Utils/Physics Bodies/StaticWall2P5D.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Utils/Shadow/ShadowFlatMask.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Sprites/Waiting Room/Chairs/nw.png" type="Texture" id=5]
+
+[sub_resource type="StreamTexture" id=2]
+resource_local_to_scene = true
+load_path = "res://.import/shadow.png-fad8a6c193ec9e6984174709a445a6a4.stex"
+
+[sub_resource type="RectangleShape2D" id=1]
+resource_local_to_scene = true
+extents = Vector2( 20, 33 )
+
+[node name="Chair NW" instance=ExtResource( 3 )]
+_height = 42
+
+[node name="GroundShape" parent="." index="1"]
+visible = false
+polygon = PoolVector2Array( -19, 0, 0, -10, 19, 0, 0, 9 )
+
+[node name="TopShape" parent="." index="2"]
+visible = false
+position = Vector2( 0, -42 )
+polygon = PoolVector2Array( -19, 0, 0, -10, 19, 0, 0, 9 )
+
+[node name="VolumeShape" parent="." index="3"]
+polygon = PoolVector2Array( -19, -52, 19, -52, 19, 9, -19, 9 )
+
+[node name="BaseShape" parent="." index="4"]
+visible = false
+polygon = PoolVector2Array( -19, 0, 0, -10, 19, 0, 0, 9 )
+polygons = [ PoolVector2Array( -19, 0, 0, -10, 19, 0, 0, 9 ) ]
+
+[node name="Shadow2D" type="Node2D" parent="." index="5"]
+script = ExtResource( 1 )
+body = NodePath("..")
+texture = SubResource( 2 )
+shadow_mask_layer = 3
+
+[node name="Sprite" type="Sprite" parent="." index="6"]
+position = Vector2( 0, -16 )
+texture = ExtResource( 5 )
+
+[node name="Shadow Flat Mask" parent="." index="7" instance=ExtResource( 4 )]
+position = Vector2( 0, -19 )
+_z_pos = -42
+
+[node name="CollisionPolygon2D" parent="Shadow Flat Mask" index="0"]
+polygon = PoolVector2Array( -19, -22, 0, -31, 19, -21, 0, -12 )
+
+[node name="Base" parent="Shadow Flat Mask" index="1"]
+visible = false
+polygon = PoolVector2Array( -19, -22, 0, -31, 19, -21, 0, -12 )
+polygons = [ PoolVector2Array( -19, -22, 0, -31, 19, -21, 0, -12 ) ]
+
+[node name="Depth Sort" parent="." index="8" instance=ExtResource( 2 )]
+position = Vector2( 0, -20 )
+body = NodePath("../../Chair NW")
+
+[node name="Bounding Box" parent="Depth Sort" index="0"]
+shape = SubResource( 1 )
+
+[editable path="Shadow Flat Mask"]
+
+[editable path="Depth Sort"]

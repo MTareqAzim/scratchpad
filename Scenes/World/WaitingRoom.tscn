@@ -91,6 +91,7 @@ polygons = [ PoolVector2Array( -382, 183, 324, -171, 371, -141, -341, 205 ) ]
 
 [node name="Shadow Flat Mask" parent="Room" instance=ExtResource( 4 )]
 position = Vector2( 519, 396 )
+_z_pos = 0
 
 [node name="CollisionPolygon2D" parent="Room/Shadow Flat Mask" index="0"]
 visible = false
@@ -106,18 +107,15 @@ script = ExtResource( 5 )
 
 [node name="Player" parent="DepthSorter" instance=ExtResource( 1 )]
 position = Vector2( 301, 468 )
-MAX_SPEED = 1000
-GRAVITY = 980
-_z_pos = 0
 
 [node name="Table" parent="DepthSorter" instance=ExtResource( 6 )]
-position = Vector2( 460, 432 )
+position = Vector2( 443, 505 )
 
 [node name="Table2" parent="DepthSorter" instance=ExtResource( 6 )]
-position = Vector2( 537, 306 )
+position = Vector2( 538, 373 )
 
 [node name="Table3" parent="DepthSorter" instance=ExtResource( 6 )]
-position = Vector2( 758, 388 )
+position = Vector2( 790, 368 )
 
 [editable path="Room/Top Left"]
 
