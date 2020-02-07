@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scenes/Player2P5D/Player2P5D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Sprites/Waiting Room/room.png" type="Texture" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://Utils/Shadow/ShadowFlatMask.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Utils/Depth Sorting/depth_sorter.gd" type="Script" id=5]
 [ext_resource path="res://Scenes/Furniture/Table.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Furniture/Bench.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Sprites/Waiting Room/board.png" type="Texture" id=8]
 
 [node name="Waiting Room" type="Node2D"]
 
@@ -91,7 +93,6 @@ polygons = [ PoolVector2Array( -382, 183, 324, -171, 371, -141, -341, 205 ) ]
 
 [node name="Shadow Flat Mask" parent="Room" instance=ExtResource( 4 )]
 position = Vector2( 519, 396 )
-_z_pos = 0
 
 [node name="CollisionPolygon2D" parent="Room/Shadow Flat Mask" index="0"]
 visible = false
@@ -102,6 +103,29 @@ visible = false
 polygon = PoolVector2Array( 98, -224, 509, -18, -98, 286, -510, 80 )
 polygons = [ PoolVector2Array( 98, -224, 509, -18, -98, 286, -510, 80 ) ]
 
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 350, 243 )
+texture = ExtResource( 8 )
+
+[node name="StaticWall2P5D" parent="Sprite" instance=ExtResource( 3 )]
+visible = false
+position = Vector2( 0, 67 )
+_height = 500
+
+[node name="GroundShape" parent="Sprite/StaticWall2P5D" index="1"]
+polygon = PoolVector2Array( -80, 34, 73, -41, 84, -37, -68, 38 )
+
+[node name="TopShape" parent="Sprite/StaticWall2P5D" index="2"]
+position = Vector2( 0, -500 )
+polygon = PoolVector2Array( -80, 34, 73, -41, 84, -37, -68, 38 )
+
+[node name="VolumeShape" parent="Sprite/StaticWall2P5D" index="3"]
+polygon = PoolVector2Array( -80, -541, 84, -541, 84, 38, -80, 38 )
+
+[node name="BaseShape" parent="Sprite/StaticWall2P5D" index="4"]
+polygon = PoolVector2Array( -80, 34, 73, -41, 84, -37, -68, 38 )
+polygons = [ PoolVector2Array( -80, 34, 73, -41, 84, -37, -68, 38 ) ]
+
 [node name="DepthSorter" type="Node2D" parent="."]
 script = ExtResource( 5 )
 
@@ -109,13 +133,19 @@ script = ExtResource( 5 )
 position = Vector2( 301, 468 )
 
 [node name="Table" parent="DepthSorter" instance=ExtResource( 6 )]
-position = Vector2( 443, 505 )
+position = Vector2( 434, 512 )
 
 [node name="Table2" parent="DepthSorter" instance=ExtResource( 6 )]
-position = Vector2( 538, 373 )
+position = Vector2( 524, 376 )
 
 [node name="Table3" parent="DepthSorter" instance=ExtResource( 6 )]
-position = Vector2( 790, 368 )
+position = Vector2( 770, 361 )
+
+[node name="Bench" parent="DepthSorter" instance=ExtResource( 7 )]
+position = Vector2( 215, 379 )
+
+[node name="Bench2" parent="DepthSorter" instance=ExtResource( 7 )]
+position = Vector2( 494, 239 )
 
 [editable path="Room/Top Left"]
 
@@ -126,3 +156,5 @@ position = Vector2( 790, 368 )
 [editable path="Room/Bottom Right"]
 
 [editable path="Room/Shadow Flat Mask"]
+
+[editable path="Sprite/StaticWall2P5D"]

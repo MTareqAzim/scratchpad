@@ -2,33 +2,33 @@
 
 [ext_resource path="res://Scenes/Scratch/Sprite.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/wall.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 32, 32 )
-
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 76.9638, 70.8661 )
+extents = Vector2( 8, 8 )
 
 [node name="World" type="Node2D"]
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
-position = Vector2( 456, 265 )
+position = Vector2( 87, 54 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="Sprite" type="Sprite" parent="KinematicBody2D"]
+scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
 shape = SubResource( 1 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2( 223.721, 144.388 )
-__meta__ = {
-"_edit_group_": true
-}
+position = Vector2( 36, 25 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource( 2 )
+[node name="Sprite" type="Sprite" parent="StaticBody2D"]
+texture = ExtResource( 3 )
+centered = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PoolVector2Array( 0.999985, 15, 7.99998, 16, 15, 15, 16, 8, 15, 1, 7.99998, 0, 0.999985, 1, -1.52588e-05, 8 )

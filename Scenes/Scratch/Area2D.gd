@@ -53,4 +53,10 @@ func _get_collision_points_with_shape(other_shape: Shape2D, other_global_transfo
 
 
 func _on_Area2D_body_entered(body):
-	print("entered")
+	#print("entered")
+	pass
+
+
+func _on_Area2D_body_shape_entered(body_id, body, body_shape, area_shape):
+	var shape = body.shape_owner_get_owner(body.shape_find_owner(body_shape))
+	print(shape)

@@ -241,10 +241,6 @@ texture = ExtResource( 11 )
 [node name="Shadow Mask" parent="DepthSorter/Platform1" instance=ExtResource( 5 )]
 position = Vector2( 0, -10 )
 _z_pos = -277
-_height = 0
-_width = 20
-_length = 20
-_angle = 0
 
 [node name="CollisionPolygon2D" parent="DepthSorter/Platform1/Shadow Mask" index="0"]
 polygon = PoolVector2Array( -30, -21, 30, -21, 30, 21, -30, 21 )
@@ -294,10 +290,6 @@ texture = ExtResource( 12 )
 [node name="Shadow Mask" parent="DepthSorter/Platform 2" instance=ExtResource( 5 )]
 position = Vector2( 0, -7 )
 _z_pos = -277
-_height = 0
-_width = 20
-_length = 20
-_angle = 0
 
 [node name="CollisionPolygon2D" parent="DepthSorter/Platform 2/Shadow Mask" index="0"]
 polygon = PoolVector2Array( -25, -20, 25, -20, 25, 20, -25, 20 )
