@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Utils/Physics Bodies/KinematicBody2P5D.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Sprites/Waiting Room/foliage-plant_1.png" type="Texture" id=2]
+[ext_resource path="res://Utils/Depth Sorting/DepthSort.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Utils/Shadow/shadow_2d.gd" type="Script" id=4]
+[ext_resource path="res://Sprites/Fita/shadow.png" type="Texture" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 48 )
+
+[node name="TA" instance=ExtResource( 1 )]
+_height = 60
+
+[node name="VolumeShape" parent="." index="0"]
+position = Vector2( 0, -30 )
+
+[node name="BaseShape" parent="." index="2"]
+visible = false
+
+[node name="Shadow2D" type="Node2D" parent="." index="3"]
+script = ExtResource( 4 )
+body = NodePath("..")
+texture = ExtResource( 5 )
+shadow_mask_layer = 3
+
+[node name="Sprite" type="Sprite" parent="." index="4"]
+position = Vector2( 0, -39 )
+texture = ExtResource( 2 )
+
+[node name="Depth Sort" parent="." index="5" instance=ExtResource( 3 )]
+position = Vector2( 0, -30 )
+body = NodePath("..")
+
+[node name="Bounding Box" parent="Depth Sort" index="0"]
+shape = SubResource( 1 )
+
+[editable path="Depth Sort"]
