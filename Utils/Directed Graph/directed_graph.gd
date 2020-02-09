@@ -79,3 +79,13 @@ func indegree(vertex: int) -> int:
 
 func _validate_vertex(vertex: int) -> bool:
 	return vertex < 0 or vertex >= _number_of_vertices
+
+
+func _to_string() -> String:
+	var digraph_string = ""
+	
+	for index in _adjacent.size():
+		digraph_string += String(index) + ": " + String(_adjacent[index])
+		digraph_string += "\n"
+	
+	return digraph_string

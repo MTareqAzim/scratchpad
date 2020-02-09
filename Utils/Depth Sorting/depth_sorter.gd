@@ -34,8 +34,8 @@ func _calculate_graph() -> DirectedGraph:
 		var depth_sort = _depth_sorts[vertex]
 		for other_depth_sort in depth_sort.get_overlapping_depth_sorts():
 			if depth_sort.in_front_of(other_depth_sort):
-				var vertex_to = _depth_sorts.find(other_depth_sort)
-				digraph.add_edge(vertex, vertex_to)
+				var vertex_from = _depth_sorts.find(other_depth_sort)
+				digraph.add_edge(vertex_from, vertex)
 	
 	var tarjan = TarjanAlgorithm.new(digraph)
 	var strongly_connected_components = tarjan.get_strongly_connected_components()
@@ -45,7 +45,8 @@ func _calculate_graph() -> DirectedGraph:
 		if scc.size() > 1:
 			cycles.append(scc)
 	
-	for cycle in cycles:
+	while cycles.size() > 0:
+		var cycle = cycles.pop_front()
 		var vertex_to = cycle[0]
 		for vertex in cycle:
 			vertex_to = max(vertex_to, vertex)
@@ -58,7 +59,6 @@ func _calculate_graph() -> DirectedGraph:
 
 func _calculate_z_indexes() -> Array:
 	var z_indexes = DirectedGraphSorter.kahn_sort(_depth_graph)
-	z_indexes.invert()
 	
 	return z_indexes
 

@@ -25,5 +25,9 @@ func assign_variables() -> void:
 
 
 func _move_2d(direction: Vector2, speed: int) -> void:
-	var velocity_2d = direction.normalized() * speed
+	var isometric_direction = direction
+	isometric_direction.y = isometric_direction.y / 2
+	
+	var velocity_2d = isometric_direction.normalized() * speed
+	
 	_body.set_velocity_2d(velocity_2d)

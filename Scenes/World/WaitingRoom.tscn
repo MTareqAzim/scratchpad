@@ -129,23 +129,23 @@ polygons = [ PoolVector2Array( -80, 34, 73, -41, 84, -37, -68, 38 ) ]
 [node name="DepthSorter" type="Node2D" parent="."]
 script = ExtResource( 5 )
 
-[node name="Player" parent="DepthSorter" instance=ExtResource( 1 )]
-position = Vector2( 301, 468 )
-
-[node name="Table" parent="DepthSorter" instance=ExtResource( 6 )]
-position = Vector2( 434, 512 )
-
-[node name="Table2" parent="DepthSorter" instance=ExtResource( 6 )]
-position = Vector2( 524, 376 )
-
-[node name="Table3" parent="DepthSorter" instance=ExtResource( 6 )]
-position = Vector2( 770, 361 )
-
 [node name="Bench" parent="DepthSorter" instance=ExtResource( 7 )]
 position = Vector2( 215, 379 )
 
 [node name="Bench2" parent="DepthSorter" instance=ExtResource( 7 )]
 position = Vector2( 494, 239 )
+
+[node name="Table" parent="DepthSorter" instance=ExtResource( 6 )]
+position = Vector2( 424, 523 )
+
+[node name="Table2" parent="DepthSorter" instance=ExtResource( 6 )]
+position = Vector2( 517, 382 )
+
+[node name="Table3" parent="DepthSorter" instance=ExtResource( 6 )]
+position = Vector2( 763, 369 )
+
+[node name="Player" parent="DepthSorter" instance=ExtResource( 1 )]
+position = Vector2( 301, 468 )
 
 [editable path="Room/Top Left"]
 

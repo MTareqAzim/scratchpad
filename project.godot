@@ -333,7 +333,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Scratchpad"
-run/main_scene="res://Scenes/World/TestStage.tscn"
+run/main_scene="res://Scenes/World/WaitingRoom.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -344,8 +344,6 @@ pixel_perfect_stretching="*res://Utils/Pixel Perfect/pixel_perfect_stretching.gd
 
 window/size/width=640
 window/size/height=360
-window/size/test_width=1120
-window/size/test_height=630
 window/vsync/use_vsync=false
 
 [editor_plugins]

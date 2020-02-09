@@ -81,20 +81,15 @@ func _in_front_of(other_depth_sort: Area2D) -> bool:
 			if lowest_common_z_pos <= _body.get_top_z_pos([position_2d]):
 				below = true
 		
-		var depth_slice = []
-		var other_depth_slice = []
-		if above:
-			other_depth_slice = other_depth_sort.get_depth_slice(other_body.get_top_z_pos([_body.global_position]))
-		if below:
-			var top_z_pos = _body.get_top_z_pos([other_body.global_position])
-			if top_z_pos > lowest_common_z_pos:
-				top_z_pos = lowest_common_z_pos
-			depth_slice = get_depth_slice(top_z_pos)
+		var depth_slice = get_depth_slice(lowest_common_z_pos)
+		var other_depth_slice = other_depth_sort.get_depth_slice(lowest_common_z_pos)
 		
-		if depth_slice == []:
-			depth_slice = get_depth_slice(lowest_common_z_pos)
-		if other_depth_slice == []:
-			other_depth_slice = other_depth_sort.get_depth_slice(lowest_common_z_pos)
+		if above and other_depth_slice != []:
+			other_depth_slice = other_depth_sort.get_depth_slice(other_body.get_top_z_pos([_body.global_position]))
+		
+		if below and depth_slice != []:
+			var top_z_pos = _body.get_top_z_pos([other_body.global_position])
+			depth_slice = get_depth_slice(top_z_pos)
 		
 		if depth_slice:
 			if other_depth_slice:
@@ -106,11 +101,11 @@ func _in_front_of(other_depth_sort: Area2D) -> bool:
 		
 		if above:
 			var collision_points = Collision2D.collide_and_get_contacts(depth_slice, Transform2D(), other_depth_slice, Transform2D())
-			if collision_points:
+			if collision_points.size() > 2:
 				in_front_of = true
 		if below:
 			var collision_points = Collision2D.collide_and_get_contacts(depth_slice, Transform2D(), other_depth_slice, Transform2D())
-			if collision_points:
+			if collision_points.size() > 2:
 				in_front_of = false
 	else:
 		in_front_of = _body.get_global_pos().y > other_body.global_position.y
