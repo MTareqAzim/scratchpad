@@ -168,16 +168,16 @@ shape = SubResource( 1 )
 [node name="Pivot" type="Position2D" parent="." index="11"]
 script = ExtResource( 23 )
 
-[node name="Area2D" type="Area2D" parent="Pivot" index="0"]
+[node name="Interact" type="Area2D" parent="Pivot" index="0"]
 position = Vector2( 35, 0 )
 monitoring = false
-collision_layer = 0
+collision_layer = 32
 collision_mask = 0
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/Area2D" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/Interact" index="0"]
 shape = SubResource( 2 )
 [connection signal="direction_changed" from="Look" to="Sprite" method="_on_Look_direction_changed"]
 [connection signal="direction_changed" from="Look" to="Pivot" method="_on_Look_direction_changed"]
