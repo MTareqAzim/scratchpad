@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scenes/Player2P5D/Player2P5D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Sprites/Waiting Room/room.png" type="Texture" id=2]
@@ -9,8 +9,10 @@
 [ext_resource path="res://Scenes/Furniture/Bench.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Sprites/Waiting Room/board.png" type="Texture" id=8]
 [ext_resource path="res://Scenes/TA/TA.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Dialogue Box/DialogueBox.tscn" type="PackedScene" id=10]
 
 [node name="Waiting Room" type="Node2D"]
+pause_mode = 1
 
 [node name="Room" type="Sprite" parent="."]
 texture = ExtResource( 2 )
@@ -148,9 +150,20 @@ position = Vector2( 761, 375 )
 
 [node name="TA" parent="DepthSorter" instance=ExtResource( 9 )]
 position = Vector2( 698, 228 )
+_height = 60
+dialogue_box_path = NodePath("../../CanvasLayer/Dialogue Box")
 
 [node name="Player" parent="DepthSorter" instance=ExtResource( 1 )]
 position = Vector2( 301, 468 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="Dialogue Box" parent="CanvasLayer" instance=ExtResource( 10 )]
+pause_mode = 2
+visible = false
+[connection signal="dialogue_ended" from="CanvasLayer/Dialogue Box" to="DepthSorter/Player" method="_on_Dialogue_Box_dialogue_ended"]
+[connection signal="dialogue_start" from="CanvasLayer/Dialogue Box" to="DepthSorter/Player" method="_on_Dialogue_Box_dialogue_start"]
 
 [editable path="Room/Top Left"]
 

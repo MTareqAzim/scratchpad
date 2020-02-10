@@ -104,6 +104,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Utils/Depth Sorting/depth_sorter.gd"
 }, {
+"base": "Node",
+"class": "DialogueAction",
+"language": "GDScript",
+"path": "res://Dialogue/dialogue_action.gd"
+}, {
+"base": "Control",
+"class": "DialogueBox",
+"language": "GDScript",
+"path": "res://Scenes/Dialogue Box/dialogue_box.gd"
+}, {
+"base": "Node",
+"class": "DialoguePlayer",
+"language": "GDScript",
+"path": "res://Scenes/Dialogue Box/dialogue_player.gd"
+}, {
 "base": "Reference",
 "class": "DirectedGraph",
 "language": "GDScript",
@@ -294,6 +309,9 @@ _global_script_class_icons={
 "CompositePolygon2D": "",
 "DepthSort": "",
 "DepthSorter": "",
+"DialogueAction": "",
+"DialogueBox": "",
+"DialoguePlayer": "",
 "DirectedGraph": "",
 "DirectedGraphSorter": "",
 "Entity": "",

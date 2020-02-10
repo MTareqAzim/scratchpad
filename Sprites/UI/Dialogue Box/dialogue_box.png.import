@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/UI (Label Down).png-af80043a95aaed645c40714999fb2b6d.stex"
+path="res://.import/dialogue_box.png-001a41c05bcbf44afdbb2e9a24a9e4ca.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/UI/Input/UI (Label Down).png"
-dest_files=[ "res://.import/UI (Label Down).png-af80043a95aaed645c40714999fb2b6d.stex" ]
+source_file="res://Sprites/UI/Dialogue Box/dialogue_box.png"
+dest_files=[ "res://.import/dialogue_box.png-001a41c05bcbf44afdbb2e9a24a9e4ca.stex" ]
 
 [params]
 
