@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Utils/Physics Bodies/StaticWall2P5D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Sprites/Waiting Room/table.png" type="Texture" id=2]
@@ -10,10 +10,6 @@
 [ext_resource path="res://Sprites/Waiting Room/Chairs/shadow.png" type="Texture" id=8]
 [ext_resource path="res://Sprites/Waiting Room/Chairs/nw.png" type="Texture" id=9]
 [ext_resource path="res://Sprites/Waiting Room/Chairs/ne.png" type="Texture" id=10]
-[ext_resource path="res://Scenes/Furniture/ChairNE.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Scenes/Furniture/ChairNW.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Scenes/Furniture/ChairSE.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Scenes/Furniture/ChairSW.tscn" type="PackedScene" id=14]
 
 [sub_resource type="StreamTexture" id=1]
 resource_local_to_scene = true
@@ -28,20 +24,19 @@ _height = 30
 
 [node name="GroundShape" parent="." index="1"]
 visible = false
-polygon = PoolVector2Array( -75.5731, 13.2587, -61.9291, -3.90631, -43.4437, -11.3885, -5.5927, -18.4305, 48.5431, -9.62798, 72.7501, 4.45612, 75.831, 28.6632, 38.8602, 48.9091, -20.557, 51.99, -60.1686, 40.5466, -74.6928, 29.1033 )
+polygon = PoolVector2Array( -75.5731, 13.2587, -69, 3, -84, -5, -65, -14, -49, -15, -5.5927, -18.4305, 49, -15, 68, -14, 83, -4, 68, 4, 75.831, 28.6632, 69, 38, 84, 49, 67, 58, 38.8602, 48.9091, -20.557, 51.99, -46.4199, 44.5185, -67, 59, -82, 49, -68, 38, -74.6928, 29.1033 )
 
 [node name="TopShape" parent="." index="2"]
 visible = false
 position = Vector2( 0, -30 )
-polygon = PoolVector2Array( -75.5731, 13.2587, -61.9291, -3.90631, -43.4437, -11.3885, -5.5927, -18.4305, 48.5431, -9.62798, 72.7501, 4.45612, 75.831, 28.6632, 38.8602, 48.9091, -20.557, 51.99, -60.1686, 40.5466, -74.6928, 29.1033 )
+polygon = PoolVector2Array( -75.5731, 13.2587, -69, 3, -84, -5, -65, -14, -49, -15, -5.5927, -18.4305, 49, -15, 68, -14, 83, -4, 68, 4, 75.831, 28.6632, 69, 38, 84, 49, 67, 58, 38.8602, 48.9091, -20.557, 51.99, -46.4199, 44.5185, -67, 59, -82, 49, -68, 38, -74.6928, 29.1033 )
 
 [node name="VolumeShape" parent="." index="3"]
-polygon = PoolVector2Array( -75.5731, -48.4305, 75.831, -48.4305, 75.831, 51.99, -75.5731, 51.99 )
+polygon = PoolVector2Array( -84, -48.4305, 84, -48.4305, 84, 59, -84, 59 )
 
 [node name="BaseShape" parent="." index="4"]
-visible = false
-polygon = PoolVector2Array( -75.5731, 13.2587, -61.9291, -3.90631, -43.4437, -11.3885, -5.5927, -18.4305, 48.5431, -9.62798, 72.7501, 4.45612, 75.831, 28.6632, 38.8602, 48.9091, -20.557, 51.99, -60.1686, 40.5466, -74.6928, 29.1033 )
-polygons = [ PoolVector2Array( -75.5731, 13.2587, -61.9291, -3.90631, -43.4437, -11.3885, -5.5927, -18.4305, 48.5431, -9.62798, 72.7501, 4.45612, 75.831, 28.6632, 38.8602, 48.9091, -20.557, 51.99, -60.1686, 40.5466, -74.6928, 29.1033 ) ]
+polygon = PoolVector2Array( -75.5731, 13.2587, -69, 3, -84, -5, -65, -14, -49, -15, -5.5927, -18.4305, 49, -15, 68, -14, 83, -4, 68, 4, 75.831, 28.6632, 69, 38, 84, 49, 67, 58, 38.8602, 48.9091, -20.557, 51.99, -46.4199, 44.5185, -67, 59, -82, 49, -68, 38, -74.6928, 29.1033 )
+polygons = [ PoolVector2Array( -69, 3, -84, -5, -65, -14, -49, -15 ), PoolVector2Array( 68, -14, 83, -4, 68, 4, 49, -15 ), PoolVector2Array( 69, 38, 84, 49, 67, 58, 38.8602, 48.9091 ), PoolVector2Array( -67, 59, -82, 49, -68, 38, -46.4199, 44.5185 ), PoolVector2Array( -75.5731, 13.2587, -69, 3, -49, -15, -5.5927, -18.4305, 49, -15, 68, 4, 75.831, 28.6632, 69, 38, 38.8602, 48.9091, -20.557, 51.99, -46.4199, 44.5185, -68, 38, -74.6928, 29.1033 ) ]
 
 [node name="Shadow2D" type="Node2D" parent="." index="5"]
 script = ExtResource( 5 )
@@ -50,51 +45,56 @@ texture = SubResource( 1 )
 shadow_mask_layer = 3
 
 [node name="Chair Top Left" type="Sprite" parent="." index="6"]
-visible = false
 position = Vector2( -66, -24 )
 texture = ExtResource( 6 )
 
-[node name="Sprite" type="Sprite" parent="Chair Top Left" index="0"]
+[node name="Shadow" type="Sprite" parent="Chair Top Left" index="0"]
 modulate = Color( 1, 1, 1, 0.490196 )
 show_behind_parent = true
 position = Vector2( 0, 20 )
 texture = ExtResource( 8 )
 
 [node name="Chair Top Right" type="Sprite" parent="." index="7"]
-visible = false
 position = Vector2( 68, -24 )
 texture = ExtResource( 7 )
 
-[node name="Sprite" type="Sprite" parent="Chair Top Right" index="0"]
+[node name="Shadow" type="Sprite" parent="Chair Top Right" index="0"]
 modulate = Color( 1, 1, 1, 0.490196 )
 show_behind_parent = true
 position = Vector2( 0, 20 )
 texture = ExtResource( 8 )
 
-[node name="Sprite" type="Sprite" parent="." index="8"]
+[node name="Table Sprite" type="Sprite" parent="." index="8"]
 texture = ExtResource( 2 )
 
-[node name="Chair Bottom Left" type="Sprite" parent="." index="9"]
-visible = false
-position = Vector2( -65, 31 )
+[node name="Shadow2" type="Sprite" parent="." index="9"]
+self_modulate = Color( 1, 1, 1, 0.490196 )
+show_behind_parent = true
+position = Vector2( -65, 49 )
+z_as_relative = false
+texture = ExtResource( 8 )
+
+[node name="Chair Bottom Left" type="Sprite" parent="Shadow2" index="0"]
+position = Vector2( 0, -18 )
 texture = ExtResource( 10 )
 
-[node name="Sprite" type="Sprite" parent="Chair Bottom Left" index="0"]
-modulate = Color( 1, 1, 1, 0.490196 )
-show_behind_parent = true
-position = Vector2( 0, 18 )
+[node name="Depth Sort" parent="Shadow2" index="1" instance=ExtResource( 3 )]
+position = Vector2( 0, -18 )
+body = NodePath("..")
+
+[node name="Shadow" type="Sprite" parent="." index="10"]
+self_modulate = Color( 1, 1, 1, 0.490196 )
+position = Vector2( 67, 49 )
+z_as_relative = false
 texture = ExtResource( 8 )
 
-[node name="Chair Bottom Right" type="Sprite" parent="." index="10"]
-visible = false
-position = Vector2( 67, 31 )
+[node name="Chair Bottom Right" type="Sprite" parent="Shadow" index="0"]
+position = Vector2( 0, -18 )
 texture = ExtResource( 9 )
 
-[node name="Sprite" type="Sprite" parent="Chair Bottom Right" index="0"]
-modulate = Color( 1, 1, 1, 0.490196 )
-show_behind_parent = true
-position = Vector2( 0, 18 )
-texture = ExtResource( 8 )
+[node name="Depth Sort" parent="Shadow" index="1" instance=ExtResource( 3 )]
+position = Vector2( 0, -18 )
+body = NodePath("..")
 
 [node name="Depth Sort" parent="." index="11" instance=ExtResource( 3 )]
 body = NodePath("..")
@@ -112,22 +112,6 @@ polygon = PoolVector2Array( -64.6801, -30.6795, -40.6614, -41.4341, -13.4164, -4
 visible = false
 polygon = PoolVector2Array( -64.6801, -30.6795, -40.6614, -41.4341, -13.4164, -46.8114, 13.4701, -46.4529, 45.3754, -41.4341, 69.7525, -27.0947, 77.2808, -14.9061, 72.262, -0.566612, 44.3, 16.9992, 3.07397, 22.735, -41.0199, 18.4332, -62.8876, 9.11254, -76.5101, -6.66089, -75.4347, -17.057 )
 polygons = [ PoolVector2Array( -64.6801, -30.6795, -40.6614, -41.4341, -13.4164, -46.8114, 13.4701, -46.4529, 45.3754, -41.4341, 69.7525, -27.0947, 77.2808, -14.9061, 72.262, -0.566612, 44.3, 16.9992, 3.07397, 22.735, -41.0199, 18.4332, -62.8876, 9.11254, -76.5101, -6.66089, -75.4347, -17.057 ) ]
-
-[node name="Chair NE" parent="." index="13" instance=ExtResource( 11 )]
-position = Vector2( -62, 52 )
-z_as_relative = false
-
-[node name="Chair NW" parent="." index="14" instance=ExtResource( 12 )]
-position = Vector2( 67, 52 )
-z_as_relative = false
-
-[node name="Chair SE" parent="." index="15" instance=ExtResource( 13 )]
-position = Vector2( -62, -13 )
-z_as_relative = false
-
-[node name="Chair SW" parent="." index="16" instance=ExtResource( 14 )]
-position = Vector2( 67, -13 )
-z_as_relative = false
 
 [editable path="Depth Sort"]
 

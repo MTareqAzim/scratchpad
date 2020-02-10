@@ -3,6 +3,7 @@
 [ext_resource path="res://Utils/Depth Sorting/depth_sort.gd" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
+resource_local_to_scene = true
 
 [node name="Depth Sort" type="Area2D"]
 collision_layer = 16

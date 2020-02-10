@@ -8,6 +8,7 @@ export (NodePath) var state_machine
 export (NodePath) var action_buffer
 
 var _map : Array = []
+var _input_direction : Vector2 = Vector2()
 
 
 func _ready():
@@ -20,6 +21,8 @@ func _unhandled_input(event):
 	or event.is_action("ui_up") \
 	or event.is_action("ui_down"):
 		get_tree().set_input_as_handled()
+		_input_direction.x = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
+		_input_direction.y = int(Input.is_action_pressed("ui_down")) - int(Input.is_action_pressed("ui_up"))
 	
 	for action_map in _map:
 		var mapped_event = action_map.map(event)
@@ -40,11 +43,7 @@ func remove_child(node: Node) -> void:
 
 
 func get_direction() -> Vector2:
-	var input_direction = Vector2()
-	input_direction.x = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
-	input_direction.y = int(Input.is_action_pressed("ui_down")) - int(Input.is_action_pressed("ui_up"))
-	
-	return input_direction
+	return _input_direction
 
 
 func is_action_pressed(action: String) -> bool:

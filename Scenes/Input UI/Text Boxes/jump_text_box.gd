@@ -5,6 +5,10 @@ onready var label : Label = $Label
 var latest_jump := "jump"
 var prev_state := ""
 
+func set_text(new_text: String) -> void:
+	label.text = new_text
+
+
 func state_changed(new_state: String) -> void:
 	match new_state:
 		"crouch":

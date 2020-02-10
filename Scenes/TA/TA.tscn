@@ -4,7 +4,6 @@
 [ext_resource path="res://Sprites/Waiting Room/foliage-plant_1.png" type="Texture" id=2]
 [ext_resource path="res://Utils/Depth Sorting/DepthSort.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Utils/Shadow/shadow_2d.gd" type="Script" id=4]
-[ext_resource path="res://Sprites/Fita/shadow.png" type="Texture" id=5]
 [ext_resource path="res://Sprites/Gamepad/Buttons/A1.png" type="Texture" id=6]
 [ext_resource path="res://Sprites/Gamepad/Buttons/A2.png" type="Texture" id=7]
 [ext_resource path="res://Sprites/Gamepad/Buttons/A3.png" type="Texture" id=8]
@@ -12,6 +11,10 @@
 [ext_resource path="res://Sprites/Gamepad/Buttons/A6.png" type="Texture" id=10]
 [ext_resource path="res://Sprites/Gamepad/Buttons/A4.png" type="Texture" id=11]
 [ext_resource path="res://Scenes/TA/ta.gd" type="Script" id=12]
+
+[sub_resource type="StreamTexture" id=3]
+resource_local_to_scene = true
+load_path = "res://.import/shadow.png-d454ac18c0eca5d5538d860319e01c2c.stex"
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 48 )
@@ -36,7 +39,7 @@ visible = false
 [node name="Shadow2D" type="Node2D" parent="." index="3"]
 script = ExtResource( 4 )
 body = NodePath("..")
-texture = ExtResource( 5 )
+texture = SubResource( 3 )
 shadow_mask_layer = 3
 
 [node name="Sprite" type="Sprite" parent="." index="4"]
@@ -51,8 +54,7 @@ body = NodePath("..")
 shape = SubResource( 1 )
 
 [node name="Conversation" type="Area2D" parent="." index="6"]
-monitorable = false
-collision_layer = 0
+collision_layer = 32
 collision_mask = 32
 
 [node name="Area" type="CollisionPolygon2D" parent="Conversation" index="0"]

@@ -15,8 +15,8 @@ var _previous_shadows : Dictionary = {}
 
 
 func _draw() -> void:
-	for texture in _previous_shadows:
-		var texture_rect = _previous_shadows[texture]
+	for texture in _shadows_to_draw:
+		var texture_rect = _shadows_to_draw[texture]
 		draw_texture_rect(texture, texture_rect, false, SHADOW_OPACTIY)
 
 
