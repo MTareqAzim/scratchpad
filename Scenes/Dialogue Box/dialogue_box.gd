@@ -17,6 +17,14 @@ func _ready() -> void:
 
 
 func _input(event) -> void:
+	if (
+		event.is_action("ui_up")
+		or event.is_action("ui_down")
+		or event.is_action("ui_left")
+		or event.is_action("ui_right")
+	):
+		get_tree().set_input_as_handled()
+	
 	if event.is_action_pressed("ui_a"):
 		if not _finished:
 			_dialogue_player.next()
@@ -24,20 +32,18 @@ func _input(event) -> void:
 		else:
 			emit_signal("dialogue_ended")
 			set_process_input(false)
+			_finished = false
 			hide()
-			get_tree().paused = false
 		
 		get_tree().set_input_as_handled()
 
 
 func start(dialogue: Dictionary) -> void:
 	_dialogue_player.start(dialogue)
-	_finished = false
 	_update_content()
 	show()
 	set_process_input(true)
 	emit_signal("dialogue_start")
-	get_tree().paused = true
 
 
 func _update_content() -> void:

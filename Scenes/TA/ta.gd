@@ -1,3 +1,4 @@
+tool
 extends KinematicBody2P5D
 
 export (NodePath) var dialogue_box_path
@@ -37,7 +38,7 @@ func _input(event):
 func play_dialogue(dialogue: Dictionary) -> void:
 	_dialogue_box.start(dialogue)
 	yield(_dialogue_box, "dialogue_ended")
-	$Conversation/Area.disabled = true
+	$DialogueAction.dialogue_file_path = "res://Dialogue/Data/ta_dialogue_2.json"
 
 
 func _on_Conversation_area_entered(area):

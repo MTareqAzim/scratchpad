@@ -150,7 +150,6 @@ position = Vector2( 761, 375 )
 
 [node name="TA" parent="DepthSorter" instance=ExtResource( 9 )]
 position = Vector2( 698, 228 )
-_height = 60
 dialogue_box_path = NodePath("../../CanvasLayer/Dialogue Box")
 
 [node name="Player" parent="DepthSorter" instance=ExtResource( 1 )]

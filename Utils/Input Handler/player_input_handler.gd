@@ -32,6 +32,10 @@ func _unhandled_input(event):
 			get_tree().set_input_as_handled()
 
 
+func set_input_direction(new_input_direction: Vector2) -> void:
+	_input_direction = new_input_direction
+
+
 func add_child(node: Node, legible_unique_name: bool = false) -> void:
 	.add_child(node, legible_unique_name)
 	repopulate_map()

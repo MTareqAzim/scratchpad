@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Utils/Physics Bodies/KinematicBody2P5D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Sprites/Waiting Room/foliage-plant_1.png" type="Texture" id=2]
@@ -13,14 +13,22 @@
 [ext_resource path="res://Sprites/Gamepad/Buttons/A4.png" type="Texture" id=11]
 [ext_resource path="res://Scenes/TA/ta.gd" type="Script" id=12]
 
+[sub_resource type="RectangleShape2D" id=6]
+resource_local_to_scene = true
+extents = Vector2( 15, 45 )
+
+[sub_resource type="CircleShape2D" id=7]
+resource_local_to_scene = true
+radius = 18.0
+
 [sub_resource type="StreamTexture" id=3]
 resource_local_to_scene = true
 load_path = "res://.import/shadow.png-d454ac18c0eca5d5538d860319e01c2c.stex"
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 16, 48 )
 
-[sub_resource type="SpriteFrames" id=2]
+[sub_resource type="SpriteFrames" id=5]
 animations = [ {
 "frames": [ ExtResource( 6 ), ExtResource( 6 ), ExtResource( 6 ), ExtResource( 6 ), ExtResource( 10 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 11 ), ExtResource( 9 ) ],
 "loop": true,
@@ -30,9 +38,14 @@ animations = [ {
 
 [node name="TA" instance=ExtResource( 1 )]
 script = ExtResource( 12 )
+_height = 60
 
 [node name="VolumeShape" parent="." index="0"]
 position = Vector2( 0, -30 )
+shape = SubResource( 6 )
+
+[node name="BaseSkin" parent="." index="1"]
+shape = SubResource( 7 )
 
 [node name="BaseShape" parent="." index="2"]
 visible = false
@@ -52,7 +65,7 @@ position = Vector2( 0, -30 )
 body = NodePath("..")
 
 [node name="Bounding Box" parent="Depth Sort" index="0"]
-shape = SubResource( 1 )
+shape = SubResource( 4 )
 
 [node name="Conversation" type="Area2D" parent="." index="6"]
 collision_layer = 32
@@ -64,14 +77,14 @@ polygon = PoolVector2Array( -30, -3, -16, -22, 31, 1, 19, 22 )
 [node name="A Button" type="AnimatedSprite" parent="." index="7"]
 visible = false
 position = Vector2( 0, -99 )
-frames = SubResource( 2 )
+frames = SubResource( 5 )
 animation = "press"
 frame = 3
 
 [node name="DialogueAction" type="Node" parent="." index="8"]
 script = ExtResource( 5 )
 body_path = NodePath("..")
-dialogue_file_path = "res://Dialogue/Data/test_dialogue.json"
+dialogue_file_path = "res://Dialogue/Data/ta_dialogue_1.json"
 [connection signal="area_entered" from="Conversation" to="." method="_on_Conversation_area_entered"]
 [connection signal="area_exited" from="Conversation" to="." method="_on_Conversation_area_exited"]
 
