@@ -71,7 +71,8 @@ func handle_input(event: InputEvent) -> void:
 
 
 func _append_states(node: Node) -> void:
-	for child in node.get_children():
+	for i in node.get_child_count():
+		var child = node.get_child(i)
 		if child is State:
 			if not _start_state:
 				_start_state = child

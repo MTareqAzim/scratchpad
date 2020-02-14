@@ -56,7 +56,8 @@ func get_variable(key: String):
 
 
 func _append_components(node: Node) -> void:
-	for child in node.get_children():
+	for i in node.get_child_count():
+		var child = node.get_child(i)
 		if child is StateComponent:
 			_components.append(child)
 			child.component_state = self

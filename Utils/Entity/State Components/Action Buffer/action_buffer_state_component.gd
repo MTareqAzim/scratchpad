@@ -36,7 +36,8 @@ func assign_dependencies() -> void:
 
 
 func _append_state_components(node : Node) -> void:
-	for child in node.get_children():
+	for i in node.get_child_count():
+		var child = node.get_child(i)
 		if child is StateComponent:
 			_state_components[child] = child.active
 		if child.get_child_count() > 0:

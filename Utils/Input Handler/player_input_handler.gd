@@ -61,7 +61,8 @@ func repopulate_map() -> void:
 func _populate_map() -> Array:
 	var map : Array = []
 	
-	for child in get_children():
+	for i in get_child_count():
+		var child = get_child(i)
 		if child is ActionMap:
 			map.append(child)
 	
