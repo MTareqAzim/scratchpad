@@ -4,7 +4,10 @@ class_name DialogueBox
 signal dialogue_start
 signal dialogue_ended
 
+const CHARS_PER_SECOND = 15
+
 onready var _dialogue_player : DialoguePlayer = $"Dialogue Player"
+onready var _tween : Tween = $Tween
 
 onready var _name_label : Label = $"Box/Name Label/Name"
 onready var _dialogue_label : Label = $Box/Dialogue
@@ -17,16 +20,11 @@ func _ready() -> void:
 
 
 func _input(event) -> void:
-	if (
-		event.is_action("ui_up")
-		or event.is_action("ui_down")
-		or event.is_action("ui_left")
-		or event.is_action("ui_right")
-	):
-		get_tree().set_input_as_handled()
-	
 	if event.is_action_pressed("ui_a"):
-		if not _finished:
+		if _dialogue_label.percent_visible != 1:
+			_tween.stop(_dialogue_label, "percent_visible")
+			_dialogue_label.percent_visible = 1
+		elif not _finished:
 			_dialogue_player.next()
 			_update_content()
 		else:
@@ -49,6 +47,14 @@ func start(dialogue: Dictionary) -> void:
 func _update_content() -> void:
 	_name_label.text = _dialogue_player.character_name
 	_dialogue_label.text = _dialogue_player.text
+	
+	var text_time = _dialogue_label.text.length() / CHARS_PER_SECOND
+	_dialogue_label.percent_visible = 0
+	_tween.interpolate_property(
+			_dialogue_label, "percent_visible", 0, 1, text_time,
+			Tween.TRANS_LINEAR, Tween.EASE_IN_OUT
+	)
+	_tween.start()
 
 
 func _on_Dialogue_Player_finished():

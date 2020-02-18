@@ -97,4 +97,6 @@ valign = 1
 
 [node name="Dialogue Player" type="Node" parent="."]
 script = ExtResource( 3 )
+
+[node name="Tween" type="Tween" parent="."]
 [connection signal="finished" from="Dialogue Player" to="." method="_on_Dialogue_Player_finished"]
