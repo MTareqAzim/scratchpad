@@ -13,11 +13,11 @@
 [ext_resource path="res://Sprites/Gamepad/Buttons/A4.png" type="Texture" id=11]
 [ext_resource path="res://Scenes/TA/ta.gd" type="Script" id=12]
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=1]
 resource_local_to_scene = true
 extents = Vector2( 15, 45 )
 
-[sub_resource type="CircleShape2D" id=7]
+[sub_resource type="CircleShape2D" id=2]
 resource_local_to_scene = true
 radius = 18.0
 
@@ -42,10 +42,10 @@ _height = 60
 
 [node name="VolumeShape" parent="." index="0"]
 position = Vector2( 0, -30 )
-shape = SubResource( 6 )
+shape = SubResource( 1 )
 
 [node name="BaseSkin" parent="." index="1"]
-shape = SubResource( 7 )
+shape = SubResource( 2 )
 
 [node name="BaseShape" parent="." index="2"]
 visible = false

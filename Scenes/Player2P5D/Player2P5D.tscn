@@ -26,15 +26,15 @@
 [ext_resource path="res://Scenes/Input UI/InputUIBase-Jump.tscn" type="PackedScene" id=24]
 [ext_resource path="res://Scenes/Player2P5D/player_2p5d.gd" type="Script" id=25]
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=1]
 resource_local_to_scene = true
 extents = Vector2( 20, 45 )
 
-[sub_resource type="CircleShape2D" id=7]
+[sub_resource type="CircleShape2D" id=2]
 resource_local_to_scene = true
 radius = 23.0
 
-[sub_resource type="StreamTexture" id=8]
+[sub_resource type="StreamTexture" id=3]
 resource_local_to_scene = true
 load_path = "res://.import/shadow.png-d454ac18c0eca5d5538d860319e01c2c.stex"
 
@@ -49,10 +49,10 @@ _height = 60
 
 [node name="VolumeShape" parent="." index="0"]
 position = Vector2( 0, -30 )
-shape = SubResource( 6 )
+shape = SubResource( 1 )
 
 [node name="BaseSkin" parent="." index="1"]
-shape = SubResource( 7 )
+shape = SubResource( 2 )
 
 [node name="BaseShape" parent="." index="2"]
 visible = false
@@ -62,7 +62,7 @@ polygons = [ PoolVector2Array( -15, -10, 15, -10, 15, 10, -15, 10 ) ]
 [node name="Shadow2D" type="Node2D" parent="." index="3"]
 script = ExtResource( 14 )
 body = NodePath("..")
-texture = SubResource( 8 )
+texture = SubResource( 3 )
 shadow_mask_layer = 3
 
 [node name="Sprite" type="Node2D" parent="." index="4"]

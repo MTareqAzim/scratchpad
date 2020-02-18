@@ -4,7 +4,7 @@ onready var _a_text = $ATextBox
 
 
 func _on_Interact_area_entered(area):
-	_a_text.set_text("Talk")
+	_a_text.set_text("Interact")
 
 
 
