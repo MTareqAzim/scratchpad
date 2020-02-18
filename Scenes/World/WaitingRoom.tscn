@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scenes/Player2P5D/Player2P5D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Sprites/Waiting Room/room.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Sprites/Waiting Room/board.png" type="Texture" id=8]
 [ext_resource path="res://Scenes/TA/TA.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/Dialogue Box/DialogueBox.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Sprites/Waiting Room/doors.png" type="Texture" id=11]
 
 [node name="Waiting Room" type="Node2D"]
 pause_mode = 1
@@ -43,18 +44,18 @@ position = Vector2( 807, 239 )
 _height = 500
 
 [node name="GroundShape" parent="Room/Top Right" index="1"]
-polygon = PoolVector2Array( -197, -116, 255, 117, 238, 138, -221, -90 )
+polygon = PoolVector2Array( -197, -116, 265, 112, 239, 138, -221, -90 )
 
 [node name="TopShape" parent="Room/Top Right" index="2"]
 position = Vector2( 0, -500 )
-polygon = PoolVector2Array( -197, -116, 255, 117, 238, 138, -221, -90 )
+polygon = PoolVector2Array( -197, -116, 265, 112, 239, 138, -221, -90 )
 
 [node name="VolumeShape" parent="Room/Top Right" index="3"]
-polygon = PoolVector2Array( -221, -616, 255, -616, 255, 138, -221, 138 )
+polygon = PoolVector2Array( -221, -616, 265, -616, 265, 138, -221, 138 )
 
 [node name="BaseShape" parent="Room/Top Right" index="4"]
-polygon = PoolVector2Array( -197, -116, 255, 117, 238, 138, -221, -90 )
-polygons = [ PoolVector2Array( -197, -116, 255, 117, 238, 138, -221, -90 ) ]
+polygon = PoolVector2Array( -197, -116, 265, 112, 239, 138, -221, -90 )
+polygons = [ PoolVector2Array( -197, -116, 265, 112, 239, 138, -221, -90 ) ]
 
 [node name="Bottom Left" parent="Room" instance=ExtResource( 3 )]
 visible = false
@@ -130,6 +131,10 @@ polygon = PoolVector2Array( -80, -541, 84, -541, 84, 38, -80, 38 )
 polygon = PoolVector2Array( -80, 34, 73, -41, 84, -37, -68, 38 )
 polygons = [ PoolVector2Array( -80, 34, 73, -41, 84, -37, -68, 38 ) ]
 
+[node name="Door" type="Sprite" parent="."]
+position = Vector2( 823, 224 )
+texture = ExtResource( 11 )
+
 [node name="DepthSorter" type="Node2D" parent="."]
 script = ExtResource( 5 )
 
@@ -149,7 +154,7 @@ position = Vector2( 528, 389 )
 position = Vector2( 761, 375 )
 
 [node name="TA" parent="DepthSorter" instance=ExtResource( 9 )]
-position = Vector2( 698, 228 )
+position = Vector2( 720, 240 )
 dialogue_box_path = NodePath("../../CanvasLayer/Dialogue Box")
 
 [node name="Player" parent="DepthSorter" instance=ExtResource( 1 )]
