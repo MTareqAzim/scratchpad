@@ -1,6 +1,8 @@
 tool
 extends KinematicBody2P5D
 
+signal introduction_finished
+
 export (NodePath) var dialogue_box_path
 
 onready var _a_button : AnimatedSprite = $"A Button"
@@ -9,6 +11,7 @@ onready var _dialogue_box : DialogueBox = get_node(dialogue_box_path)
 
 var _player : KinematicBody2P5D = null
 var _has_player_focus : bool = false
+var _introduction : bool = true
 
 
 func _ready():
@@ -38,7 +41,10 @@ func _input(event):
 func play_dialogue(dialogue: Dictionary) -> void:
 	_dialogue_box.start(dialogue)
 	yield(_dialogue_box, "dialogue_ended")
-	$DialogueAction.dialogue_file_path = "res://Dialogue/Data/ta_dialogue_2.json"
+	if _introduction:
+		$DialogueAction.dialogue_file_path = "res://Dialogue/Data/ta_dialogue_2.json"
+		emit_signal("introduction_finished")
+		_introduction = false
 
 
 func _on_Conversation_area_entered(area):
