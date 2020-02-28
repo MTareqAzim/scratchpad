@@ -76,3 +76,7 @@ func _register_event(event: InputEventAction) -> void:
 	else:
 		Input.action_release(event.get_action())
 		_action_buffer.add_action(event.get_action() + "_released")
+
+
+func _on_animation_finished():
+	_state_machine.on_animation_finished("finish")

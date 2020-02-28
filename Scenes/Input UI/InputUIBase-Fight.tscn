@@ -1,0 +1,77 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Sprites/UI/Buttons/Base.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Input UI/input_ui_base.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/Input UI/A Button/ATextBox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Input UI/X Button/XTextBox.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Input UI/X Button/XButton.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Input UI/A Button/AButton.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Input UI/Y Button/YButton.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Input UI/B Button/BButton.tscn" type="PackedScene" id=10]
+
+[node name="InputUIBase" type="TextureRect"]
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 1 )
+stretch_mode = 3
+script = ExtResource( 2 )
+
+[node name="ATextBox" parent="." instance=ExtResource( 3 )]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.767
+anchor_right = 0.5
+anchor_bottom = 0.767
+margin_top = 0.911999
+margin_right = 112.0
+margin_bottom = 20.912
+
+[node name="XTextBox" parent="." instance=ExtResource( 5 )]
+show_behind_parent = true
+anchor_left = 0.207
+anchor_top = 0.5
+anchor_right = 0.207
+anchor_bottom = 0.5
+margin_left = -102.248
+margin_top = -8.0
+margin_right = -6.248
+margin_bottom = 12.0
+
+[node name="XButton" parent="." instance=ExtResource( 7 )]
+anchor_left = 0.224
+anchor_top = 0.467
+anchor_right = 0.224
+anchor_bottom = 0.467
+margin_left = -14.336
+margin_top = -13.888
+margin_right = 17.664
+margin_bottom = 18.112
+
+[node name="AButton" parent="." instance=ExtResource( 8 )]
+anchor_left = 0.5
+anchor_top = 0.733
+anchor_right = 0.5
+anchor_bottom = 0.733
+margin_top = -14.912
+margin_bottom = 17.088
+
+[node name="YButton" parent="." instance=ExtResource( 9 )]
+anchor_left = 0.5
+anchor_top = 0.2
+anchor_right = 0.5
+anchor_bottom = 0.2
+margin_top = -12.8
+margin_bottom = 19.2
+
+[node name="BButton" parent="." instance=ExtResource( 10 )]
+anchor_left = 0.776
+anchor_top = 0.467
+anchor_right = 0.776
+anchor_bottom = 0.467
+margin_left = -17.664
+margin_top = -13.888
+margin_right = 14.336
+margin_bottom = 18.112

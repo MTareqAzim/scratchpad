@@ -470,6 +470,10 @@ retreat={
 "deadzone": 0.5,
 "events": [  ]
 }
+attack={
+"deadzone": 0.5,
+"events": [  ]
+}
 
 [layer_names]
 

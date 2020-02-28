@@ -1,4 +1,4 @@
-extends Sprite
+extends AnimatedSprite
 
 onready var _a_button : AnimatedSprite = $"A Button"
 onready var _area_polygon : CollisionPolygon2D = $Area2D/CollisionPolygon2D
@@ -16,11 +16,13 @@ func _process(delta) -> void:
 		if not _has_player_focus:
 			_a_button.set_visible(true)
 			_a_button.play("press")
+			play("open")
 			_has_player_focus = true
 	else:
 		if _has_player_focus:
 			_a_button.set_visible(false)
 			_a_button.stop()
+			play("closed")
 			_has_player_focus = false
 
 

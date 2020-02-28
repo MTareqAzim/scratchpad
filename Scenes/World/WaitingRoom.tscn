@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Scenes/Player2P5D/Player2P5D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Sprites/Waiting Room/room.png" type="Texture" id=2]
@@ -18,8 +18,22 @@
 [ext_resource path="res://Sprites/Gamepad/Buttons/A2.png" type="Texture" id=16]
 [ext_resource path="res://Sprites/Gamepad/Buttons/A4.png" type="Texture" id=17]
 [ext_resource path="res://Scenes/World/door.gd" type="Script" id=18]
+[ext_resource path="res://Sprites/Waiting Room/doors_open.png" type="Texture" id=19]
 
 [sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 19 ) ],
+"loop": false,
+"name": "open",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ) ],
+"loop": false,
+"name": "closed",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
 "frames": [ ExtResource( 14 ), ExtResource( 14 ), ExtResource( 14 ), ExtResource( 14 ), ExtResource( 14 ), ExtResource( 14 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 17 ), ExtResource( 12 ), ExtResource( 13 ) ],
 "loop": true,
@@ -37,6 +51,7 @@ centered = false
 [node name="Top Left" parent="Room" instance=ExtResource( 3 )]
 visible = false
 position = Vector2( 301, 306 )
+_z_pos = 0
 _height = 500
 
 [node name="GroundShape" parent="Room/Top Left" index="1"]
@@ -56,6 +71,7 @@ polygons = [ PoolVector2Array( 310, -179, 346, -159, -320, 177, -347, 152 ) ]
 [node name="Top Right" parent="Room" instance=ExtResource( 3 )]
 visible = false
 position = Vector2( 807, 239 )
+_z_pos = 0
 _height = 500
 
 [node name="GroundShape" parent="Room/Top Right" index="1"]
@@ -75,6 +91,7 @@ polygons = [ PoolVector2Array( -197, -116, 265, 112, 239, 138, -221, -90 ) ]
 [node name="Bottom Left" parent="Room" instance=ExtResource( 3 )]
 visible = false
 position = Vector2( 164, 593 )
+_z_pos = 0
 _height = 500
 
 [node name="GroundShape" parent="Room/Bottom Left" index="1"]
@@ -94,6 +111,7 @@ polygons = [ PoolVector2Array( -206, -132, 296, 123, 262, 146, -230, -96 ) ]
 [node name="Bottom Right" parent="Room" instance=ExtResource( 3 )]
 visible = false
 position = Vector2( 758, 539 )
+_z_pos = 0
 _height = 500
 
 [node name="GroundShape" parent="Room/Bottom Right" index="1"]
@@ -130,6 +148,7 @@ texture = ExtResource( 8 )
 [node name="StaticWall2P5D" parent="Notice Board" instance=ExtResource( 3 )]
 visible = false
 position = Vector2( 0, 67 )
+_z_pos = 0
 _height = 500
 
 [node name="GroundShape" parent="Notice Board/StaticWall2P5D" index="1"]
@@ -146,9 +165,10 @@ polygon = PoolVector2Array( -80, -541, 84, -541, 84, 38, -80, 38 )
 polygon = PoolVector2Array( -80, 34, 73, -41, 84, -37, -68, 38 )
 polygons = [ PoolVector2Array( -80, 34, 73, -41, 84, -37, -68, 38 ) ]
 
-[node name="Door" type="Sprite" parent="."]
+[node name="Door" type="AnimatedSprite" parent="."]
 position = Vector2( 823, 224 )
-texture = ExtResource( 11 )
+frames = SubResource( 1 )
+animation = "closed"
 script = ExtResource( 18 )
 
 [node name="Area2D" type="Area2D" parent="Door"]
@@ -157,12 +177,12 @@ collision_layer = 32
 collision_mask = 32
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Door/Area2D"]
-polygon = PoolVector2Array( -30, 18, -2, 6, 95, 53, 69, 68 )
+polygon = PoolVector2Array( -49, 26, -2, 6, 95, 53, 55, 78 )
 
 [node name="A Button" type="AnimatedSprite" parent="Door"]
 visible = false
 position = Vector2( 4, -70 )
-frames = SubResource( 1 )
+frames = SubResource( 2 )
 animation = "press"
 frame = 2
 
@@ -171,18 +191,23 @@ script = ExtResource( 5 )
 
 [node name="Bench" parent="DepthSorter" instance=ExtResource( 7 )]
 position = Vector2( 215, 379 )
+_z_pos = 0
 
 [node name="Bench2" parent="DepthSorter" instance=ExtResource( 7 )]
 position = Vector2( 494, 239 )
+_z_pos = 0
 
 [node name="Table" parent="DepthSorter" instance=ExtResource( 6 )]
 position = Vector2( 424, 523 )
+_z_pos = 0
 
 [node name="Table2" parent="DepthSorter" instance=ExtResource( 6 )]
 position = Vector2( 528, 389 )
+_z_pos = 0
 
 [node name="Table3" parent="DepthSorter" instance=ExtResource( 6 )]
 position = Vector2( 761, 375 )
+_z_pos = 0
 
 [node name="TA" parent="DepthSorter" instance=ExtResource( 9 )]
 position = Vector2( 720, 240 )

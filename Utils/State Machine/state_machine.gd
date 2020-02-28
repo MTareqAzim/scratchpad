@@ -23,7 +23,8 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	current_state.handle_input(event)
+	#current_state.handle_input(event)
+	pass
 
 
 func _physics_process(delta: float) -> void:
@@ -92,6 +93,7 @@ func _attach_finished_signals() -> void:
 
 
 func _change_state(state_name: String) -> void:
+	print(state_name)
 	if not _active:
 		return
 	
