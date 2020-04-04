@@ -6,9 +6,9 @@
 [ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Enter/call_function_enter_state_component.gd" type="Script" id=4]
 [ext_resource path="res://Utils/State Machine/State/State Components/Node State Components/Exit/call_function_exit_state_component.gd" type="Script" id=5]
 
-[node name="Attack 2" type="Node"]
+[node name="Attack 3" type="Node"]
 script = ExtResource( 1 )
-state_name = "attack_2"
+state_name = "attack_3"
 push_down = true
 dependencies = {
 "body": NodePath(""),
@@ -39,11 +39,11 @@ NEXT_STATE = "previous"
 [node name="Action Buffer" type="Node" parent="."]
 script = ExtResource( 3 )
 
-[node name="Attack 2" type="Node" parent="Action Buffer"]
+[node name="Attack 3" type="Node" parent="Action Buffer"]
 script = ExtResource( 5 )
 node_key = "buffer"
 FUNCTION_NAME = "add_action"
-args = [ "attack_2" ]
+args = [ "attack_3" ]
 
 [node name="Attack Handled" type="Node" parent="Action Buffer"]
 script = ExtResource( 4 )

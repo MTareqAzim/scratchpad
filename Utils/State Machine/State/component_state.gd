@@ -27,6 +27,10 @@ func enter() -> void:
 	_call_component_function("enter")
 
 
+func resume() -> void:
+	_call_component_function("resume")
+
+
 func exit() -> void:
 	_call_component_function("exit")
 

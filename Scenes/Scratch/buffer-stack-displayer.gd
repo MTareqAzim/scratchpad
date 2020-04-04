@@ -5,7 +5,7 @@ func _ready():
 	set_as_toplevel(true)
 
 
-func _on_ActionBuffer_buffer_changed(buffer_stack):
+func _on_Buffer_buffer_changed(buffer_stack):
 	var action_names = ''
 	var frames = ''
 	

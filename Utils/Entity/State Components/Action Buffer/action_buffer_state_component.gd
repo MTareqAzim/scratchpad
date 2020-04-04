@@ -26,6 +26,10 @@ func enter() -> void:
 	_check_and_activate(true)
 
 
+func resume() -> void:
+	_check_and_activate(true)
+
+
 func update(delta: float) -> void:
 	if not enter_only:
 		_check_and_activate()

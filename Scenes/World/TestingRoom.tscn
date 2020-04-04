@@ -1,0 +1,102 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/Player2P5D/Fight/Player_Fight.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Utils/Depth Sorting/depth_sorter.gd" type="Script" id=2]
+[ext_resource path="res://Sprites/Testing Room/room.png" type="Texture" id=3]
+[ext_resource path="res://Utils/Physics Bodies/StaticWall2P5D.tscn" type="PackedScene" id=4]
+
+[node name="Testing Room" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+centered = false
+
+[node name="Left" parent="Sprite" instance=ExtResource( 4 )]
+visible = false
+position = Vector2( 40, 279 )
+_height = 500
+
+[node name="GroundShape" parent="Sprite/Left" index="1"]
+polygon = PoolVector2Array( 46, -155, 60, -122, -32, 159, -81, 192 )
+
+[node name="TopShape" parent="Sprite/Left" index="2"]
+position = Vector2( 0, -500 )
+polygon = PoolVector2Array( 46, -155, 60, -122, -32, 159, -81, 192 )
+
+[node name="VolumeShape" parent="Sprite/Left" index="3"]
+polygon = PoolVector2Array( -81, -655, 60, -655, 60, 192, -81, 192 )
+
+[node name="BaseShape" parent="Sprite/Left" index="4"]
+polygon = PoolVector2Array( 46, -155, 60, -122, -32, 159, -81, 192 )
+polygons = [ PoolVector2Array( 46, -155, 60, -122, -32, 159, -81, 192 ) ]
+
+[node name="Right" parent="Sprite" instance=ExtResource( 4 )]
+visible = false
+position = Vector2( 899, 285 )
+_height = 500
+
+[node name="GroundShape" parent="Sprite/Right" index="1"]
+polygon = PoolVector2Array( -52, -130, -21, -160, 85, 147, 49, 172 )
+
+[node name="TopShape" parent="Sprite/Right" index="2"]
+position = Vector2( 0, -500 )
+polygon = PoolVector2Array( -52, -130, -21, -160, 85, 147, 49, 172 )
+
+[node name="VolumeShape" parent="Sprite/Right" index="3"]
+polygon = PoolVector2Array( -52, -660, 85, -660, 85, 172, -52, 172 )
+
+[node name="BaseShape" parent="Sprite/Right" index="4"]
+polygon = PoolVector2Array( -52, -130, -21, -160, 85, 147, 49, 172 )
+polygons = [ PoolVector2Array( -52, -130, -21, -160, 85, 147, 49, 172 ) ]
+
+[node name="Top" parent="Sprite" instance=ExtResource( 4 )]
+visible = false
+position = Vector2( 446, 161 )
+_height = 500
+
+[node name="GroundShape" parent="Sprite/Top" index="1"]
+polygon = PoolVector2Array( -352, 15, -362, -30, 427, -31, 417, 15 )
+
+[node name="TopShape" parent="Sprite/Top" index="2"]
+position = Vector2( 0, -500 )
+polygon = PoolVector2Array( -352, 15, -362, -30, 427, -31, 417, 15 )
+
+[node name="VolumeShape" parent="Sprite/Top" index="3"]
+polygon = PoolVector2Array( -362, -531, 427, -531, 427, 15, -362, 15 )
+
+[node name="BaseShape" parent="Sprite/Top" index="4"]
+polygon = PoolVector2Array( -352, 15, -362, -30, 427, -31, 417, 15 )
+polygons = [ PoolVector2Array( -352, 15, -362, -30, 427, -31, 417, 15 ) ]
+
+[node name="Bottom" parent="Sprite" instance=ExtResource( 4 )]
+visible = false
+position = Vector2( 436, 471 )
+_height = 500
+
+[node name="GroundShape" parent="Sprite/Bottom" index="1"]
+polygon = PoolVector2Array( -473, -4, -427, -37, 513, -37, 522, 3 )
+
+[node name="TopShape" parent="Sprite/Bottom" index="2"]
+position = Vector2( 0, -500 )
+polygon = PoolVector2Array( -473, -4, -427, -37, 513, -37, 522, 3 )
+
+[node name="VolumeShape" parent="Sprite/Bottom" index="3"]
+polygon = PoolVector2Array( -473, -537, 522, -537, 522, 3, -473, 3 )
+
+[node name="BaseShape" parent="Sprite/Bottom" index="4"]
+polygon = PoolVector2Array( -473, -4, -427, -37, 513, -37, 522, 3 )
+polygons = [ PoolVector2Array( -473, -4, -427, -37, 513, -37, 522, 3 ) ]
+
+[node name="DepthSorter" type="Node2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="Player" parent="DepthSorter" instance=ExtResource( 1 )]
+position = Vector2( 189, 290 )
+
+[editable path="Sprite/Left"]
+
+[editable path="Sprite/Right"]
+
+[editable path="Sprite/Top"]
+
+[editable path="Sprite/Bottom"]

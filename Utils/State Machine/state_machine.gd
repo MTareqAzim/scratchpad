@@ -93,7 +93,6 @@ func _attach_finished_signals() -> void:
 
 
 func _change_state(state_name: String) -> void:
-	print(state_name)
 	if not _active:
 		return
 	
@@ -121,3 +120,5 @@ func _change_state(state_name: String) -> void:
 	
 	if state_name != "previous":
 		current_state.enter()
+	else:
+		current_state.resume()

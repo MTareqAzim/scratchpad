@@ -11,6 +11,7 @@ script = ExtResource( 1 )
 state_name = "attack_1"
 push_down = true
 dependencies = {
+"body": NodePath(""),
 "buffer": NodePath(""),
 "look": NodePath("")
 }
@@ -20,6 +21,12 @@ script = ExtResource( 4 )
 node_key = "look"
 FUNCTION_NAME = "set_look_direction_to_x_look_direction"
 has_args = false
+
+[node name="Stop Moving" type="Node" parent="."]
+script = ExtResource( 4 )
+node_key = "body"
+FUNCTION_NAME = "set_velocity"
+args = [ Vector3( 0, 0, 0 ) ]
 
 [node name="Transitions" type="Node" parent="."]
 script = ExtResource( 3 )
@@ -31,6 +38,12 @@ NEXT_STATE = "previous"
 
 [node name="Action Buffer" type="Node" parent="."]
 script = ExtResource( 3 )
+
+[node name="Attack Handled" type="Node" parent="Action Buffer"]
+script = ExtResource( 4 )
+node_key = "buffer"
+FUNCTION_NAME = "action_handled"
+args = [ "attack_pressed" ]
 
 [node name="Attack 1" type="Node" parent="Action Buffer"]
 script = ExtResource( 5 )
